@@ -99,24 +99,6 @@
 	PE_VIEW: [0,1,9,29,function(n){return stats.str[2] >= 4;}]
 	// PE_CE_POSITION: [0,1,30,99,function(n){return stats.str[2] == 1 && stats.per[2] == 1 && stats.intl[2] == 1 && stats.enu[2] == 1 && stats.agi[2] == 1;}],
 }
-var texttraits = {	// Трейты
-	TRAIT_FAST_METABOLISM: ["Быстрый метаболизм", "Ваш метаболизм превышает норму. Вам дается +60 ХП, 15 к уровню лечения. Но при этом вы сильно подвержены яду и радиации."],
-	TRAIT_BRUISER: ["Крушила", "Двигаетесь помедленнее, но выглядите внушительно. Меньше на 1 ОД, но зато +3 Силы. Игнорируется эффект плазмы (тики)."],
-	TRAIT_SMALL_FRAME: ["Xилое тело", "Вы не в состоянии таскать тяжелые грузы, зато более проворны. Вам дается +1 Ловкость и +5% к увороту."],
-	TRAIT_ONE_HANDER: ["Однорукий", "Вы отлично стреляете из любого одноручного оружия (+60 к навыку при расчетах, +7 к урону и игнор штрафа на силу). С двуручным уже есть проблемы (-40 к навыку при расчетах)"],
-	TRAIT_FINESSE: ["Точность", "Точно, но слабо. +20% к шансу критической атаки. -10 к проверке на силу критического эффекта при атаке по вам. Но -5% к общему урону."],
-	TRAIT_KAMIKAZE: ["Камикадзе", "Вы прете напролом. +1 Ловкость, также каждые 10 секунд восполняется 1 ОД. Если не в бою - атака отнимет на 2 ОД меньше. КБ снижается до 1. Игнорируется эффект \"Подавление\"."],
-	TRAIT_HEAVY_HANDED: ["Громила", "Ваши жестокие удары причиняют огромные повреждения врагам (+25 к рукопашным повреждениям), но они почти никогда не бывают критическими (-30 к критроллу)."],
-	TRAIT_FAST_SHOT: ["Быстрый стрелок", "У вас нет времени для нормального прицеливания. Атаки стрелковым и метательным оружием требуют меньше на 1 ОД."],
-	TRAIT_BLOODY_MESS: ["Маньяк", "По странной случайности, все вокруг вас умирают страшной и мучительной смертью. Для них вы находите худший вариант кончины. +175% Атлетизма, но -25 Очков жизней."],
-	TRAIT_JINXED: ["Дурной глаз", "Xорошая сторона дела заключается в том, что ваши враги часто ошибаются. Плохо то, что вы ошибаетесь не меньше их!"],
-	TRAIT_GOOD_NATURED: ["Добродушие", "Ваши боевые навыки меньше, но зато небоевые - больше. Вы всегда думаете о защите, а не нападении (мастер-перки режут урон по вам, а не добавляют к вашему)"],
-	TRAIT_CHEM_RELIANT: ["Химик", "Наркотики держатся в три раза дольше. Откаты почти мгновенные. Если появится привыкание, то оно будет длиться долго."],
-	TRAIT_CHEM_RESISTANT: ["Стабильный", "Вы критически не попадаете, но и не промахиваетесь критически. Все ваши атаки очень точны (+25 бонуса к окончательной точности)."],
-	TRAIT_SEX_APPEAL: ["Жидкое тело", "Вы получаете Сопротивляемость к Урону (-10), увеличение вашего Максимального веса на 50 кг. Стимуляторы и санитар не действуют в полную мощь (-20 ХП при лечении)."],
-	TRAIT_SKILLED: ["Умелец", "Параметры персонажа улучшены (+2 Выносливость, Обаяние, Интеллект, Ловкость, +25 ХП). Но вы получаете меньше способностей - одно за каждые четыре уровня опытности."],
-	TRAIT_NIGHT_PERSON: ["Импульсивный", "Вы очень активны, и это добавляет вам 2 ОД и 30% шанс восстановить 1 ОД при перезарядке, но вы получаете на 3 Очков умений меньше за каждый уровень. Также +20% к Метательному."]
-}
 var textperks = {	// Перки
 	PE_BONUS_HTH_ATTACKS: ["Доп. рукопашн. атаки", "Вы знакомы с тайными боевыми искусствами востока, и очень быстро дерётесь. Ваши рукопашные атаки занимают на 1 Очко Действия меньше."],
 	PE_BONUS_HTH_DAMAGE: ["Доп. рукопашн. повр.", "Большой опыт рукопашных схваток научил вас уделять внимание наносимым повреждениям. За каждый уровень этой способности вы получаете +3 к Рукопашным повреждениям."],
@@ -244,341 +226,109 @@ var textperks = {	// Перки
 	PE_SUPPORTER: ["Огневая поддержка", "Стрельба очередями \"Подавляет\" врага. Увеличен радиус Дымовой и Газовой завесы, и область поджигания Кокт. \"Молотова\". Также вы получате +20% к навыку Метательное."]
 }
 var perkup = {
-	PE_AWARENESS:function(){         /*Examining a target shows hitpoints, weapon and ammunition count*/
-	},
-	PE_BONUS_HTH_ATTACKS:function(){ /*-1 Ap on HtH attacks*/
-	},
-	PE_BONUS_HTH_DAMAGE:function(){
-	feat.mdmg[2]+= 3;
-	},
-	PE_BONUS_MOVE:function(){	// вотановление 2 од раз в 10 сек
-	//ST_MAX_MOVE_AP+= 2
-	},
-	PE_BONUS_RANGED_DAMAGE:function(){    /*In calc damage +3 per range*/
-	},
-	PE_BONUS_RATE_OF_FIRE:function(){     /*-1 Ap on ranged attacks*/
-	},
-	PE_EARLIER_SEQUENCE:function(){
-	feat.proc[2]+= 4;
-	},
-	PE_FASTER_HEALING:function(){
-	feat.levh[2]+= 5;
-	},
-	PE_MORE_CRITICALS:function(){
-	feat.crit[2]+= 8;//Math.floor(stats.luc[2]/2+3);
-	},
-	PE_RAD_RESISTANCE:function(){
-	feat.srad[2]+= 15;
-	},
-	PE_TOUGHNESS:function(){
-	/*ST_NORMAL_ABSORB+= 2
-	ST_NORMAL_RESIST+= 8
-	ST_FIRE_RESIST+= 8
-	ST_EXPLODE_RESIST+= 8*/
-	resist.normal.asb[2]+=2;
-	resist.normal.res[2]+=10;
-	resist.fire.res[2]+=8;
-	resist.explode.res[2]+=8;
-	},
-	PE_STRONG_BACK:function(){
-	feat.maxl[2]+= 100;
-	skills.speed[2]+= 35;
-	},
-	PE_SHARPSHOOTER:function(){
-	feat.oview[2]+= 6; /*+2 perception on ranged attack*/ 
-	},
-	PE_SILENT_RUNNING:function(){     /*No steal off while running*/
-	},
-	PE_SURVIVALIST:function(){
-	skills.ranger[2]+= 25
-	},
-	PE_MASTER_TRADER:function(){     /*Barter k is zero on buy*/
-	},
-	PE_EDUCATED:function(){
-	skills.points+= 50 /*+2 skill points per range*/ 
-	},
-	PE_HEALER:function(){     /*Additional Hp bonus in scripts*/
-	},
-	PE_BETTER_CRITICALS:function(){
-	//ST_MAX_CRITICAL+= stats.luc[2]+10
-	},
-	PE_SLAYER:function(){   
-	//ST_MELEE_DAMAGE, += 10],          /*All unarmed and melee attacks is critical*/
-	},
-	PE_SNIPER:function(){/*All gun attacks is critical*/
-	feat.crit[2]+= stats.luc[2]*3
-	feat.armc[2]+= 20
-	},
-	PE_SILENT_DEATH:function(){ /*Attack from sneak from back x2 damage*/
-	},
-	PE_ACTION_BOY:function(){
-	feat.apoi[2]+= 2
-	},
-	PE_LIFEGIVER:function(){
-	feat.live[2]+= 60;
-	},
-	PE_DODGER:function(){
-	feat.armc[2]+= 5;
-	feat.dodge[2]+= 10;
-	},
-	PE_SNAKEATER:function(){
-	feat.stox[2]+= 25
-	},
-	PE_MR_FIXIT:function(){
-	skills.repair[2]+= 20
-	skills.science[2]+= 20
-	},
-	PE_MEDIC:function(){
-	skills.orderly[2]+= 10
-	skills.doctor[2]+= 10
-	},
-	PE_MASTER_THIEF:function(){
-	skills.steal[2]+= 40
-	skills.hack[2]+= 40
-	},
-	PE_SPEAKER:function(){
-	skills.oratory[2]+= 10
-	},
-	PE_HEAVE_HO:function(){   /*+2 strength for throwing weapon*/
-	},
-	PE_PICKPOCKET:function(){ /*Ignore size and facing while stealing*/
-	},
-	PE_GHOST:function(){      /*+15% sneak*/
-	skills.sneak[2]+= 40
-	},
-	PE_EXPLORER:function(){   /*Higher chance of finding special places and people in random encounters*/
-	feat.live[2]+= stats.str[2]*5
-	},
-	PE_PATHFINDER:function(){ /*+25% speed on global per range*/
-	},
-	PE_SCOUT:function(){      /*This will increase the amount of the map you can see while exploring and make finding the special random encounters a little easier.*/
-	//feat.live[2]+= 15
-	// ST_HEALING_RATE+= 2
-	},
-	PE_RANGER:function(){
-	skills.ranger[2]+= 15 /*Fewer hostile random encounters*/ 
-	},
-	PE_QUICK_POCKETS:function(){     /*Inventory items move ap cost div 2*/
-	},
-	PE_SMOOTH_TALKER:function(){     /*+2 intellect on dialogs checks*/
-	},
-	PE_SWIFT_LEARNER:function(){     /*+15% add experience per range*/
-	},
-	PE_ADRENALINE_RUSH:function(){   /*+1 strength on <50% hp in battle*/
-	feat.live[2]+= 35
-	},
-	PE_CAUTIOUS_NATURE:function(){   /*+3 perception on encounter generate*/
-	feat.oview[2]+= 3;
-	//ST_BONUS_LOOK+= 3
-	},
-	PE_COMPREHENSION:function(){     /*50% more points on books reading*/
-	stats.intl[0]++;
-	},
-	PE_DEMOLITION_EXPERT:function(){ /*Used in explosion script*/
-	},
-	PE_GAMBLER:function(){
-	skills.speed[2]+= 50;
-	feat.live[2]+= 20;
-	},
-	PE_GAIN_STRENGTH:function(){
-	stats.str[1]++;
-	feat.live[2]+= 20;
-	//  ST_UNSPENT_SKILL_POINTS+= 15
-	},
-	PE_GAIN_PERCEPTION:function(){
-	stats.per[1]++;
-	feat.live[2]+= 20;
-	// ST_UNSPENT_SKILL_POINTS+= 15
-	},
-	PE_GAIN_ENDURANCE:function(){
-	stats.enu[1]++;
-	feat.live[2]+= 20;
-	// ST_UNSPENT_SKILL_POINTS+= 15
-	},
-	PE_GAIN_CHARISMA:function(){
-	stats.cha[1]++;
-	feat.live[2]+= 20;
-	//  ST_UNSPENT_SKILL_POINTS+= 15
-	},
-	PE_GAIN_INTELLIGENCE:function(){
-	stats.intl[1]++;
-	feat.live[2]+= 20;
-	// ST_UNSPENT_SKILL_POINTS+= 15
-	},
-	PE_GAIN_AGILITY:function(){
-	stats.agi[1]++;
-	feat.live[2]+= 20;
-	// ST_UNSPENT_SKILL_POINTS+= 15
-	},
-	PE_GAIN_LUCK:function(){
-	stats.luc[1]++;
-	feat.live[2]+= 20;
-	// ST_UNSPENT_SKILL_POINTS+= 15
-	},
-	PE_HARMLESS:function(){
-	skills.steal[2]+= 40;
-	},
-	PE_HERE_AND_NOW:function(){      /*+1 level*/
-		levelup();
-	//cr.StatBase[ ST_EXPERIENCE ] += NextLevelNeedExp( cr ) - cr.ParamBase[ ST_EXPERIENCE ];
-	},
-	PE_HTH_EVADE:function(){         /*+3 ac per 1 ap on end turn; (МаксОД/4)+(ТекущиеОД/2)*/ 	
-	},
-	PE_KAMA_SUTRA_MASTER:function(){ /*In dialogs*/
-	feat.live[2]+= 45;
-	feat.armc[2]+= 7;
-	},
-	PE_KARMA_BEACON:function(){      /*Karma x2*/
-	feat.live[2]+= 20;
-	},
-	PE_LIGHT_STEP:function(){        /*50% less chance of setting off a trap*/
-	resist.explode.res[2]+=25; //резист от взрыва
-	},
-	PE_LIVING_ANATOMY:function(){
-	skills.doctor[2]+= 20; /*Also +20 dmg*/ 
-	},
-	PE_MAGNETIC_PERSONALITY:function(){     /*+2 people in group*/
-	},
-	PE_NEGOTIATOR:function(){
-	skills.oratory[2]+= 20;
-	skills.trade[2]+= 20;
-	},
-	PE_PACK_RAT:function(){
-	feat.maxl[2]+= 22;	// WTF??? LBS_TO_GRAMM( 50 )
-	},
-	PE_PYROMANIAC:function(){     /*+30 damage on fire attack*/
-	},
-	PE_QUICK_RECOVERY:function(){ /* 1 ap for stending up*/
-	//  feat.live[2]+= 15
-	feat.apoi[2]+= 1;
-	},
-	PE_SALESMAN:function(){
-	skills.trade[2]+= 40;
-	},
-	PE_STONEWALL:function(){     /*Reduction in chance to be knocked down during combat*/
-	},
-	PE_THIEF:function(){
-	skills.sneak[2]+= 10;
-	skills.hack[2]+= 25;
-	skills.steal[2]+= 25;
-	skills.traps[2]+= 25;
-	},
-	PE_WEAPON_HANDLING:function(){     /*In use weapon strength +3*/
-	},
-	PE_NCR_PERCEPTION:function(){
-	stats.per[1]++;
-	},
-	PE_NCR_ENDURANCE:function(){
-	//  ST_STRENGTH++
-	},
-	PE_NCR_BARTER:function(){
-	skills.trade[2]+= 5;
-	},
-	PE_NCR_REPAIR:function(){
-	skills.repair[2]+= 5;
-	},
-	PE_TERMINATOR:function(){     /*Examining a target shows hitpoints, weapon and ammunition count*/
-	},
-	PE_COMPUSTER:function(){
-	},
-	PE_OFFICER:function(){
-	feat.live[2]+= 30;
-	},
-	PE_IRON_MAN:function(){    
-	},    
-	PE_PRO_UDAR:function(){
-	},
-	PE_NIGHT_VISION:function(){
-	},
-	PE_MENTAL_BLOCK:function(){	// РЕЗИСТЫ!!! В атаку бля!
-	feat.live[2]+= 25;
-	resist.normal.res[2]+=5;
-	resist.laser.res[2]+=5;
-	resist.fire.res[2]+=5;
-	resist.plasma.res[2]+=5;
-	resist.explode.res[2]+=5;
-	resist.electro.res[2]+=5;
-	},
-	PE_MUTATE:function(){
-	feat.live[2]+= 30;
-	skills.points+= 60;
-	},
-	PE_EMPATHY:function(){
-	},
-	PE_PRESENCE:function(){	
-	resist.normal.res[2]+=4;
-	resist.laser.res[2]+=4;
-	resist.fire.res[2]+=4;
-	resist.plasma.res[2]+=4;
-	resist.explode.res[2]+=4;
-	resist.electro.res[2]+=4;
-	},
-	PE_BOOKWORM:function(){
-	feat.levh[2]+= 10;
-	},
-	PE_FORTUNE_FINDER:function(){
-	feat.live[2]+= 25;
-	},
-	PE_FRIENDLY_FOE:function(){
-	skills.light[2]+= 30;
-	skills.repair[2]+= 20;
-	},
-	PE_SCROUNGER:function(){
-	skills.orderly[2]+= 20;
-	skills.doctor[2]+= 30;
-	},
-	PE_FLOWER_CHILD:function(){
-	},
-	PE_ANIMAL_FRIEND:function(){
-	},
-	PE_CULT_OF_PERSONALITY:function(){
-	feat.live[2]+= 15;
-	resist.plasma.res[2]+=6;
-	resist.electro.res[2]+=6;
-	resist.laser.res[2]+=6;
-	},
-	PE_SUPPORTER:function(){
-	skills.thrown[2]+= 20;
-	},
-	PE_ADD_ATAC:function(){
-	},
-	PE_BIVALIY:function(){
-	},
-	PE_NAPROLOM:function(){
-	skills.light[2]+= 10;
-	skills.heavy[2]+= 10;
-	skills.energy[2]+= 10;
-	skills.melee[2]+= 15;
-	skills.steel[2]+= 15;
-	},  
-	PE_ADW_MET:function(){
-	},
-	PE_COMBAT_ENGINEER:function(){
-	skills.repair[2]+= 20;
-	},
-	PE_CE_POSITION:function(){
-	},
-	PE_CE_POSITION_L:function(){
-	},
-	PE_DERMAL_IMPACT:function(){
-	feat.live[2]+= 40;
-	feat.levh[2]+= 7;
-	},
-	PE_RAGE:function(){
-	feat.live[2]+= 4;
-	},
-	PE_DEFENCE:function(){ // -1 од на неприцельный выстрел
-	},
-	PE_ATTACK:function(){
-	},
-	PE_HARD:function(){
-	feat.levh[2]+= 4;
-	},
-	PE_VIEW:function(){
-	},
-	PE_RATING:function(){
-	},
-	PE_MYSTERIOUS_STRANGER:function(){
-	feat.live[2] += 35;
-	}
+	PE_AWARENESS:function(){},         /*Examining a target shows hitpoints, weapon and ammunition count*/	
+	PE_BONUS_HTH_ATTACKS:function(){}, /*-1 Ap on HtH attacks*/
+	PE_BONUS_HTH_DAMAGE:function(){feat.mdmg[2]+= 3;},
+	PE_BONUS_MOVE:function(){}, 	// вотановление 2 од раз в 10 сек
+	PE_BONUS_RANGED_DAMAGE:function(){},  /*In calc damage +3 per range*/
+	PE_BONUS_RATE_OF_FIRE:function(){},     /*-1 Ap on ranged attacks*/
+	PE_EARLIER_SEQUENCE:function(){feat.proc[2]+= 4;},
+	PE_FASTER_HEALING:function(){feat.levh[2]+= 5;},
+	PE_MORE_CRITICALS:function(){feat.crit[2]+= 8;},
+	PE_RAD_RESISTANCE:function(){feat.srad[2]+= 15;},
+	PE_TOUGHNESS:function(){resist.normal.asb[2]+=2;resist.normal.res[2]+=10;resist.fire.res[2]+=8;resist.explode.res[2]+=8;},
+	PE_STRONG_BACK:function(){feat.maxl[2]+= 100;skills.speed[2]+= 35;},
+	PE_SHARPSHOOTER:function(){feat.oview[2]+= 6;},
+	PE_SILENT_RUNNING:function(){},
+	PE_SURVIVALIST:function(){skills.ranger[2]+= 25;},
+	PE_MASTER_TRADER:function(){},
+	PE_EDUCATED:function(){skills.points+= 50;},
+	PE_HEALER:function(){},
+	PE_BETTER_CRITICALS:function(){},
+	PE_SLAYER:function(){ },  
+	PE_SNIPER:function(){feat.crit[2]+= stats.luc[2]*3;feat.armc[2]+= 20;},
+	PE_SILENT_DEATH:function(){}, /*Attack from sneak from back x2 damage*/	
+	PE_ACTION_BOY:function(){feat.apoi[2]+= 2;},
+	PE_LIFEGIVER:function(){feat.live[2]+= 60;},
+	PE_DODGER:function(){feat.armc[2]+= 5;feat.dodge[2]+= 10;},
+	PE_SNAKEATER:function(){feat.stox[2]+= 25;},
+	PE_MR_FIXIT:function(){skills.repair[2]+= 20;skills.science[2]+= 20;},
+	PE_MEDIC:function(){skills.orderly[2]+= 10;skills.doctor[2]+= 10;},
+	PE_MASTER_THIEF:function(){skills.steal[2]+= 40;skills.hack[2]+= 40;},
+	PE_SPEAKER:function(){skills.oratory[2]+= 10;},
+	PE_HEAVE_HO:function(){},   /*+2 strength for throwing weapon*/
+	PE_PICKPOCKET:function(){}, /*Ignore size and facing while stealing*/	
+	PE_GHOST:function(){skills.sneak[2]+=40;},     /*+15% sneak*/
+	PE_EXPLORER:function(){feat.live[2]+= stats.str[2]*5;},  /*Higher chance of finding special places and people in random encounters*/
+	PE_PATHFINDER:function(){}, /*+25% speed on global per range*/	
+	PE_SCOUT:function(){},      /*This will increase the amount of the map you can see while exploring and make finding the special random encounters a little easier.*/	
+	PE_RANGER:function(){skills.ranger[2]+= 15;},	/*Fewer hostile random encounters*/
+	PE_QUICK_POCKETS:function(){},     /*Inventory items move ap cost div 2*/
+	PE_SMOOTH_TALKER:function(){},    /*+2 intellect on dialogs checks*/
+	PE_SWIFT_LEARNER:function(){},     /*+15% add experience per range*/	
+	PE_ADRENALINE_RUSH:function(){feat.live[2]+= 35;},   /*+1 strength on <50% hp in battle*/
+	PE_CAUTIOUS_NATURE:function(){feat.oview[2]+= 3;},   /*+3 perception on encounter generate*///ST_BONUS_LOOK+= 3
+	PE_COMPREHENSION:function(){stats.intl[0]++;},/*50% more points on books reading*/	
+	PE_DEMOLITION_EXPERT:function(){}, /*Used in explosion script*/
+	PE_GAMBLER:function(){skills.speed[2]+= 50;feat.live[2]+= 20;},
+	PE_GAIN_STRENGTH:function(){stats.str[1]++;feat.live[2]+= 20;},
+	PE_GAIN_PERCEPTION:function(){stats.per[1]++;feat.live[2]+= 20;},
+	PE_GAIN_ENDURANCE:function(){stats.enu[1]++;feat.live[2]+= 20;},
+	PE_GAIN_CHARISMA:function(){stats.cha[1]++;feat.live[2]+= 20;},
+	PE_GAIN_INTELLIGENCE:function(){stats.intl[1]++;feat.live[2]+= 20;},
+	PE_GAIN_AGILITY:function(){stats.agi[1]++;feat.live[2]+= 20;},
+	PE_GAIN_LUCK:function(){stats.luc[1]++;feat.live[2]+= 20;},
+	PE_HARMLESS:function(){skills.steal[2]+= 40;},
+	PE_HERE_AND_NOW:function(){levelup();},      /*+1 level*/	
+	PE_HTH_EVADE:function(){},        /*+3 ac per 1 ap on end turn; (МаксОД/4)+(ТекущиеОД/2)*/ 	
+	PE_KAMA_SUTRA_MASTER:function(){feat.live[2]+= 45;feat.armc[2]+= 7;},/*In dialogs*/	
+	PE_KARMA_BEACON:function(){feat.live[2]+= 20;},      /*Karma x2*/
+	PE_LIGHT_STEP:function(){resist.explode.res[2]+=25;},  //резист от взрыва      /*50% less chance of setting off a trap*/	
+	PE_LIVING_ANATOMY:function(){skills.doctor[2]+= 20;/*Also +20 dmg*/},
+	PE_MAGNETIC_PERSONALITY:function(){ },   /*+2 people in group*/	
+	PE_NEGOTIATOR:function(){skills.oratory[2]+= 20;skills.trade[2]+= 20;},
+	PE_PACK_RAT:function(){feat.maxl[2]+= 22;},	
+	PE_PYROMANIAC:function(){},     /*+30 damage on fire attack*/	
+	PE_QUICK_RECOVERY:function(){feat.apoi[2]+= 1;}, /* 1 ap for stending up*/
+	PE_SALESMAN:function(){skills.trade[2]+= 40;},
+	PE_STONEWALL:function(){},     /*Reduction in chance to be knocked down during combat*/	
+	PE_THIEF:function(){skills.sneak[2]+= 10;skills.hack[2]+= 25;skills.steal[2]+= 25;skills.traps[2]+= 25;},
+	PE_WEAPON_HANDLING:function(){},     /*In use weapon strength +3*/	
+	PE_NCR_PERCEPTION:function(){stats.per[1]++;},
+	PE_NCR_ENDURANCE:function(){},//  ST_STRENGTH++
+	PE_NCR_BARTER:function(){skills.trade[2]+= 5;},
+	PE_NCR_REPAIR:function(){skills.repair[2]+= 5;},
+	PE_TERMINATOR:function(){},    /*Examining a target shows hitpoints, weapon and ammunition count*/	
+	PE_COMPUSTER:function(){},
+	PE_OFFICER:function(){feat.live[2]+= 30;},
+	PE_IRON_MAN:function(){},    
+	PE_PRO_UDAR:function(){},
+	PE_NIGHT_VISION:function(){},
+	PE_MENTAL_BLOCK:function(){feat.live[2]+= 25;for(i in resist)resist[i].res[2]+=5;},
+	PE_MUTATE:function(){feat.live[2]+= 30;skills.points+= 60;},
+	PE_EMPATHY:function(){},
+	PE_PRESENCE:function(){for(i in resist)resist[i].res[2]+=4;},	
+	PE_BOOKWORM:function(){feat.levh[2]+= 10;},
+	PE_FORTUNE_FINDER:function(){feat.live[2]+= 25;},
+	PE_FRIENDLY_FOE:function(){skills.light[2]+= 30;skills.repair[2]+= 20;},
+	PE_SCROUNGER:function(){skills.orderly[2]+= 20;skills.doctor[2]+= 30;},
+	PE_FLOWER_CHILD:function(){},
+	PE_ANIMAL_FRIEND:function(){},
+	PE_CULT_OF_PERSONALITY:function(){feat.live[2]+= 15;resist.plasma.res[2]+=6;resist.electro.res[2]+=6;resist.laser.res[2]+=6;},
+	PE_SUPPORTER:function(){skills.thrown[2]+= 20;},
+	PE_ADD_ATAC:function(){},
+	PE_BIVALIY:function(){},
+	PE_NAPROLOM:function(){skills.light[2]+= 10;skills.heavy[2]+= 10;skills.energy[2]+= 10;skills.melee[2]+= 15;skills.steel[2]+= 15;},  
+	PE_ADW_MET:function(){},
+	PE_COMBAT_ENGINEER:function(){skills.repair[2]+= 20;},
+	PE_CE_POSITION:function(){},
+	PE_CE_POSITION_L:function(){},
+	PE_DERMAL_IMPACT:function(){feat.live[2]+= 40;feat.levh[2]+= 7;},
+	PE_RAGE:function(){feat.live[2]+= 4;},
+	PE_DEFENCE:function(){}, // -1 од на неприцельный выстрел
+	PE_ATTACK:function(){},
+	PE_HARD:function(){feat.levh[2]+= 4;},
+	PE_VIEW:function(){},
+	PE_RATING:function(){},
+	PE_MYSTERIOUS_STRANGER:function(){feat.live[2] += 35;}
 }

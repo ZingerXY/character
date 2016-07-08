@@ -10,7 +10,10 @@ var totalskill = {}; // Сколько вкачено навыков на каж
 var totalperk = {};
 var totalquest = {};
 
-var mychar = {};
+var mychar = {
+	traits: {},
+	perks: {}
+};
 
 var charp = {
 	name:	"",
@@ -27,8 +30,8 @@ var charp = {
 	specialpoint: 5,
 	perkpoint: 0
 };
-
-var stats = { // стат, добавленный стат
+// стат, добавленный стат
+var stats = { 
 	str: [5, 0, 0], 	// Сила
 	per: [5, 0, 0],		// Восприятие
 	enu: [5, 0, 0],		// Выносливость
@@ -37,8 +40,8 @@ var stats = { // стат, добавленный стат
 	agi: [5, 0, 0],		// Ловкость
 	luc: [5, 0, 0]		// Удача
 };
-
-var textstats = { // Статы описание
+// Статы описание
+var textstats = { 
 	str: ["Cила",""],
 	per: ["Восприятие",""],
 	enu: ["Выносливость",""],
@@ -55,8 +58,8 @@ var SkillMod = { // SkillMod.Add2
     Add5: 175,
     Add6: 200
 };
-	
-var skills = {	// навык, добавленый навык, добавленный за уровень, тагнутый
+// навык, добавленый навык, добавленный за уровень, тагнутый	
+var skills = {	
 	tags: 	 3,	
 	points:  0,	
 	light: 	[0, 0, 0, 0],	// легкое
@@ -78,8 +81,8 @@ var skills = {	// навык, добавленый навык, добавлен�
 	speed: 	[0, 0, 0, 0],	// атлетизм
 	ranger: [0, 0, 0, 0]	// скиталец
 }
-
-var textskills = {	// навыки описание
+// навыки описание
+var textskills = {	
 	light: ["легкое","Легкое оружие"],
 	heavy: ["тяжелое","Тяжелое оружие"],
 	energy: ["энерго","Энергооружие"],
@@ -99,7 +102,7 @@ var textskills = {	// навыки описание
 	speed: ["атлетизм","Атлетизм"],
 	ranger: ["скиталец","Скиталец"]
 }
-
+// Книги
 var book = {
 	light: [10,0],
 	energy: [10,0],
@@ -118,8 +121,8 @@ var textbook = {
 	ranger: "Скиталец",
 	prewar: "Довоенки"
 }
-
-var feat = { // параметр, добавленный параметр, добавленный за уровень
+// параметр, добавленный параметр, добавленный за уровень
+var feat = { 
 	dodge:	[0, 0, 0],	// уклон
 	live: 	[0, 0, 0],	// жизни
 	armc: 	[0, 0, 0],	// класс брони
@@ -133,8 +136,8 @@ var feat = { // параметр, добавленный параметр, до�
 	levh: 	[0, 0, 0],	// уров лечения
 	crit: 	[0, 0, 0]	// шанс на крит
 }
-
-var textfeat = { // параметры описание
+// параметры описание
+var textfeat = { 
 	dodge:	["улонение",""],
 	live: ["жизни",""],
 	armc: ["класс брони",""],
@@ -148,7 +151,7 @@ var textfeat = { // параметры описание
 	levh: ["уров лечения",""],
 	crit: ["шанс на крит",""]
 }
-
+// Резисты
 var resist = {
 	normal:		{asb:[0, 0, 0], res:[0, 0, 0]},
 	laser:		{asb:[0, 0, 0], res:[0, 0, 0]},
@@ -157,261 +160,18 @@ var resist = {
 	explode:	{asb:[0, 0, 0], res:[0, 0, 0]},
 	electro:	{asb:[0, 0, 0], res:[0, 0, 0]},
 }
-
-var traits = {
-	TRAIT_FAST_METABOLISM: [function(){	// Быстрый метаболизм
-							// Плюсы: Добавляется 60 жизней и 15 к уровню лечения.
-							// Минусы: Обнуляется защита к радиации и отравлению. Уменьшает защиту от радиации и отравления в 2 раза. Яд не выводится из организма самостоятельно.
-			if(!this[1] && charp.tagt>0) {
-				feat.live[1]+=60; 
-				feat.levh[1]+=15; 
-				feat.stox[3] = 0; 
-				feat.srad[3] = 0; 
-				this[1] = 1;
-				charp.tagt--;	}
-			else if(this[1] && charp.tagt<2) {
-				feat.live[1]-=60; 
-				feat.levh[1]-=15; 
-				feat.stox[3] = 1; 
-				feat.srad[3] = 1; 
-				this[1] = 0;
-				charp.tagt++;	}
-			},0],
-	TRAIT_BRUISER: [function(){	// Крушила Плюсы: +3 силы, игнор тиков плазмы. Минусы: -1 Очко Действия (ОД).
-			if(!this[1] && charp.tagt>0) {
-				stats.str[0]+=3; 
-				feat.apoi[1]-=1;
-				this[1] = 1;
-				charp.tagt--;	}
-			else if(this[1] && charp.tagt<2) {
-				stats.str[0]-=3;
-				feat.apoi[1]+=1;
-				this[1] = 0;
-				charp.tagt++;	}
-			},0],
-	TRAIT_SMALL_FRAME: [function(){	// Хилое тело 
-							// Плюсы: +1 ловкости, +5% к увороту.
-							// Минусы: Уменьшает максимальный переносимый вес относительно силы персонажа.
-			if(!this[1] && charp.tagt>0) {
-				feat.dodge[1]+=5;
-				stats.agi[0]+=1; 
-				this[1] = 1;
-				charp.tagt--;	}
-			else if(this[1] && charp.tagt<2) {
-				feat.dodge[1]-=5;
-				stats.agi[0]-=1; 
-				this[1] = 0;
-				charp.tagt++;	}
-			},0],
-	TRAIT_ONE_HANDER: [function(){	//	Однорукий 
-							//	Плюсы: Игнор силы на одноручное, +60 к навыку одноручного оружия.
-							//	Минусы: -40 к навыку при использовании двуручного оружия.
-			if(!this[1] && charp.tagt>0) {
-				this[1] = 1; 
-				charp.tagt--;	} 
-			else if(this[1] && charp.tagt<2) {
-				this[1] = 0; 
-				charp.tagt++;	
-			}
-			},0],
-	TRAIT_FINESSE: [function(){	// Точность
-							// Плюсы: +20% к шансу критической атаки. -10 к проверке на силу критического эффекта при атаке по вам.
-							// Минусы: -5% к урону.
-			if(!this[1] && charp.tagt>0){
-				feat.crit[1]+=20;
-				this[1] = 1; 
-				charp.tagt--;	} 
-			else if(this[1] && charp.tagt<2){
-				feat.crit[1]-=20;
-				this[1] = 0; 
-				charp.tagt++;	
-			}
-			},0],
-	TRAIT_KAMIKAZE: [function(){	// Камикадзе
-							// Плюсы: +1 Ловкости. Каждые 10 секунд вы восстанавливаете 1 ОД. Если вы не в бою - первая атака отнимет на 2 ОД меньше. Игнорирование эффекта "Подавление".
-							// Минусы: Персонаж не получает КБ от параметра Ловкости.
-			if(!this[1] && charp.tagt>0){
-				stats.agi[1]+=1; 
-				this[1] = 1; 
-				charp.tagt--;	} 
-			else if(this[1] && charp.tagt<2){
-				stats.agi[1]-=1; 
-				this[1] = 0; 
-				charp.tagt++;	
-			}
-			},0],
-	TRAIT_HEAVY_HANDED: [function(){	// Громила
-							// Плюсы: +25 к рукопашным повреждениям (урезаются повреждения у Доп. рукопашн. повр. и у Слеера)
-							// Минусы: -30 критролла.
-			if(!this[1] && charp.tagt>0){
-				feat.mdmg[1]+=25;
-				this[1] = 1; 
-				charp.tagt--;	} 
-			else if(this[1] && charp.tagt<2){
-				feat.mdmg[1]-=25;
-				this[1] = 0; 
-				charp.tagt++;	
-			}
-			},0],
-	TRAIT_FAST_SHOT: [function(){	// Быстрый стрелок
-							// Плюсы: Атаки стрелковым и метательным оружием требуют меньше на 1 ОД.
-							// Минусы: Полностью отсутствует прицельный режим атаки. Критический урон не удваивается, хотя эффекты остаются.
-			if(!this[1] && charp.tagt>0){
-				this[1] = 1; 
-				charp.tagt--;	} 
-			else if(this[1] && charp.tagt<2){
-				this[1] = 0; 
-				charp.tagt++;	
-			}
-			},0],
-	TRAIT_BLOODY_MESS: [function(){	// Маньяк
-							// Плюсы: +175 к навыку Атлетизма.
-							// Минусы: -25 ОЗ.
-			if(!this[1] && charp.tagt>0){
-				skills.speed[1]+=175;
-				feat.live[1]-=25;
-				this[1] = 1; 
-				charp.tagt--;	} 
-			else if(this[1] && charp.tagt<2){
-				skills.speed[1]-=175;
-				feat.live[1]+=25;
-				this[1] = 0; 
-				charp.tagt++;	
-			}
-			},0],
-	TRAIT_JINXED: [function(){	// Дурной глаз
-							// Плюсы: Промах по вам станет для соперника критическим с 50% вероятностью.
-							// Минусы: Вы критически промахиваетесь с этой же вероятностью.
-			if(!this[1] && charp.tagt>0){
-				this[1] = 1; 
-				charp.tagt--;	} 
-			else if(this[1] && charp.tagt<2){
-				this[1] = 0; 
-				charp.tagt++;	
-			}
-			},0],
-	TRAIT_GOOD_NATURED: [function(){	// Добродушие
-							// Плюсы: +25 к навыкам Санитар, Доктор, Красноречие и Торговля. НПЦ-люди не атакуют на энкаунтерах. Влияет на формулу бонуса от КБ и снижает урон от мастеров-перков (см. Перки).
-							// Минусы: Все боевые навыки уменьшаются на 15.
-			if(!this[1] && charp.tagt>0){
-				skills.orderly[1]+=15;
-				skills.doctor[1]+=25;
-				skills.oratory[1]+=35;
-				skills.trade[1]+=25;
-				skills.light[1]-=15;
-				skills.heavy[1]-=15;
-				skills.energy[1]-=15;
-				skills.steel[1]-=10;
-				skills.melee[1]-=10;
-				skills.thrown[1]-=10;
-				this[1] = 1; 	
-				charp.tagt--;	} 
-			else if(this[1] && charp.tagt<2){
-				skills.orderly[1]-=15;
-				skills.doctor[1]-=25;
-				skills.oratory[1]-=35;
-				skills.trade[1]-=25;
-				skills.light[1]+=15;
-				skills.heavy[1]+=15;
-				skills.energy[1]+=15;
-				skills.steel[1]+=10;
-				skills.melee[1]+=10;
-				skills.thrown[1]+=10;
-				this[1] = 0; 
-				charp.tagt++;	
-			}
-			},0],
-	TRAIT_CHEM_RELIANT: [function(){	// Химик
-							// Плюсы: Наркотики держатся в три раза дольше. Откаты почти мнгновенные. Но если есть привыкание, оно держится долго.
-							// Минусы: Привыкание в два раза чаще.
-			if(!this[1] && charp.tagt>0){
-				this[1] = 1; 
-				charp.tagt--;	} 
-			else if(this[1] && charp.tagt<2){
-				this[1] = 0; 
-				charp.tagt++;	
-			}
-			},0],
-	TRAIT_CHEM_RESISTANT: [function(){	// Стабильный
-							// Плюсы: Вы никогда критически не промахиваетесь, +25 бонуса к окончательной точности (даже в дыму). Игнорируется эффект плазмы (тики).
-							// Минусы: Вы никогда критически не попадаете.
-			if(!this[1] && charp.tagt>0){
-				this[1] = 1; 
-				charp.tagt--;	} 
-			else if(this[1] && charp.tagt<2){
-				this[1] = 0; 
-				charp.tagt++;	
-			}
-			},0],
-	TRAIT_SEX_APPEAL: [function(){	// Жидкое тело
-							// Плюсы: Каждый выстрел наносит вам на 10 повреждений меньше. Игнорирование тиков от огня. +50 веса.
-							// Минусы: Стимуляторы и Санитар не работают в полную мощь (-20 к отхилу).
-			if(!this[1] && charp.tagt>0){
-				feat.maxl[1]+=50;
-				this[1] = 1; 
-				charp.tagt--;	} 
-			else if(this[1] && charp.tagt<2){
-				feat.maxl[1]-=50;
-				this[1] = 0; 
-				charp.tagt++;	
-			}
-			},0],
-	TRAIT_SKILLED: [function(){	// Умелец
-							// Плюсы: +1 к Силе, Восприятию, Выносливости, Харизме, Интеллекту, Ловкости и Удаче.
-							// Минусы: Перк дается через 4 уровня, а не через 3.
-			if(!this[1] && charp.tagt>0){
-				stats.enu[1]+=2;
-				stats.cha[1]+=2;
-				stats.intl[1]+=2;
-				stats.agi[1]+=2;
-				feat.live[1]+=25; 
-				
-				this[1] = 1; 
-				charp.tagt--;	} 
-			else if(this[1] && charp.tagt<2){
-				stats.enu[1]-=2;
-				stats.cha[1]-=2;
-				stats.intl[1]-=2;
-				stats.agi[1]-=2;
-				feat.live[1]-=25;
-				this[1] = 0; 
-				charp.tagt++;	
-			}
-			},0],
-	TRAIT_NIGHT_PERSON: [function(){	// Импульсивный
-							// Плюсы: +2 ОД, +20 к навыку Метания.
-							// Минусы: -3 Очков Умений за каждый уровень.
-			if(!this[1] && charp.tagt>0){
-				feat.apoi[1]+=2;
-				skills.thrown[1]+=20;
-				this[1] = 1; 
-				charp.tagt--;	} 
-			else if(this[1] && charp.tagt<2){
-				feat.apoi[1]-=2;
-				skills.thrown[1]-=20;
-				this[1] = 0; 
-				charp.tagt++;	
-			}
-			},0]
-}
-
-//function $("#"+ id ) { return document.getElementById( id ); }
-
-function trait(){	// Выбор трейта
-	var str = this.id.substr(3);
-	traits[str][0]();
+// Выбор трейта
+function trait(){	
+	var str = this.id.substr(3);	
+	traits[str][0](str);
 	statpoints();
 	settle();
-	if(traits[str][1]) $("#"+str).css("color", "#ABABAB");
+	if(mychar.traits[str]) $("#"+str).css("color", "#ABABAB");
 	else $("#"+str).css("color", "#00FF00");
 	infoparm("traits",str);
 }
-
-function tagnumb(){	// Обновление тагнутых поинтов)
-	numbers($("#point2"),skills["tags"])
-}
-
-function tags() {	// Выбор тагнутых навыков
+// Выбор тагнутых навыков
+function tags() {	
 	var str = this.id.substr(3);
 	if(!skills[str][3] && skills["tags"] > 0) {
 		skills[str][3] = 1 ;
@@ -427,11 +187,11 @@ function tags() {	// Выбор тагнутых навыков
 		$("#"+str+"s").css("color", "#00FF00");
 		$("#"+str).css("color", "#00FF00");
 	}
-	tagnumb();
+	numbers($("#point2"),skills["tags"]);
 	settle();
 }
-
-function settle() {	// расчеты навыков и параметров и их обновление
+// расчеты навыков и параметров и их обновление
+function settle() {	
 	var link;
 	// Легкое оружие
 	skills.light[0] = skills.light[2] + skills.light[1] + 5 + stats.agi[0]*4;					
@@ -469,7 +229,6 @@ function settle() {	// расчеты навыков и параметров и 
 	skills.speed[0] = skills.speed[2] + skills.speed[1] + 0;									
 	// Скиталец
 	skills.ranger[0] = skills.ranger[2] + skills.ranger[1] + (stats.enu[0]+stats.intl[0])*2;	
-
 	
 	str = stats.str[0] + stats.str[1];
 	enu = stats.enu[0] + stats.enu[1];
@@ -481,15 +240,11 @@ function settle() {	// расчеты навыков и параметров и 
 	// Жизни
 	feat.live[0] = feat.live[2] + feat.live[1] + 30 + str + enu*2;		
 	// Класс брони
-	feat.armc[0] = feat.armc[2] + feat.armc[1] + agi*(traits.TRAIT_KAMIKAZE[1] ? 0 : 1)+(traits.TRAIT_KAMIKAZE[1] ? 1 : 0);							
+	feat.armc[0] = feat.armc[2] + feat.armc[1] + agi*(mychar.traits.TRAIT_KAMIKAZE ? 0 : 1)+(mychar.traits.TRAIT_KAMIKAZE ? 1 : 0);							
 	// Очки действий
 	feat.apoi[0] = feat.apoi[2] + feat.apoi[1] + 5 + Math.floor(agi/2);			
 	// Макс груз
-	//feat.maxl[0] = feat.maxl[2] + feat.maxl[1] + 11 + str*11 + Math.round(traits.TRAIT_SMALL_FRAME[1] ?(str)*(-4.24):(str-1)*0.32);	
-	feat.maxl[0] = feat.maxl[2] + feat.maxl[1] + Math.round(0.453*( 25 + str * ( 25 - traits.TRAIT_SMALL_FRAME[1] * 10 )));
-	
-	/*console.log(453*( 25 + str * ( 25 - traits.TRAIT_SMALL_FRAME[1] * 10 ) ));
-	console.log(11 + str*11 + (traits.TRAIT_SMALL_FRAME[1] ?(str)*(-4.24):(str-1)*0.32));*/
+	feat.maxl[0] = feat.maxl[2] + feat.maxl[1] + Math.round(0.453*( 25 + str * ( 25 - (mychar.traits.TRAIT_SMALL_FRAME ? 1 : 0) * 10 )));
 	// Рукоп. повр.
 	feat.mdmg[0] = feat.mdmg[2] + feat.mdmg[1] + (str > 5 ? str-5 : 1);	
 	// Радиус обзора
@@ -506,15 +261,13 @@ function settle() {	// расчеты навыков и параметров и 
 	feat.levh[0] = feat.levh[2] + feat.levh[1] + (enu > 5 ? Math.floor(enu/3) : 1);	
 	// Крит
 	feat.crit[0] = feat.crit[2] + feat.crit[1] + luc;	
-
 	//Уворот
 	feat.dodge[0] = feat.dodge[2] + feat.dodge[1] + cha + (perk.PE_HTH_EVADE[0] ? (feat.apoi[0]/4)+(feat.apoi[0]/2) : 0);
 	
 	$("#live").html(feat.live[0]+"/"+feat.live[0]);
 	$("#crit").html(feat.crit[0]+"%");
 	$("#dodge").html(feat.dodge[0]+"%");
-	
-	
+		
 	for(var n in resist) {
 		resist[n].asb[0] = resist[n].asb[1] + resist[n].asb[2];
 		resist[n].res[0] = resist[n].res[1] + resist[n].res[2];
@@ -554,10 +307,8 @@ function settle0() {
 	$("#crit").html(feat.crit[0]+"%");
 	$("#dodge").html(feat.dodge[0]+"%");
 }
-
-
-
-function statpoints(){	// Обновление статов
+// Обновление статов
+function statpoints(){	
 	for(var j in stats)	{
 		var link = $("#"+j);
 		var n = stats[j];
@@ -574,20 +325,9 @@ function statpoints(){	// Обновление статов
 			case 8: str = "Отлич."; break;
 			case 9: str = "Круто"; break;
 			case 10: str = "Герой!"; break;
+			default: str = n < 1 ? "Гадко" : n > 10 ? "Герой!" : "Error";
 		}
 		$("#"+j+"t").html(str);
-		/*var num = [0, 0];
-		if(n>99) n = 99;
-		num[1] = Math.floor(n/10);
-		num[0] = Math.floor(n/1)-num[1]*10;
-		if(n==10)
-			link.css({"padding-left":"7px", "letter-spacing":"6px"});
-		else if(n==1)
-			link.css("letter-spacing", "5px");		
-		else
-			link.css({"padding-left":"5px", "letter-spacing":"4px"});		
-		for(var i = 1; i>=0; i--)
-			link.append(num[i]);*/
 		numbers(link,n);
 	}
 	numbers($("#specialpoint"),charp.specialpoint);
@@ -595,6 +335,13 @@ function statpoints(){	// Обновление статов
 }
 // Отображение разлиных поинтов
 function numbers(div,n) {
+	if(n<0) {
+		n = 0;
+		div.css("text-shadow", "0 0 1px #e00");
+	}
+	else {
+		div.css("text-shadow", "0 0 1px #dedede");
+	}
 	div.html("");
 	div.css("background-image", "url(img/nums.png )");
 	var col = 1;
@@ -640,7 +387,7 @@ function plusspec(pop){
 function minusspec(pop){	
 	var str = this.id.substr(5);
 	var n = stats[str][0] + stats[str][1];
-	if(traits.TRAIT_SKILLED[1] && n < 4 && str != "str" && str != "per" && str != "luc") return;
+	if(mychar.traits.TRAIT_SKILLED && n < 4 && str != "str" && str != "per" && str != "luc") return;
 	var s = charp.specialpoint;
 	if (n>1)
 	{
@@ -826,7 +573,6 @@ function leveling() {
 		}
 	}	
 	else alert("Не распределены special point или не тагнуты 3 навыка!");
-	
 }
 // Переход обратно к созданию
 function reg(){
@@ -869,8 +615,7 @@ function switchinfo() {
 			$("#switch"+i).css('backgroundImage', "url(img/switchoff.png)");
 			$("#textswitch"+i).css('top', "9px");
 			$("#textlist"+i).hide();
-		}
-		
+		}		
 	}
 }
 // Выбор навыка для прокачки
@@ -878,14 +623,6 @@ function selectskill() {
 	var n = $("#select").remove();
 	var tops = this.offsetParent.offsetTop + this.offsetTop - 27;
 	var lefts = this.offsetParent.offsetLeft + this.offsetLeft - 6;
-	/*var n = $("<div/>", {"id": "select"}).appendTo("#main").css({	'backgroundImage': 	"url(img/skillpad.png)", 
-																	"position": 		"absolute",
-																	"top":				tops+"px",
-																	"left":				lefts+"px",
-																	"width":			"286px",
-																	"height":			"70px",
-																	"z-index":			"1"
-																	});*/
 	n.appendTo("#main").css({	"top":				tops+"px",
 								"left":				lefts+"px",
 								});
@@ -938,7 +675,7 @@ function levelup(){
 		feat.live[2]+=2+Math.floor(stats.enu[2]/2)+(stats.enu[2]%2?(charp.level%2?0:1):0);
 		feat.live[0] = feat.live[2] + feat.live[1] + 30 + stats.str[2] + stats.enu[2]*2;
 		$("#live").html(feat.live[0]+"/"+feat.live[0]);
-		skills.points += 5 + (stats.intl[2] * 2) - (traits.TRAIT_NIGHT_PERSON[1]?3:0);
+		skills.points += 5 + (stats.intl[2] * 2) - (mychar.traits.TRAIT_NIGHT_PERSON?3:0);
 		spoints();
 	}
 	if(charp.level>28&&charp.level<60)	{
@@ -946,14 +683,13 @@ function levelup(){
 		feat.live[0] = feat.live[2] + feat.live[1] + 30 + stats.str[2] + stats.enu[2]*2;
 		$("#live").html(feat.live[0]+"/"+feat.live[0]);
 	}
-	if(!(charp.level%(traits.TRAIT_SKILLED[1]?4:3)))	{
+	if(!(charp.level%(mychar.traits.TRAIT_SKILLED?4:3)))	{
 		charp.perkpoint++;
 		listperkup();	
 	}
 	if(charp.perkpoint)	{
 		listperkup();	
 	}
-	
 }
 // Окно выбора перков
 function listperkup(){
@@ -995,14 +731,14 @@ function createlistperk() {
 			})
 		}
 }
-
-function showlistperk(){	// Выводит имеющиеся трейты и перки в #textlist1
+// Выводит имеющиеся трейты и перки в #textlist1
+function showlistperk(){	
 	var lineit = $("#textlist1").html("");
 	if(!charp.tagt){
 	lineit.append("<center>Дополнительно</center>");
-	for(var j in traits)
-		if(traits[j][1]) {
-			lineit.append("<div id=\"list"+j+"\">"+texttraits[j][0]+"</div>");
+	for(var j in mychar.traits)
+		if(mychar.traits[j]) {
+			lineit.append("<div id=\"list"+j+"\">"+traits[j][1]+"</div>");
 			$("#list"+j).click(function(){infoparm("traits",this.id.substr(4))})
 		}
 	}
@@ -1051,8 +787,8 @@ function showlistquest(){	// Выводит взятые квесты в #textli
 function infoparm(ch,prm){
 	switch(ch) {
 		case "traits": 
-			$("#nameparm").html(texttraits[prm][0]);
-			$("#textparm").html(texttraits[prm][1]);
+			$("#nameparm").html(traits[prm][1]);
+			$("#textparm").html(traits[prm][2]);
 			//$("#imgparm").html("<img src=\"skill/"+prm+".jpg\">");
 			$("#imgparm").removeClass('loaded');
 			$("#imgparm").html("<img src=\"skill/"+prm+".jpg\" onload=\"imgLoaded(this)\">");
@@ -1203,9 +939,9 @@ function total() {
 	for(var i in stats)
 			textarea += stats[i][2]+" ";
 	textarea += "\nТрейты: "
-	for(var i in texttraits)
-		if(traits[i][1])
-			textarea += texttraits[i][0]+" ";
+	for(var i in traits)
+		if(mychar.traits[i])
+			textarea += traits[i][1]+" ";
 	textarea += "\nНавыки: "
 	for(var i in textskills) 
 		if(skills[i][3])
@@ -1363,7 +1099,7 @@ function main() //главная функция
 	$("#men").css('backgroundImage', 'url(img/men.png)');
 	numberage();
 	spoints();
-	tagnumb();
+	numbers($("#point2"),skills["tags"]);
 	statpoints();
 	settle();
 	createlistperk();
