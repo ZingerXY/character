@@ -6,11 +6,13 @@ function getRandInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-var totalskill = {} // Сколько вкачено навыков на каждом уровне
-var totalperk = {}
-var totalquest = {}
+var totalskill = {}; // Сколько вкачено навыков на каждом уровне
+var totalperk = {};
+var totalquest = {};
 
-var character = {
+var mychar = {};
+
+var charp = {
 	name:	"",
 	age:	getRandInt(14, 60),
 	sex:	"man",
@@ -18,11 +20,12 @@ var character = {
 	exp:	0,
 	nextexp:1000,
 	karma:	0,
+	tagt: 2,
 	crlistperk: "",
 	selectperk: "",
 	selectquest: "",
 	perkpoint: 0
-}
+};
 
 var stats = { // стат, добавленный стат
 	specialpoint: 5,
@@ -156,142 +159,141 @@ var resist = {
 }
 
 var traits = {
-	summ: 2,
-	traits0: [function(){	// Быстрый метаболизм
+	TRAIT_FAST_METABOLISM: [function(){	// Быстрый метаболизм
 							// Плюсы: Добавляется 60 жизней и 15 к уровню лечения.
 							// Минусы: Обнуляется защита к радиации и отравлению. Уменьшает защиту от радиации и отравления в 2 раза. Яд не выводится из организма самостоятельно.
-			if(!this[1] && traits.summ>0) {
+			if(!this[1] && charp.tagt>0) {
 				feat.live[1]+=60; 
 				feat.levh[1]+=15; 
 				feat.stox[3] = 0; 
 				feat.srad[3] = 0; 
 				this[1] = 1;
-				traits.summ--;	}
-			else if(this[1] && traits.summ<2) {
+				charp.tagt--;	}
+			else if(this[1] && charp.tagt<2) {
 				feat.live[1]-=60; 
 				feat.levh[1]-=15; 
 				feat.stox[3] = 1; 
 				feat.srad[3] = 1; 
 				this[1] = 0;
-				traits.summ++;	}
+				charp.tagt++;	}
 			},0],
-	traits1: [function(){	// Крушила Плюсы: +3 силы, игнор тиков плазмы. Минусы: -1 Очко Действия (ОД).
-			if(!this[1] && traits.summ>0) {
+	TRAIT_BRUISER: [function(){	// Крушила Плюсы: +3 силы, игнор тиков плазмы. Минусы: -1 Очко Действия (ОД).
+			if(!this[1] && charp.tagt>0) {
 				stats.str[0]+=3; 
 				feat.apoi[1]-=1;
 				this[1] = 1;
-				traits.summ--;	}
-			else if(this[1] && traits.summ<2) {
+				charp.tagt--;	}
+			else if(this[1] && charp.tagt<2) {
 				stats.str[0]-=3;
 				feat.apoi[1]+=1;
 				this[1] = 0;
-				traits.summ++;	}
+				charp.tagt++;	}
 			},0],
-	traits2: [function(){	// Хилое тело 
+	TRAIT_SMALL_FRAME: [function(){	// Хилое тело 
 							// Плюсы: +1 ловкости, +5% к увороту.
 							// Минусы: Уменьшает максимальный переносимый вес относительно силы персонажа.
-			if(!this[1] && traits.summ>0) {
+			if(!this[1] && charp.tagt>0) {
 				feat.dodge[1]+=5;
 				stats.agi[0]+=1; 
 				this[1] = 1;
-				traits.summ--;	}
-			else if(this[1] && traits.summ<2) {
+				charp.tagt--;	}
+			else if(this[1] && charp.tagt<2) {
 				feat.dodge[1]-=5;
 				stats.agi[0]-=1; 
 				this[1] = 0;
-				traits.summ++;	}
+				charp.tagt++;	}
 			},0],
-	traits3: [function(){	//	Однорукий 
+	TRAIT_ONE_HANDER: [function(){	//	Однорукий 
 							//	Плюсы: Игнор силы на одноручное, +60 к навыку одноручного оружия.
 							//	Минусы: -40 к навыку при использовании двуручного оружия.
-			if(!this[1] && traits.summ>0) {
+			if(!this[1] && charp.tagt>0) {
 				this[1] = 1; 
-				traits.summ--;	} 
-			else if(this[1] && traits.summ<2) {
+				charp.tagt--;	} 
+			else if(this[1] && charp.tagt<2) {
 				this[1] = 0; 
-				traits.summ++;	
+				charp.tagt++;	
 			}
 			},0],
-	traits4: [function(){	// Точность
+	TRAIT_FINESSE: [function(){	// Точность
 							// Плюсы: +20% к шансу критической атаки. -10 к проверке на силу критического эффекта при атаке по вам.
 							// Минусы: -5% к урону.
-			if(!this[1] && traits.summ>0){
+			if(!this[1] && charp.tagt>0){
 				feat.crit[1]+=20;
 				this[1] = 1; 
-				traits.summ--;	} 
-			else if(this[1] && traits.summ<2){
+				charp.tagt--;	} 
+			else if(this[1] && charp.tagt<2){
 				feat.crit[1]-=20;
 				this[1] = 0; 
-				traits.summ++;	
+				charp.tagt++;	
 			}
 			},0],
-	traits5: [function(){	// Камикадзе
+	TRAIT_KAMIKAZE: [function(){	// Камикадзе
 							// Плюсы: +1 Ловкости. Каждые 10 секунд вы восстанавливаете 1 ОД. Если вы не в бою - первая атака отнимет на 2 ОД меньше. Игнорирование эффекта "Подавление".
 							// Минусы: Персонаж не получает КБ от параметра Ловкости.
-			if(!this[1] && traits.summ>0){
+			if(!this[1] && charp.tagt>0){
 				stats.agi[1]+=1; 
 				this[1] = 1; 
-				traits.summ--;	} 
-			else if(this[1] && traits.summ<2){
+				charp.tagt--;	} 
+			else if(this[1] && charp.tagt<2){
 				stats.agi[1]-=1; 
 				this[1] = 0; 
-				traits.summ++;	
+				charp.tagt++;	
 			}
 			},0],
-	traits6: [function(){	// Громила
+	TRAIT_HEAVY_HANDED: [function(){	// Громила
 							// Плюсы: +25 к рукопашным повреждениям (урезаются повреждения у Доп. рукопашн. повр. и у Слеера)
 							// Минусы: -30 критролла.
-			if(!this[1] && traits.summ>0){
+			if(!this[1] && charp.tagt>0){
 				feat.mdmg[1]+=25;
 				this[1] = 1; 
-				traits.summ--;	} 
-			else if(this[1] && traits.summ<2){
+				charp.tagt--;	} 
+			else if(this[1] && charp.tagt<2){
 				feat.mdmg[1]-=25;
 				this[1] = 0; 
-				traits.summ++;	
+				charp.tagt++;	
 			}
 			},0],
-	traits7: [function(){	// Быстрый стрелок
+	TRAIT_FAST_SHOT: [function(){	// Быстрый стрелок
 							// Плюсы: Атаки стрелковым и метательным оружием требуют меньше на 1 ОД.
 							// Минусы: Полностью отсутствует прицельный режим атаки. Критический урон не удваивается, хотя эффекты остаются.
-			if(!this[1] && traits.summ>0){
+			if(!this[1] && charp.tagt>0){
 				this[1] = 1; 
-				traits.summ--;	} 
-			else if(this[1] && traits.summ<2){
+				charp.tagt--;	} 
+			else if(this[1] && charp.tagt<2){
 				this[1] = 0; 
-				traits.summ++;	
+				charp.tagt++;	
 			}
 			},0],
-	traits8: [function(){	// Маньяк
+	TRAIT_BLOODY_MESS: [function(){	// Маньяк
 							// Плюсы: +175 к навыку Атлетизма.
 							// Минусы: -25 ОЗ.
-			if(!this[1] && traits.summ>0){
+			if(!this[1] && charp.tagt>0){
 				skills.speed[1]+=175;
 				feat.live[1]-=25;
 				this[1] = 1; 
-				traits.summ--;	} 
-			else if(this[1] && traits.summ<2){
+				charp.tagt--;	} 
+			else if(this[1] && charp.tagt<2){
 				skills.speed[1]-=175;
 				feat.live[1]+=25;
 				this[1] = 0; 
-				traits.summ++;	
+				charp.tagt++;	
 			}
 			},0],
-	traits9: [function(){	// Дурной глаз
+	TRAIT_JINXED: [function(){	// Дурной глаз
 							// Плюсы: Промах по вам станет для соперника критическим с 50% вероятностью.
 							// Минусы: Вы критически промахиваетесь с этой же вероятностью.
-			if(!this[1] && traits.summ>0){
+			if(!this[1] && charp.tagt>0){
 				this[1] = 1; 
-				traits.summ--;	} 
-			else if(this[1] && traits.summ<2){
+				charp.tagt--;	} 
+			else if(this[1] && charp.tagt<2){
 				this[1] = 0; 
-				traits.summ++;	
+				charp.tagt++;	
 			}
 			},0],
-	traits10: [function(){	// Добродушие
+	TRAIT_GOOD_NATURED: [function(){	// Добродушие
 							// Плюсы: +25 к навыкам Санитар, Доктор, Красноречие и Торговля. НПЦ-люди не атакуют на энкаунтерах. Влияет на формулу бонуса от КБ и снижает урон от мастеров-перков (см. Перки).
 							// Минусы: Все боевые навыки уменьшаются на 15.
-			if(!this[1] && traits.summ>0){
+			if(!this[1] && charp.tagt>0){
 				skills.orderly[1]+=15;
 				skills.doctor[1]+=25;
 				skills.oratory[1]+=35;
@@ -303,8 +305,8 @@ var traits = {
 				skills.melee[1]-=10;
 				skills.thrown[1]-=10;
 				this[1] = 1; 	
-				traits.summ--;	} 
-			else if(this[1] && traits.summ<2){
+				charp.tagt--;	} 
+			else if(this[1] && charp.tagt<2){
 				skills.orderly[1]-=15;
 				skills.doctor[1]-=25;
 				skills.oratory[1]-=35;
@@ -316,48 +318,48 @@ var traits = {
 				skills.melee[1]+=10;
 				skills.thrown[1]+=10;
 				this[1] = 0; 
-				traits.summ++;	
+				charp.tagt++;	
 			}
 			},0],
-	traits11: [function(){	// Химик
+	TRAIT_CHEM_RELIANT: [function(){	// Химик
 							// Плюсы: Наркотики держатся в три раза дольше. Откаты почти мнгновенные. Но если есть привыкание, оно держится долго.
 							// Минусы: Привыкание в два раза чаще.
-			if(!this[1] && traits.summ>0){
+			if(!this[1] && charp.tagt>0){
 				this[1] = 1; 
-				traits.summ--;	} 
-			else if(this[1] && traits.summ<2){
+				charp.tagt--;	} 
+			else if(this[1] && charp.tagt<2){
 				this[1] = 0; 
-				traits.summ++;	
+				charp.tagt++;	
 			}
 			},0],
-	traits12: [function(){	// Стабильный
+	TRAIT_CHEM_RESISTANT: [function(){	// Стабильный
 							// Плюсы: Вы никогда критически не промахиваетесь, +25 бонуса к окончательной точности (даже в дыму). Игнорируется эффект плазмы (тики).
 							// Минусы: Вы никогда критически не попадаете.
-			if(!this[1] && traits.summ>0){
+			if(!this[1] && charp.tagt>0){
 				this[1] = 1; 
-				traits.summ--;	} 
-			else if(this[1] && traits.summ<2){
+				charp.tagt--;	} 
+			else if(this[1] && charp.tagt<2){
 				this[1] = 0; 
-				traits.summ++;	
+				charp.tagt++;	
 			}
 			},0],
-	traits13: [function(){	// Жидкое тело
+	TRAIT_SEX_APPEAL: [function(){	// Жидкое тело
 							// Плюсы: Каждый выстрел наносит вам на 10 повреждений меньше. Игнорирование тиков от огня. +50 веса.
 							// Минусы: Стимуляторы и Санитар не работают в полную мощь (-20 к отхилу).
-			if(!this[1] && traits.summ>0){
+			if(!this[1] && charp.tagt>0){
 				feat.maxl[1]+=50;
 				this[1] = 1; 
-				traits.summ--;	} 
-			else if(this[1] && traits.summ<2){
+				charp.tagt--;	} 
+			else if(this[1] && charp.tagt<2){
 				feat.maxl[1]-=50;
 				this[1] = 0; 
-				traits.summ++;	
+				charp.tagt++;	
 			}
 			},0],
-	traits14: [function(){	// Умелец
+	TRAIT_SKILLED: [function(){	// Умелец
 							// Плюсы: +1 к Силе, Восприятию, Выносливости, Харизме, Интеллекту, Ловкости и Удаче.
 							// Минусы: Перк дается через 4 уровня, а не через 3.
-			if(!this[1] && traits.summ>0){
+			if(!this[1] && charp.tagt>0){
 				stats.enu[1]+=2;
 				stats.cha[1]+=2;
 				stats.intl[1]+=2;
@@ -365,30 +367,30 @@ var traits = {
 				feat.live[1]+=25; 
 				
 				this[1] = 1; 
-				traits.summ--;	} 
-			else if(this[1] && traits.summ<2){
+				charp.tagt--;	} 
+			else if(this[1] && charp.tagt<2){
 				stats.enu[1]-=2;
 				stats.cha[1]-=2;
 				stats.intl[1]-=2;
 				stats.agi[1]-=2;
 				feat.live[1]-=25;
 				this[1] = 0; 
-				traits.summ++;	
+				charp.tagt++;	
 			}
 			},0],
-	traits15: [function(){	// Импульсивный
+	TRAIT_NIGHT_PERSON: [function(){	// Импульсивный
 							// Плюсы: +2 ОД, +20 к навыку Метания.
 							// Минусы: -3 Очков Умений за каждый уровень.
-			if(!this[1] && traits.summ>0){
+			if(!this[1] && charp.tagt>0){
 				feat.apoi[1]+=2;
 				skills.thrown[1]+=20;
 				this[1] = 1; 
-				traits.summ--;	} 
-			else if(this[1] && traits.summ<2){
+				charp.tagt--;	} 
+			else if(this[1] && charp.tagt<2){
 				feat.apoi[1]-=2;
 				skills.thrown[1]-=20;
 				this[1] = 0; 
-				traits.summ++;	
+				charp.tagt++;	
 			}
 			},0]
 }
@@ -488,15 +490,15 @@ function settle() {	// расчеты навыков и параметров и 
 	// Жизни
 	feat.live[0] = feat.live[2] + feat.live[1] + 30 + str + enu*2;		
 	// Класс брони
-	feat.armc[0] = feat.armc[2] + feat.armc[1] + agi*(traits.traits5[1] ? 0 : 1)+(traits.traits5[1] ? 1 : 0);							
+	feat.armc[0] = feat.armc[2] + feat.armc[1] + agi*(traits.TRAIT_KAMIKAZE[1] ? 0 : 1)+(traits.TRAIT_KAMIKAZE[1] ? 1 : 0);							
 	// Очки действий
 	feat.apoi[0] = feat.apoi[2] + feat.apoi[1] + 5 + Math.floor(agi/2);			
 	// Макс груз
-	//feat.maxl[0] = feat.maxl[2] + feat.maxl[1] + 11 + str*11 + Math.round(traits.traits2[1] ?(str)*(-4.24):(str-1)*0.32);	
-	feat.maxl[0] = feat.maxl[2] + feat.maxl[1] + Math.round(0.453*( 25 + str * ( 25 - traits.traits2[1] * 10 )));
+	//feat.maxl[0] = feat.maxl[2] + feat.maxl[1] + 11 + str*11 + Math.round(traits.TRAIT_SMALL_FRAME[1] ?(str)*(-4.24):(str-1)*0.32);	
+	feat.maxl[0] = feat.maxl[2] + feat.maxl[1] + Math.round(0.453*( 25 + str * ( 25 - traits.TRAIT_SMALL_FRAME[1] * 10 )));
 	
-	/*console.log(453*( 25 + str * ( 25 - traits.traits2[1] * 10 ) ));
-	console.log(11 + str*11 + (traits.traits2[1] ?(str)*(-4.24):(str-1)*0.32));*/
+	/*console.log(453*( 25 + str * ( 25 - traits.TRAIT_SMALL_FRAME[1] * 10 ) ));
+	console.log(11 + str*11 + (traits.TRAIT_SMALL_FRAME[1] ?(str)*(-4.24):(str-1)*0.32));*/
 	// Рукоп. повр.
 	feat.mdmg[0] = feat.mdmg[2] + feat.mdmg[1] + (str > 5 ? str-5 : 1);	
 	// Радиус обзора
@@ -614,7 +616,7 @@ function plusspec(pop){	// Добавление стата
 function minusspec(pop){	// Отнимание стата
 	var str = this.id.substr(5);
 	var n = stats[str][0] + stats[str][1];
-	if(traits.traits14[1] && n < 4 && str != "str" && str != "per" && str != "luc") return;
+	if(traits.TRAIT_SKILLED[1] && n < 4 && str != "str" && str != "per" && str != "luc") return;
 	var s = stats["specialpoint"];
 	if (n>1)
 	{
@@ -783,7 +785,7 @@ function showthis() {
 function numberage() {
 	var link = $("#numberage");
 	link.html("");
-	var n = character.age;
+	var n = charp.age;
 	$("#age").html(n);
 	var col = 1;
 	var num = [0, 0];
@@ -794,25 +796,25 @@ function numberage() {
 		link.append("<img src=\"img/"+num[i]+".png\" onload=\"imgLoaded(this)\">");
 }
 function plusage() { // Прибавить возраст
-	character.age++;
-	if(character.age>60) character.age = 14;
+	charp.age++;
+	if(charp.age>60) charp.age = 14;
 	numberage();
 }
 function minusage() { // Отнять возраст
-	character.age--;
-	if(character.age<14) character.age = 60;
+	charp.age--;
+	if(charp.age<14) charp.age = 60;
 	numberage();
 }
 // Смена пола
 function changesex() {
-	if(this.id === "men" && character.sex !== "men") {
-		character.sex = "men";
+	if(this.id === "men" && charp.sex !== "men") {
+		charp.sex = "men";
 		$("#men").css('backgroundImage', 'url(img/men.png)');
 		$("#women").css('backgroundImage', '');
 		$("#sex").html("МУЖ.");
 	}
-	else if(this.id === "women" && character.sex !== "women") {
-		character.sex = "women";
+	else if(this.id === "women" && charp.sex !== "women") {
+		charp.sex = "women";
 		$("#women").css('backgroundImage', 'url(img/women.png)');
 		$("#men").css('backgroundImage', '');
 		$("#sex").html("ЖЕН.");
@@ -827,9 +829,9 @@ function leveling() {
 			$("#main").css('backgroundImage', "url(img/char.gif)");
 			$(".reg").hide();
 			$(".leveling").show();
-			$("#level").html(character.level);
-			$("#exp").html(character.exp);
-			$("#nextexp").html(character.nextexp);
+			$("#level").html(charp.level);
+			$("#exp").html(charp.exp);
+			$("#nextexp").html(charp.nextexp);
 			spoints();
 			$("<div/>", {"id": "select"}).appendTo("#main").css({	'backgroundImage': 	"url(img/skillpad.png)", 
 																	"position": 		"absolute",
@@ -920,7 +922,7 @@ function switchinfo() {
 	var n = +this.id.substr(10);
 	for(var i = 1; i<4;i++) {
 		if(n===i) { 
-			if($("#textlist1").is(":visible")&&character.perkpoint) {
+			if($("#textlist1").is(":visible")&&charp.perkpoint) {
 				listperkup();
 			}
 			else if(n===3) {
@@ -994,29 +996,29 @@ function selectskill() {
 }
 // Повышение уровня
 function levelup(){
-	if(character.level==99) return;
+	if(charp.level==99) return;
 	result();
-	character.level++;
-	$("#level").html(character.level);
-	$("#exp").html(character.exp = levelexp(character.level));
-	$("#nextexp").html(character.nextexp = levelexp(character.level+1));
-	if(character.level<29)	{
-		feat.live[2]+=2+Math.floor(stats.enu[2]/2)+(stats.enu[2]%2?(character.level%2?0:1):0);
+	charp.level++;
+	$("#level").html(charp.level);
+	$("#exp").html(charp.exp = levelexp(charp.level));
+	$("#nextexp").html(charp.nextexp = levelexp(charp.level+1));
+	if(charp.level<29)	{
+		feat.live[2]+=2+Math.floor(stats.enu[2]/2)+(stats.enu[2]%2?(charp.level%2?0:1):0);
 		feat.live[0] = feat.live[2] + feat.live[1] + 30 + stats.str[2] + stats.enu[2]*2;
 		$("#live").html(feat.live[0]+"/"+feat.live[0]);
-		skills.points += 5 + (stats.intl[2] * 2) - (traits.traits15[1]?3:0);
+		skills.points += 5 + (stats.intl[2] * 2) - (traits.TRAIT_NIGHT_PERSON[1]?3:0);
 		spoints();
 	}
-	if(character.level>28&&character.level<60)	{
+	if(charp.level>28&&charp.level<60)	{
 		feat.live[2]+=1;
 		feat.live[0] = feat.live[2] + feat.live[1] + 30 + stats.str[2] + stats.enu[2]*2;
 		$("#live").html(feat.live[0]+"/"+feat.live[0]);
 	}
-	if(!(character.level%(traits.traits14[1]?4:3)))	{
-		character.perkpoint++;
+	if(!(charp.level%(traits.TRAIT_SKILLED[1]?4:3)))	{
+		charp.perkpoint++;
 		listperkup();	
 	}
-	if(character.perkpoint)	{
+	if(charp.perkpoint)	{
 		listperkup();	
 	}
 	
@@ -1029,13 +1031,13 @@ function listperkup(){
 	$("#nameparms").html("");
 	$("#textparms").html("");
 	$("#imgparms").html("");
-	character.selectperk = "";
+	charp.selectperk = "";
 	for(var i in perk){
-		if(perk[i][0]<perk[i][1]&&character.level>=perk[i][2]&&character.level<=perk[i][3]&&perk[i][4](0)){
+		if(perk[i][0]<perk[i][1]&&charp.level>=perk[i][2]&&charp.level<=perk[i][3]&&perk[i][4](0)){
 			var perkit = $("<div id=\""+i+"\" class=\"perklist\">"+textperks[i][0]+"</div>").appendTo("#selectperk")
 			perkit.click(function(){
-				if(character.selectperk) $("#"+character.selectperk).css("color","#00AB00");
-				character.selectperk = this.id;
+				if(charp.selectperk) $("#"+charp.selectperk).css("color","#00AB00");
+				charp.selectperk = this.id;
 				$("#"+this.id).css("color","#00FF00");
 				infoperk(this.id);
 			})
@@ -1055,8 +1057,8 @@ function createlistperk() {
 		if(perk[i][4](1)&&perk[i][3]===29||perk[i][3]===32) {
 			var perkit = $("<div id=\"lists"+i+"\" class=\"perklist\">"+textperks[i][0]+"</div>").appendTo("#crlistperk")
 			perkit.click(function(){
-				if(character.crlistperk) $("#"+character.crlistperk).css("color","#00AB00");
-				character.crlistperk = this.id;
+				if(charp.crlistperk) $("#"+charp.crlistperk).css("color","#00AB00");
+				charp.crlistperk = this.id;
 				$("#"+this.id).css("color","#00FF00");
 				infoparm("perks",this.id.substr(5));
 			})
@@ -1065,7 +1067,7 @@ function createlistperk() {
 
 function showlistperk(){	// Выводит имеющиеся трейты и перки в #textlist1
 	var lineit = $("#textlist1").html("");
-	if(!traits.summ){
+	if(!charp.tagt){
 	lineit.append("<center>Дополнительно</center>");
 	for(var j in traits)
 		if(traits[j][1]) {
@@ -1084,19 +1086,19 @@ function showlistperk(){	// Выводит имеющиеся трейты и п
 function listquestup(){
 	var chval = false;
 	for(var i in quest)
-		chval = chval || (quest[i][0]<quest[i][1]&&character.level>=quest[i][2]&&character.level<=quest[i][3]&&quest[i][4]());
+		chval = chval || (quest[i][0]<quest[i][1]&&charp.level>=quest[i][2]&&charp.level<=quest[i][3]&&quest[i][4]());
 	if (!chval) return;
 	$("#quest").show();
 	$("#selectquest").html("");
 	$("#nameparmq").html("");
 	$("#textparmq").html("");
-	character.selectquest = "";
+	charp.selectquest = "";
 	for(var i in quest){
-		if(quest[i][0]<quest[i][1]&&character.level>=quest[i][2]&&character.level<=quest[i][3]&&quest[i][4]()){
+		if(quest[i][0]<quest[i][1]&&charp.level>=quest[i][2]&&charp.level<=quest[i][3]&&quest[i][4]()){
 			var questit = $("<div id=\""+i+"\" class=\"perklist\">"+textquest[i][0]+"</div>").appendTo("#selectquest")
 			questit.click(function(){
-				if(character.selectquest) $("#"+character.selectquest).css("color","#00AB00");
-				character.selectquest = this.id;
+				if(charp.selectquest) $("#"+charp.selectquest).css("color","#00AB00");
+				charp.selectquest = this.id;
 				$("#"+this.id).css("color","#00FF00");
 				$("#nameparmq").html(textquest[this.id][0]);
 				$("#textparmq").html(textquest[this.id][1]);
@@ -1223,11 +1225,11 @@ function talk(textdialog,answ) {
 					skills[e.currentTarget.id.substr(4)][2]+=nup[0];
 					nup = nup[1];
 				}
-				quest[character.selectquest][0] += nup;
-					var n = totalquest[character.level];
+				quest[charp.selectquest][0] += nup;
+					var n = totalquest[charp.level];
 					if(n==undefined) n = [];
-					n.push(textquest[character.selectquest][0]+"("+e.data.name+")");
-					totalquest[character.level] = n;
+					n.push(textquest[charp.selectquest][0]+"("+e.data.name+")");
+					totalquest[charp.level] = n;
 				settle();
 				statpoints();
 				showlistquest();
@@ -1246,7 +1248,7 @@ function result() {
 				skills[j][2]=0;
 			}
 		}
-	totalskill[character.level] = lvl;
+	totalskill[charp.level] = lvl;
 	
 }
 // Проверка обекта на наличие элементов
@@ -1261,7 +1263,7 @@ function emptyObject(obj) {
 function total() {
 	$("#total").show();
 	//$("#totaltext")
-	var textarea = character.name+" "+feat.live[0]+" XP\n";
+	var textarea = charp.name+" "+feat.live[0]+" XP\n";
 	for(var i in stats)
 		if(i!=="specialpoint")
 			textarea += stats[i][2]+" ";
@@ -1353,7 +1355,7 @@ function main() //главная функция
 	$("#pasenter").keydown(function(pop){ if(pop.keyCode === 13) modalCloseClick();});
 	$("#namenter").keyup(function(){ 
 											$("#name").html($("#namenter").html().toUpperCase());
-											character.name = $("#namenter").html();
+											charp.name = $("#namenter").html();
 											});
 											
 	$("#done").click(leveling);
@@ -1362,11 +1364,11 @@ function main() //главная функция
 	$("#doneperk").click(function(){
 						$("#perk").hide(); 
 						$("#perk").animate({'opacity':'0'},200);
-						if(character.selectperk) {
-							perk[character.selectperk][0] += 1;
-							character.perkpoint--;
-							perkup[character.selectperk]();
-							totalperk[character.level] = textperks[character.selectperk];
+						if(charp.selectperk) {
+							perk[charp.selectperk][0] += 1;
+							charp.perkpoint--;
+							perkup[charp.selectperk]();
+							totalperk[charp.level] = textperks[charp.selectperk];
 							showlistperk();
 							settle();
 							statpoints();
@@ -1377,15 +1379,15 @@ function main() //главная функция
 	
 	$("#donequest").click(function(){
 						$("#quest").hide(); 
-						if(character.selectquest) {
-							if(character.selectquest!="per_ncr"&&character.selectquest!="medals"&&character.selectquest!="drayfild"&&character.selectquest.substr(0,3)!="imp") {
-								quest[character.selectquest][0] += 1;
-								var n = totalquest[character.level];
+						if(charp.selectquest) {
+							if(charp.selectquest!="per_ncr"&&charp.selectquest!="medals"&&charp.selectquest!="drayfild"&&charp.selectquest.substr(0,3)!="imp") {
+								quest[charp.selectquest][0] += 1;
+								var n = totalquest[charp.level];
 								if(n==undefined) n = [];
-								n.push(textquest[character.selectquest][0]);
-								totalquest[character.level] = n;
+								n.push(textquest[charp.selectquest][0]);
+								totalquest[charp.level] = n;
 							}
-							questup[character.selectquest]();
+							questup[charp.selectquest]();
 							showlistquest();
 							settle();
 							statpoints();
@@ -1410,12 +1412,10 @@ function main() //главная функция
 		}
 	}
 	for(var j in traits){
-		if(j != "summ") {
-			$("#key"+j).mousedown(function(){$("#lkey"+this.id.substr(3)).html("<img src=\"img/small_key.png\" onload=\"imgLoaded(this)\">");});
-			$("#key"+j).mouseup(function(){$("#lkey"+this.id.substr(3)).html("");});
-			$("#key"+j).click(trait);
-			$("#"+j).click(function(){infoparm("traits",this.id)});
-		}
+		$("#key"+j).mousedown(function(){$("#lkey"+this.id.substr(3)).html("<img src=\"img/small_key.png\" onload=\"imgLoaded(this)\">");});
+		$("#key"+j).mouseup(function(){$("#lkey"+this.id.substr(3)).html("");});
+		$("#key"+j).click(trait);
+		$("#"+j).click(function(){infoparm("traits",this.id)});
 	}
 	
 	for(var j in skills){

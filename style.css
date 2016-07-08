@@ -25,17 +25,6 @@ body{
 	background-color:	#000;
 	cursor: url("img/fallout.png"), default;
 }
-/*.fon 	{
-	width:					1366px;
-	height:					768px;
-	position:				absolute;
-		top:				25%;
-		left:				25%;
-	margin:					auto;
-	margin-top:				-683px;
-    margin-bottom:			-384px;
-	
-}*/
 .main	{
 	opacity:				0;
 	background-image:		url(img/reg.png	);
@@ -47,11 +36,6 @@ body{
 	transform: 				scale(1);
     width:					800px;
 	height:					520px;
-	/*position:				absolute;
-		/*top:				45%;*//*
-		left:				20%;
-	margin-top:				5%;
-    margin-bottom:			-400px;*/
 	-moz-user-select:		-moz-none;
 	-o-user-select:			none;
 	-khtml-user-select: 	none;
@@ -59,15 +43,6 @@ body{
 	user-select:			none;
 	margin: 				90px auto;
 }
-/*#zoom{
-	position: fixed;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	z-index: 100;
-	overflow: auto;
-}*/
 #wrap{
 	display: none;
 	position: fixed;
@@ -313,8 +288,8 @@ body{
 .text2	{
 	display:		inline-block;
 	position: 		absolute;
-	/*font-family: 	fallout_display, 'fallout_display', cursive;*/
 	font-family: 	Arial_Bold;
+	/*font-family: 	fallout_display, 'fallout_display', cursive;*/
 	/*font-family: 	hardpixel_regular, 'hardpixel_regular', cursive;*/
 	color:			#00FF00;
 	font-size:		11px;
@@ -530,7 +505,6 @@ div[id ^= "nameparm"] {
 	z-index:		100;
 }
 /* хром, сафари */
-
 div[id ^= "textparm"]::-webkit-scrollbar { width: 0; }
 /* ie 10+ */
 div[id ^= "textparm"] { -ms-overflow-style: none; }
@@ -613,22 +587,22 @@ div[id ^= "imgparm"] {
 .lkey8	{top:104px;}
 .lkey9	{top:117px;}
 
-.traits0	{top:20px;}
-.traits1	{top:33px;}
-.traits2	{top:46px;}
-.traits3	{top:59px;}
-.traits4	{top:72px;}
-.traits5	{top:85px;}
-.traits6	{top:98px;}
-.traits7	{top:111px;}
-.traits8	{top:20px;}
-.traits9	{top:33px;}
-.traits10	{top:46px;}
-.traits11	{top:59px;}
-.traits12	{top:72px;}
-.traits13	{top:85px;}
-.traits14	{top:98px;}
-.traits15	{top:111px;}
+.TRAIT_FAST_METABOLISM	{top:20px;}
+.TRAIT_BRUISER	{top:33px;}
+.TRAIT_SMALL_FRAME	{top:46px;}
+.TRAIT_ONE_HANDER	{top:59px;}
+.TRAIT_FINESSE	{top:72px;}
+.TRAIT_KAMIKAZE	{top:85px;}
+.TRAIT_HEAVY_HANDED	{top:98px;}
+.TRAIT_FAST_SHOT	{top:111px;}
+.TRAIT_BLOODY_MESS	{top:20px;}
+.TRAIT_JINXED	{top:33px;}
+.TRAIT_GOOD_NATURED	{top:46px;}
+.TRAIT_CHEM_RELIANT	{top:59px;}
+.TRAIT_CHEM_RESISTANT	{top:72px;}
+.TRAIT_SEX_APPEAL	{top:85px;}
+.TRAIT_SKILLED	{top:98px;}
+.TRAIT_NIGHT_PERSON	{top:111px;}
 #switch	{
 	display:		none;
 	position: 		absolute;
