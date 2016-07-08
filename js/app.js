@@ -593,7 +593,7 @@ function statpoints(){	// Обновление статов
 	numbers($("#specialpoint"),charp.specialpoint);
 	createlistperk();
 }
-
+// Отображение разлиных поинтов
 function numbers(div,n) {
 	div.html("");
 	div.css("background-image", "url(img/nums.png )");
@@ -621,10 +621,8 @@ function numbers(div,n) {
 	for(var i = col; i>=0; i--)
 		div.append(num[i]);
 }
-
-
-
-function plusspec(pop){	// Добавление стата
+// Добавление стата
+function plusspec(pop){	
 	var str = this.id.substr(4);
 	var n = stats[str][0] + stats[str][1];
 	var s = charp.specialpoint;
@@ -638,8 +636,8 @@ function plusspec(pop){	// Добавление стата
 	statpoints();
 	settle();
 }
-
-function minusspec(pop){	// Отнимание стата
+// Отнимание стата
+function minusspec(pop){	
 	var str = this.id.substr(5);
 	var n = stats[str][0] + stats[str][1];
 	if(traits.TRAIT_SKILLED[1] && n < 4 && str != "str" && str != "per" && str != "luc") return;
@@ -654,47 +652,11 @@ function minusspec(pop){	// Отнимание стата
 	statpoints();
 	settle();
 }
-
-function spoints(){	// обновление скилпоинтов
+// обновление скилпоинтов
+function spoints(){	
 	numbers($("#point1"),skills.points)
 }
-
-/*function plus()	// прокачка навыков
-{
-	var n = skills[this.id.substr(4)][0];	// Навык
-	var m = skills[this.id.substr(4)][2];	// Прибавленно на уровне
-	var s = skills.points;					// Очки навыков
-	if(s>0)
-	{		
-		if(n%2)	// нечетный
-		{
-			if(n<101 && s>=1)		s-=1;
-			else if(n<127 && s>=2)	s-=2;
-			else if(n<151 && s>=3)	s-=3;
-			else if(n<177 && s>=4)	s-=4;
-			else if(n<201 && s>=5)	s-=5;
-			else if(n<300 && s>=6)	s-=6;
-			else return;
-		}
-		else	// четный
-		{
-			if(n<102 && s>=1)		s-=1;
-			else if(n<126 && s>=2)	s-=2;
-			else if(n<152 && s>=3)	s-=3;
-			else if(n<176 && s>=4)	s-=4;
-			else if(n<202 && s>=5)	s-=5;
-			else if(n<300 && s>=6)	s-=6;
-			else return;
-		}
-		if(!skills[this.id.substr(4)][3])	m+=1;
-		else m+=2
-		skills.points = s;
-		skills[this.id.substr(4)][2] = m;
-		spoints();
-		settle();
-	}
-}*/
-
+// Прокачка навыков
 function plus() {
 	var n = skills[this.id.substr(4)][0];
 	if( n >= SkillMod.MaxValue ) return;
@@ -714,44 +676,7 @@ function plus() {
 	spoints();
 	settle();
 }
-
-
-
-/*function minus()	// откачка навыков
-{
-	var n = skills[this.id.substr(5)][0];	// Навык
-	var m = skills[this.id.substr(5)][2];	// Прибавленно на уровне
-	var s = skills.points;					// Очки навыков
-	if(m>0)
-	{
-		if(n%2)	// нечетный
-		{
-			if(n<=101)		s+=1;
-			else if(n<=125)	s+=2;
-			else if(n<=151)	s+=3;
-			else if(n<=175)	s+=4;
-			else if(n<=201)	s+=5;
-			else if(n<=300)	s+=6;
-		}
-		else	// четный
-		{
-			if(n<=100)		s+=1;
-			else if(n<=126)	s+=2;
-			else if(n<=150)	s+=3;
-			else if(n<=176)	s+=4;
-			else if(n<=202)	s+=5;
-			else if(n<=300)	s+=6;
-			
-		}
-		if(!skills[this.id.substr(5)][3])	m-=1;
-		else m-=2
-		skills.points = s;
-		skills[this.id.substr(5)][2] = m;
-		spoints();
-		settle();
-	}
-}*/
-
+// Откачка навыков
 function minus() {
 	var skillid = this.id.substr(5);
 	var n = skills[skillid][0];
@@ -800,17 +725,7 @@ function showthis() {
 }
 // Обновление возраста
 function numberage() {
-	var link = $("#numberage");
-	link.html("");
-	var n = charp.age;
-	$("#age").html(n);
-	var col = 1;
-	var num = [0, 0];
-	if (n>99) n=99;
-	num[1] = Math.floor(n/10);
-	num[0] = Math.floor(n/1)-num[1]*10;
-	for(var i = col; i>=0; i--)
-		link.append("<img src=\"img/"+num[i]+".png\" onload=\"imgLoaded(this)\">");
+	numbers($("#numberage"),charp.age);
 }
 function plusage() { // Прибавить возраст
 	charp.age++;
@@ -1139,12 +1054,14 @@ function infoparm(ch,prm){
 			$("#nameparm").html(texttraits[prm][0]);
 			$("#textparm").html(texttraits[prm][1]);
 			//$("#imgparm").html("<img src=\"skill/"+prm+".jpg\">");
+			$("#imgparm").removeClass('loaded');
 			$("#imgparm").html("<img src=\"skill/"+prm+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
 		case "perks": 
 			$("#nameparm").html(textperks[prm][0]);
 			$("#textparm").html(textperks[prm][1]);
 			//$("#imgparm").html("<img src=\"skill/"+prm.substr(3)+".jpg\">");
+			$("#imgparm").removeClass('loaded');
 			$("#imgparm").html("<img src=\"skill/"+prm.substr(3)+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
 		case "quest": // добавить описание
@@ -1154,11 +1071,13 @@ function infoparm(ch,prm){
 		case "skills": // добавить описание
 			$("#nameparm").html(textperks[prm][0]);
 			$("#textparm").html(textperks[prm][1]);
+			$("#imgparm").removeClass('loaded');
 			$("#imgparm").html("<img src=\"skill/"+prm.substr(3)+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
 		case "stats": // добавить описание
 			$("#nameparm").html(textperks[prm][0]);
 			$("#textparm").html(textperks[prm][1]);
+			$("#imgparm").removeClass('loaded');
 			$("#imgparm").html("<img src=\"skill/"+prm.substr(3)+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
 	}
@@ -1167,6 +1086,7 @@ function infoparm(ch,prm){
 function infoperk(prm){
 	$("#nameparms").html(textperks[prm][0]);
 	$("#textparms").html(textperks[prm][1]);
+	$("#imgparms").removeClass('loaded');
 	$("#imgparms").html("<img src=\"skill/"+prm.substr(3)+".jpg\" onload=\"imgLoaded(this)\">");
 }
 
@@ -1326,6 +1246,7 @@ function scrollit(e){
 function imgLoaded(img){
     var $img = $(img);
     $img.parent().addClass('loaded');
+	//$img.parent().removeClass('loaded');
 }
 
 function main() //главная функция
