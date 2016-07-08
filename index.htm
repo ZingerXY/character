@@ -1,0 +1,352 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Создание персонажа - калькулятор билдов Fallout Online: Requiem</title>
+		<meta name="description" content="Калькулятор билдов Fallout Online для сервера Requiem">		
+		<meta name="title" content="Калькулятор билдов Fallout Online для сервера Requiem">
+		<meta itemprop="name" content="Калькулятор билдов Fallout Online для сервера Requiem">
+		<meta property="og:title" content="Калькулятор билдов Fallout Online для сервера Requiem">
+		<meta name=viewport content="width=device-width, initial-scale=1">
+		<link rel="alternate" hreflang="ru" href="http://fonline.pe.hu/character/" />
+		<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="style.css">
+		<script type="text/javascript" async src="js/jquery-2.1.4.min.js" ></script>
+		<script type = "text/javascript" async src = "js/app.js"></script>
+		<script type = "text/javascript" async src = "js/perks.js"></script>
+		<script type = "text/javascript" async src = "js/quest.js"></script>
+		<!--script>
+			  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			  ga('create', 'UA-66390685-1', 'auto');
+			  ga('send', 'pageview');
+		</script>
+		<!-- Yandex.Metrika counter -->
+		<!--script type="text/javascript">
+			(function (d, w, c) {
+				(w[c] = w[c] || []).push(function() {
+					try {
+						w.yaCounter35113165 = new Ya.Metrika({
+							id:35113165,
+							clickmap:true,
+							trackLinks:true,
+							accurateTrackBounce:true
+						});
+					} catch(e) { }
+				});
+
+				var n = d.getElementsByTagName("script")[0],
+					s = d.createElement("script"),
+					f = function () { n.parentNode.insertBefore(s, n); };
+				s.type = "text/javascript";
+				s.async = true;
+				s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+				if (w.opera == "[object Opera]") {
+					d.addEventListener("DOMContentLoaded", f, false);
+				} else { f(); }
+			})(document, window, "yandex_metrika_callbacks");
+		</script>
+		<noscript><div><img src="https://mc.yandex.ru/watch/35113165" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+		<!-- /Yandex.Metrika counter -->
+	</head>
+	<body>
+		<!--div id="fon" class="fon"></div-->
+			<div id="main" class="main">
+				<div id="wrap"></div>
+				<div id="name" class="text"></div>
+				<div id="entername" class="text">
+					<div id="nametext" class="text">ИМЯ</div>
+					<div id="namenter" class="text2" contenteditable></div>
+					<div id="passtext" class="text">ПАРОЛЬ</div>
+					<div id="pasenter" class="text2" contenteditable></div>	
+				</div>
+				<div id="age" class="text">25</div>
+				<div id="enterage" class="text">
+					<div id="plusage"></div>
+					<div id="numberage"></div>
+					<div id="minusage"></div>
+				</div>
+				<div id="sex" class="text">МУЖ.</div>
+				<div id="entersex" class="text">
+					<div id="men"></div>
+					<div id="women"></div>
+				</div>
+				<div id="special">
+					<div id="strn" class="str text special">СЛ</div>
+					<div id="str" class="str numspec"></div>
+					<div id="strt" class="str znach">Средн.</div>
+					<div id="plusstr" class="str key reg spec plus" ></div>
+					<div id="minusstr" class="str key reg spec minus" ></div>
+					<div id="pern" class="per text special">ВС</div>
+					<div id="per" class="per numspec"></div>
+					<div id="pert" class="per znach">Средн.</div>
+					<div id="plusper" class="per key reg spec plus" ></div>
+					<div id="minusper" class="per key reg spec minus" ></div>
+					<div id="enun" class="enu text special">ВН</div>
+					<div id="enu" class="enu numspec"></div>
+					<div id="enut" class="enu znach">Средн.</div>
+					<div id="plusenu" class="enu key reg spec plus" ></div>
+					<div id="minusenu" class="enu key reg spec minus" ></div>
+					<div id="chan" class="cha text special">ОБ</div>
+					<div id="cha" class="cha numspec"></div>
+					<div id="chat" class="cha znach">Средн.</div>
+					<div id="pluscha" class="cha key reg spec plus" ></div>
+					<div id="minuscha" class="cha key reg spec minus" ></div>
+					<div id="intln" class="intl text special">ИН</div>
+					<div id="intl" class="intl numspec"></div>
+					<div id="intlt" class="intl znach">Средн.</div>
+					<div id="plusintl" class="intl key reg spec plus" ></div>
+					<div id="minusintl" class="intl key reg spec minus" ></div>
+					<div id="agin" class="agi text special">ЛВ</div>
+					<div id="agi" class="agi numspec"></div>
+					<div id="agit" class="agi znach">Средн.</div>
+					<div id="plusagi" class="agi key reg spec plus" ></div>
+					<div id="minusagi" class="agi key reg spec minus" ></div>
+					<div id="lucn" class="luc text special">УД</div>
+					<div id="luc" class="luc numspec"></div>
+					<div id="luct" class="luc znach">Средн.</div>
+					<div id="plusluc" class="luc key reg spec plus" ></div>
+					<div id="minusluc" class="luc key reg spec minus" ></div>
+				</div>
+				<div id="specialpointext" class="text reg">ОЧКИ РАСП.</div><div id="specialpoint" class="text reg"></div>
+				<div id="experience" class="leveling text2">
+					<div id="textlevel">Уровень:</div>
+					<div id="level"></div>
+					<div id="textexp">Опыт:</div>
+					<div id="exp"></div>
+					<div id="textnextexp">След.ур.:</div>
+					<div id="nextexp"></div>
+					<div id="levelup"></div>
+				</div>
+				<div id="feat1" class="text2"> 
+					<div id="life">Жизни</div><div id="live"></div>
+					<div id="dadge">Уворот</div><div id="dodge"></div>
+					<div id="textnormal" class="resist res1">Норма</div><div id="normal" class="resist resnum0 res1"></div>
+					<div id="textlaser" class="resist res2">Лазер</div><div id="laser" class="resist resnum0 res2"></div>
+					<div id="textfire" class="resist res3">Огонь</div><div id="fire" class="resist resnum0 res3"></div>
+					<div id="textplasma" class="resist res4">Плазма</div><div id="plasma" class="resist resnum0 res4"></div>
+					<div id="textexplode" class="resist res5">Взрыв</div><div id="explode" class="resist resnum0 res5"></div>
+					<div id="textelectro" class="resist res6">Электро</div><div id="electro" class="resist resnum0 res6"></div>
+					<!--div id="toxic" class="effect">Отравление</div>
+					<div id="radiation" class="effect">Облучение</div>
+					<div id="woundeye" class="effect">Ранение в глаз</div>
+					<div id="brokerighthand" class="effect">Сломана прав. рука</div>
+					<div id="brokelefthand" class="effect">Сломана левая рука</div>
+					<div id="brokerightleg" class="effect">Сломана прав. нога</div>
+					<div id="brokeleftleg" class="effect">Сломана левая нога</div-->
+				</div>
+				<div id="feat2" class="text2"> 
+					<div id="armorclass" class="text2 featop0">Класс брони</div><div id="armc" class="text2 featnum featop0"></div>
+					<div id="actionpoint" class="text2 featop1">Очки действий</div><div id="apoi" class="text2 featnum featop1"></div>
+					<div id="maxload" class="text2 featop2">Макс. груз</div><div id="maxl" class="text2 featnum featop2"></div>
+					<div id="meledmg" class="text2 featop3">Рукоп. повр.</div><div id="mdmg" class="text2 featnum featop3"></div>
+					<div id="overview" class="text2 featop4">Радиус обзора</div><div id="oview"  class="text2 featnum featop4"></div>
+					<div id="stabiltoxic" class="text2 featop5">Уст. к яду</div><div id="stox" class="text2 featnum featop5"></div>
+					<div id="stabilradi" class="text2 featop6">Уст. к рад</div><div id="srad" class="text2 featnum featop6"></div>
+					<div id="procedure" class="text2 featop7">Порядок</div><div id="proc" class="text2 featnum featop7"></div>
+					<div id="levelhil" class="text2 featop8">Уров. лечен.</div><div id="levh" class="text2 featnum featop8"></div>
+					<div id="critrate" class="text2 featop9">Шанс на крит.</div><div id="crit" class="text2 featnum featop9"></div>
+				</div>
+				<div id="skill" class="text2">
+					<div id="lights" class="light skill">Легкое оружие</div><div id="light" class="light point"></div>
+					<div id="heavys" class="heavy skill">Тяжелое оружие</div><div id="heavy" class="heavy point"></div>
+					<div id="energys" class="energy skill">Энергооружие</div><div id="energy" class="energy point"></div>
+					<div id="melees" class="melee skill">Рукопашная</div><div id="melee" class="melee point"></div>
+					<div id="steels" class="steel skill">Холодное оружие</div><div id="steel" class="steel point"></div>
+					<div id="throwns" class="thrown skill">Метательное оружие</div><div id="thrown" class="thrown point"></div>
+					<div id="orderlys" class="orderly skill">Санитар</div><div id="orderly" class="orderly point"></div>
+					<div id="doctors" class="doctor skill">Доктор</div><div id="doctor" class="doctor point"></div>
+					<div id="sneaks" class="sneak skill">Скрытность</div><div id="sneak" class="sneak point"></div>
+					<div id="hacks" class="hack skill">Взлом замков</div><div id="hack" class="hack point"></div>
+					<div id="steals" class="steal skill">Воровство</div><div id="steal" class="steal point"></div>
+					<div id="trapss" class="traps skill">Ловушки</div><div id="traps" class="traps point"></div>
+					<div id="sciences" class="science skill">Наука</div><div id="science" class="science point"></div>
+					<div id="repairs" class="repair skill">Ремонт</div><div id="repair" class="repair point"></div>
+					<div id="oratorys" class="oratory skill">Красноречие</div><div id="oratory" class="oratory point"></div>
+					<div id="trades" class="trade skill">Торговля</div><div id="trade" class="trade point"></div>
+					<div id="speeds" class="speed skill">Атлетизм</div><div id="speed" class="speed point"></div>
+					<div id="rangers" class="ranger skill">Скиталец</div><div id="ranger" class="ranger point"></div>
+				</div>
+				<div id="skillbutt" class="leveling">
+					<div id="buttlight" class="light skillbutt"></div>
+					<div id="buttheavy" class="heavy skillbutt"></div>
+					<div id="buttenergy" class="energy skillbutt"></div>
+					<div id="buttmelee" class="melee skillbutt"></div>
+					<div id="buttsteel" class="steel skillbutt"></div>
+					<div id="buttthrown" class="thrown skillbutt"></div>
+					<div id="buttorderly" class="orderly skillbutt"></div>
+					<div id="buttdoctor" class="doctor skillbutt"></div>
+					<div id="buttsneak" class="sneak skillbutt"></div>
+					<div id="butthack" class="hack skillbutt"></div>
+					<div id="buttsteal" class="steal skillbutt"></div>
+					<div id="butttraps" class="traps skillbutt"></div>
+					<div id="buttscience" class="science skillbutt"></div>
+					<div id="buttrepair" class="repair skillbutt"></div>
+					<div id="buttoratory" class="oratory skillbutt"></div>
+					<div id="butttrade" class="trade skillbutt"></div>
+					<div id="buttspeed" class="speed skillbutt"></div>
+					<div id="buttranger" class="ranger skillbutt"></div>
+				</div>
+				<div id="keyskill" class="text2 reg">
+						<div id="lkeylight" class="slkey0 keys"></div>
+						<div id="lkeyheavy" class="slkey1 keys"></div>
+						<div id="lkeyenergy" class="slkey2 keys"></div>
+						<div id="lkeymelee" class="slkey3 keys"></div>
+						<div id="lkeysteel" class="slkey4 keys"></div>
+						<div id="lkeythrown" class="slkey5 keys"></div>
+						<div id="lkeyorderly" class="slkey6 keys"></div>
+						<div id="lkeydoctor" class="slkey7 keys"></div>
+						<div id="lkeysneak" class="slkey8 keys"></div>
+						<div id="lkeyhack" class="slkey9 keys"></div>
+						<div id="lkeysteal" class="slkey10 keys"></div>
+						<div id="lkeytraps" class="slkey11 keys"></div>
+						<div id="lkeyscience" class="slkey12 keys"></div>
+						<div id="lkeyrepair" class="slkey13 keys"></div>
+						<div id="lkeyoratory" class="slkey14 keys"></div>
+						<div id="lkeytrade" class="slkey15 keys"></div>
+						<div id="lkeyspeed" class="slkey16 keys"></div>
+						<div id="lkeyranger" class="slkey17 keys"></div>
+						<div id="keylight" class="light minikey2"></div>
+						<div id="keyheavy" class="heavy minikey2"></div>
+						<div id="keyenergy" class="energy minikey2"></div>
+						<div id="keymelee" class="melee minikey2"></div>
+						<div id="keysteel" class="steel minikey2"></div>
+						<div id="keythrown" class="thrown minikey2"></div>
+						<div id="keyorderly" class="orderly minikey2"></div>
+						<div id="keydoctor" class="doctor minikey2"></div>
+						<div id="keysneak" class="sneak minikey2"></div>
+						<div id="keyhack" class="hack minikey2"></div>
+						<div id="keysteal" class="steal minikey2"></div>
+						<div id="keytraps" class="traps minikey2"></div>
+						<div id="keyscience" class="science minikey2"></div>
+						<div id="keyrepair" class="repair minikey2"></div>
+						<div id="keyoratory" class="oratory minikey2"></div>
+						<div id="keytrade" class="trade minikey2"></div>
+						<div id="keyspeed" class="speed minikey2"></div>
+						<div id="keyranger" class="ranger minikey2"></div>
+				</div>
+				<div id="skillpoint1" class="text leveling">ОЧКИ УМЕНИЙ</div>
+				<div id="point1" class="text2 leveling"></div>
+				<div id="skillpoint2" class="text reg">ОСОБЫЕ НАВ</div>
+				<div id="point2" class="text2 reg"></div>
+				<div id="infoparm">
+					<div id="nameparm"></div>
+					<div id="textparm" class="text2"></div>
+					<div id="imgparm"></div>
+				</div>
+				<div id="switch" class="leveling">
+					<div id="switch1"></div>
+					<div id="textswitch1" class="text">БОНУСЫ</div>
+					<div id="switch2"></div>
+					<div id="textswitch2" class="text">КНИГИ</div>
+					<div id="switch3"></div>
+					<div id="textswitch3" class="text">КВЕСТЫ</div>
+				</div>
+				<div id="traits" class="text2 reg">
+					<div id="traits0" class="text2 left1">Быстрый метабол</div>
+					<div id="traits1" class="text2 left2">Крушила</div>
+					<div id="traits2" class="text2 left3">Хилое тело</div>
+					<div id="traits3" class="text2 left4">Однорукий</div>
+					<div id="traits4" class="text2 left5">Точность</div>
+					<div id="traits5" class="text2 left6">Камикадзе</div>
+					<div id="traits6" class="text2 left7">Громила</div>
+					<div id="traits7" class="text2 left8">Быстрый стрелок</div>
+					<div id="traits8" class="text2 right left1">Маньяк</div>
+					<div id="traits9" class="text2 right left2">Дурной глаз</div>
+					<div id="traits10" class="text2 right left3">Добродушие</div>
+					<div id="traits11" class="text2 right left4">Химик</div>
+					<div id="traits12" class="text2 right left5">Стабильный</div>
+					<div id="traits13" class="text2 right left6">Жидкое тело</div>
+					<div id="traits14" class="text2 right left7">Умелец</div>
+					<div id="traits15" class="text2 right left8">Импульсивный</div>
+				</div>
+				<div id="keytraits01" class="text2 reg">
+					<div id="lkeytraits0" class="lkey1 keys"></div>
+					<div id="lkeytraits1" class="lkey2 keys"></div>
+					<div id="lkeytraits2" class="lkey3 keys"></div>
+					<div id="lkeytraits3" class="lkey4 keys"></div>
+					<div id="lkeytraits4" class="lkey5 keys"></div>
+					<div id="lkeytraits5" class="lkey6 keys"></div>
+					<div id="lkeytraits6" class="lkey7 keys"></div>
+					<div id="lkeytraits7" class="lkey8 keys"></div>
+					<div id="keytraits0" class="traits0 minikey"></div>
+					<div id="keytraits1" class="traits1 minikey"></div>
+					<div id="keytraits2" class="traits2 minikey"></div>
+					<div id="keytraits3" class="traits3 minikey"></div>
+					<div id="keytraits4" class="traits4 minikey"></div>
+					<div id="keytraits5" class="traits5 minikey"></div>
+					<div id="keytraits6" class="traits6 minikey"></div>
+					<div id="keytraits7" class="traits7 minikey"></div>
+				</div>
+				<div id="keytraits02" class="text2 reg">
+					<div id="lkeytraits8" class="lkey1 keys"></div>
+					<div id="lkeytraits9" class="lkey2 keys"></div>
+					<div id="lkeytraits10" class="lkey3 keys"></div>
+					<div id="lkeytraits11" class="lkey4 keys"></div>
+					<div id="lkeytraits12" class="lkey5 keys"></div>
+					<div id="lkeytraits13" class="lkey6 keys"></div>
+					<div id="lkeytraits14" class="lkey7 keys"></div>
+					<div id="lkeytraits15" class="lkey8 keys"></div>
+					<div id="keytraits8" class="traits8 minikey"></div>
+					<div id="keytraits9" class="traits9 minikey"></div>
+					<div id="keytraits10" class="traits10 minikey"></div>
+					<div id="keytraits11" class="traits11 minikey"></div>
+					<div id="keytraits12" class="traits12 minikey"></div>
+					<div id="keytraits13" class="traits13 minikey"></div>
+					<div id="keytraits14" class="traits14 minikey"></div>
+					<div id="keytraits15" class="traits15 minikey"></div>
+				</div>
+				<div id="textlist1" class="leveling text2"></div>
+				<div id="textlist2" class="text2">
+					<div id="booklight" class="book">x10</div>
+					<div id="bookenergy" class="book">x10</div>
+					<div id="bookorderly" class="book">x10</div>
+					<div id="bookscience" class="book">x10</div>
+					<div id="bookrepair" class="book">x10</div>
+					<div id="bookranger" class="book">x10</div>
+					<div id="bookprewar" class="book">x20</div>
+				</div>
+				<div id="textlist3" class="text2"><center>Квесты</center></div>
+				<div id="done"></div>
+				<div id="cancel"></div>
+				<div id="perk">
+					<div id="selectperk" class="text2"></div>
+					<div id="doneperk"></div>
+					<div id="cancelperk"></div>
+					<div id="infoparms">
+						<div id="nameparms"></div>
+						<div id="textparms" class="text2"></div>
+						<div id="imgparms"></div>
+					</div>
+				</div>
+				<div id="quest">
+					<div id="selectquest" class="text2"></div>
+					<div id="donequest"></div>
+					<div id="cancelquest"></div>
+					<div id="infoparmq">
+						<div id="nameparmq"></div>
+						<div id="textparmq" class="text2"></div>
+						<div id="imgparmq"></div>
+					</div>
+				</div>
+				<div id="talk">
+					<div id="dialog" class="text2"></div>
+					<div id="answ" class="text2"></div>
+				</div>
+				<div id="createlistperk" class="text2">
+					<div id="titlelistperk" class="text2"><center>Доступные перки</center><hr></div>
+					<div id="crlistperk" class="text2"></div>
+					<div id="fotterperk" class="text2"><center><hr><a href="../message.php">Написать автору</a></center></div>
+				</div>
+				<div id="total" class="text2">
+					<textarea id="totaltext" name="text"></textarea>
+					<div id="canceltotal"></div>
+				</div>
+				<div id="totalkey" class="text leveling">ИТОГ</div>
+			</div>		
+	</body>
+</html>
