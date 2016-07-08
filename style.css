@@ -196,15 +196,33 @@ body{
 #women:active{
 	background-image:	url(img/women.png);
 }
+.npoint {
+	width: 28px;
+    height: 24px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px;
+    line-height: 23px;
+    letter-spacing: 4px;
+    color: #fff;
+    padding-left: 5px;
+    background-image: url(img/nums.png );
+    background-repeat: no-repeat;
+    font-weight: 400;
+    color: transparent;
+    text-shadow: 0 0 1px #dedede;
+}
+
 .special	{
 	left:			19px;
     top:			34px;
 	font-size:		27px;
 }
 .numspec	{
-	position: 		absolute;
-	left:			56px;
-	margin-top:		2px;
+	width: 28px;
+    height: 24px;
+    position: absolute;
+    left: 56px;
+    margin-top: 2px;
 }
 .znach	{
 	position: 		absolute;
@@ -387,14 +405,18 @@ body{
 	display:		none;
 }
 #point1{
+	display: inline-block;
+    position: absolute;
 	left:			439px;
     top:			216px;
-	width:			60px;
+	width:			56px;
 }
 #point2{
+	display: inline-block;
+    position: absolute;
 	left:			439px;
     top:			216px;
-	width:			60px;
+	width:			42px;
 }
 .skill	{
 	/*font-family: 	fallout_display, 'fallout_display', cursive;*/
@@ -587,7 +609,7 @@ div[id ^= "imgparm"] {
 .lkey8	{top:104px;}
 .lkey9	{top:117px;}
 
-.TRAIT_FAST_METABOLISM	{top:20px;}
+.loadedST_METABOLISM	{top:20px;}
 .TRAIT_BRUISER	{top:33px;}
 .TRAIT_SMALL_FRAME	{top:46px;}
 .TRAIT_ONE_HANDER	{top:59px;}

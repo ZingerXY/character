@@ -1,4 +1,4 @@
-var leveluping = 0;
+var leveluping = true; // для отладки!!!
 var regi = 1;
 var medsp = 0;
 
@@ -24,11 +24,11 @@ var charp = {
 	crlistperk: "",
 	selectperk: "",
 	selectquest: "",
+	specialpoint: 5,
 	perkpoint: 0
 };
 
 var stats = { // стат, добавленный стат
-	specialpoint: 5,
 	str: [5, 0, 0], 	// Сила
 	per: [5, 0, 0],		// Восприятие
 	enu: [5, 0, 0],		// Выносливость
@@ -408,16 +408,7 @@ function trait(){	// Выбор трейта
 }
 
 function tagnumb(){	// Обновление тагнутых поинтов)
-	var link = $("#point2");
-	link.html("");
-	var n = skills["tags"];
-	var col = 1;
-	var num = [0, 0];
-	if (n>99) n=99;
-	num[1] = Math.floor(n/10);
-	num[0] = Math.floor(n/1)-num[1]*10;
-	for(var i = col; i>=0; i--)
-		link.append("<img src=\"img/"+num[i]+".png\" onload=\"imgLoaded(this)\">");
+	numbers($("#point2"),skills["tags"])
 }
 
 function tags() {	// Выбор тагнутых навыков
@@ -569,46 +560,81 @@ function settle0() {
 function statpoints(){	// Обновление статов
 	for(var j in stats)	{
 		var link = $("#"+j);
-		link.html("");
 		var n = stats[j];
-		if(j != "specialpoint") {
-			n = stats[j][0] + stats[j][1];
-			var str = "";
-			switch (n) {
-				case 1: str = "Гадко"; break;
-				case 2: str = "Плохо"; break;
-				case 3: str = "Низко"; break;
-				case 4: str = "Непл."; break;
-				case 5: str = "Средн."; break;
-				case 6: str = "Хорош."; break;
-				case 7: str = "Высок."; break;
-				case 8: str = "Отлич."; break;
-				case 9: str = "Круто"; break;
-				case 10: str = "Герой!"; break;
-			}
-			$("#"+j+"t").html(str);
+		n = stats[j][0] + stats[j][1];
+		var str = "";
+		switch (n) {
+			case 1: str = "Гадко"; break;
+			case 2: str = "Плохо"; break;
+			case 3: str = "Низко"; break;
+			case 4: str = "Непл."; break;
+			case 5: str = "Средн."; break;
+			case 6: str = "Хорош."; break;
+			case 7: str = "Высок."; break;
+			case 8: str = "Отлич."; break;
+			case 9: str = "Круто"; break;
+			case 10: str = "Герой!"; break;
 		}
-		var num = [0, 0];
+		$("#"+j+"t").html(str);
+		/*var num = [0, 0];
 		if(n>99) n = 99;
 		num[1] = Math.floor(n/10);
 		num[0] = Math.floor(n/1)-num[1]*10;
+		if(n==10)
+			link.css({"padding-left":"7px", "letter-spacing":"6px"});
+		else if(n==1)
+			link.css("letter-spacing", "5px");		
+		else
+			link.css({"padding-left":"5px", "letter-spacing":"4px"});		
 		for(var i = 1; i>=0; i--)
-			link.append("<img src=\"img/"+num[i]+".png\" onload=\"imgLoaded(this)\">");
-		createlistperk();
+			link.append(num[i]);*/
+		numbers(link,n);
 	}
+	numbers($("#specialpoint"),charp.specialpoint);
+	createlistperk();
 }
+
+function numbers(div,n) {
+	div.html("");
+	div.css("background-image", "url(img/nums.png )");
+	var col = 1;
+	var num = [0, 0, 0];
+	if (n>99) {	div.css("background-image", "url(img/num3.png )"); num[2] = Math.floor(n/100); col++; }
+	num[1] = Math.floor(n/10)-num[2]*10;
+	num[0] = Math.floor(n/1)-num[1]*10-num[2]*100;
+	
+	div.css({"padding-left":"5px", "letter-spacing":"4px"});
+	
+	if(num[2]==0 && num[1]==1 || num[2]==1)	{
+		div.css({"padding-left":"6px", "letter-spacing":"6px"});		
+	}
+	if(num[1]==1 && num[2]==1) {
+		div.css({"letter-spacing":"8px"});
+		if(num[0]==1)
+			div.css({"letter-spacing":"9px"});
+	}	
+	if(num[2]>1 && num[0]==1)
+		div.css({"letter-spacing":"6px"});
+	if((num[2]>1 && num[1]==1)||(num[0]==1 && num[2]==1)||(num[0]==1 && num[1]==1))
+		div.css({"letter-spacing":"7px"});
+	
+	for(var i = col; i>=0; i--)
+		div.append(num[i]);
+}
+
+
 
 function plusspec(pop){	// Добавление стата
 	var str = this.id.substr(4);
 	var n = stats[str][0] + stats[str][1];
-	var s = stats["specialpoint"];
+	var s = charp.specialpoint;
 	if (n<10 && s!=0)
 	{
 		n++;
 		s--;
 	}
 	stats[str][0] = n - stats[str][1];
-	stats["specialpoint"] = s;
+	charp.specialpoint = s;
 	statpoints();
 	settle();
 }
@@ -617,29 +643,20 @@ function minusspec(pop){	// Отнимание стата
 	var str = this.id.substr(5);
 	var n = stats[str][0] + stats[str][1];
 	if(traits.TRAIT_SKILLED[1] && n < 4 && str != "str" && str != "per" && str != "luc") return;
-	var s = stats["specialpoint"];
+	var s = charp.specialpoint;
 	if (n>1)
 	{
 		n--;
 		s++;
 	}
 	stats[str][0] = n - stats[str][1];
-	stats["specialpoint"] = s;
+	charp.specialpoint = s;
 	statpoints();
 	settle();
 }
 
 function spoints(){	// обновление скилпоинтов
-	var link = $("#point1");
-	link.html("");
-	var n = skills.points;
-	var col = 1;
-	var num = [0, 0, 0];
-	if (n>99) {	num[2] = Math.floor(n/100); col++; }
-	num[1] = Math.floor(n/10)-num[2]*10;
-	num[0] = Math.floor(n/1)-num[1]*10-num[2]*100;
-	for(var i = col; i>=0; i--)
-		link.append("<img src=\"img/"+num[i]+".png\" onload=\"imgLoaded(this)\">");
+	numbers($("#point1"),skills.points)
 }
 
 /*function plus()	// прокачка навыков
@@ -822,7 +839,7 @@ function changesex() {
 }
 // Переход к прокачке
 function leveling() {
-	if((!stats.specialpoint && !skills.tags)||leveluping){
+	if((!charp.specialpoint && !skills.tags)||leveluping){
 		if(regi) {
 			$('title').text("Прокачка персонажа");
 			$("#main").animate({'opacity':'0'},100);
@@ -1050,7 +1067,6 @@ function createlistperk() {
 	//lineit.append("<center>Доступные перки</center><hr>");
 	
 	for(var i in stats)
-		if(i!=="specialpoint")
 			stats[i][2] = stats[i][0] + stats[i][1];		
 	
 	for(var i in perk) 
@@ -1265,7 +1281,6 @@ function total() {
 	//$("#totaltext")
 	var textarea = charp.name+" "+feat.live[0]+" XP\n";
 	for(var i in stats)
-		if(i!=="specialpoint")
 			textarea += stats[i][2]+" ";
 	textarea += "\nТрейты: "
 	for(var i in texttraits)
@@ -1405,11 +1420,9 @@ function main() //главная функция
 		}
 	}
 	
-	for(var j in stats){
-		if(j != "specialpoint") {
+	for(var j in stats) {
 			$("#plus"+j).click(plusspec);
 			$("#minus"+j).click(minusspec);
-		}
 	}
 	for(var j in traits){
 		$("#key"+j).mousedown(function(){$("#lkey"+this.id.substr(3)).html("<img src=\"img/small_key.png\" onload=\"imgLoaded(this)\">");});
