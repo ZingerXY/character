@@ -10,6 +10,22 @@
 	font-family: Arial_Bold;
 	src: url(font/Arial_Bold.ttf	);
 }
+/* latin-ext */
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Oswald Regular'), local('Oswald-Regular'), url(font/Oswald.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Oswald Regular'), local('Oswald-Regular'), url(font/OswaldLatin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
 body, html {
 	margin:0;
 	padding:0;
@@ -107,7 +123,7 @@ body{
     top:			34px;
 }
 #namenter:focus	{
-	color:			#00FF00;
+	color:			#0E0;
 }
 #namenter[contenteditable]{
 	outline:		0px #000;
@@ -124,7 +140,7 @@ body{
     top:			75px;
 }
 #pasenter:focus	{
-	color:			#00FF00;
+	color:			#0E0;
 }
 #pasenter[contenteditable]{
 	outline:		0px #000;
@@ -229,7 +245,7 @@ body{
 	font-family: 	Arial_Bold;
 	/*font-family: 	fallout_display, 'fallout_display', cursive;
 	/*font-family: 	hardpixel_regular, 'hardpixel_regular', cursive;*/
-	color:			#00FF00;
+	color:			#0E0;
 	font-size:		11px;
 	/*letter-spacing: 0.4px;*/
 	left:			102px;
@@ -309,7 +325,7 @@ body{
 	font-family: 	Arial_Bold;
 	/*font-family: 	fallout_display, 'fallout_display', cursive;*/
 	/*font-family: 	hardpixel_regular, 'hardpixel_regular', cursive;*/
-	color:			#00FF00;
+	color:			#0E0;
 	font-size:		11px;
 	/*letter-spacing: 0.4px;*/
 }
@@ -421,7 +437,7 @@ body{
 .skill	{
 	/*font-family: 	fallout_display, 'fallout_display', cursive;*/
 	font-family: 	Arial_Bold;
-	color: 			#00FF00;
+	color: 			#0E0;
 	position: 		absolute;
 }
 
@@ -885,6 +901,10 @@ div[id ^= "list"] {
 	color:			#00AB00;
 	overflow: 		auto;
 }
+.listlevel{
+	color:			#0D0;
+	text-align:		center;
+}
 #talk {
 	display:		none;
 	background-image: url(img/talk.png);
@@ -984,7 +1004,7 @@ hr {
 		left: 		17px;
 		top: 		13px;
 	background:		transparent;
-	color: 			#00FF00;
+	color: 			#0E0;
 	width: 			340px;
     height: 		420px;
 	border: 		0px;

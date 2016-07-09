@@ -723,7 +723,7 @@ function createlistperk() {
 			mperk[perk[i][2]].push(i);						
 	for(var i in mperk) {
 		if(mperk[i].length == 0) continue;
-		$("<div id=\"lists"+i+"\" class=\"perklist\"><center>Уровень "+i+"</center></div>").appendTo("#crlistperk");	
+		$("<div id=\"lists"+i+"\" class=\"listlevel\">Уровень "+i+"</div>").appendTo("#crlistperk");	
 		for(var j in mperk[i]) {
 			var perkit = $("<div id=\"lists"+mperk[i][j]+"\" class=\"perklist\">"+textperks[mperk[i][j]][0]+"</div>").appendTo("#crlistperk");
 			perkit.click(function(){
