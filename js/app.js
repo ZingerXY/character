@@ -714,22 +714,26 @@ function listperkup(){
 }
 //Создание списка перков в окне доступных перков
 function createlistperk() {
-	var lineit = $("#crlistperk").html("");
-	//lineit.append("<center>Доступные перки</center><hr>");
-	
+	$("#crlistperk").html("");
 	for(var i in stats)
-			stats[i][2] = stats[i][0] + stats[i][1];		
-	
-	for(var i in perk) 
-		if(perk[i][4](1)&&perk[i][3]===29||perk[i][3]===32) {
-			var perkit = $("<div id=\"lists"+i+"\" class=\"perklist\">"+textperks[i][0]+"</div>").appendTo("#crlistperk")
+			stats[i][2] = stats[i][0] + stats[i][1];
+	var mperk = {3: [],6: [],9: [],12: [],15: [],18: []};
+	for(var i in perk)
+		if(perk[i][4](1)&&perk[i][3]===29||perk[i][3]===32)
+			mperk[perk[i][2]].push(i);						
+	for(var i in mperk) {
+		if(mperk[i].length == 0) continue;
+		$("<div id=\"lists"+i+"\" class=\"perklist\"><center>Уровень "+i+"</center></div>").appendTo("#crlistperk");	
+		for(var j in mperk[i]) {
+			var perkit = $("<div id=\"lists"+mperk[i][j]+"\" class=\"perklist\">"+textperks[mperk[i][j]][0]+"</div>").appendTo("#crlistperk");
 			perkit.click(function(){
 				if(charp.crlistperk) $("#"+charp.crlistperk).css("color","#00AB00");
 				charp.crlistperk = this.id;
 				$("#"+this.id).css("color","#00FF00");
 				infoparm("perks",this.id.substr(5));
-			})
+			});
 		}
+	}
 }
 // Выводит имеющиеся трейты и перки в #textlist1
 function showlistperk(){	
