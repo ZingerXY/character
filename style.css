@@ -45,10 +45,10 @@ body{
 	opacity:				0;
 	background-image:		url(img/reg.png	);
 	background-repeat: 		no-repeat;
-	-moz-transform: 		scale(1); /* Для Firefox */
-    -ms-transform: 			scale(1); /* Для IE */
-    -webkit-transform: 		scale(1); /* Для Safari, Chrome, iOS */
-    -o-transform: 			scale(1); /* Для Opera */
+	-moz-transform: 		scale(1); /* Р”Р»СЏ Firefox */
+    -ms-transform: 			scale(1); /* Р”Р»СЏ IE */
+    -webkit-transform: 		scale(1); /* Р”Р»СЏ Safari, Chrome, iOS */
+    -o-transform: 			scale(1); /* Р”Р»СЏ Opera */
 	transform: 				scale(1);
     width:					800px;
 	height:					520px;
@@ -69,7 +69,7 @@ body{
 	z-index: 100;
 	overflow: auto;
 }
-.reg	{	/* скрыть после регистрации */
+.reg	{	/* СЃРєСЂС‹С‚СЊ РїРѕСЃР»Рµ СЂРµРіРёСЃС‚СЂР°С†РёРё */
 	
 }
 .leveling{
@@ -415,7 +415,7 @@ body{
 	width:			230px;
 	height:			10px;
 	/*background-color: #fff;
-	opacity: 0.2	;    /*прозрачность*/
+	opacity: 0.2	;    /*РїСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊ*/
 }
 #panel{
 	display:		none;
@@ -542,11 +542,11 @@ div[id ^= "nameparm"] {
 	height:			32px;
 	z-index:		100;
 }
-/* хром, сафари */
+/* С…СЂРѕРј, СЃР°С„Р°СЂРё */
 div[id ^= "textparm"]::-webkit-scrollbar { width: 0; }
 /* ie 10+ */
 div[id ^= "textparm"] { -ms-overflow-style: none; }
-/* фф (свойство больше не работает, других способов тоже нет)*/
+/* С„С„ (СЃРІРѕР№СЃС‚РІРѕ Р±РѕР»СЊС€Рµ РЅРµ СЂР°Р±РѕС‚Р°РµС‚, РґСЂСѓРіРёС… СЃРїРѕСЃРѕР±РѕРІ С‚РѕР¶Рµ РЅРµС‚)*/
 div[id ^= "textparm"] { overflow: -moz-scrollbars-none; }
 div[id ^= "textparm"] {
 	color:			#000;
@@ -602,7 +602,7 @@ div[id ^= "imgparm"] {
 	height:			25px;
 	position: 		absolute;
 	/*background-color: #F00;
-	opacity: 0.2	;    /*прозрачность*/
+	opacity: 0.2	;    /*РїСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊ*/
 	/*background-image:	url(img/small_key.png	);*/
 }
 .minikey	{
@@ -611,7 +611,7 @@ div[id ^= "imgparm"] {
 	height:			13px;
 	left:			5px;
 	/*background-color: #000;
-	opacity: 0.2	;    /*прозрачность*/
+	opacity: 0.2	;    /*РїСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊ*/
 }
 
 .lkey0	{top:0px;}
@@ -688,13 +688,13 @@ div[id ^= "imgparm"] {
 div[id ^= "list"] {
 	overflow:		auto;
 }
-/* хром, сафари */
+/* С…СЂРѕРј, СЃР°С„Р°СЂРё */
 #textlist1::-webkit-scrollbar { width: 0; }
 /* ie 10+ */
 #textlist1 { -ms-overflow-style: none; }
-/* фф (свойство больше не работает, других способов тоже нет)*/
+/* С„С„ (СЃРІРѕР№СЃС‚РІРѕ Р±РѕР»СЊС€Рµ РЅРµ СЂР°Р±РѕС‚Р°РµС‚, РґСЂСѓРіРёС… СЃРїРѕСЃРѕР±РѕРІ С‚РѕР¶Рµ РЅРµС‚)*/
 #textlist1{ overflow: -moz-scrollbars-none; }
-#textlist1	{ /* перки */
+#textlist1	{ /* РїРµСЂРєРё */
 	display:		none;
 	position: 		absolute;
 		left: 		327px;
@@ -703,7 +703,7 @@ div[id ^= "list"] {
 	height:			168px;	
 	overflow:		auto;
 }
-#textlist2	{	/* книги */
+#textlist2	{	/* РєРЅРёРіРё */
 	display:		none;
 	position: 		absolute;
 		left: 		327px;
@@ -761,13 +761,13 @@ div[id ^= "list"] {
 		top: 		110px;
 		left: 		12px;
 }
-/* хром, сафари */
+/* С…СЂРѕРј, СЃР°С„Р°СЂРё */
 #textlist3::-webkit-scrollbar { width: 0; }
 /* ie 10+ */
 #textlist3 { -ms-overflow-style: none; }
-/* фф (свойство больше не работает, других способов тоже нет)*/
+/* С„С„ (СЃРІРѕР№СЃС‚РІРѕ Р±РѕР»СЊС€Рµ РЅРµ СЂР°Р±РѕС‚Р°РµС‚, РґСЂСѓРіРёС… СЃРїРѕСЃРѕР±РѕРІ С‚РѕР¶Рµ РЅРµС‚)*/
 #textlist3{ overflow: -moz-scrollbars-none; }
-#textlist3	{	/* квесты */
+#textlist3	{	/* РєРІРµСЃС‚С‹ */
 	display:		none;
 	position: 		absolute;
 		left: 		327px;
@@ -776,11 +776,11 @@ div[id ^= "list"] {
 	height:			168px;	
 	overflow:		auto;
 }
-/* хром, сафари */
+/* С…СЂРѕРј, СЃР°С„Р°СЂРё */
 #selectperk::-webkit-scrollbar { width: 0; }
 /* ie 10+ */
 #selectperk { -ms-overflow-style: none; }
-/* фф (свойство больше не работает, других способов тоже нет)*/
+/* С„С„ (СЃРІРѕР№СЃС‚РІРѕ Р±РѕР»СЊС€Рµ РЅРµ СЂР°Р±РѕС‚Р°РµС‚, РґСЂСѓРіРёС… СЃРїРѕСЃРѕР±РѕРІ С‚РѕР¶Рµ РЅРµС‚)*/
 #selectperk{ overflow: -moz-scrollbars-none; }
 #selectperk	{
 	position: 		absolute;
@@ -789,7 +789,7 @@ div[id ^= "list"] {
 	width:			180px;
 	height:			348px;	
 	/*background-color: #000;
-	opacity: 0.3	;    /*прозрачность*/
+	opacity: 0.3	;    /*РїСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊ*/
 	overflow:		auto;
 }
 #done	{
@@ -847,11 +847,11 @@ div[id ^= "list"] {
 #cancelperk:active{
 	background-image: url(img/greendot_big.png);
 }
-/* хром, сафари */
+/* С…СЂРѕРј, СЃР°С„Р°СЂРё */
 #selectquest::-webkit-scrollbar { width: 0; }
 /* ie 10+ */
 #selectquest { -ms-overflow-style: none; }
-/* фф (свойство больше не работает, других способов тоже нет)*/
+/* С„С„ (СЃРІРѕР№СЃС‚РІРѕ Р±РѕР»СЊС€Рµ РЅРµ СЂР°Р±РѕС‚Р°РµС‚, РґСЂСѓРіРёС… СЃРїРѕСЃРѕР±РѕРІ С‚РѕР¶Рµ РЅРµС‚)*/
 #selectquest{ overflow: -moz-scrollbars-none; }
 #selectquest	{
 	position: 		absolute;
@@ -860,7 +860,7 @@ div[id ^= "list"] {
 	width:			180px;
 	height:			348px;	
 	/*background-color: #000;
-	opacity: 0.3	;    /*прозрачность*/
+	opacity: 0.3	;    /*РїСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊ*/
 	overflow:		auto;
 }
 #quest	{
@@ -901,9 +901,16 @@ div[id ^= "list"] {
 	color:			#00AB00;
 	overflow: 		auto;
 }
+.listhead{
+	color:			#0D0;
+	text-align: 	center;
+}
 .listlevel{
 	color:			#0D0;
-	text-align:		center;
+	padding-left: 	20px;
+}
+.listlvl{
+	color:			#0D0;
 }
 #talk {
 	display:		none;
@@ -926,7 +933,7 @@ div[id ^= "answ"]{ overflow:		auto; }
 #answ::-webkit-scrollbar { width: 0; }
 /* ie 10+ */
 #answ{ -ms-overflow-style: none; }
-/* фф (свойство больше не работает, других способов тоже нет)*/
+/* С„С„ (СЃРІРѕР№СЃС‚РІРѕ Р±РѕР»СЊС€Рµ РЅРµ СЂР°Р±РѕС‚Р°РµС‚, РґСЂСѓРіРёС… СЃРїРѕСЃРѕР±РѕРІ С‚РѕР¶Рµ РЅРµС‚)*/
 #answ{ overflow: -moz-scrollbars-none; }
 #answ {
 	overflow:		auto;
@@ -966,7 +973,7 @@ div[id ^= "answ"]{ overflow:		auto; }
 #crlistperk::-webkit-scrollbar { width: 0; }
 /* ie 10+ */
 #crlistperk { -ms-overflow-style: none; }
-/* фф (свойство больше не работает, других способов тоже нет)*/
+/* С„С„ (СЃРІРѕР№СЃС‚РІРѕ Р±РѕР»СЊС€Рµ РЅРµ СЂР°Р±РѕС‚Р°РµС‚, РґСЂСѓРіРёС… СЃРїРѕСЃРѕР±РѕРІ С‚РѕР¶Рµ РЅРµС‚)*/
 #crlistperk{ overflow: -moz-scrollbars-none; }
 #crlistperk {
 	overflow:		auto;

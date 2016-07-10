@@ -14,14 +14,14 @@ var mychar = {
 	traits: {},
 	perks: {}
 };
-
+// mychar.perks
 var charp = {
 	name:	"",
 	age:	getRandInt(14, 60),
 	sex:	"man",
 	level:	1,
 	exp:	0,
-	nextexp:1000,
+	nextexp: 1000,
 	karma:	0,
 	tagt: 2,
 	crlistperk: "",
@@ -31,18 +31,18 @@ var charp = {
 	perkpoint: 0
 };
 // стат, добавленный стат
-var stats = { 
-	str: [5, 0, 0], 	// Сила
-	per: [5, 0, 0],		// Восприятие
-	enu: [5, 0, 0],		// Выносливость
-	cha: [5, 0, 0],		// Обаяние
-	intl:[5, 0, 0],		// Интелект
-	agi: [5, 0, 0],		// Ловкость
-	luc: [5, 0, 0]		// Удача
+var stats = {   
+	str: [5, 0, 0], // Сила
+	per: [5, 0, 0], // Восприятие
+	enu: [5, 0, 0], // Выносливость
+	cha: [5, 0, 0], // Обаяние
+	intl: [5, 0, 0], // Интелект
+	agi: [5, 0, 0], // Ловкость
+	luc: [5, 0, 0] // Удача
 };
 // Статы описание
 var textstats = { 
-	str: ["Cила",""],
+	str: ["Cила",""], 
 	per: ["Восприятие",""],
 	enu: ["Выносливость",""],
 	cha: ["Обаяние",""],
@@ -80,28 +80,28 @@ var skills = {
 	trade: 	[0, 0, 0, 0],	// торговля
 	speed: 	[0, 0, 0, 0],	// атлетизм
 	ranger: [0, 0, 0, 0]	// скиталец
-}
+};
 // навыки описание
 var textskills = {	
-	light: ["легкое","Легкое оружие"],
-	heavy: ["тяжелое","Тяжелое оружие"],
-	energy: ["энерго","Энергооружие"],
-	melee: ["рукопашка","Рукопашная"],
-	steel: ["холодное","Холодное оружие"],
-	thrown: ["метательное","Метательное оружие"],
-	orderly: ["санитар","Санитар"],
-	doctor: ["доктор","Доктор"],
-	sneak: ["сник","Скрытность"],
-	hack: ["взлом","Взлом замков"],
-	steal: ["воровство","Воровство"],
-	traps: ["ловушки","Ловушки"],
-	science: ["наука","Наука"],
-	repair: ["ремонт","Ремонт"],
-	oratory: ["красноречие","Красноречие"],
-	trade: ["торговля","Торговля"],
-	speed: ["атлетизм","Атлетизм"],
-	ranger: ["скиталец","Скиталец"]
-}
+	light: ["легкое", "Легкое оружие"],
+	heavy: ["тяжелое", "Тяжелое оружие"],
+	energy: ["энерго", "Энергооружие"],
+	melee: ["рукопашка", "Рукопашная"],
+	steel: ["холодное", "Холодное оружие"],
+	thrown: ["метательное", "Метательное оружие"],
+	orderly: ["санитар", "Санитар"],
+	doctor: ["доктор", "Доктор"],
+	sneak: ["сник", "Скрытность"],
+	hack: ["взлом", "Взлом замков"],
+	steal: ["воровство", "Воровство"],
+	traps: ["ловушки", "Ловушки"],
+	science: ["наука", "Наука"],
+	repair: ["ремонт", "Ремонт"],
+	oratory: ["красноречие", "Красноречие"],
+	trade: ["торговля", "Торговля"],
+	speed: ["атлетизм", "Атлетизм"],
+	ranger: ["скиталец", "Скиталец"]
+};
 // Книги
 var book = {
 	light: [10,0],
@@ -111,7 +111,7 @@ var book = {
 	repair: [10,0],
 	ranger: [10,0],
 	prewar: [20,0]
-}
+};
 var textbook = {
 	light: "Легкое оружие",
 	energy: "Энергетическое оружие",
@@ -120,7 +120,7 @@ var textbook = {
 	repair: "Ремонт",
 	ranger: "Скиталец",
 	prewar: "Довоенки"
-}
+};
 // параметр, добавленный параметр, добавленный за уровень
 var feat = { 
 	dodge:	[0, 0, 0],	// уклон
@@ -135,7 +135,7 @@ var feat = {
 	proc: 	[0, 0, 0],	// порядок
 	levh: 	[0, 0, 0],	// уров лечения
 	crit: 	[0, 0, 0]	// шанс на крит
-}
+};
 // параметры описание
 var textfeat = { 
 	dodge:	["улонение",""],
@@ -150,7 +150,7 @@ var textfeat = {
 	proc: ["порядок",""],
 	levh: ["уров лечения",""],
 	crit: ["шанс на крит",""]
-}
+};
 // Резисты
 var resist = {
 	normal:		{asb:[0, 0, 0], res:[0, 0, 0]},
@@ -159,7 +159,7 @@ var resist = {
 	plasma:		{asb:[0, 0, 0], res:[0, 0, 0]},
 	explode:	{asb:[0, 0, 0], res:[0, 0, 0]},
 	electro:	{asb:[0, 0, 0], res:[0, 0, 0]},
-}
+};
 // Выбор трейта
 function trait(){	
 	var str = this.id.substr(3);	
@@ -173,21 +173,21 @@ function trait(){
 // Выбор тагнутых навыков
 function tags() {	
 	var str = this.id.substr(3);
-	if(!skills[str][3] && skills["tags"] > 0) {
+	if(!skills[str][3] && skills.tags > 0) {
 		skills[str][3] = 1 ;
-		skills["tags"]--;
+		skills.tags--;
 		skills[str][1]+=20;
 		$("#"+str+"s").css("color", "#ABABAB");
 		$("#"+str).css("color", "#ABABAB");
 	}
-	else if(skills[str][3] && skills["tags"] < 3)	{
+	else if(skills[str][3] && skills.tags < 3)	{
 		skills[str][3] = 0;
-		skills["tags"]++;
+		skills.tags++;
 		skills[str][1]-=20;
 		$("#"+str+"s").css("color", "#00FF00");
 		$("#"+str).css("color", "#00FF00");
 	}
-	numbers($("#point2"),skills["tags"]);
+	numbers($("#point2"),skills.tags);
 	settle();
 }
 // расчеты навыков и параметров и их обновление
@@ -262,7 +262,7 @@ function settle() {
 	// Крит
 	feat.crit[0] = feat.crit[2] + feat.crit[1] + luc;	
 	//Уворот
-	feat.dodge[0] = feat.dodge[2] + feat.dodge[1] + cha + (perk.PE_HTH_EVADE[0] ? (feat.apoi[0]/4)+(feat.apoi[0]/2) : 0);
+	feat.dodge[0] = feat.dodge[2] + feat.dodge[1] + cha + (checkperk("PE_HTH_EVADE") ? (feat.apoi[0]/4)+(feat.apoi[0]/2) : 0);
 	
 	$("#live").html(feat.live[0]+"/"+feat.live[0]);
 	$("#crit").html(feat.crit[0]+"%");
@@ -352,7 +352,7 @@ function numbers(div,n) {
 	
 	div.css({"padding-left":"5px", "letter-spacing":"4px"});
 	
-	if(num[2]==0 && num[1]==1 || num[2]==1)	{
+	if(num[2]===0 && num[1]==1 || num[2]==1)	{
 		div.css({"padding-left":"6px", "letter-spacing":"6px"});		
 	}
 	if(num[1]==1 && num[2]==1) {
@@ -373,7 +373,7 @@ function plusspec(pop){
 	var str = this.id.substr(4);
 	var n = stats[str][0] + stats[str][1];
 	var s = charp.specialpoint;
-	if (n<10 && s!=0)
+	if (n<10 && s!==0)
 	{
 		n++;
 		s--;
@@ -401,7 +401,7 @@ function minusspec(pop){
 }
 // обновление скилпоинтов
 function spoints(){	
-	numbers($("#point1"),skills.points)
+	numbers($("#point1"),skills.points);
 }
 // Прокачка навыков
 function plus() {
@@ -431,14 +431,14 @@ function minus() {
 	
 	var tag = skills[skillid][3] ? 2 : 1;
 	for(var i = 0; i < tag; i++) {
-	var s = 1;
-	if( n > SkillMod.Add6 + 1 ) s = 6;
-	else if( n > SkillMod.Add5 + 1 ) s = 5;
-	else if( n > SkillMod.Add4 + 1 ) s = 4;
-	else if( n > SkillMod.Add3 + 1 ) s = 3;
-	else if( n > SkillMod.Add2 + 1 ) s = 2;
-	if(n > 0 )
-		n--;
+		var s = 1;
+		if( n > SkillMod.Add6 + 1 ) s = 6;
+		else if( n > SkillMod.Add5 + 1 ) s = 5;
+		else if( n > SkillMod.Add4 + 1 ) s = 4;
+		else if( n > SkillMod.Add3 + 1 ) s = 3;
+		else if( n > SkillMod.Add2 + 1 ) s = 2;
+		if(n > 0 )
+			n--;
 	}
 	skills[skillid][2] += n - skills[skillid][0];
 	skills.points += s;
@@ -532,10 +532,10 @@ function leveling() {
 																	"width":			"33px",
 																	"height":			"33px"});
 			
-			pl.mousedown(	function()	{pl.css('backgroundImage',"url(img/greendot_big.png)")});
+			pl.mousedown(	function()	{pl.css('backgroundImage',"url(img/greendot_big.png)");});
 			pl.mouseup(	function()	{pl.css(	'backgroundImage', 	"")});
-			mi.mousedown(function()	{mi.css('backgroundImage', 	"url(img/greendot_big.png)")});
-			mi.mouseup(	function()	{mi.css(	'backgroundImage', 	"")});
+			mi.mousedown(function()	{mi.css('backgroundImage', 	"url(img/greendot_big.png)");});
+			mi.mouseup(	function()	{mi.css(	'backgroundImage', 	"");});
 			pl.click(plus);
 			mi.click(minus);
 			var plInterval;
@@ -577,7 +577,7 @@ function leveling() {
 // Переход обратно к созданию
 function reg(){
 	location.reload();
-	return;
+	/*return;
 	if(!regi) {
 		$('title').text("Создание персонажа");
 		$("#main").css('backgroundImage', "url(img/reg.png)");
@@ -587,7 +587,7 @@ function reg(){
 		$("#select").remove();
 		for(var j = 1; j<4;j++) $("#textlist"+j).hide();
 		regi = 1;
-	}
+	}*/
 }
 // Получить количество опыта необходимое для этого уровня
 function levelexp(n) {
@@ -630,10 +630,10 @@ function selectskill() {
 	var pl = n.find("div")[0].id = "plus" + this.id.substr(4);
 	var mi = n.find("div")[1].id = "minus" + this.id.substr(4);
 	
-	$("#"+pl).mousedown(function(){$("#"+pl).css('backgroundImage',"url(img/greendot_big.png)")});
+	$("#"+pl).mousedown(function(){$("#"+pl).css('backgroundImage',"url(img/greendot_big.png)");});
 	$("#"+pl).mouseup(function(){$("#"+pl).css(	'backgroundImage',"")});
-	$("#"+mi).mousedown(function(){$("#"+mi).css('backgroundImage',"url(img/greendot_big.png)")});
-	$("#"+mi).mouseup(function(){$("#"+mi).css(	'backgroundImage',"")});
+	$("#"+mi).mousedown(function(){$("#"+mi).css('backgroundImage',"url(img/greendot_big.png)");});
+	$("#"+mi).mouseup(function(){$("#"+mi).css(	'backgroundImage',"");});
 	$("#"+pl).click(plus);
 	$("#"+mi).click(minus);
 	var plInterval;
@@ -701,16 +701,22 @@ function listperkup(){
 	$("#imgparms").html("");
 	charp.selectperk = "";
 	for(var i in perk){
-		if(perk[i][0]<perk[i][1]&&charp.level>=perk[i][2]&&charp.level<=perk[i][3]&&perk[i][4](0)){
-			var perkit = $("<div id=\""+i+"\" class=\"perklist\">"+textperks[i][0]+"</div>").appendTo("#selectperk")
+		if(checkperk(i)<perk[i][2]&&charp.level>=perk[i][3]&&charp.level<=perk[i][4]&&perk[i][5](0)){
+			var perkit = $("<div id=\""+i+"\" class=\"perklist\">"+perk[i][0]+"</div>").appendTo("#selectperk");
 			perkit.click(function(){
 				if(charp.selectperk) $("#"+charp.selectperk).css("color","#00AB00");
 				charp.selectperk = this.id;
 				$("#"+this.id).css("color","#00FF00");
 				infoperk(this.id);
-			})
+			});
 		}	
 	}	
+}
+function checkperk(strperk) {
+	if(mychar.perks[strperk]===undefined)
+		return 0;
+	else
+		return mychar.perks[strperk].vol;
 }
 //Создание списка перков в окне доступных перков
 function createlistperk() {
@@ -719,13 +725,13 @@ function createlistperk() {
 			stats[i][2] = stats[i][0] + stats[i][1];
 	var mperk = {3: [],6: [],9: [],12: [],15: [],18: []};
 	for(var i in perk)
-		if(perk[i][4](1)&&perk[i][3]===29||perk[i][3]===32)
-			mperk[perk[i][2]].push(i);						
+		if(perk[i][5](1)&&perk[i][4]===29||perk[i][4]===32)
+			mperk[perk[i][3]].push(i);						
 	for(var i in mperk) {
-		if(mperk[i].length == 0) continue;
+		if(mperk[i].length === 0) continue;
 		$("<div id=\"lists"+i+"\" class=\"listlevel\">Уровень "+i+"</div>").appendTo("#crlistperk");	
 		for(var j in mperk[i]) {
-			var perkit = $("<div id=\"lists"+mperk[i][j]+"\" class=\"perklist\">"+textperks[mperk[i][j]][0]+"</div>").appendTo("#crlistperk");
+			var perkit = $("<div id=\"lists"+mperk[i][j]+"\" class=\"perklist\">"+perk[mperk[i][j]][0]+"</div>").appendTo("#crlistperk");
 			perkit.click(function(){
 				if(charp.crlistperk) $("#"+charp.crlistperk).css("color","#00AB00");
 				charp.crlistperk = this.id;
@@ -739,19 +745,25 @@ function createlistperk() {
 function showlistperk(){	
 	var lineit = $("#textlist1").html("");
 	if(!charp.tagt){
-	lineit.append("<center>Дополнительно</center>");
+	lineit.append("<div class=\"listhead\">Дополнительно</div>");
 	for(var j in mychar.traits)
 		if(mychar.traits[j]) {
-			lineit.append("<div id=\"list"+j+"\">"+traits[j][1]+"</div>");
-			$("#list"+j).click(function(){infoparm("traits",this.id.substr(4))})
+			lineit.append("<div id=\"list"+j+"\" class=\"perklist\">"+traits[j][1]+"</div>");
+			$("#list"+j).click(function(){infoparm("traits",this.id.substr(4));});
 		}
 	}
-	lineit.append("<center>Бонусы</center>");
-	for(var j in perk)
-		if(perk[j][0]) {
-			lineit.append("<div id=\"list"+j+"\">"+textperks[j][0]+(perk[j][0]>1?"("+perk[j][0]+")":"")+"</div>");
-			$("#list"+j).click(function(){infoparm("perks",this.id.substr(4))})
+	var mperk = [];
+	lineit.append("<div class=\"listhead\">Бонусы</div>");	
+	for(var j in mychar.perks)
+		if(checkperk(j)) {
+			for(var i in mychar.perks[j].lvl)
+				mperk[mychar.perks[j].lvl[i]] = j;
 		}
+	for(var j in mperk){
+		lineit.append("<div><span id=\"lists"+j+"\" class=\"listlvl\">"+j+" ур: </span><span id=\"list"+mperk[j]+"\" class=\"perklist\">"+perk[mperk[j]][0]/*+(checkperk(mperk[j])>1?"("+checkperk(mperk[j])+")":"")*/+"</span></div>");
+		$("#list"+mperk[j]).click(function(){infoparm("perks",this.id.substr(4));});
+	}
+	
 }
 //Создание списка квестов в окне выбора квестов
 function listquestup(){
@@ -766,14 +778,14 @@ function listquestup(){
 	charp.selectquest = "";
 	for(var i in quest){
 		if(quest[i][0]<quest[i][1]&&charp.level>=quest[i][2]&&charp.level<=quest[i][3]&&quest[i][4]()){
-			var questit = $("<div id=\""+i+"\" class=\"perklist\">"+textquest[i][0]+"</div>").appendTo("#selectquest")
+			var questit = $("<div id=\""+i+"\" class=\"perklist\">"+textquest[i][0]+"</div>").appendTo("#selectquest");
 			questit.click(function(){
 				if(charp.selectquest) $("#"+charp.selectquest).css("color","#00AB00");
 				charp.selectquest = this.id;
 				$("#"+this.id).css("color","#00FF00");
 				$("#nameparmq").html(textquest[this.id][0]);
 				$("#textparmq").html(textquest[this.id][1]);
-			})
+			});
 		}	
 	}	
 }
@@ -784,7 +796,7 @@ function showlistquest(){	// Выводит взятые квесты в #textli
 	for(var j in quest)
 		if(quest[j][0]) {
 			lineit.append("<div id=\"list"+j+"\">"+textquest[j][0]+(quest[j][0]>1?"("+quest[j][0]+")":"")+"</div>");
-			$("#list"+j).click(function(){infoparm("quest",this.id.substr(4))})
+			$("#list"+j).click(function(){infoparm("quest",this.id.substr(4));});
 		}
 }
 // Вывод информации о перке или квесте по клику
@@ -798,8 +810,8 @@ function infoparm(ch,prm){
 			$("#imgparm").html("<img src=\"skill/"+prm+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
 		case "perks": 
-			$("#nameparm").html(textperks[prm][0]);
-			$("#textparm").html(textperks[prm][1]);
+			$("#nameparm").html(perk[prm][0]);
+			$("#textparm").html(perk[prm][1]);
 			//$("#imgparm").html("<img src=\"skill/"+prm.substr(3)+".jpg\">");
 			$("#imgparm").removeClass('loaded');
 			$("#imgparm").html("<img src=\"skill/"+prm.substr(3)+".jpg\" onload=\"imgLoaded(this)\">");
@@ -809,14 +821,14 @@ function infoparm(ch,prm){
 			$("#textparm").html(textquest[prm][1]);
 		break;
 		case "skills": // добавить описание
-			$("#nameparm").html(textperks[prm][0]);
-			$("#textparm").html(textperks[prm][1]);
+			$("#nameparm").html(perk[prm][0]);
+			$("#textparm").html(perk[prm][1]);
 			$("#imgparm").removeClass('loaded');
 			$("#imgparm").html("<img src=\"skill/"+prm.substr(3)+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
 		case "stats": // добавить описание
-			$("#nameparm").html(textperks[prm][0]);
-			$("#textparm").html(textperks[prm][1]);
+			$("#nameparm").html(perk[prm][0]);
+			$("#textparm").html(perk[prm][1]);
 			$("#imgparm").removeClass('loaded');
 			$("#imgparm").html("<img src=\"skill/"+prm.substr(3)+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
@@ -824,14 +836,14 @@ function infoparm(ch,prm){
 }
 // Информация о перке по названию
 function infoperk(prm){
-	$("#nameparms").html(textperks[prm][0]);
-	$("#textparms").html(textperks[prm][1]);
+	$("#nameparms").html(perk[prm][0]);
+	$("#textparms").html(perk[prm][1]);
 	$("#imgparms").removeClass('loaded');
 	$("#imgparms").html("<img src=\"skill/"+prm.substr(3)+".jpg\" onload=\"imgLoaded(this)\">");
 }
 
 function plusbook() {	// Чтение книг
-	var str = this.id.substr(4)
+	var str = this.id.substr(4);
 	var strn;
 	if(str==="prewar") {
 		var r = getRandInt(0, 59);
@@ -896,14 +908,14 @@ function talk(textdialog,answ) {
 				var nup = e.data.func();
 				if(nup==-1) return;
 				$("#talk").hide();
-				if(nup==0) return;
+				if(nup===0) return;
 				if(typeof nup == "object") {
 					skills[e.currentTarget.id.substr(4)][2]+=nup[0];
 					nup = nup[1];
 				}
 				quest[charp.selectquest][0] += nup;
 					var n = totalquest[charp.level];
-					if(n==undefined) n = [];
+					if(n===undefined) n = [];
 					n.push(textquest[charp.selectquest][0]+"("+e.data.name+")");
 					totalquest[charp.level] = n;
 				settle();
@@ -934,7 +946,6 @@ function emptyObject(obj) {
     }
     return true;
 }
-
 // Итоговые результаты в текстовом виде
 function total() {
 	$("#total").show();
@@ -942,11 +953,11 @@ function total() {
 	var textarea = charp.name+" "+feat.live[0]+" XP\n";
 	for(var i in stats)
 			textarea += stats[i][2]+" ";
-	textarea += "\nТрейты: "
+	textarea += "\nТрейты: ";
 	for(var i in traits)
 		if(mychar.traits[i])
 			textarea += traits[i][1]+" ";
-	textarea += "\nНавыки: "
+	textarea += "\nНавыки: ";
 	for(var i in textskills) 
 		if(skills[i][3])
 			textarea += textskills[i][0]+" ";
@@ -967,7 +978,7 @@ function total() {
 	for(var i in skills) 
 		if(skills[i][0] > 80) 
 			textarea += textskills[i][1]+": "+skills[i][0]+"\n";
-	textarea += "\nКниги:\n"
+	textarea += "\nКниги:\n";
 	for(var i in book) {
 		if(i!="prewar"&&book[i][0]<10)	textarea += textbook[i]+" "+(10-book[i][0])+"\n";
 		else if (i=="prewar"&&book[i][0]<20)textarea += textbook[i]+" "+(20-book[i][0])+"\n"
@@ -1036,15 +1047,18 @@ function main() //главная функция
 											
 	$("#done").click(leveling);
 	$("#cancel").click(reg);
-	
+	// ДОБАВЛЕНИЕ ПЕРКА!!!!
 	$("#doneperk").click(function(){
 						$("#perk").hide(); 
 						$("#perk").animate({'opacity':'0'},200);
 						if(charp.selectperk) {
-							perk[charp.selectperk][0] += 1;
+							mychar.perks[charp.selectperk] = {vol: checkperk(charp.selectperk) + 1, lvl: checkperk(charp.selectperk) ? mychar.perks[charp.selectperk].lvl : []};
+							mychar.perks[charp.selectperk].lvl.push(charp.level);
+							//perk[charp.selectperk][0] += 1;
 							charp.perkpoint--;
-							perkup[charp.selectperk]();
-							totalperk[charp.level] = textperks[charp.selectperk];
+							perk[charp.selectperk][6]();
+							//perkup[charp.selectperk]();
+							totalperk[charp.level] = perk[charp.selectperk]; // WTF??
 							showlistperk();
 							settle();
 							statpoints();
@@ -1103,7 +1117,7 @@ function main() //главная функция
 	$("#men").css('backgroundImage', 'url(img/men.png)');
 	numberage();
 	spoints();
-	numbers($("#point2"),skills["tags"]);
+	numbers($("#point2"),skills.tags);
 	statpoints();
 	settle();
 	createlistperk();
