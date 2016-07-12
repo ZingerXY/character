@@ -27,18 +27,18 @@ var charp = {
 	crlistperk: "",
 	selectperk: "",
 	selectquest: "",
-	specialpoint: 5,
+	specialpoint: 0,
 	perkpoint: 0
 };
 // стат, добавленный стат
 var stats = {   
-	str: [5, 0, 0], // Сила
-	per: [5, 0, 0], // Восприятие
-	enu: [5, 0, 0], // Выносливость
-	cha: [5, 0, 0], // Обаяние
-	intl: [5, 0, 0], // Интелект
-	agi: [5, 0, 0], // Ловкость
-	luc: [5, 0, 0] // Удача
+	str: [6, 0, 0], // Сила
+	per: [7, 0, 0], // Восприятие
+	enu: [8, 0, 0], // Выносливость
+	cha: [2, 0, 0], // Обаяние
+	intl: [8, 0, 0], // Интелект
+	agi: [7, 0, 0], // Ловкость
+	luc: [2, 0, 0] // Удача
 };
 // Статы описание
 var textstats = { 
@@ -805,14 +805,12 @@ function infoparm(ch,prm){
 		case "traits": 
 			$("#nameparm").html(traits[prm][1]);
 			$("#textparm").html(traits[prm][2]);
-			//$("#imgparm").html("<img src=\"skill/"+prm+".jpg\">");
 			$("#imgparm").removeClass('loaded');
 			$("#imgparm").html("<img src=\"skill/"+prm+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
 		case "perks": 
 			$("#nameparm").html(perk[prm][0]);
 			$("#textparm").html(perk[prm][1]);
-			//$("#imgparm").html("<img src=\"skill/"+prm.substr(3)+".jpg\">");
 			$("#imgparm").removeClass('loaded');
 			$("#imgparm").html("<img src=\"skill/"+prm.substr(3)+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
@@ -841,8 +839,8 @@ function infoperk(prm){
 	$("#imgparms").removeClass('loaded');
 	$("#imgparms").html("<img src=\"skill/"+prm.substr(3)+".jpg\" onload=\"imgLoaded(this)\">");
 }
-
-function plusbook() {	// Чтение книг
+// Чтение книг
+function plusbook() {	
 	var str = this.id.substr(4);
 	var strn;
 	if(str==="prewar") {
@@ -997,10 +995,9 @@ function scrollit(e){
 function imgLoaded(img){
     var $img = $(img);
     $img.parent().addClass('loaded');
-	//$img.parent().removeClass('loaded');
 }
-
-function main() //главная функция
+//главная функция
+function main() 
 {
 	
 	$("#crlistperk").on('wheel', scrollit);
@@ -1054,10 +1051,8 @@ function main() //главная функция
 						if(charp.selectperk) {
 							mychar.perks[charp.selectperk] = {vol: checkperk(charp.selectperk) + 1, lvl: checkperk(charp.selectperk) ? mychar.perks[charp.selectperk].lvl : []};
 							mychar.perks[charp.selectperk].lvl.push(charp.level);
-							//perk[charp.selectperk][0] += 1;
 							charp.perkpoint--;
 							perk[charp.selectperk][6]();
-							//perkup[charp.selectperk]();
 							totalperk[charp.level] = perk[charp.selectperk]; // WTF??
 							showlistperk();
 							settle();
@@ -1124,6 +1119,5 @@ function main() //главная функция
 	$(".main").animate({'opacity':'1'},200);
 	
 }
-
 //window.addEventListener('DOMContentLoaded', main);
 window.addEventListener("load", main);
