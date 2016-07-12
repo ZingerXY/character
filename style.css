@@ -1,21 +1,49 @@
+/* Fallout не используется*/
 @font-face {
-	font-family: fallout_decayed;
-	src: url(font/fallout_decayed.ttf	);
+  font-family: 'Fallout';
+   src: url('font/fallout.eot') format('embedded-opentype');
+  src: url('font/fallout.eot?#iefix') format('embedded-opentype');
+  src: 	url('font/fallout.woff2') format('woff2'),
+		url('font/Fallout.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
+/* fallout_decayed */
 @font-face {
-	font-family: shoma_fallout3;
-	src: url(font/shoma_fallout3.ttf	);
+  font-family: 'fallout_decayed';
+  src: url('font/FalloutDecayed.eot') format('embedded-opentype');
+  src: url('font/FalloutDecayed.eot?#iefix') format('embedded-opentype');
+  src: 	url('font/fallout_decayed.woff2') format('woff2'),
+		url('font/FalloutDecayed.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
+/* shoma_fallout3 */
 @font-face {
-	font-family: Arial_Bold;
-	src: url(font/Arial_Bold.ttf	);
+  font-family: 'shoma_fallout3';
+  src: url('font/ShomaFallout3.eot') format('embedded-opentype');
+  src: url('font/ShomaFallout3.eot?#iefix') format('embedded-opentype');
+  src:	url('font/shoma_fallout3.woff2') format('woff2'),
+		url('font/ShomaFallout3.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Arial_Bold основной*/
+@font-face {
+  font-family: 'Arial_Bold';
+  src: url('font/Arial-Bold.eot') format('embedded-opentype');
+  src: url('font/Arial-Bold.eot?#iefix') format('embedded-opentype');
+  src: 	url('font/Arial_Bold.woff2') format('woff2'),
+		url('font/Arial-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 /* latin-ext */
 @font-face {
   font-family: 'Oswald';
   font-style: normal;
   font-weight: 400;
-  src: local('Oswald Regular'), local('Oswald-Regular'), url(font/Oswald.woff2) format('woff2');
+  src: local('Oswald Regular'), local('Oswald-Regular'), url('font/Oswald.woff2') format('woff2');
   unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
@@ -23,7 +51,7 @@
   font-family: 'Oswald';
   font-style: normal;
   font-weight: 400;
-  src: local('Oswald Regular'), local('Oswald-Regular'), url(font/OswaldLatin.woff2) format('woff2');
+  src: local('Oswald Regular'), local('Oswald-Regular'), url('font/OswaldLatin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 body, html {
@@ -77,7 +105,7 @@ body{
 }
 .text	{
 	position: 		absolute;
-	font-family: 	fallout_decayed, 'fallout_decayed', cursive;
+	font-family: 	fallout_decayed;
 	color:			#8F6F00;
 	font-size:		20px;
 }
@@ -243,11 +271,8 @@ body{
 .znach	{
 	position: 		absolute;
 	font-family: 	Arial_Bold;
-	/*font-family: 	fallout_display, 'fallout_display', cursive;
-	/*font-family: 	hardpixel_regular, 'hardpixel_regular', cursive;*/
 	color:			#0E0;
 	font-size:		11px;
-	/*letter-spacing: 0.4px;*/
 	left:			102px;
 	margin-top:		8px;
 }
@@ -296,13 +321,11 @@ body{
 		top:		0px;
 		left:		55px;
 }
-/*#textexp{margin-top: 1px;}*/
 #exp{
 	position:		absolute;
 	top:			12px;
 	left:			55px;
 }
-/*#textnextexp{margin-top: 1px;}*/
 #nextexp{
 	position:		absolute;
 	top:			22px;
@@ -323,8 +346,6 @@ body{
 	display:		inline-block;
 	position: 		absolute;
 	font-family: 	Arial_Bold;
-	/*font-family: 	fallout_display, 'fallout_display', cursive;*/
-	/*font-family: 	hardpixel_regular, 'hardpixel_regular', cursive;*/
 	color:			#0E0;
 	font-size:		11px;
 	/*letter-spacing: 0.4px;*/
@@ -435,7 +456,6 @@ body{
 	width:			42px;
 }
 .skill	{
-	/*font-family: 	fallout_display, 'fallout_display', cursive;*/
 	font-family: 	Arial_Bold;
 	color: 			#0E0;
 	position: 		absolute;
@@ -536,18 +556,12 @@ body{
 
 div[id ^= "nameparm"] {
 	position: 		absolute;
-	font-family: 	shoma_fallout3, 'shoma_fallout3', cursive;
+	font-family: 	shoma_fallout3;
 	font-size:		20pt;
 	width:			175px;
 	height:			32px;
 	z-index:		100;
 }
-/* хром, сафари */
-div[id ^= "textparm"]::-webkit-scrollbar { width: 0; }
-/* ie 10+ */
-div[id ^= "textparm"] { -ms-overflow-style: none; }
-/* фф (свойство больше не работает, других способов тоже нет)*/
-div[id ^= "textparm"] { overflow: -moz-scrollbars-none; }
 div[id ^= "textparm"] {
 	color:			#000;
 	position: 		absolute;
@@ -555,7 +569,7 @@ div[id ^= "textparm"] {
 	width:			130px;
 	height:			108px;
 	z-index:		100;
-	overflow: 		auto;
+	overflow: 		hidden;
 }
 
 div[id ^= "imgparm"] {
@@ -688,12 +702,6 @@ div[id ^= "imgparm"] {
 div[id ^= "list"] {
 	overflow:		auto;
 }
-/* хром, сафари */
-#textlist1::-webkit-scrollbar { width: 0; }
-/* ie 10+ */
-#textlist1 { -ms-overflow-style: none; }
-/* фф (свойство больше не работает, других способов тоже нет)*/
-#textlist1{ overflow: -moz-scrollbars-none; }
 #textlist1	{ /* перки */
 	display:		none;
 	position: 		absolute;
@@ -701,7 +709,7 @@ div[id ^= "list"] {
 		top: 		297px;
 	width:			240px;
 	height:			168px;	
-	overflow:		auto;
+	overflow: 		hidden;
 }
 #textlist2	{	/* книги */
 	display:		none;
@@ -713,7 +721,6 @@ div[id ^= "list"] {
 }
 .book{
 	font-family: 	Arial_Bold;
-	/*font-family: 	fallout_display, 'fallout_display', cursive;*/
 	color:			#FFF;
 	font-size:		11px;
 	width:			72px;
@@ -761,12 +768,6 @@ div[id ^= "list"] {
 		top: 		110px;
 		left: 		12px;
 }
-/* хром, сафари */
-#textlist3::-webkit-scrollbar { width: 0; }
-/* ie 10+ */
-#textlist3 { -ms-overflow-style: none; }
-/* фф (свойство больше не работает, других способов тоже нет)*/
-#textlist3{ overflow: -moz-scrollbars-none; }
 #textlist3	{	/* квесты */
 	display:		none;
 	position: 		absolute;
@@ -774,14 +775,8 @@ div[id ^= "list"] {
 		top: 		297px;
 	width:			240px;
 	height:			168px;	
-	overflow:		auto;
+	overflow: 		hidden;
 }
-/* хром, сафари */
-#selectperk::-webkit-scrollbar { width: 0; }
-/* ie 10+ */
-#selectperk { -ms-overflow-style: none; }
-/* фф (свойство больше не работает, других способов тоже нет)*/
-#selectperk{ overflow: -moz-scrollbars-none; }
 #selectperk	{
 	position: 		absolute;
 		left: 		53px;
@@ -790,7 +785,7 @@ div[id ^= "list"] {
 	height:			348px;	
 	/*background-color: #000;
 	opacity: 0.3	;    /*прозрачность*/
-	overflow:		auto;
+	overflow: 		hidden;
 }
 #done	{
 	position: 		absolute;
@@ -847,12 +842,6 @@ div[id ^= "list"] {
 #cancelperk:active{
 	background-image: url(img/greendot_big.png);
 }
-/* хром, сафари */
-#selectquest::-webkit-scrollbar { width: 0; }
-/* ie 10+ */
-#selectquest { -ms-overflow-style: none; }
-/* фф (свойство больше не работает, других способов тоже нет)*/
-#selectquest{ overflow: -moz-scrollbars-none; }
 #selectquest	{
 	position: 		absolute;
 		left: 		53px;
@@ -861,7 +850,7 @@ div[id ^= "list"] {
 	height:			348px;	
 	/*background-color: #000;
 	opacity: 0.3	;    /*прозрачность*/
-	overflow:		auto;
+	overflow: 		hidden;
 }
 #quest	{
 	display:		none;
@@ -930,13 +919,8 @@ div[id ^= "list"] {
 	height:			156px;
 }
 div[id ^= "answ"]{ overflow:		auto; }
-#answ::-webkit-scrollbar { width: 0; }
-/* ie 10+ */
-#answ{ -ms-overflow-style: none; }
-/* фф (свойство больше не работает, других способов тоже нет)*/
-#answ{ overflow: -moz-scrollbars-none; }
 #answ {
-	overflow:		auto;
+	overflow: 		hidden;
 	position: 		absolute;
 		left: 		20px;
 		top: 		211px;
@@ -970,13 +954,8 @@ div[id ^= "answ"]{ overflow:		auto; }
 	width:			160px;
 	height:			25px;
 }
-#crlistperk::-webkit-scrollbar { width: 0; }
-/* ie 10+ */
-#crlistperk { -ms-overflow-style: none; }
-/* фф (свойство больше не работает, других способов тоже нет)*/
-#crlistperk{ overflow: -moz-scrollbars-none; }
 #crlistperk {
-	overflow:		auto;
+	overflow: 		hidden;
 	position: 		absolute;
 		left: 		5px;
 		top: 		30px;
