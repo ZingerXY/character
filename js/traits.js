@@ -21,12 +21,12 @@ var traits = {
 	// Крушила Плюсы: +3 силы, игнор тиков плазмы. Минусы: -1 Очко Действия (ОД).
 	TRAIT_BRUISER: [function(str){	
 			if(!mychar.traits[str] && charp.tagt>0) {
-				stats.str[0]+=3; 
+				mychar.stats.STR[0]+=3; 
 				feat.apoi[1]-=1;
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2) {
-				stats.str[0]-=3;
+				mychar.stats.STR[0]-=3;
 				feat.apoi[1]+=1;
 				delete mychar.traits[str];
 				charp.tagt++;	}
@@ -37,12 +37,12 @@ var traits = {
 	TRAIT_SMALL_FRAME: [function(str){	
 			if(!mychar.traits[str] && charp.tagt>0) {
 				feat.dodge[1]+=5;
-				stats.agi[0]+=1; 
+				mychar.stats.AGI[0]+=1; 
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2) {
 				feat.dodge[1]-=5;
-				stats.agi[0]-=1; 
+				mychar.stats.AGI[0]-=1; 
 				delete mychar.traits[str];
 				charp.tagt++;	}
 			},"Xилое тело", "Вы не в состоянии таскать тяжелые грузы, зато более проворны. Вам дается +1 Ловкость и +5% к увороту."],
@@ -77,11 +77,11 @@ var traits = {
 	// Минусы: Персонаж не получает КБ от параметра Ловкости.
 	TRAIT_KAMIKAZE: [function(str){	
 			if(!mychar.traits[str] && charp.tagt>0){
-				stats.agi[1]+=1; 
+				mychar.stats.AGI[1]+=1; 
 				mychar.traits[str] = 1; 
 				charp.tagt--;	} 
 			else if(mychar.traits[str] && charp.tagt<2){
-				stats.agi[1]-=1; 
+				mychar.stats.AGI[1]-=1; 
 				delete mychar.traits[str]; 
 				charp.tagt++;	
 			}
@@ -215,19 +215,19 @@ var traits = {
 	// Минусы: Перк дается через 4 уровня, а не через 3.
 	TRAIT_SKILLED: [function(str){	
 			if(!mychar.traits[str] && charp.tagt>0){
-				stats.enu[1]+=2;
-				stats.cha[1]+=2;
-				stats.intl[1]+=2;
-				stats.agi[1]+=2;
+				mychar.stats.ENU[1]+=2;
+				mychar.stats.CHA[1]+=2;
+				mychar.stats.INT[1]+=2;
+				mychar.stats.AGI[1]+=2;
 				feat.live[1]+=25; 
 				
 				mychar.traits[str] = 1; 
 				charp.tagt--;	} 
 			else if(mychar.traits[str] && charp.tagt<2){
-				stats.enu[1]-=2;
-				stats.cha[1]-=2;
-				stats.intl[1]-=2;
-				stats.agi[1]-=2;
+				mychar.stats.ENU[1]-=2;
+				mychar.stats.CHA[1]-=2;
+				mychar.stats.INT[1]-=2;
+				mychar.stats.AGI[1]-=2;
 				feat.live[1]-=25;
 				delete mychar.traits[str]; 
 				charp.tagt++;	

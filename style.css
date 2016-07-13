@@ -290,13 +290,13 @@ body{
 	background-image:	url(img/small_key.png	);
 }
 .plus	{left: 138px;}
-.str	{ top: 35px; }
-.per	{ top: 67px; }
-.enu	{ top: 99px; }
-.cha	{ top: 131px; }
-.intl	{ top: 163px; }
-.agi	{ top: 195px; }
-.luc	{ top: 227px; }
+.STR	{ top: 35px; }
+.PER	{ top: 67px; }
+.ENU	{ top: 99px; }
+.CHA	{ top: 131px; }
+.INT	{ top: 163px; }
+.AGI	{ top: 195px; }
+.LUC	{ top: 227px; }
 #specialpointext{
 	position: 		absolute;
 	top:			277px;
