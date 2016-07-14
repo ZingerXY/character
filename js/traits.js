@@ -117,12 +117,12 @@ var traits = {
 	// Минусы: -25 ОЗ.
 	TRAIT_BLOODY_MESS: [function(str){	
 			if(!mychar.traits[str] && charp.tagt>0){
-				skills.speed[1]+=175;
+				addSkills("speed",175,1);
 				feat.live[1]-=25;
 				mychar.traits[str] = 1; 
 				charp.tagt--;	} 
 			else if(mychar.traits[str] && charp.tagt<2){
-				skills.speed[1]-=175;
+				addSkills("speed",-175,1);
 				feat.live[1]+=25;
 				delete mychar.traits[str]; 
 				charp.tagt++;	
@@ -145,29 +145,29 @@ var traits = {
 	// Минусы: Все боевые навыки уменьшаются на 15.
 	TRAIT_GOOD_NATURED: [function(str){	
 			if(!mychar.traits[str] && charp.tagt>0){
-				skills.orderly[1]+=15;
-				skills.doctor[1]+=25;
-				skills.oratory[1]+=35;
-				skills.trade[1]+=25;
-				skills.light[1]-=15;
-				skills.heavy[1]-=15;
-				skills.energy[1]-=15;
-				skills.steel[1]-=10;
-				skills.melee[1]-=10;
-				skills.thrown[1]-=10;
+				addSkills("orderly",15,1);
+				addSkills("doctor",25,1);
+				addSkills("oratory",35,1);
+				addSkills("trade",25,1);
+				addSkills("light",-15,1);
+				addSkills("heavy",-15,1);
+				addSkills("energy",-15,1);
+				addSkills("steel",-10,1);
+				addSkills("melee",-10,1);
+				addSkills("thrown",-10,1);
 				mychar.traits[str] = 1; 	
 				charp.tagt--;	} 
 			else if(mychar.traits[str] && charp.tagt<2){
-				skills.orderly[1]-=15;
-				skills.doctor[1]-=25;
-				skills.oratory[1]-=35;
-				skills.trade[1]-=25;
-				skills.light[1]+=15;
-				skills.heavy[1]+=15;
-				skills.energy[1]+=15;
-				skills.steel[1]+=10;
-				skills.melee[1]+=10;
-				skills.thrown[1]+=10;
+				addSkills("orderly",-15,1);
+				addSkills("doctor",-25,1);
+				addSkills("oratory",-35,1);
+				addSkills("trade",-25,1);
+				addSkills("light",15,1);
+				addSkills("heavy",15,1);
+				addSkills("energy",15,1);
+				addSkills("steel",10,1);
+				addSkills("melee",10,1);
+				addSkills("thrown",10,1);
 				delete mychar.traits[str]; 
 				charp.tagt++;	
 			}
@@ -239,12 +239,12 @@ var traits = {
 	TRAIT_NIGHT_PERSON: [function(str){	
 			if(!mychar.traits[str] && charp.tagt>0){
 				feat.apoi[1]+=2;
-				skills.thrown[1]+=20;
+				addSkills("thrown",20,1);
 				mychar.traits[str] = 1; 
 				charp.tagt--;	} 
 			else if(mychar.traits[str] && charp.tagt<2){
 				feat.apoi[1]-=2;
-				skills.thrown[1]-=20;
+				addSkills("thrown",-20,1);
 				delete mychar.traits[str]; 
 				charp.tagt++;	
 			}

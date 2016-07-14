@@ -20,6 +20,7 @@ var mychar = {
 	traits: {},
 	perks: {},
 	tags: {},
+	skills: {},
 	stats: {
 		STR: [6, 0], // Сила
 		PER: [7, 0], // Восприятие
@@ -47,13 +48,13 @@ var charp = {
 };
 // стат, добавленный стат
 var stats = {   
-	STR: ["Cила","", 0],
-	PER: ["Восприятие","", 0],
-	ENU: ["Выносливость","", 0],
-	CHA: ["Обаяние","", 0],
-	INT: ["Интелект","", 0],
-	AGI: ["Ловкость","", 0],
-	LUC: ["Удача","", 0]
+	STR: ["Cила","Грубая физическая сила. Хорошо подходит для воинов и им подобных. Оказывает влияние на Очки Жизней, наносимые Повреждения и Переноску Груза.", 0],
+	PER: ["Восприятие","Способность иначе видеть, слышать и замечать события. Необходимое качество для каждого снайпера. Оказывает влияние на Дальность стрельбы и Порядок действий.", 0],
+	ENU: ["Выносливость","Выносливость помогает переносить тяготы и лишения судьбы героя с подобающим спокойствием. Оказывает влияние на Очки Жизней, Устойчивость к Яду и Радиации, Уровень Лечения и др.", 0],
+	CHA: ["Обаяние","Обаяние - это комбинация внешности и шарма. Подходит для персонажей, которые всего добиваются словами. Влияет на реакцию людей и цены товаров.", 0],
+	INT: ["Интелект","Интеллект отвечает за память, скорость реакции и способность оценивать события. Влияет на количество очков умений на уровень, режимы диалога и многое др.", 0],
+	AGI: ["Ловкость","Ловкость и координация движений могут спасти вас от верной гибели. В ловкости нуждается каждый персонаж. Влияет на Очки Действия, Класс Брони, Порядок действий и многое др.", 0],
+	LUC: ["Удача","Степень воздействия теории вероятностей на вашу судьбу. Высокая или низкая удачливость часто определяют, как вам повезет в игре, и как будут развиваться дальнейшие события.", 0]
 };
 // SkillMod.Add2
 var SkillMod = { 
@@ -180,14 +181,15 @@ function tags() {
 	if(!(str in mychar.tags) && charp.tags > 0) {
 		mychar.tags[str] = 1;
 		charp.tags--;
-		skills[str][1]+=20;
+		crSkills(str);
+		addSkills(str,20,1);
 		$("#"+str+"s").css("color", "#ABABAB");
 		$("#"+str).css("color", "#ABABAB");
 	}
 	else if((str in mychar.tags) && charp.tags < 3)	{
 		delete mychar.tags[str];
 		charp.tags++;
-		skills[str][1]-=20;
+		addSkills(str,-20,1);
 		$("#"+str+"s").css("color", "#00FF00");
 		$("#"+str).css("color", "#00FF00");
 	}
@@ -196,43 +198,45 @@ function tags() {
 }
 // расчеты навыков и параметров и их обновление
 function settle() {	
-	var link;
 	// Легкое оружие
-	skills.light[0] = skills.light[2] + skills.light[1] + 5 + mychar.stats.AGI[0]*4;					
+	skills.light[0] = 5 + mychar.stats.AGI[0]*4;					
 	// Тяжелое
-	skills.heavy[0] = skills.heavy[2] + skills.heavy[1] + mychar.stats.AGI[0]*2;						
+	skills.heavy[0] = mychar.stats.AGI[0]*2;						
 	// Энергетическое
-	skills.energy[0] = skills.energy[2] + skills.energy[1] + 0 + mychar.stats.AGI[0]*2;					
+	skills.energy[0] = 0 + mychar.stats.AGI[0]*2;					
 	// Рукопашка
-	skills.melee[0] = skills.melee[2] + skills.melee[1] + 30 + (mychar.stats.STR[0]+mychar.stats.AGI[0])*2;	
+	skills.melee[0] = 30 + (mychar.stats.STR[0]+mychar.stats.AGI[0])*2;	
 	// Холодное
-	skills.steel[0] = skills.steel[2] + skills.steel[1] + 20 + (mychar.stats.STR[0]+mychar.stats.AGI[0])*2;	
+	skills.steel[0] = 20 + (mychar.stats.STR[0]+mychar.stats.AGI[0])*2;	
 	// Метательное
-	skills.thrown[0] = skills.thrown[2] + skills.thrown[1] + mychar.stats.AGI[0]*4;						
+	skills.thrown[0] = mychar.stats.AGI[0]*4;						
 	// Санитар
-	skills.orderly[0] = skills.orderly[2] + skills.orderly[1] + (mychar.stats.PER[0]+mychar.stats.INT[0])*2;		
+	skills.orderly[0] = (mychar.stats.PER[0]+mychar.stats.INT[0])*2;		
 	// Доктор
-	skills.doctor[0] = skills.doctor[2] + skills.doctor[1] + 5 + mychar.stats.PER[0]+mychar.stats.INT[0];		
+	skills.doctor[0] = 5 + mychar.stats.PER[0]+mychar.stats.INT[0];		
 	// Скрытность
-	skills.sneak[0] = skills.sneak[2] + skills.sneak[1] + 5 + mychar.stats.AGI[0]*3;					
+	skills.sneak[0] = 5 + mychar.stats.AGI[0]*3;					
 	// Взлом
-	skills.hack[0] = skills.hack[2] + skills.hack[1] + 10 + mychar.stats.AGI[0]+ mychar.stats.PER[0];		
+	skills.hack[0] = 10 + mychar.stats.AGI[0]+ mychar.stats.PER[0];		
 	// Воровство
-	skills.steal[0] = skills.steal[2] + skills.steal[1] + mychar.stats.AGI[0]*3;						
+	skills.steal[0] = mychar.stats.AGI[0]*3;						
 	// Ловушки
-	skills.traps[0] = skills.traps[2] + skills.traps[1] + 10 + mychar.stats.AGI[0]+ mychar.stats.PER[0];		
+	skills.traps[0] = 10 + mychar.stats.AGI[0]+ mychar.stats.PER[0];		
 	// Наука
-	skills.science[0] = skills.science[2] + skills.science[1] + mychar.stats.INT[0]*4;					
+	skills.science[0] = mychar.stats.INT[0]*4;					
 	// Ремонт
-	skills.repair[0] = skills.repair[2] + skills.repair[1] + mychar.stats.INT[0]*3;						
+	skills.repair[0] = mychar.stats.INT[0]*3;						
 	// Красноречие
-	skills.oratory[0] = skills.oratory[2] + skills.oratory[1] + mychar.stats.CHA[0]*5;						
+	skills.oratory[0] = mychar.stats.CHA[0]*5;						
 	// Торговля
-	skills.trade[0] = skills.trade[2] + skills.trade[1] + mychar.stats.CHA[0]*4;						
+	skills.trade[0] = mychar.stats.CHA[0]*4;						
 	// Атлет
-	skills.speed[0] = skills.speed[2] + skills.speed[1] + 0;									
+	skills.speed[0] = 0;									
 	// Скиталец
-	skills.ranger[0] = skills.ranger[2] + skills.ranger[1] + (mychar.stats.ENU[0]+mychar.stats.INT[0])*2;	
+	skills.ranger[0] = (mychar.stats.ENU[0]+mychar.stats.INT[0])*2;
+	
+	for(var i in skills) 
+		skills[i][0] += sumSkills(i);			
 	
 	var STR = mychar.stats.STR[0] + mychar.stats.STR[1];
 	var PER = mychar.stats.PER[0] + mychar.stats.PER[1];
@@ -405,11 +409,51 @@ function minusspec(pop){
 function spoints(){	
 	numbers($("#point1"),charp.points);
 }
+// Создание ветки обьекта прокачки скилов
+function crSkills(str){
+	if(!(charp.level in mychar.skills))
+		mychar.skills[charp.level]={};
+	if(!(str in mychar.skills[charp.level]))
+		mychar.skills[charp.level][str] = [0,0];
+}
+// Удаление ветки обьекта прокачки скилов если он пустой
+function delSkills(str){
+	if(mychar.skills[charp.level][str][0] == 0 && 
+	   mychar.skills[charp.level][str][1] == 0)
+		delete mychar.skills[charp.level][str];
+	if(emptyObject(mychar.skills[charp.level]))
+		delete mychar.skills[charp.level];	
+}
+// Добавление к навыку
+function addSkills(str,n,c){
+	c = c===undefined ? 0 : c;
+	crSkills(str);
+	mychar.skills[charp.level][str][c] += n;
+	delSkills(str);
+}
+// Проверка наличия прокачки навыка
+function chSkills(str){
+	if(charp.level in mychar.skills)
+		if(str in mychar.skills[charp.level])
+			if(mychar.skills[charp.level][str][0]>0)
+				return true;
+	else
+		return false;
+}
+function sumSkills(str){
+	var sum = 0;
+	for(var j in mychar.skills)
+		if(str in mychar.skills[j]) {
+			sum += mychar.skills[j][str][0];
+			sum += mychar.skills[j][str][1];
+		}
+	return sum;
+}
 // Прокачка навыков
 function plus() {
-	var n = skills[this.id.substr(4)][0];
+	var str = this.id.substr(4);
+	var n = skills[str][0];	
 	if( n >= SkillMod.MaxValue ) return;
-
 	var s = 1;
 	if( n > SkillMod.Add6 ) s = 6;
 	else if( n > SkillMod.Add5 ) s = 5;
@@ -418,20 +462,20 @@ function plus() {
 	else if( n > SkillMod.Add2 ) s = 2;
 	if( charp.points < s ) return;
 	n++;
-	if((this.id.substr(4) in mychar.tags) && n < SkillMod.MaxValue )
+	if((str in mychar.tags) && n < SkillMod.MaxValue )
 		n++;
-	skills[this.id.substr(4)][2] += n - skills[this.id.substr(4)][0];
+	addSkills(str, n - skills[str][0]);
 	charp.points -= s;
 	spoints();
 	settle();
 }
 // Откачка навыков
 function minus() {
-	var skillid = this.id.substr(5);
-	var n = skills[skillid][0];
-	if( n <= 0 ||  skills[skillid][2] <= 0) return;
+	var str = this.id.substr(5);
+	var n = skills[str][0];
+	if( n <= 0 ||  !chSkills(str)) return;
 	
-	var tag = (skillid in mychar.tags) ? 2 : 1;
+	var tag = (str in mychar.tags) ? 2 : 1;
 	for(var i = 0; i < tag; i++) {
 		var s = 1;
 		if( n > SkillMod.Add6 + 1 ) s = 6;
@@ -442,13 +486,14 @@ function minus() {
 		if(n > 0 )
 			n--;
 	}
-	skills[skillid][2] += n - skills[skillid][0];
+	addSkills(str, n - skills[str][0]);
+	delSkills(str);
 	charp.points += s;
 	spoints();
 	settle();
 }
-
-function modalCloseEsc (pop) {	// скрытие окон по Esc
+// скрытие окон по Esc
+function modalCloseEsc (pop) {	
   if ( !pop.keyCode || pop.keyCode === 27 ) {
 	$("#entername").hide();
 	$("#enterage").hide();
@@ -459,8 +504,8 @@ function modalCloseEsc (pop) {	// скрытие окон по Esc
 	$("#total").hide();
   }
 }
-
-function modalCloseClick () {	// скрытие окон по клику
+// скрытие окон по клику
+function modalCloseClick () {	
 	$("#entername").hide();
 	$("#enterage").hide();
 	$("#entersex").hide();
@@ -472,19 +517,17 @@ function showthis() {
 	$("#enter"+str).show();
 	$("#wrap").show();
 }
-// Обновление возраста
-function numberage() {
-	numbers($("#numberage"),charp.age);
-}
-function plusage() { // Прибавить возраст
+// Прибавить возраст
+function plusage() { 
 	charp.age++;
 	if(charp.age>60) charp.age = 14;
-	numberage();
+	numbers($("#numberage"),charp.age);
 }
-function minusage() { // Отнять возраст
+// Отнять возраст
+function minusage() { 
 	charp.age--;
 	if(charp.age<14) charp.age = 60;
-	numberage();
+	numbers($("#numberage"),charp.age);
 }
 // Смена пола
 function changesex() {
@@ -816,7 +859,7 @@ function infoparm(ch,prm){
 			$("#imgparm").removeClass('loaded');
 			$("#imgparm").html("<img src=\"skill/"+prm.substr(3)+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
-		case "quest": // добавить описание
+		case "quest":
 			$("#nameparm").html(textquest[prm][0]);
 			$("#textparm").html(textquest[prm][1]);
 		break;
@@ -885,7 +928,7 @@ function plusbook() {
 			}
 		}
 		book[str][1] = s;
-		skills[strn][2] += np;
+		addSkills(strn,np);
 		book[str][0]--;
 		$("#book"+str).html("x"+book[str][0]);
 		settle();
@@ -910,7 +953,7 @@ function talk(textdialog,answ) {
 				$("#talk").hide();
 				if(nup===0) return;
 				if(typeof nup == "object") {
-					skills[e.currentTarget.id.substr(4)][2]+=nup[0];
+					addSkills(e.currentTarget.id.substr(4),nup[0]);
 					nup = nup[1];
 				}
 				quest[select.quest][0] += nup;
@@ -1105,7 +1148,7 @@ function main()
 		$("#butt"+j).click(selectskill);
 	}
 	$("#men").css('backgroundImage', 'url(img/men.png)');
-	numberage();
+	numbers($("#numberage"),charp.age);
 	spoints();
 	numbers($("#point2"),charp.tags);
 	statpoints();
