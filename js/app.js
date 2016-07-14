@@ -870,10 +870,10 @@ function infoparm(ch,prm){
 			$("#imgparm").html("<img src=\"skill/"+prm.substr(3)+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
 		case "stats": // добавить описание
-			$("#nameparm").html(perk[prm][0]);
-			$("#textparm").html(perk[prm][1]);
+			$("#nameparm").html(stats[prm.substr(0,3)][0]);
+			$("#textparm").html(stats[prm.substr(0,3)][1]);
 			$("#imgparm").removeClass('loaded');
-			$("#imgparm").html("<img src=\"skill/"+prm.substr(3)+".jpg\" onload=\"imgLoaded(this)\">");
+			$("#imgparm").html("<img src=\"skill/"+prm.substr(0,3)+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
 	}
 }
@@ -1133,6 +1133,9 @@ function main()
 	for(var j in stats) {
 		$("#plus"+j).click(plusspec);
 		$("#minus"+j).click(minusspec);
+		$("#"+j+"n").click(function(){infoparm("stats",this.id)});
+		$("#"+j+"t").click(function(){infoparm("stats",this.id)});
+		$("#"+j).click(function(){infoparm("stats",this.id)});
 	}
 	for(var j in traits){
 		$("#key"+j).mousedown(function(){$("#lkey"+this.id.substr(3)).html("<img src=\"img/small_key.png\" onload=\"imgLoaded(this)\">");});
