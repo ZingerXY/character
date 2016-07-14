@@ -1,4 +1,4 @@
-﻿var quest = {	// квест, уровней квеста, мин уровень взятия, максимальный уровень взятия, [требования])
+var quest = {	// квест, уровней квеста, мин уровень взятия, максимальный уровень взятия, [требования])
 
 	medals:[0,200,1,99,function(){return true;}],
 	ranger_smile:[0,1,1,99,function(){return skills.ranger[0]<60;}],
@@ -77,7 +77,7 @@ function skillsmedals(n,m) {
 var questup = {
 	medals:function(){
 			talk("У вас "+(quest.medals[1]-quest.medals[0])+" медалей выберите награду:",{ 	
-			amedals:["1 очко распределения(3 медали)",function(){skills.points++;spoints();return 3;},(quest.medals[1]-quest.medals[0])>=3], // точность +3%
+			amedals:["1 очко распределения(3 медали)",function(){charp.points++;spoints();return 3;},(quest.medals[1]-quest.medals[0])>=3], // точность +3%
 			bmedals:["1 очко жизней(10 медалей)",function(){feat.live[2]++;return 10;},(quest.medals[1]-quest.medals[0])>=10], // точность врага -3%, 3% уроврота.
 			cmedals:["+1% любого резиста(10 медалей)",function(){
 				talk("Выберите резист:", {
@@ -93,8 +93,8 @@ var questup = {
 			emedals:["+10 очков навыка(40 медалей)",function(){skillsmedals(10,40);return -1;},(quest.medals[1]-quest.medals[0])>=40],
 			fmedals:["+20 очков навыка(60 медалей)",function(){skillsmedals(20,60);return -1;},(quest.medals[1]-quest.medals[0])>=60],
 			gmedals:["+50 очков навыка(100 медалей)",function(){skillsmedals(50,100);return -1;},(quest.medals[1]-quest.medals[0])>=100],*/
-			fmedals:["+10 очков распределения(10 медалей)",function(){skills.points+=10;medsp+=10;spoints();return 10;},(quest.medals[1]-quest.medals[0])>=10 && medsp<150],
-			gmedals:["+150 очков распределения(150 медалей)",function(){skills.points+=150;medsp+=150;spoints();return 150;},(quest.medals[1]-quest.medals[0])>=150 && medsp<150],
+			fmedals:["+10 очков распределения(10 медалей)",function(){charp.points+=10;medsp+=10;spoints();return 10;},(quest.medals[1]-quest.medals[0])>=10 && medsp<150],
+			gmedals:["+150 очков распределения(150 медалей)",function(){charp.points+=150;medsp+=150;spoints();return 150;},(quest.medals[1]-quest.medals[0])>=150 && medsp<150],
 			zmedals:["Ничего",function(){return 0;},true]
 		});
 	},

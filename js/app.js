@@ -19,6 +19,7 @@ var totalquest = {};
 var mychar = {
 	traits: {},
 	perks: {},
+	tags: {},
 	stats: {
 		STR: [6, 0], // Сила
 		PER: [7, 0], // Восприятие
@@ -29,7 +30,7 @@ var mychar = {
 		LUC: [2, 0] // Удача
 	}
 };
-// mychar.perks
+// mychar.tags
 var charp = {
 	name:	"", // имя
 	age:	getRandInt(14, 60), // возраст
@@ -39,6 +40,8 @@ var charp = {
 	nextexp: 1000, // опыт до следующего уровня
 	karma:	0, // карма
 	tagt: 2, // очки на таг трейтов
+	tags: 	 3, // очки на таг скилов
+	points:  0,	// скилпоинты
 	specialpoint: 0, // Очки распределения статов
 	perkpoint: 0 // Очки перков
 };
@@ -62,9 +65,7 @@ var SkillMod = {
     Add6: 200
 };
 // навык, добавленый навык, добавленный за уровень, тагнутый	
-var skills = {	
-	tags: 	 3,	
-	points:  0,	
+var skills = {		
 	light: 	[0, 0, 0, 0],	// легкое
 	heavy: 	[0, 0, 0, 0],	// тяжелое
 	energy:	[0, 0, 0, 0],	// энерго
@@ -176,21 +177,21 @@ function trait(){
 // Выбор тагнутых навыков
 function tags() {	
 	var str = this.id.substr(3);
-	if(!skills[str][3] && skills.tags > 0) {
-		skills[str][3] = 1 ;
-		skills.tags--;
+	if(!(str in mychar.tags) && charp.tags > 0) {
+		mychar.tags[str] = 1;
+		charp.tags--;
 		skills[str][1]+=20;
 		$("#"+str+"s").css("color", "#ABABAB");
 		$("#"+str).css("color", "#ABABAB");
 	}
-	else if(skills[str][3] && skills.tags < 3)	{
-		skills[str][3] = 0;
-		skills.tags++;
+	else if((str in mychar.tags) && charp.tags < 3)	{
+		delete mychar.tags[str];
+		charp.tags++;
 		skills[str][1]-=20;
 		$("#"+str+"s").css("color", "#00FF00");
 		$("#"+str).css("color", "#00FF00");
 	}
-	numbers($("#point2"),skills.tags);
+	numbers($("#point2"),charp.tags);
 	settle();
 }
 // расчеты навыков и параметров и их обновление
@@ -277,10 +278,9 @@ function settle() {
 		$("#"+n).html(resist[n].asb[0]+"/"+resist[n].res[0]+"%");
 	}
 	for(var j in skills){
-		if(j != "tags" && j != "points") {
-			if(skills[j][0] > 300) skills[j][0] = 300;
-			$("#"+j).html(skills[j][0]+"%");
-		}
+		if(skills[j][0] > 300) skills[j][0] = 300;
+		$("#"+j).html(skills[j][0]+"%");
+		
 	}
 	for(var j in feat){
 		if(j != "crit" && j != "live" && j != "dodge") {
@@ -295,11 +295,10 @@ function settle0() {
 		resist[n].res[0] = resist[n].res[1] + resist[n].res[2];
 		$("#"+n).html(resist[n].asb[0]+"/"+resist[n].res[0]+"%");
 	} 
-	for(var j in skills)
-		if(j != "tags" && j != "points") {
-			skills[j][0] = skills[j][2] + skills[j][1];
-			$("#"+j).html(skills[j][0]+"%");
-		}
+	for(var j in skills) {
+		skills[j][0] = skills[j][2] + skills[j][1];
+		$("#"+j).html(skills[j][0]+"%");
+	}
 	for(var j in feat)
 		if(j != "crit" && j != "live" && j != "dodge") {
 			feat[j][0] = feat[j][2] + feat[j][1];
@@ -404,7 +403,7 @@ function minusspec(pop){
 }
 // обновление скилпоинтов
 function spoints(){	
-	numbers($("#point1"),skills.points);
+	numbers($("#point1"),charp.points);
 }
 // Прокачка навыков
 function plus() {
@@ -417,12 +416,12 @@ function plus() {
 	else if( n > SkillMod.Add4 ) s = 4;
 	else if( n > SkillMod.Add3 ) s = 3;
 	else if( n > SkillMod.Add2 ) s = 2;
-	if( skills.points < s ) return;
+	if( charp.points < s ) return;
 	n++;
-	if( skills[this.id.substr(4)][3] && n < SkillMod.MaxValue )
+	if((this.id.substr(4) in mychar.tags) && n < SkillMod.MaxValue )
 		n++;
 	skills[this.id.substr(4)][2] += n - skills[this.id.substr(4)][0];
-	skills.points -= s;
+	charp.points -= s;
 	spoints();
 	settle();
 }
@@ -432,7 +431,7 @@ function minus() {
 	var n = skills[skillid][0];
 	if( n <= 0 ||  skills[skillid][2] <= 0) return;
 	
-	var tag = skills[skillid][3] ? 2 : 1;
+	var tag = (skillid in mychar.tags) ? 2 : 1;
 	for(var i = 0; i < tag; i++) {
 		var s = 1;
 		if( n > SkillMod.Add6 + 1 ) s = 6;
@@ -444,7 +443,7 @@ function minus() {
 			n--;
 	}
 	skills[skillid][2] += n - skills[skillid][0];
-	skills.points += s;
+	charp.points += s;
 	spoints();
 	settle();
 }
@@ -504,7 +503,7 @@ function changesex() {
 }
 // Переход к прокачке
 function leveling() {
-	if((!charp.specialpoint && !skills.tags)||leveluping){
+	if((!charp.specialpoint && !charp.tags)||leveluping){
 		if(regi) {
 			$('title').text("Прокачка персонажа");
 			$("#main").animate({'opacity':'0'},100);
@@ -675,15 +674,15 @@ function levelup(){
 	$("#exp").html(charp.exp = levelexp(charp.level));
 	$("#nextexp").html(charp.nextexp = levelexp(charp.level+1));
 	if(charp.level<29)	{
-		feat.live[2]+=2+Math.floor(mychar.stats.ENU[2]/2)+(mychar.stats.ENU[2]%2?(charp.level%2?0:1):0);
-		feat.live[0] = feat.live[2] + feat.live[1] + 30 + mychar.stats.STR[2] + mychar.stats.ENU[2]*2;
+		feat.live[2]+=2+Math.floor(stats.ENU[2]/2)+(stats.ENU[2]%2?(charp.level%2?0:1):0);
+		feat.live[0] = feat.live[2] + feat.live[1] + 30 + stats.STR[2] + stats.ENU[2]*2;
 		$("#live").html(feat.live[0]+"/"+feat.live[0]);
-		skills.points += 5 + (mychar.stats.INT[2] * 2) - (mychar.traits.TRAIT_NIGHT_PERSON?3:0);
+		charp.points += 5 + (stats.INT[2] * 2) - (mychar.traits.TRAIT_NIGHT_PERSON?3:0);
 		spoints();
 	}
 	if(charp.level>28&&charp.level<60)	{
 		feat.live[2]+=1;
-		feat.live[0] = feat.live[2] + feat.live[1] + 30 + mychar.stats.STR[2] + mychar.stats.ENU[2]*2;
+		feat.live[0] = feat.live[2] + feat.live[1] + 30 + stats.STR[2] + stats.ENU[2]*2;
 		$("#live").html(feat.live[0]+"/"+feat.live[0]);
 	}
 	if(!(charp.level%(mychar.traits.TRAIT_SKILLED?4:3)))	{
@@ -929,8 +928,7 @@ function talk(textdialog,answ) {
 // Скидывание всех полученых за уровень скилов в постоянные
 function result() {
 	var lvl = {};
-	for(var j in skills)
-		if(j != "tags" && j != "points") {
+	for(var j in skills) {
 			if(skills[j][2]) {
 				lvl[j] = skills[j][2];
 				skills[j][1]+=skills[j][2];
@@ -958,7 +956,7 @@ function total() {
 			textarea += traits[i][1]+" ";
 	textarea += "\nНавыки: ";
 	for(var i in textskills) 
-		if(skills[i][3])
+		if(i in mychar.tags)
 			textarea += textskills[i][0]+" ";
 	for(var i in totalskill)
 		if(/*!emptyObject(totalskill[i])||*/(i in totalperk)/*||(i in totalquest)*/) {
@@ -1085,15 +1083,13 @@ function main()
 	
 	for(var i = 1; i<4;i++) $("#textswitch"+i).click(switchinfo);
 	
-	for(var j in book){ // Чтение книг
-		if(j != "point") {
+	for(var j in book) // Чтение книг
+		if(j != "point") 
 			$("#book"+j).click(plusbook);
-		}
-	}
 	
 	for(var j in stats) {
-			$("#plus"+j).click(plusspec);
-			$("#minus"+j).click(minusspec);
+		$("#plus"+j).click(plusspec);
+		$("#minus"+j).click(minusspec);
 	}
 	for(var j in traits){
 		$("#key"+j).mousedown(function(){$("#lkey"+this.id.substr(3)).html("<img src=\"img/small_key.png\" onload=\"imgLoaded(this)\">");});
@@ -1103,17 +1099,15 @@ function main()
 	}
 	
 	for(var j in skills){
-		if(j != "tags" && j != "points") {
-			$("#key"+j).mousedown(function(){$("#lkey"+this.id.substr(3)).html("<img src=\"img/small_key.png\" onload=\"imgLoaded(this)\">");});
-			$("#key"+j).mouseup(function(){$("#lkey"+this.id.substr(3)).html("");});
-			$("#key"+j).click(tags);
-			$("#butt"+j).click(selectskill);
-		}
+		$("#key"+j).mousedown(function(){$("#lkey"+this.id.substr(3)).html("<img src=\"img/small_key.png\" onload=\"imgLoaded(this)\">");});
+		$("#key"+j).mouseup(function(){$("#lkey"+this.id.substr(3)).html("");});
+		$("#key"+j).click(tags);
+		$("#butt"+j).click(selectskill);
 	}
 	$("#men").css('backgroundImage', 'url(img/men.png)');
 	numberage();
 	spoints();
-	numbers($("#point2"),skills.tags);
+	numbers($("#point2"),charp.tags);
 	statpoints();
 	settle();
 	createlistperk();
