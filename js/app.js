@@ -225,7 +225,7 @@ function settle() {
 	var CHA = mychar.stats.CHA[0] + mychar.stats.CHA[1];
 	
 	// Жизни
-	feat.live[0] = feat.live[2] + feat.live[1] + 30 + STR + ENU*2;		
+	feat.live[0] = feat.live[2] + feat.live[1] + 60 + STR + ENU*2;		
 	// Класс брони
 	feat.armc[0] = feat.armc[2] + feat.armc[1] + AGI*(mychar.traits.TRAIT_KAMIKAZE ? 0 : 1)+(mychar.traits.TRAIT_KAMIKAZE ? 1 : 0);							
 	// Очки действий
@@ -696,14 +696,14 @@ function levelup(){
 	$("#nextexp").html(charp.nextexp = levelexp(charp.level+1));
 	if(charp.level<29)	{
 		feat.live[2]+=2+Math.floor(stats.ENU[2]/2)+(stats.ENU[2]%2?(charp.level%2?0:1):0);
-		feat.live[0] = feat.live[2] + feat.live[1] + 30 + stats.STR[2] + stats.ENU[2]*2;
+		feat.live[0] = feat.live[2] + feat.live[1] + 60 + stats.STR[2] + stats.ENU[2]*2;
 		$("#live").html(feat.live[0]+"/"+feat.live[0]);
 		charp.points += 5 + (stats.INT[2] * 2) - (mychar.traits.TRAIT_NIGHT_PERSON?3:0);
 		spoints();
 	}
 	if(charp.level>28&&charp.level<60)	{
-		feat.live[2]+=1;
-		feat.live[0] = feat.live[2] + feat.live[1] + 30 + stats.STR[2] + stats.ENU[2]*2;
+		//feat.live[2]+=1;
+		feat.live[0] = feat.live[2] + feat.live[1] + 60 + stats.STR[2] + stats.ENU[2]*2;
 		$("#live").html(feat.live[0]+"/"+feat.live[0]);
 	}
 	if(!(charp.level%(mychar.traits.TRAIT_SKILLED?4:3)))	{

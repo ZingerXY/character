@@ -4,20 +4,20 @@ var traits = {
 	// Минусы: Обнуляется защита к радиации и отравлению. Уменьшает защиту от радиации и отравления в 2 раза. Яд не выводится из организма самостоятельно.
 	TRAIT_FAST_METABOLISM: [function(str){	
 			if(!mychar.traits[str] && charp.tagt>0) {
-				feat.live[1]+=60; 
-				feat.levh[1]+=15; 
+				feat.live[1]+=40; 
+				feat.levh[1]+=35; 
 				feat.stox[3] = 0; 
 				feat.srad[3] = 0; 
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2) {
-				feat.live[1]-=60; 
-				feat.levh[1]-=15; 
+				feat.live[1]-=40; 
+				feat.levh[1]-=35; 
 				feat.stox[3] = 1; 
 				feat.srad[3] = 1; 
 				delete mychar.traits[str];
 				charp.tagt++;	}
-			},"Быстрый метаболизм", "Ваш метаболизм превышает норму. Вам дается +60 ХП, 15 к уровню лечения. Но при этом вы сильно подвержены яду и радиации."],
+			},"Быстрый метаболизм", "Ваш метаболизм превышает норму. Вам дается +40 ХП, 35 к уровню лечения. Но при этом вы сильно подвержены яду и радиации."],
 	// Крушила Плюсы: +3 силы, игнор тиков плазмы. Минусы: -1 Очко Действия (ОД).
 	TRAIT_BRUISER: [function(str){	
 			if(!mychar.traits[str] && charp.tagt>0) {
@@ -215,12 +215,11 @@ var traits = {
 	// Минусы: Перк дается через 4 уровня, а не через 3.
 	TRAIT_SKILLED: [function(str){	
 			if(!mychar.traits[str] && charp.tagt>0){
-				mychar.stats.ENU[1]+=2;
+				mychar.stats.ENU[1]+=2; // +60 антикрита
 				mychar.stats.CHA[1]+=2;
 				mychar.stats.INT[1]+=2;
 				mychar.stats.AGI[1]+=2;
-				feat.live[1]+=25; 
-				
+				feat.crit[1]+=15;			
 				mychar.traits[str] = 1; 
 				charp.tagt--;	} 
 			else if(mychar.traits[str] && charp.tagt<2){
@@ -228,11 +227,11 @@ var traits = {
 				mychar.stats.CHA[1]-=2;
 				mychar.stats.INT[1]-=2;
 				mychar.stats.AGI[1]-=2;
-				feat.live[1]-=25;
+				feat.crit[1]-=15;
 				delete mychar.traits[str]; 
 				charp.tagt++;	
 			}
-			},"Умелец", "Параметры персонажа улучшены (+2 Выносливость, Обаяние, Интеллект, Ловкость, +25 ХП). Но вы получаете меньше способностей - одно за каждые четыре уровня опытности."],
+			},"Умелец", "Параметры персонажа улучшены (+2 Выносливость, Обаяние, Интеллект, Ловкость, +60 антикрита,+15 к критшансу). Но вы получаете перки - один за каждые четыре уровня и не"],
 	// Импульсивный
 	// Плюсы: +2 ОД, +20 к навыку Метания.
 	// Минусы: -3 Очков Умений за каждый уровень.

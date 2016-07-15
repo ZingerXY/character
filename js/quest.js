@@ -54,7 +54,7 @@ var textquest = {	// Квесты
 	valerie_letter: ["Письмо Валери", "Легкое оружие +10% и Ремонт +10%"],
 	melee_klam: ["Рукопашка +30%", "В охотничих угодьях Кламата бывший боксер может обучить приемам рукопашного боя за небольшую услугу."],
 	steel_reno: ["Холодное оружие +10%", "В Нью-Рено у младшего Мордино можно научится приемам с ножом всего за 200 монет."],
-	light_den: ["Легкое оружие в Яме", "При наличии нбольшой суммы в размере 10к монеток можно поднять легкое оружие с 80 до 120."],
+	light_den: ["Легкое оружие в Яме", "При наличии нбольшой суммы в размере 3к монеток можно поднять легкое оружие на 5%"],
 	PE_MA_SKIT: ["Житель Пустоши(5)", "Вы настолько изучили пустошь, что получаете +5% к навыку Скиталец и передвигаетесь по Пустоши на 5% быстрее с каждым уровнем этой способности."],
 	PE_MA_REM: ["Опытный ремонтник(5)", "Вы настолько часто ремонтировали, что получаете +3% к навыку Ремонт и +1% к навыку Наука с каждым уровнем этой способности."],
 	PE_MA_FIX: ["Опытный инженер(5)", "Вы настолько часто изобретали, что получаете +3% к навыку Наука и +1% к навыку Ремонт с каждым уровнем этой способности."],
@@ -79,7 +79,7 @@ var questup = {
 			talk("У вас "+(quest.medals[1]-quest.medals[0])+" медалей выберите награду:",{ 	
 			amedals:["1 очко распределения(3 медали)",function(){charp.points++;spoints();return 3;},(quest.medals[1]-quest.medals[0])>=3], // точность +3%
 			bmedals:["1 очко жизней(10 медалей)",function(){feat.live[2]++;return 10;},(quest.medals[1]-quest.medals[0])>=10], // точность врага -3%, 3% уроврота.
-			cmedals:["+1% любого резиста(10 медалей)",function(){
+			/*cmedals:["+1% любого резиста(10 медалей)",function(){
 				talk("Выберите резист:", {
 					amedals: ["+1% к норме", function(){resist.normal.res[2]++;return 10;},resist.normal.res[0]<25],
 					bmedals: ["+1% к лвзеру", function(){resist.laser.res[2]++;return 10;},resist.laser.res[0]<25],
@@ -88,7 +88,7 @@ var questup = {
 					emedals: ["+1% к взрыву", function(){resist.explode.res[2]++;return 10;},resist.explode.res[0]<25],
 					fmedals: ["+1% к электро", function(){resist.electro.res[2]++;return 10;},resist.electro.res[0]<25],
 					zmedals:["Ничего",function(){return 0;},true]
-				}); return -1;},(quest.medals[1]-quest.medals[0])>=10], // +3 урона
+				}); return -1;},(quest.medals[1]-quest.medals[0])>=10], // +3 урона*/
 			/*dmedals:["+5 очков навыка(20 медалей)",function(){skillsmedals(5,20);return -1;},(quest.medals[1]-quest.medals[0])>=20],
 			emedals:["+10 очков навыка(40 медалей)",function(){skillsmedals(10,40);return -1;},(quest.medals[1]-quest.medals[0])>=40],
 			fmedals:["+20 очков навыка(60 медалей)",function(){skillsmedals(20,60);return -1;},(quest.medals[1]-quest.medals[0])>=60],
@@ -242,7 +242,7 @@ var questup = {
 		addSkills("steel",10,1);
 	},
 	light_den:function(){
-		addSkills("light",120 - skills.light[0],1);
+		addSkills("light",5,1);
 	},
 	PE_MA_REM:function(){
 		addSkills("repair",3*5,1);
