@@ -8,7 +8,7 @@ var quest = {	// квест, уровней квеста, мин уровень 
 	light_den:[0,1,1,99,function(){return skills.light[0]>=80 && skills.light[0]<120;}],
 	overviewq:[0,1,1,99,function(){return true;}],
 	quest_arroyo:[0,1,1,99,function(){return true;}],
-	per_ncr:[0,1,30,99,function(){return character.level >= 30;}],
+	per_ncr:[0,1,30,99,function(){return charp.level >= 30;}],
 	cha_vc:[0,1,1,99,function(){return stats.CHA[2]<4 && skills.oratory[0]>79;}],
 	aс_12:[0,1,1,99,function(){return true;}],
 	ap_vc:[0,1,1,99,function(){return true;}],
