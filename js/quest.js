@@ -193,6 +193,7 @@ var questup = {
 	},
 	heavy_bh:function(){
 		addSkills("heavy",5,1);
+		addSkills("melee",5,1);
 	},
 	skill_geck:function(){
 		addSkills("light",3,1);
