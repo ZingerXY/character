@@ -142,6 +142,7 @@ body{
 #nametext{
 	left:			22px;
     top:			10px;
+    z-index:		inherit;
 }
 #namenter{
 	color:			#00AB00;
@@ -149,6 +150,7 @@ body{
 	height:			10px;
 	left:			22px;
     top:			34px;
+    z-index:		inherit;
 }
 #namenter:focus	{
 	color:			#0E0;
@@ -159,6 +161,7 @@ body{
 #passtext{
 	left:			22px;
     top:			51px;
+    z-index:		inherit;
 }
 #pasenter{
 	color:			#00AB00;
@@ -166,6 +169,7 @@ body{
 	height:			10px;
 	left:			22px;
     top:			75px;
+    z-index:		inherit;
 }
 #pasenter:focus	{
 	color:			#0E0;
@@ -190,6 +194,7 @@ body{
 		top:		5px;
 	width:			33px;
 	height:			33px;
+    z-index:		inherit;
 }
 #plusage:active	{
 	background-image:	url(img/greendot_big.png);
@@ -198,6 +203,7 @@ body{
 	position: 		absolute;
 		left:		55px;
 		top:		9px;
+    z-index:		inherit;
 }
 #minusage	{
 	position: 		absolute;
@@ -205,6 +211,7 @@ body{
 		top:		5px;
 	width:			33px;
 	height:			33px;
+    z-index:		inherit;
 }
 #minusage:active	{
 	background-image:	url(img/greendot_big.png);
@@ -226,6 +233,7 @@ body{
 		top:		15px;
 	width:			37px;
 	height:			37px;
+    z-index:		inherit;
 }
 #men:active{
 	background-image:	url(img/men.png);
@@ -236,6 +244,7 @@ body{
 		top:		15px;
 	width:			37px;
 	height:			37px;
+    z-index:		inherit;
 }
 #women:active{
 	background-image:	url(img/women.png);

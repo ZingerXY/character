@@ -960,6 +960,10 @@ function loadbuild(myc,cp) {
         $("#book"+i).html("x"+mychar.book[i][0]);
 	leveluping = true;
 	leveling();
+    showlistperk();
+    $("#level").html(charp.level);
+	$("#exp").html(levelexp(charp.level));
+	$("#nextexp").html(levelexp(charp.level+1));
     $("#namenter").html(charp.name);
     $("#name").html($("#namenter").html().toUpperCase());
 	numbers($("#numberage"),charp.age); // обновление циферок возраста
