@@ -19,6 +19,7 @@ var mychar = {
 	perks: {},
 	tags: {},
 	skills: {},
+    feats: {},
 	stats: { // Природная,добавленная
 		STR: [6,0], // Сила
 		PER: [7,0], // Восприятие
@@ -29,13 +30,13 @@ var mychar = {
 		LUC: [2,0] // Удача
 	},
     book: { // Доступно книг, лишние очки
-	light: [10,0],
-	energy: [10,0],
-	orderly: [10,0],
-	science: [10,0],
-	repair: [10,0],
-	ranger: [10,0],
-	prewar: [20,0]
+        light: [10,0],
+        energy: [10,0],
+        orderly: [10,0],
+        science: [10,0],
+        repair: [10,0],
+        ranger: [10,0],
+        prewar: [20,0]
     }
 }; 
 // mychar.book
@@ -44,9 +45,6 @@ var charp = {
 	age:	getRandInt(14, 60), // возраст
 	sex:	"man", // пол
 	level:	1, // уровень
-	exp:	0, // опыт
-	nextexp: 1000, // опыт до следующего уровня
-	karma:	0, // карма
 	tagt: 2, // очки на таг трейтов
 	tags: 	 3, // очки на таг скилов
 	points:  0,	// скилпоинты
@@ -93,16 +91,6 @@ var skills = {
 	speed: 	[0,"атлетизм","Атлетизм","Вы много занимамались атлетикой,что дало вам возможность быстрее двигаться."],
 	ranger: [0,"скиталец","Скиталец","Вы не остаетесь подолгу в закрытом помещении,а всегда в дороге. Вы многое знаете о зверях,птицах,растениях и пустыне."]
 };
-// Книги
-var book = {
-	light: [10,0],
-	energy: [10,0],
-	orderly: [10,0],
-	science: [10,0],
-	repair: [10,0],
-	ranger: [10,0],
-	prewar: [20,0]
-};
 var textbook = {
 	light: "Легкое оружие",
 	energy: "Энергетическое оружие",
@@ -112,35 +100,20 @@ var textbook = {
 	ranger: "Скиталец",
 	prewar: "Довоенки"
 };
-// параметр, добавленный параметр, добавленный за уровень
+// параметр, название, описние
 var feat = { 
-	dodge:	[0, 0, 0],	// уклон
-	live: 	[0, 0, 0],	// жизни
-	armc: 	[0, 0, 0],	// класс брони
-	apoi: 	[0, 0, 0],	// ОД
-	maxl: 	[0, 0, 0],	// макс груз
-	mdmg: 	[0, 0, 0],	// рукоп повр
-	oview: 	[0, 0, 0],	// радиус обзора
-	stox: 	[0, 0, 0, 1],	// уст к яду
-	srad: 	[0, 0, 0, 1],	// уст к рад
-	proc: 	[0, 0, 0],	// порядок
-	levh: 	[0, 0, 0],	// уров лечения
-	crit: 	[0, 0, 0]	// шанс на крит
-};
-// параметры описание
-var textfeat = { 
-	dodge:	["улонение",""],
-	live: ["жизни",""],
-	armc: ["класс брони",""],
-	apoi: ["ОД",""],
-	maxl: ["макс груз",""],
-	mdmg: ["рукоп повр",""],
-	oview: ["радиус обзора",""],
-	stox: ["уст к яду",""],
-	srad: ["уст к рад",""],
-	proc: ["порядок",""],
-	levh: ["уров лечения",""],
-	crit: ["шанс на крит",""]
+	dodge:	[0,"улонение",""],
+	live: 	[0,"жизни",""],
+	armc: 	[0,"класс брони",""],
+	apoi: 	[0,"ОД",""],
+	maxl: 	[0,"макс груз",""],
+	mdmg: 	[0,"рукоп повр",""],
+	oview: 	[0,"радиус обзора",""],
+	stox: 	[0,"уст к яду",""],
+	srad: 	[0,"уст к рад",""],
+	proc: 	[0,"порядок",""],
+	levh: 	[0,"уров лечения",""],
+	crit: 	[0,"шанс на крит",""]
 };
 // Резисты
 var resist = {
@@ -151,6 +124,46 @@ var resist = {
 	explode:	{asb:[0, 0, 0], res:[0, 0, 0]},
 	electro:	{asb:[0, 0, 0], res:[0, 0, 0]},
 };
+// SKILLS
+var pr = {// Создание ветки обьекта crSkills
+    cr: function(pr,str){
+        if(!(charp.level in mychar[pr]))
+            mychar[pr][charp.level]={};
+        if(!(str in mychar[pr][charp.level]))
+            mychar[pr][charp.level][str] = [0,0];
+    },// Удаление ветки обьекта прокачки скилов если он пустой delSkills
+    del: function(pr,str){
+        if(!this.ch(pr,str)) return;
+        if(mychar[pr][charp.level][str][0] == 0 && 
+           mychar[pr][charp.level][str][1] == 0)
+            delete mychar[pr][charp.level][str];
+        if(emptyObject(mychar[pr][charp.level]))
+            delete mychar[pr][charp.level];	
+    },// Добавление к навыку addSkills
+    add: function(pr,str,n,c){
+        c = c===undefined ? 0 : c;
+        this.cr(pr,str);
+        mychar[pr][charp.level][str][c] += n;
+        this.del(pr,str);
+    },// Проверка наличия прокачки навыка
+    ch: function(pr,str){
+        if(charp.level in mychar[pr])
+            if(str in mychar[pr][charp.level])
+                if(mychar[pr][charp.level][str][0]>0)
+                    return true;
+        else
+            return false;
+    },
+    sum: function(pr,str){
+        var sum = 0;
+        for(var j in mychar[pr])
+            if(str in mychar[pr][j]) {
+                sum += mychar[pr][j][str][0];
+                sum += mychar[pr][j][str][1];
+            }
+        return sum;
+    }
+}
 // Выбор трейта
 function trait(){	
 	var str = this.id.substr(3);	
@@ -167,15 +180,14 @@ function tags() {
 	if(!(str in mychar.tags) && charp.tags > 0) {
 		mychar.tags[str] = 1;
 		charp.tags--;
-		crSkills(str);
-		addSkills(str,20,1);
+		pr.add("skills",str,20,1);
 		$("#"+str+"s").css("color", "#ABABAB");
 		$("#"+str).css("color", "#ABABAB");
 	}
 	else if((str in mychar.tags) && charp.tags < 3)	{
 		delete mychar.tags[str];
 		charp.tags++;
-		addSkills(str,-20,1);
+		pr.add("skills",str,-20,1);
 		$("#"+str+"s").css("color", "#00FF00");
 		$("#"+str).css("color", "#00FF00");
 	}
@@ -222,7 +234,7 @@ function settle() {
 	skills.ranger[0] = (mychar.stats.ENU[0]+mychar.stats.INT[0])*2;
 	
 	for(var i in skills) 
-		skills[i][0] += sumSkills(i);			
+		skills[i][0] += pr.sum("skills",i);			
 	
 	var STR = mychar.stats.STR[0] + mychar.stats.STR[1];
 	var PER = mychar.stats.PER[0] + mychar.stats.PER[1];
@@ -230,33 +242,35 @@ function settle() {
 	var LUC = mychar.stats.LUC[0] + mychar.stats.LUC[1];
 	var AGI = mychar.stats.AGI[0] + mychar.stats.AGI[1];
 	var CHA = mychar.stats.CHA[0] + mychar.stats.CHA[1];
-	
 	// Жизни
-	feat.live[0] = feat.live[2] + feat.live[1] + 60 + STR + ENU*2;		
+	feat.live[0] = 60 + STR + ENU*2;		
 	// Класс брони
-	feat.armc[0] = feat.armc[2] + feat.armc[1] + AGI*(mychar.traits.TRAIT_KAMIKAZE ? 0 : 1)+(mychar.traits.TRAIT_KAMIKAZE ? 1 : 0);							
+	feat.armc[0] = AGI*(mychar.traits.TRAIT_KAMIKAZE ? 0 : 1)+(mychar.traits.TRAIT_KAMIKAZE ? 1 : 0);							
 	// Очки действий
-	feat.apoi[0] = feat.apoi[2] + feat.apoi[1] + 5 + Math.floor(AGI/2);			
+	feat.apoi[0] = 5 + Math.floor(AGI/2);			
 	// Макс груз
-	feat.maxl[0] = feat.maxl[2] + feat.maxl[1] + Math.round(0.453*( 25 + STR * ( 25 - (mychar.traits.TRAIT_SMALL_FRAME ? 1 : 0) * 10 )));
+	feat.maxl[0] = Math.round(0.453*( 25 + STR * ( 25 - (mychar.traits.TRAIT_SMALL_FRAME ? 1 : 0) * 10 )));
 	// Рукоп. повр.
-	feat.mdmg[0] = feat.mdmg[2] + feat.mdmg[1] + (STR > 5 ? STR-5 : 1);	
+	feat.mdmg[0] = (STR > 5 ? STR-5 : 1);	
 	// Радиус обзора
-	feat.oview[0] = feat.oview[2] + feat.oview[1] + 20 + PER*3;										
+	feat.oview[0] = 20 + PER*3;										
 	// Уст. яду
-	feat.stox[0] = feat.stox[2] + feat.stox[1] + feat.stox[3]*ENU*5;
+	feat.stox[0] = (mychar.traits.TRAIT_FAST_METABOLISM ? 0 : 1)*ENU*5;
 	if(feat.stox[0]>95) feat.stox[0] = 95;
 	// Уст. радиации
-	feat.srad[0] = feat.srad[2] + feat.srad[1] + feat.srad[3]*ENU*2;	
+	feat.srad[0] = (mychar.traits.TRAIT_FAST_METABOLISM ? 0 : 1)*ENU*2;	
 	if(feat.srad[0]>95) feat.srad[0] = 95;
 	// Порядок
-	feat.proc[0] = feat.proc[2] + feat.proc[1] + PER*2;							
+	feat.proc[0] = PER*2;							
 	// Уровень лечения
-	feat.levh[0] = feat.levh[2] + feat.levh[1] + (ENU > 5 ? Math.floor(ENU/3) : 1);	
+	feat.levh[0] = (ENU > 5 ? Math.floor(ENU/3) : 1);	
 	// Крит
-	feat.crit[0] = feat.crit[2] + feat.crit[1] + LUC;	
+	feat.crit[0] = LUC;	
 	//Уворот
-	feat.dodge[0] = feat.dodge[2] + feat.dodge[1] + CHA + (checkperk("PE_HTH_EVADE") ? (feat.apoi[0]/4)+(feat.apoi[0]/2) : 0);
+	feat.dodge[0] = CHA + (checkperk("PE_HTH_EVADE") ? (feat.apoi[0]/4)+(feat.apoi[0]/2) : 0);
+	
+	for(var i in feat) 
+		feat[i][0] += pr.sum("feats",i);	
 	
 	$("#live").html(feat.live[0]+"/"+feat.live[0]);
 	$("#crit").html(feat.crit[0]+"%");
@@ -277,27 +291,6 @@ function settle() {
 			$("#"+j).html(feat[j][0]);
 		}
 	}
-}
-// Обновление без полного перерасчета
-function settle0() { 
-	for(var n in resist) {
-		resist[n].asb[0] = resist[n].asb[1] + resist[n].asb[2];
-		resist[n].res[0] = resist[n].res[1] + resist[n].res[2];
-		$("#"+n).html(resist[n].asb[0]+"/"+resist[n].res[0]+"%");
-	} 
-	for(var j in skills) {
-		skills[j][0] = skills[j][2] + skills[j][1];
-		$("#"+j).html(skills[j][0]+"%");
-	}
-	for(var j in feat)
-		if(j != "crit" && j != "live" && j != "dodge") {
-			feat[j][0] = feat[j][2] + feat[j][1];
-			$("#"+j).html(feat[j][0]);
-		}
-	feat.live[0] = feat.live[2] + feat.live[1];
-	$("#live").html(feat.live[0]+"/"+feat.live[0]);
-	$("#crit").html(feat.crit[0]+"%");
-	$("#dodge").html(feat.dodge[0]+"%");
 }
 // Обновление статов
 function statpoints(){	
@@ -395,47 +388,6 @@ function minusspec(pop){
 function spoints(){	
 	numbers($("#point1"),charp.points);
 }
-// Создание ветки обьекта прокачки скилов
-function crSkills(str){
-	if(!(charp.level in mychar.skills))
-		mychar.skills[charp.level]={};
-	if(!(str in mychar.skills[charp.level]))
-		mychar.skills[charp.level][str] = [0,0];
-}
-// Удаление ветки обьекта прокачки скилов если он пустой
-function delSkills(str){
-    if(!chSkills(str)) return;
-	if(mychar.skills[charp.level][str][0] == 0 && 
-	   mychar.skills[charp.level][str][1] == 0)
-		delete mychar.skills[charp.level][str];
-	if(emptyObject(mychar.skills[charp.level]))
-		delete mychar.skills[charp.level];	
-}
-// Добавление к навыку
-function addSkills(str,n,c){
-	c = c===undefined ? 0 : c;
-	crSkills(str);
-	mychar.skills[charp.level][str][c] += n;
-	delSkills(str);
-}
-// Проверка наличия прокачки навыка
-function chSkills(str){
-	if(charp.level in mychar.skills)
-		if(str in mychar.skills[charp.level])
-			if(mychar.skills[charp.level][str][0]>0)
-				return true;
-	else
-		return false;
-}
-function sumSkills(str){
-	var sum = 0;
-	for(var j in mychar.skills)
-		if(str in mychar.skills[j]) {
-			sum += mychar.skills[j][str][0];
-			sum += mychar.skills[j][str][1];
-		}
-	return sum;
-}
 // Прокачка навыков
 function plus() {
 	var str = this.id.substr(4);
@@ -451,7 +403,7 @@ function plus() {
 	n++;
 	if((str in mychar.tags) && n < SkillMod.MaxValue )
 		n++;
-	addSkills(str, n - skills[str][0]);
+	pr.add("skills",str, n - skills[str][0]);
 	charp.points -= s;
 	spoints();
 	settle();
@@ -460,7 +412,7 @@ function plus() {
 function minus() {
 	var str = this.id.substr(5);
 	var n = skills[str][0];
-	if( n <= 0 ||  !chSkills(str)) return;
+	if( n <= 0 ||  !pr.ch("skills",str)) return;
 	
 	var tag = (str in mychar.tags) ? 2 : 1;
 	for(var i = 0; i < tag; i++) {
@@ -473,8 +425,7 @@ function minus() {
 		if(n > 0 )
 			n--;
 	}
-	addSkills(str, n - skills[str][0]);
-	delSkills(str);
+	pr.add("skills",str, n - skills[str][0]);
 	charp.points += s;
 	spoints();
 	settle();
@@ -541,8 +492,8 @@ function leveling() {
 			$(".reg").hide();
 			$(".leveling").show();
 			$("#level").html(charp.level);
-			$("#exp").html(charp.exp);
-			$("#nextexp").html(charp.nextexp);
+			$("#exp").html(levelexp(charp.level));
+			$("#nextexp").html(levelexp(charp.level+1));
 			spoints();
 			$("<div/>", {"id": "select"}).appendTo("#main").css({	'backgroundImage': 	"url(img/skillpad.png)", 
 																	"position": 		"absolute",
@@ -700,19 +651,14 @@ function levelup(){
 	if(charp.level==99) return;
 	charp.level++;
 	$("#level").html(charp.level);
-	$("#exp").html(charp.exp = levelexp(charp.level));
-	$("#nextexp").html(charp.nextexp = levelexp(charp.level+1));
+	$("#exp").html(levelexp(charp.level));
+	$("#nextexp").html(levelexp(charp.level+1));
 	if(charp.level<29)	{
-		feat.live[2]+=2+Math.floor(stats.ENU[2]/2)+(stats.ENU[2]%2?(charp.level%2?0:1):0);
-		feat.live[0] = feat.live[2] + feat.live[1] + 60 + stats.STR[2] + stats.ENU[2]*2;
+		pr.add("feats", "live", 2+Math.floor(stats.ENU[2]/2)+(stats.ENU[2]%2?(charp.level%2?0:1):0));
+		feat.live[0] = pr.sum("feats", "live") + 60 + stats.STR[2] + stats.ENU[2]*2;
 		$("#live").html(feat.live[0]+"/"+feat.live[0]);
 		charp.points += 5 + (stats.INT[2] * 2) - (mychar.traits.TRAIT_NIGHT_PERSON?3:0);
 		spoints();
-	}
-	if(charp.level>28&&charp.level<60)	{
-		//feat.live[2]+=1;
-		feat.live[0] = feat.live[2] + feat.live[1] + 60 + stats.STR[2] + stats.ENU[2]*2;
-		$("#live").html(feat.live[0]+"/"+feat.live[0]);
 	}
 	if(!(charp.level%(mychar.traits.TRAIT_SKILLED?4:3)))	{
 		charp.perkpoint++;
@@ -914,7 +860,7 @@ function plusbook() {
 			}
 		}
         mychar.book[str][1] = s;
-		addSkills(strn,np,1);
+		pr.add("skills",strn,np,1);
 		mychar.book[str][0]--;
 		$("#book"+str).html("x"+mychar.book[str][0]);
 		settle();
@@ -939,7 +885,7 @@ function talk(textdialog,answ) {
 				$("#talk").hide();
 				if(nup===0) return;
 				if(typeof nup == "object") {
-					addSkills(e.currentTarget.id.substr(4),nup[0]);
+					pr.add("skills",e.currentTarget.id.substr(4),nup[0],1);
 					nup = nup[1];
 				}
 				quest[select.quest][0] += nup;

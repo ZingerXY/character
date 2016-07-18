@@ -1,5 +1,4 @@
 var quest = {	// квест, уровней квеста, мин уровень взятия, максимальный уровень взятия, [требования])
-
 	medals:[0,200,1,99,function(){return true;}],
 	ranger_smile:[0,1,1,99,function(){return skills.ranger[0]<60;}],
 	ranger_slim:[0,1,1,99,function(){return true;}],
@@ -100,53 +99,53 @@ var questup = {
 	},
 	imp_battle:function(){
 		talk("Выберите бовевой имплант:",{ 	
-			aimp_battle:["Оптимизация, +15 к очкам жизни, +3% к точности",function(){perk.PE_QUICK_POCKETS[0]+=1;feat.live[2]+=15;return 1;},true], // точность +3%
+			aimp_battle:["Оптимизация, +15 к очкам жизни, +3% к точности",function(){perk.PE_QUICK_POCKETS[0]+=1;pr.add("feats","live",15);return 1;},true], // точность +3%
 			bimp_battle:["-3% к точности врага, +5 к трешхолду взрыву, +3% уворота",function(){resist.explode.asb[2]+=5;return 1;},true], // точность врага -3%, 3% уроврота.
-			cimp_battle:["+3 конечного урона, +5% к критическим попаданиям",function(){feat.crit[2]+=5;return 1;},true], // +3 урона
-			dimp_battle:["+20% Метательное оружие, +15 XP, +5 AC",function(){addSkills("thrown",20,1);feat.live[2]+=15;feat.armc[2]+=5;return 1;},true],
+			cimp_battle:["+3 конечного урона, +5% к критическим попаданиям",function(){pr.add("feats","crit",5);return 1;},true], // +3 урона
+			dimp_battle:["+20% Метательное оружие, +15 XP, +5 AC",function(){pr.add("skills","thrown",20,1);pr.add("feats","live",15);pr.add("feats","armc",5);return 1;},true],
 			eimp_battle:["+2 к всем трешхолдам",function(){for(var n in resist) resist[n].asb[2]+=2;return 1;},true],
-			fimp_battle:["+30% Легкое оружие, +30% Тяжелое оружие, +30% Энергооружие",function(){addSkills("light",30,1);addSkills("heavy",30,1);addSkills("energy",30,1);return 1;},true],
+			fimp_battle:["+30% Легкое оружие, +30% Тяжелое оружие, +30% Энергооружие",function(){pr.add("skills","light",30,1);pr.add("skills","heavy",30,1);pr.add("skills","energy",30,1);return 1;},true],
 			none:["Ничего",function(){return 0;},true]
 		});
 	},
 	imp_medical:function(){
 		talk("Выберите медицинский имплант:",{ 	
-			aimp_medical:["+20% Санитар, +20% Доктор, +50 xp при лечении другого игрока",function(){addSkills("orderly",20,1);addSkills("doctor",20,1);return 1;},true], //+50
-			bimp_medical:["+2 удачи при санитаре, +20 XP.",function(){feat.live[2]+=20;return 1;},true], //+ 2 удачи
-			cimp_medical:["+40% Доктор, +20 XP лечении санитаром, +5 AC",function(){addSkills("doctor",40,1);feat.armc[2]+=5;return 1;},true], // 20 при лечении
-			dimp_medical:["+30% Санитар, +5 уровнь лечения.",function(){addSkills("orderly",30,1);feat.levh[2]+=5;return 1;},true],
-			eimp_medical:["+5 уровнь лечения, +20 XP",function(){feat.levh[2]+=5;feat.live[2]+=20;return 1;},true],
-			fimp_medical:["+20% Санитар, +20% Доктор, +20 XP",function(){addSkills("orderly",20,1);addSkills("doctor",20,1);feat.live[2]+=20;return 1;},true],
+			aimp_medical:["+20% Санитар, +20% Доктор, +50 xp при лечении другого игрока",function(){pr.add("skills","orderly",20,1);pr.add("skills","doctor",20,1);return 1;},true], //+50
+			bimp_medical:["+2 удачи при санитаре, +20 XP.",function(){pr.add("feats","live",20);return 1;},true], //+ 2 удачи
+			cimp_medical:["+40% Доктор, +20 XP лечении санитаром, +5 AC",function(){pr.add("skills","doctor",40,1);pr.add("feats","armc",5);return 1;},true], // 20 при лечении
+			dimp_medical:["+30% Санитар, +5 уровнь лечения.",function(){pr.add("skills","orderly",30,1);pr.add("feats","levh",5);return 1;},true],
+			eimp_medical:["+5 уровнь лечения, +20 XP",function(){pr.add("feats","levh",5);pr.add("feats","live",20);return 1;},true],
+			fimp_medical:["+20% Санитар, +20% Доктор, +20 XP",function(){pr.add("skills","orderly",20,1);pr.add("skills","doctor",20,1);pr.add("feats","live",20);return 1;},true],
 			none:["Ничего",function(){return 0;},true]
 		});
 	},
 	imp_auxiliary:function(){
 		talk("Выберите вспомогательный имплант:",{ 	
-			aimp_auxiliary:["Осведомленность, +20% Скрытность, +5 АС",function(){perk.PE_AWARENESS[0]+=1;addSkills("sneak",20,1);feat.armc[2]+=5;return 1;},true], 
-			bimp_auxiliary:["Репликант, +30% Наука, +30% Ремонт",function(){perk.PE_VIEW[0]+=1;addSkills("science",30,1);addSkills("repair",30,1);return 1;},true],
-			cimp_auxiliary:["Осведомленность, Следопыт, +50% Скиталец",function(){perk.PE_AWARENESS[0]+=1;perk.PE_PATHFINDER[0]+=1;addSkills("ranger",50,1);return 1;},true],
-			dimp_auxiliary:["Переноска, +20% Атлетизм",function(){perk.PE_STRONG_BACK[0]+=1;feat.maxl[2]+=100;;addSkills("speed",55,1);return 1;},true],
-			eimp_auxiliary:["+40% Красноречие, +40% Торговля, +100% Ловушки",function(){addSkills("oratory",40,1);addSkills("trade",40,1);addSkills("traps",100,1);return 1;},true],
-			fimp_auxiliary:["Бдительность, +20% Взлом",function(){perk.PE_CAUTIOUS_NATURE[0]+=1;feat.oview[2]+=3;addSkills("hack",20,1);return 1;},true],
+			aimp_auxiliary:["Осведомленность, +20% Скрытность, +5 АС",function(){perk.PE_AWARENESS[0]+=1;pr.add("skills","sneak",20,1);pr.add("feats","armc",5);return 1;},true], 
+			bimp_auxiliary:["Репликант, +30% Наука, +30% Ремонт",function(){perk.PE_VIEW[0]+=1;pr.add("skills","science",30,1);pr.add("skills","repair",30,1);return 1;},true],
+			cimp_auxiliary:["Осведомленность, Следопыт, +50% Скиталец",function(){perk.PE_AWARENESS[0]+=1;perk.PE_PATHFINDER[0]+=1;pr.add("skills","ranger",50,1);return 1;},true],
+			dimp_auxiliary:["Переноска, +20% Атлетизм",function(){perk.PE_STRONG_BACK[0]+=1;pr.add("feats","maxl",100);;pr.add("skills","speed",55,1);return 1;},true],
+			eimp_auxiliary:["+40% Красноречие, +40% Торговля, +100% Ловушки",function(){pr.add("skills","oratory",40,1);pr.add("skills","trade",40,1);pr.add("skills","traps",100,1);return 1;},true],
+			fimp_auxiliary:["Бдительность, +20% Взлом",function(){perk.PE_CAUTIOUS_NATURE[0]+=1;pr.add("feats","oview",3);pr.add("skills","hack",20,1);return 1;},true],
 			none:["Ничего",function(){return 0;},true]
 		});
 	},
 	drayfild:function(){
 		talk("По поводу награды, есть два варианта: первый - ускоренный курс бойца, узнаешь много всего, но по чуть-чуть. Или второй вариант - специализация на определенном оружии или пелевой поддержке. Что выберешь?",{ 
-			adrayfild:["[Все боевые +5%]",function(){addSkills("melee",5,1);addSkills("steel",5,1);addSkills("light",5,1);addSkills("energy",5,1);addSkills("heavy",5,1);return 1;},true],
-			bdrayfild:["[Рукопашная]",function(){addSkills("melee",10,1);return 1;},true],
-			cdrayfild:["[Холодное оружие]",function(){addSkills("steel",10,1);return 1;},true],
-			ddrayfild:["[Легкое оружие]",function(){addSkills("light",10,1);return 1;},true], 
-			edrayfild:["[Тяжолое оружие]",function(){addSkills("heavy",10,1);return 1;},true],
-			fdrayfild:["[Энергетическое оружие]",function(){addSkills("energy",10,1);return 1;},true],
-			gdrayfild:["[Первая помощь и Доктор]",function(){addSkills("orderly",5,1);addSkills("doctor",5,1);return 1;},true],
+			adrayfild:["[Все боевые +5%]",function(){pr.add("skills","melee",5,1);pr.add("skills","steel",5,1);pr.add("skills","light",5,1);pr.add("skills","energy",5,1);pr.add("skills","heavy",5,1);return 1;},true],
+			bdrayfild:["[Рукопашная]",function(){pr.add("skills","melee",10,1);return 1;},true],
+			cdrayfild:["[Холодное оружие]",function(){pr.add("skills","steel",10,1);return 1;},true],
+			ddrayfild:["[Легкое оружие]",function(){pr.add("skills","light",10,1);return 1;},true], 
+			edrayfild:["[Тяжолое оружие]",function(){pr.add("skills","heavy",10,1);return 1;},true],
+			fdrayfild:["[Энергетическое оружие]",function(){pr.add("skills","energy",10,1);return 1;},true],
+			gdrayfild:["[Первая помощь и Доктор]",function(){pr.add("skills","orderly",5,1);pr.add("skills","doctor",5,1);return 1;},true],
 			hdrayfild:["Эм... я еще не готов к знаниям.",function(){return 0;},true]
 		});
 	},	
 	quest_arroyo:function(){
-		addSkills("trade",1,1);
-		addSkills("traps",5,1);
-		addSkills("ranger",1,1);
+		pr.add("skills","trade",1,1);
+		pr.add("skills","traps",5,1);
+		pr.add("skills","ranger",1,1);
 		
 		var n = skills.hack[0];		// Навык
 		var np = 0;
@@ -177,39 +176,39 @@ var questup = {
 				n++;
 			}
 		}
-		addSkills("hack",np,1);
+		pr.add("skills","hack",np,1);
 	},
 	aс_12:function(){
-		feat.armc[2] += 12;
+		pr.add("feats","armc",12);
 	},
 	ap_vc:function(){
-		feat.apoi[2] += 1;
+		pr.add("feats","apoi",1);
 	},
 	ap_hack:function(){
-		feat.apoi[2] += 1;
+		pr.add("feats","apoi",1);
 	},
 	overviewq:function(){
-		feat.oview[2]+= 1;
+		pr.add("feats","oview",1);
 	},
 	heavy_bh:function(){
-		addSkills("heavy",5,1);
-		addSkills("melee",5,1);
+		pr.add("skills","heavy",5,1);
+		pr.add("skills","melee",5,1);
 	},
 	skill_geck:function(){
-		addSkills("light",3,1);
-		addSkills("heavy",3,1);
-		addSkills("energy",3,1);
-		addSkills("melee",3,1);
-		addSkills("steel",3,1);
+		pr.add("skills","light",3,1);
+		pr.add("skills","heavy",3,1);
+		pr.add("skills","energy",3,1);
+		pr.add("skills","melee",3,1);
+		pr.add("skills","steel",3,1);
 	},
 	trade_den:function(){
-		addSkills("trade",5,1);
+		pr.add("skills","trade",5,1);
 	},
 	trade_mod:function(){
-		addSkills("trade",7,1);
+		pr.add("skills","trade",7,1);
 	},
 	trade_up:function(){
-		addSkills("trade",40 - skills.trade[0],1);
+		pr.add("skills","trade",40 - skills.trade[0],1);
 	},
 	per_ncr:function(){
 		talk("Выберите награду за квест НКР:",{ 	
@@ -222,43 +221,43 @@ var questup = {
 		mychar.stats.CHA[1] += 1;
 	},
 	hp_den: function(){
-		feat.live[2] += 3;
+		pr.add("feats","live",3);
 	},
 	ranger_slim:function(){
-		addSkills("ranger",2,1);
+		pr.add("skills","ranger",2,1);
 	},
 	ranger_smile: function(){
 		var temp = 10;
 		while ((skills.ranger[0]+temp)<60) temp += 10;
-		addSkills("ranger",temp,1);
+		pr.add("skills","ranger",temp,1);
 	},
 	valerie_letter: function(){
-		addSkills("repair",10,1);
-		addSkills("light",10,1);
+		pr.add("skills","repair",10,1);
+		pr.add("skills","light",10,1);
 	},
 	melee_klam:function(){
-		addSkills("melee",30,1);
+		pr.add("skills","melee",30,1);
 	},
 	steel_reno:function(){
-		addSkills("steel",10,1);
+		pr.add("skills","steel",10,1);
 	},
 	light_den:function(){
-		addSkills("light",5,1);
+		pr.add("skills","light",5,1);
 	},
 	PE_MA_REM:function(){
-		addSkills("repair",3*5,1);
-		addSkills("science",1*5,1);
+		pr.add("skills","repair",3*5,1);
+		pr.add("skills","science",1*5,1);
 	},
 	PE_MA_SKIT:function(){
-		addSkills("ranger",5*5,1);
+		pr.add("skills","ranger",5*5,1);
 	// feat.live[2]+= 5
 	},
 	PE_MA_FIX:function(){
-		addSkills("science",3*5,1);
-		addSkills("repair",1*5,1);
+		pr.add("skills","science",3*5,1);
+		pr.add("skills","repair",1*5,1);
 	},
 	PE_MA_AID:function(){
-		addSkills("orderly",2*5,1);
-		addSkills("doctor",2*5,1);
+		pr.add("skills","orderly",2*5,1);
+		pr.add("skills","doctor",2*5,1);
 	}
 }

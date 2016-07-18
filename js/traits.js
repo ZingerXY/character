@@ -4,17 +4,13 @@ var traits = {
 	// Минусы: Обнуляется защита к радиации и отравлению. Уменьшает защиту от радиации и отравления в 2 раза. Яд не выводится из организма самостоятельно.
 	TRAIT_FAST_METABOLISM: [function(str){	
 			if(!mychar.traits[str] && charp.tagt>0) {
-				feat.live[1]+=40; 
-				feat.levh[1]+=35; 
-				feat.stox[3] = 0; 
-				feat.srad[3] = 0; 
+				pr.add("feats","live",40); 
+				pr.add("feats","levh",35); 
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2) {
-				feat.live[1]-=40; 
-				feat.levh[1]-=35; 
-				feat.stox[3] = 1; 
-				feat.srad[3] = 1; 
+				pr.add("feats","live",-40); 
+				pr.add("feats","levh",-35); 
 				delete mychar.traits[str];
 				charp.tagt++;	}
 			},"Быстрый метаболизм", "Ваш метаболизм превышает норму. Вам дается +40 ХП, 35 к уровню лечения. Но при этом вы сильно подвержены яду и радиации."],
@@ -22,12 +18,12 @@ var traits = {
 	TRAIT_BRUISER: [function(str){	
 			if(!mychar.traits[str] && charp.tagt>0) {
 				mychar.stats.STR[0]+=3; 
-				feat.apoi[1]-=1;
+				pr.add("feats","apoi",-1);
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2) {
 				mychar.stats.STR[0]-=3;
-				feat.apoi[1]+=1;
+				pr.add("feats","apoi",1);
 				delete mychar.traits[str];
 				charp.tagt++;	}
 			},"Крушила", "Двигаетесь помедленнее, но выглядите внушительно. Меньше на 1 ОД, но зато +3 Силы. Игнорируется эффект плазмы (тики)."],
@@ -36,12 +32,12 @@ var traits = {
 	// Минусы: Уменьшает максимальный переносимый вес относительно силы персонажа.
 	TRAIT_SMALL_FRAME: [function(str){	
 			if(!mychar.traits[str] && charp.tagt>0) {
-				feat.dodge[1]+=5;
+				pr.add("feats","dodge",5);
 				mychar.stats.AGI[0]+=1; 
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2) {
-				feat.dodge[1]-=5;
+				pr.add("feats","dodge",-5);
 				mychar.stats.AGI[0]-=1; 
 				delete mychar.traits[str];
 				charp.tagt++;	}
@@ -63,11 +59,11 @@ var traits = {
 	// Минусы: -5% к урону.
 	TRAIT_FINESSE: [function(str){	
 			if(!mychar.traits[str] && charp.tagt>0){
-				feat.crit[1]+=20;
+				pr.add("feats","crit",20);
 				mychar.traits[str] = 1; 
 				charp.tagt--;	} 
 			else if(mychar.traits[str] && charp.tagt<2){
-				feat.crit[1]-=20;
+				pr.add("feats","crit",-20);
 				delete mychar.traits[str]; 
 				charp.tagt++;	
 			}
@@ -91,11 +87,11 @@ var traits = {
 	// Минусы: -30 критролла.
 	TRAIT_HEAVY_HANDED: [function(str){	
 			if(!mychar.traits[str] && charp.tagt>0){
-				feat.mdmg[1]+=25;
+				pr.add("feats","mdmg",25);
 				mychar.traits[str] = 1; 
 				charp.tagt--;	} 
 			else if(mychar.traits[str] && charp.tagt<2){
-				feat.mdmg[1]-=25;
+				pr.add("feats","mdmg",-25);
 				delete mychar.traits[str]; 
 				charp.tagt++;	
 			}
@@ -117,13 +113,13 @@ var traits = {
 	// Минусы: -25 ОЗ.
 	TRAIT_BLOODY_MESS: [function(str){	
 			if(!mychar.traits[str] && charp.tagt>0){
-				addSkills("speed",175,1);
-				feat.live[1]-=25;
+				pr.add("skills","speed",175,1);
+				pr.add("feats","live",-25);
 				mychar.traits[str] = 1; 
 				charp.tagt--;	} 
 			else if(mychar.traits[str] && charp.tagt<2){
-				addSkills("speed",-175,1);
-				feat.live[1]+=25;
+				pr.add("skills","speed",-175,1);
+				pr.add("feats","live",25);
 				delete mychar.traits[str]; 
 				charp.tagt++;	
 			}
@@ -145,29 +141,29 @@ var traits = {
 	// Минусы: Все боевые навыки уменьшаются на 15.
 	TRAIT_GOOD_NATURED: [function(str){	
 			if(!mychar.traits[str] && charp.tagt>0){
-				addSkills("orderly",15,1);
-				addSkills("doctor",25,1);
-				addSkills("oratory",35,1);
-				addSkills("trade",25,1);
-				addSkills("light",-15,1);
-				addSkills("heavy",-15,1);
-				addSkills("energy",-15,1);
-				addSkills("steel",-10,1);
-				addSkills("melee",-10,1);
-				addSkills("thrown",-10,1);
+				pr.add("skills","orderly",15,1);
+				pr.add("skills","doctor",25,1);
+				pr.add("skills","oratory",35,1);
+				pr.add("skills","trade",25,1);
+				pr.add("skills","light",-15,1);
+				pr.add("skills","heavy",-15,1);
+				pr.add("skills","energy",-15,1);
+				pr.add("skills","steel",-10,1);
+				pr.add("skills","melee",-10,1);
+				pr.add("skills","thrown",-10,1);
 				mychar.traits[str] = 1; 	
 				charp.tagt--;	} 
 			else if(mychar.traits[str] && charp.tagt<2){
-				addSkills("orderly",-15,1);
-				addSkills("doctor",-25,1);
-				addSkills("oratory",-35,1);
-				addSkills("trade",-25,1);
-				addSkills("light",15,1);
-				addSkills("heavy",15,1);
-				addSkills("energy",15,1);
-				addSkills("steel",10,1);
-				addSkills("melee",10,1);
-				addSkills("thrown",10,1);
+				pr.add("skills","orderly",-15,1);
+				pr.add("skills","doctor",-25,1);
+				pr.add("skills","oratory",-35,1);
+				pr.add("skills","trade",-25,1);
+				pr.add("skills","light",15,1);
+				pr.add("skills","heavy",15,1);
+				pr.add("skills","energy",15,1);
+				pr.add("skills","steel",10,1);
+				pr.add("skills","melee",10,1);
+				pr.add("skills","thrown",10,1);
 				delete mychar.traits[str]; 
 				charp.tagt++;	
 			}
@@ -201,11 +197,11 @@ var traits = {
 	// Минусы: Стимуляторы и Санитар не работают в полную мощь (-20 к отхилу).
 	TRAIT_SEX_APPEAL: [function(str){	
 			if(!mychar.traits[str] && charp.tagt>0){
-				feat.maxl[1]+=50;
+				pr.add("feats","maxl",50);
 				mychar.traits[str] = 1; 
 				charp.tagt--;	} 
 			else if(mychar.traits[str] && charp.tagt<2){
-				feat.maxl[1]-=50;
+				pr.add("feats","maxl",-50);
 				delete mychar.traits[str]; 
 				charp.tagt++;	
 			}
@@ -219,7 +215,7 @@ var traits = {
 				mychar.stats.CHA[1]+=2;
 				mychar.stats.INT[1]+=2;
 				mychar.stats.AGI[1]+=2;
-				feat.crit[1]+=15;			
+				pr.add("feats","crit",15);			
 				mychar.traits[str] = 1; 
 				charp.tagt--;	} 
 			else if(mychar.traits[str] && charp.tagt<2){
@@ -227,7 +223,7 @@ var traits = {
 				mychar.stats.CHA[1]-=2;
 				mychar.stats.INT[1]-=2;
 				mychar.stats.AGI[1]-=2;
-				feat.crit[1]-=15;
+				pr.add("feats","crit",-15);
 				delete mychar.traits[str]; 
 				charp.tagt++;	
 			}
@@ -237,13 +233,13 @@ var traits = {
 	// Минусы: -3 Очков Умений за каждый уровень.
 	TRAIT_NIGHT_PERSON: [function(str){	
 			if(!mychar.traits[str] && charp.tagt>0){
-				feat.apoi[1]+=2;
-				addSkills("thrown",20,1);
+				pr.add("feats","apoi",2);
+				pr.add("skills","thrown",20,1);
 				mychar.traits[str] = 1; 
 				charp.tagt--;	} 
 			else if(mychar.traits[str] && charp.tagt<2){
-				feat.apoi[1]-=2;
-				addSkills("thrown",-20,1);
+				pr.add("feats","apoi",-2);
+				pr.add("skills","thrown",-20,1);
 				delete mychar.traits[str]; 
 				charp.tagt++;	
 			}
