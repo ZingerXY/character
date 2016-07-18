@@ -118,12 +118,12 @@ var feat = {
 };
 // Резисты
 var resist = {
-	normal:		{"Норма",""},
-	laser:		{"Лазер",""},
-	fire:		{"Огонь",""},
-	plasma:		{"Плазма",""},
-	explode:	{"Взрыв",""},
-	electro:	{"Электро",""},
+	normal:		["Норма",""],
+	laser:		["Лазер",""],
+	fire:		["Огонь",""],
+	plasma:		["Плазма",""],
+	explode:	["Взрыв",""],
+	electro:	["Электро",""]
 };
 // SKILLS
 var pr = {// Создание ветки обьекта crSkills
@@ -252,38 +252,34 @@ function settle() {
 	for(var i in skills) 
 		skills[i][0] += pr.sum("skills",i);			
 	
-	var STR = mychar.stats.STR[0] + mychar.stats.STR[1];
-	var PER = mychar.stats.PER[0] + mychar.stats.PER[1];
-	var ENU = mychar.stats.ENU[0] + mychar.stats.ENU[1];	
-	var LUC = mychar.stats.LUC[0] + mychar.stats.LUC[1];
-	var AGI = mychar.stats.AGI[0] + mychar.stats.AGI[1];
-	var CHA = mychar.stats.CHA[0] + mychar.stats.CHA[1];
+    for(var i in mychar.stats)
+			stats[i][2] = mychar.stats[i][0] + mychar.stats[i][1];
 	// Жизни
-	feat.live[0] = 60 + STR + ENU*2;		
+	feat.live[0] = 60 + stats.STR[2] + stats.ENU[2]*2;		
 	// Класс брони
-	feat.armc[0] = AGI*(mychar.traits.TRAIT_KAMIKAZE ? 0 : 1)+(mychar.traits.TRAIT_KAMIKAZE ? 1 : 0);							
+	feat.armc[0] = stats.AGI[2]*(mychar.traits.TRAIT_KAMIKAZE ? 0 : 1)+(mychar.traits.TRAIT_KAMIKAZE ? 1 : 0);							
 	// Очки действий
-	feat.apoi[0] = 5 + Math.floor(AGI/2);			
+	feat.apoi[0] = 5 + Math.floor(stats.AGI[2]/2);			
 	// Макс груз
-	feat.maxl[0] = Math.round(0.453*( 25 + STR * ( 25 - (mychar.traits.TRAIT_SMALL_FRAME ? 1 : 0) * 10 )));
+	feat.maxl[0] = Math.round(0.453*( 25 + stats.STR[2] * ( 25 - (mychar.traits.TRAIT_SMALL_FRAME ? 1 : 0) * 10 )));
 	// Рукоп. повр.
-	feat.mdmg[0] = (STR > 5 ? STR-5 : 1);	
+	feat.mdmg[0] = (stats.STR[2] > 5 ? stats.STR[2]-5 : 1);	
 	// Радиус обзора
-	feat.oview[0] = 20 + PER*3;										
+	feat.oview[0] = 20 + stats.PER[2]*3;										
 	// Уст. яду
-	feat.stox[0] = (mychar.traits.TRAIT_FAST_METABOLISM ? 0 : 1)*ENU*5;
+	feat.stox[0] = (mychar.traits.TRAIT_FAST_METABOLISM ? 0 : 1)*stats.ENU[2]*5;
 	if(feat.stox[0]>95) feat.stox[0] = 95;
 	// Уст. радиации
-	feat.srad[0] = (mychar.traits.TRAIT_FAST_METABOLISM ? 0 : 1)*ENU*2;	
+	feat.srad[0] = (mychar.traits.TRAIT_FAST_METABOLISM ? 0 : 1)*stats.ENU[2]*2;	
 	if(feat.srad[0]>95) feat.srad[0] = 95;
 	// Порядок
-	feat.proc[0] = PER*2;							
+	feat.proc[0] = stats.PER[2]*2;							
 	// Уровень лечения
-	feat.levh[0] = (ENU > 5 ? Math.floor(ENU/3) : 1);	
+	feat.levh[0] = (stats.ENU[2] > 5 ? Math.floor(stats.ENU[2]/3) : 1);	
 	// Крит
-	feat.crit[0] = LUC;	
+	feat.crit[0] = stats.LUC[2];	
 	//Уворот
-	feat.dodge[0] = CHA + (checkperk("PE_HTH_EVADE") ? (feat.apoi[0]/4)+(feat.apoi[0]/2) : 0);
+	feat.dodge[0] = stats.CHA[2] + (checkperk("PE_HTH_EVADE") ? (feat.apoi[0]/4)+(feat.apoi[0]/2) : 0);
 	
 	for(var i in feat) 
 		feat[i][0] += pr.sum("feats",i);	
@@ -712,9 +708,7 @@ function checkperk(strperk) {
 }
 //Создание списка перков в окне доступных перков
 function createlistperk() {
-	$("#crlistperk").html("");
-	for(var i in mychar.stats)
-			stats[i][2] = mychar.stats[i][0] + mychar.stats[i][1];
+	$("#crlistperk").html("");	
 	var mperk = {3: [],6: [],9: [],12: [],15: [],18: []};
 	for(var i in perk)
 		if(perk[i][5](1)&&perk[i][4]===29||perk[i][4]===32)
