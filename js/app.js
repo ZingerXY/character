@@ -1,4 +1,4 @@
-var leveluping = true; // для отладки!!!
+var leveluping = false; // для отладки!!!
 var regi = 1;
 var medsp = 0;
 
