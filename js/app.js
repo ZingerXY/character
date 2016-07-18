@@ -20,6 +20,7 @@ var mychar = {
 	tags: {},
 	skills: {},
     feats: {},
+    resist: {},
 	stats: { // Природная,добавленная
 		STR: [6,0], // Сила
 		PER: [7,0], // Восприятие
@@ -117,12 +118,12 @@ var feat = {
 };
 // Резисты
 var resist = {
-	normal:		{asb:[0, 0, 0], res:[0, 0, 0]},
-	laser:		{asb:[0, 0, 0], res:[0, 0, 0]},
-	fire:		{asb:[0, 0, 0], res:[0, 0, 0]},
-	plasma:		{asb:[0, 0, 0], res:[0, 0, 0]},
-	explode:	{asb:[0, 0, 0], res:[0, 0, 0]},
-	electro:	{asb:[0, 0, 0], res:[0, 0, 0]},
+	normal:		{"Норма",""},
+	laser:		{"Лазер",""},
+	fire:		{"Огонь",""},
+	plasma:		{"Плазма",""},
+	explode:	{"Взрыв",""},
+	electro:	{"Электро",""},
 };
 // SKILLS
 var pr = {// Создание ветки обьекта crSkills
@@ -145,6 +146,12 @@ var pr = {// Создание ветки обьекта crSkills
         this.cr(pr,str);
         mychar[pr][charp.level][str][c] += n;
         this.del(pr,str);
+    },
+    addr: function(str,asb,res){
+        this.cr("resist",str);
+        mychar.resist[charp.level][str][0] += asb;
+        mychar.resist[charp.level][str][1] += res;
+        this.del("resist",str);
     },// Проверка наличия прокачки навыка
     ch: function(pr,str){
         if(charp.level in mychar[pr])
@@ -160,6 +167,15 @@ var pr = {// Создание ветки обьекта crSkills
             if(str in mychar[pr][j]) {
                 sum += mychar[pr][j][str][0];
                 sum += mychar[pr][j][str][1];
+            }
+        return sum;
+    },
+    sumr: function(str){
+        var sum = [0,0];
+        for(var j in mychar.resist)
+            if(str in mychar.resist[j]) {
+                sum[0] += mychar.resist[j][str][0];
+                sum[1] += mychar.resist[j][str][1];
             }
         return sum;
     }
@@ -277,9 +293,8 @@ function settle() {
 	$("#dodge").html(feat.dodge[0]+"%");
 		
 	for(var n in resist) {
-		resist[n].asb[0] = resist[n].asb[1] + resist[n].asb[2];
-		resist[n].res[0] = resist[n].res[1] + resist[n].res[2];
-		$("#"+n).html(resist[n].asb[0]+"/"+resist[n].res[0]+"%");
+		var res = pr.sumr(n);
+		$("#"+n).html(res[0]+"/"+res[1]+"%");
 	}
 	for(var j in skills){
 		if(skills[j][0] > 300) skills[j][0] = 300;

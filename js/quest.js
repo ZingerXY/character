@@ -100,10 +100,10 @@ var questup = {
 	imp_battle:function(){
 		talk("Выберите бовевой имплант:",{ 	
 			aimp_battle:["Оптимизация, +15 к очкам жизни, +3% к точности",function(){perk.PE_QUICK_POCKETS[0]+=1;pr.add("feats","live",15);return 1;},true], // точность +3%
-			bimp_battle:["-3% к точности врага, +5 к трешхолду взрыву, +3% уворота",function(){resist.explode.asb[2]+=5;return 1;},true], // точность врага -3%, 3% уроврота.
+			bimp_battle:["-3% к точности врага, +5 к трешхолду взрыву, +3% уворота",function(){pr.addr("explode",5,0);return 1;},true], // точность врага -3%, 3% уроврота.
 			cimp_battle:["+3 конечного урона, +5% к критическим попаданиям",function(){pr.add("feats","crit",5);return 1;},true], // +3 урона
 			dimp_battle:["+20% Метательное оружие, +15 XP, +5 AC",function(){pr.add("skills","thrown",20,1);pr.add("feats","live",15);pr.add("feats","armc",5);return 1;},true],
-			eimp_battle:["+2 к всем трешхолдам",function(){for(var n in resist) resist[n].asb[2]+=2;return 1;},true],
+			eimp_battle:["+2 к всем трешхолдам",function(){for(i in resist)pr.addr(i,2,0);return 1;},true],
 			fimp_battle:["+30% Легкое оружие, +30% Тяжелое оружие, +30% Энергооружие",function(){pr.add("skills","light",30,1);pr.add("skills","heavy",30,1);pr.add("skills","energy",30,1);return 1;},true],
 			none:["Ничего",function(){return 0;},true]
 		});
