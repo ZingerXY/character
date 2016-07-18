@@ -94,7 +94,7 @@ body{
 	right: 0;
 	top: 0;
 	bottom: 0;
-	z-index: 100;
+	z-index: 160;
 	overflow: auto;
 }
 .reg	{	/* скрыть после регистрации */
@@ -994,6 +994,7 @@ hr {
 	width: 			340px;
     height: 		420px;
 	border: 		0px;
+    overflow: 		hidden;
 }
 #totalkey {
 	color:			#686665;

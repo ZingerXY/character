@@ -21,14 +21,15 @@ var mychar = {
 	skills: {},
     feats: {},
     resist: {},
+    quest: {},
 	stats: { // Природная,добавленная
-		STR: [6,0], // Сила
+		STR: [8,0], // Сила
 		PER: [7,0], // Восприятие
 		ENU: [8,0], // Выносливость
-		CHA: [2,0], // Обаяние
+		CHA: [1,0], // Обаяние
 		INT: [8,0], // Интелект
 		AGI: [7,0], // Ловкость
-		LUC: [2,0] // Удача
+		LUC: [1,0] // Удача
 	},
     book: { // Доступно книг, лишние очки
         light: [10,0],
@@ -395,9 +396,22 @@ function minusspec(pop){
 	statpoints();
 	settle();
 }
-// обновление скилпоинтов
-function spoints(){	
-	numbers($("#point1"),charp.points);
+// расчет прокачки навыка
+function skpoint(n,p){
+    var r = [0,0];
+    for(var i = p; i > 0 && p > 0; i-- ) {
+        if( n > SkillMod.Add6 && p >= 6 ) p -= 6;
+        else if( n > SkillMod.Add5 && p >= 5 ) p -= 5;
+        else if( n > SkillMod.Add4 && p >= 4 ) p -= 4;
+        else if( n > SkillMod.Add3 && p >= 3 ) p -= 3;
+        else if( n > SkillMod.Add2 && p >= 2 ) p -= 2;
+        else if(n <= SkillMod.Add2 && p >= 1) p -= 1;
+        else break;
+        r[0]++;
+        n++;
+    }
+    r[1] = p;
+    return r;
 }
 // Прокачка навыков
 function plus() {
@@ -416,7 +430,7 @@ function plus() {
 		n++;
 	pr.add("skills",str, n - skills[str][0]);
 	charp.points -= s;
-	spoints();
+	numbers($("#point1"),charp.points);
 	settle();
 }
 // Откачка навыков
@@ -438,7 +452,7 @@ function minus() {
 	}
 	pr.add("skills",str, n - skills[str][0]);
 	charp.points += s;
-	spoints();
+	numbers($("#point1"),charp.points);
 	settle();
 }
 // скрытие окон по Esc
@@ -471,12 +485,14 @@ function plusage() {
 	charp.age++;
 	if(charp.age>60) charp.age = 14;
 	numbers($("#numberage"),charp.age);
+    $("#age").html(charp.age);
 }
 // Отнять возраст
 function minusage() { 
 	charp.age--;
 	if(charp.age<14) charp.age = 60;
 	numbers($("#numberage"),charp.age);
+    $("#age").html(charp.age);
 }
 // Смена пола
 function changesex() {
@@ -505,7 +521,7 @@ function leveling() {
 			$("#level").html(charp.level);
 			$("#exp").html(levelexp(charp.level));
 			$("#nextexp").html(levelexp(charp.level+1));
-			spoints();
+			numbers($("#point1"),charp.points);
 			$("<div/>", {"id": "select"}).appendTo("#main").css({	'backgroundImage': 	"url(img/skillpad.png)", 
 																	"position": 		"absolute",
 																	"top":				"-9px",
@@ -669,7 +685,7 @@ function levelup(){
 		feat.live[0] = pr.sum("feats", "live") + 60 + stats.STR[2] + stats.ENU[2]*2;
 		$("#live").html(feat.live[0]+"/"+feat.live[0]);
 		charp.points += 5 + (stats.INT[2] * 2) - (mychar.traits.TRAIT_NIGHT_PERSON?3:0);
-		spoints();
+		numbers($("#point1"),charp.points);
 	}
 	if(!(charp.level%(mychar.traits.TRAIT_SKILLED?4:3)))	{
 		charp.perkpoint++;
@@ -705,6 +721,12 @@ function checkperk(strperk) {
 		return 0;
 	else
 		return mychar.perks[strperk].vol;
+}
+function chquest(strq) {
+	if(mychar.quest[strq]===undefined)
+		return 0;
+	else
+		return mychar.quest[strq].vol;
 }
 //Создание списка перков в окне доступных перков
 function createlistperk() {
@@ -755,7 +777,7 @@ function showlistperk(){
 function listquestup(){
 	var chval = false;
 	for(var i in quest)
-		chval = chval || (quest[i][0]<quest[i][1]&&charp.level>=quest[i][2]&&charp.level<=quest[i][3]&&quest[i][4]());
+		chval = chval || (chquest(i)<quest[i][2]&&charp.level>=quest[i][3]&&charp.level<=quest[i][4]&&quest[i][5]());
 	if (!chval) return;
 	$("#quest").show();
 	$("#selectquest").html("");
@@ -763,27 +785,26 @@ function listquestup(){
 	$("#textparmq").html("");
 	select.quest = "";
 	for(var i in quest){
-		if(quest[i][0]<quest[i][1]&&charp.level>=quest[i][2]&&charp.level<=quest[i][3]&&quest[i][4]()){
-			var questit = $("<div id=\""+i+"\" class=\"perklist\">"+textquest[i][0]+"</div>").appendTo("#selectquest");
+		if(chquest(i)<quest[i][2]&&charp.level>=quest[i][3]&&charp.level<=quest[i][4]&&quest[i][5]()){
+			var questit = $("<div id=\""+i+"\" class=\"perklist\">"+quest[i][0]+"</div>").appendTo("#selectquest");
 			questit.click(function(){
 				if(select.quest) $("#"+select.quest).css("color","#00AB00");
 				select.quest = this.id;
 				$("#"+this.id).css("color","#00FF00");
-				$("#nameparmq").html(textquest[this.id][0]);
-				$("#textparmq").html(textquest[this.id][1]);
+				$("#nameparmq").html(quest[this.id][0]);
+				$("#textparmq").html(quest[this.id][1]);
 			});
 		}	
 	}	
 }
-
-function showlistquest(){	// Выводит взятые квесты в #textlist3
+// Выводит взятые квесты в #textlist3
+function showlistquest(){	
 	var lineit = $("#textlist3").html("");
 	lineit.append("<center>Квесты</center>");
-	for(var j in quest)
-		if(quest[j][0]) {
-			lineit.append("<div id=\"list"+j+"\">"+textquest[j][0]+(quest[j][0]>1?"("+quest[j][0]+")":"")+"</div>");
-			$("#list"+j).click(function(){infoparm("quest",this.id.substr(4));});
-		}
+	for(var j in mychar.quest) {
+        lineit.append("<div id=\"list"+j+"\">"+quest[j][0]+(chquest(j)>1?"("+chquest(j)+")":"")+"</div>");
+        $("#list"+j).click(function(){infoparm("quest",this.id.substr(4));});
+    }
 }
 // Вывод информации о перке или квесте по клику
 function infoparm(ch,prm){
@@ -801,8 +822,8 @@ function infoparm(ch,prm){
 			$("#imgparm").html("<img src=\"skill/"+prm.substr(3)+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
 		case "quest":
-			$("#nameparm").html(textquest[prm][0]);
-			$("#textparm").html(textquest[prm][1]);
+			$("#nameparm").html(quest[prm][0]);
+			$("#textparm").html(quest[prm][1]);
 		break;
 		case "skills": // добавить описание
 			$("#nameparm").html(perk[prm][0]);
@@ -811,10 +832,10 @@ function infoparm(ch,prm){
 			$("#imgparm").html("<img src=\"skill/"+prm.substr(3)+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
 		case "stats": // добавить описание
-			$("#nameparm").html(stats[prm.substr(0,3)][0]);
-			$("#textparm").html(stats[prm.substr(0,3)][1]);
+			$("#nameparm").html(stats[prm][0]);
+			$("#textparm").html(stats[prm][1]);
 			$("#imgparm").removeClass('loaded');
-			$("#imgparm").html("<img src=\"skill/"+prm.substr(0,3)+".jpg\" onload=\"imgLoaded(this)\">");
+			$("#imgparm").html("<img src=\"skill/"+prm+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
 	}
 }
@@ -839,37 +860,10 @@ function plusbook() {
 		strn = str;
 	}
 	if(mychar.book[str][0]) {
-		var n = skills[strn][0];		// Навык
-		var np = 0;
 		var s = 6 + mychar.book[str][1];	// Очки навыков
-		for(var i = 0;i<6&&s>0;i++){
-			if(n%2)	// нечетный
-			{
-				if(n<101 && s>=1)		s-=1;
-				else if(n<127 && s>=2)	s-=2;
-				else if(n<151 && s>=3)	s-=3;
-				else if(n<=175 && s>=4)	s-=4;
-				else if(n<201 && s>=5)	s-=5;
-				else if(n<300 && s>=6)	s-=6;
-				else break;
-				np++;
-				n++;
-			}
-			else	// четный
-			{
-				if(n<102 && s>=1)		s-=1;
-				else if(n<126 && s>=2)	s-=2;
-				else if(n<152 && s>=3)	s-=3;
-				else if(n<176 && s>=4)	s-=4;
-				else if(n<202 && s>=5)	s-=5;
-				else if(n<300 && s>=6)	s-=6;
-				else break;
-				np++;
-				n++;
-			}
-		}
-        mychar.book[str][1] = s;
-		pr.add("skills",strn,np,1);
+		var sk = skpoint(skills[strn][0],s);
+        mychar.book[str][1] = sk[1];
+		pr.add("skills",strn,sk[0],1);
 		mychar.book[str][0]--;
 		$("#book"+str).html("x"+mychar.book[str][0]);
 		settle();
@@ -897,11 +891,8 @@ function talk(textdialog,answ) {
 					pr.add("skills",e.currentTarget.id.substr(4),nup[0],1);
 					nup = nup[1];
 				}
-				quest[select.quest][0] += nup;
-					var n = totalquest[charp.level];
-					if(n===undefined) n = [];
-					n.push(textquest[select.quest][0]+"("+e.data.name+")");
-					totalquest[charp.level] = n;
+				mychar.quest[select.quest]={vol:chquest(select.quest) + 1, lvl: chquest(select.quest) ? mychar.quest[select.perk].lvl : []};
+				mychar.quest[select.quest].lvl.push(charp.level);
 				settle();
 				statpoints();
 				showlistquest();
@@ -946,8 +937,7 @@ function total() {
 		if(i!="prewar"&&mychar.book[i][0]<10)	textarea += textbook[i]+" "+(10-mychar.book[i][0])+"\n";
 		else if (i=="prewar"&&mychar.book[i][0]<20)   textarea += textbook[i]+" "+(20-mychar.book[i][0])+"\n"
 	}
-	$("#totaltext").val(textarea);	
-		
+	$("#totaltext").val(textarea);		
 }
 // Скрол по 1 строчке
 function scrollit(e){
@@ -961,10 +951,30 @@ function imgLoaded(img){
     var $img = $(img);
     $img.parent().addClass('loaded');
 }
+function loadbuild(myc,cp) {
+	mychar = JSON.parse(myc);
+	charp = JSON.parse(cp);
+    for(var i in mychar.tags)
+        $("#"+i).css("color", "#ABABAB");
+    for(var i in mychar.book)
+        $("#book"+i).html("x"+mychar.book[i][0]);
+	leveluping = true;
+	leveling();
+    $("#namenter").html(charp.name);
+    $("#name").html($("#namenter").html().toUpperCase());
+	numbers($("#numberage"),charp.age); // обновление циферок возраста
+    $("#age").html(charp.age);
+	numbers($("#point1"),charp.points); // обновление очков тага навыков
+	numbers($("#point2"),charp.tags);   // обновление скилпоинтов
+	statpoints();                       // обновление статов
+	settle();                           // обновление навыков и параметров
+	createlistperk();                   // создание доступных перков
+    showlistquest();                    // обновление списка квестов
+}
 //главная функция
 function main() 
 {
-	
+	$("#totaltext").on('wheel', scrollit);
 	$("#crlistperk").on('wheel', scrollit);
 	$("#selectperk").on('wheel', scrollit);
 	$("#selectquest").on('wheel', scrollit);
@@ -1021,7 +1031,7 @@ function main()
 							showlistperk();
 							settle();
 							statpoints();
-							spoints();
+							numbers($("#point1"),charp.points);
 						}
 						});
 	$("#cancelperk").click(function(){$("#perk").hide();$("#perk").animate({'opacity':'0'},200);});
@@ -1030,13 +1040,10 @@ function main()
 						$("#quest").hide(); 
 						if(select.quest) {
 							if(select.quest!="per_ncr" && select.quest!="medals" && select.quest!="drayfild" && select.quest.substr(0,3)!="imp") {
-								quest[select.quest][0] += 1;
-								var n = totalquest[charp.level];
-								if(n===undefined) n = [];
-								n.push(textquest[select.quest][0]);
-								totalquest[charp.level] = n;
+								mychar.quest[select.quest] = {vol: chquest(select.quest) + 1, lvl: chquest(select.quest) ? mychar.quest[select.perk].lvl : []};
+								mychar.quest[select.quest].lvl.push(charp.level);
 							}
-							questup[select.quest]();
+							quest[select.quest][6]();
 							showlistquest();
 							settle();
 							statpoints();
@@ -1054,9 +1061,9 @@ function main()
 	for(var j in stats) {
 		$("#plus"+j).click(plusspec);
 		$("#minus"+j).click(minusspec);
-		$("#"+j+"n").click(function(){infoparm("stats",this.id)});
-		$("#"+j+"t").click(function(){infoparm("stats",this.id)});
-		$("#"+j).click(function(){infoparm("stats",this.id)});
+		$("#"+j+"n").click(function(){infoparm("stats",this.id.substr(0,3))});
+		$("#"+j+"t").click(function(){infoparm("stats",this.id.substr(0,3))});
+		$("#"+j).click(function(){infoparm("stats",this.id.substr(0,3))});
 	}
 	for(var j in traits){
 		$("#key"+j).mousedown(function(){$("#lkey"+this.id.substr(3)).html("<img src=\"img/small_key.png\" onload=\"imgLoaded(this)\">");});
@@ -1072,14 +1079,13 @@ function main()
 		$("#butt"+j).click(selectskill);
 	}
 	$("#men").css('backgroundImage', 'url(img/men.png)');
-	numbers($("#numberage"),charp.age);
-	spoints();
-	numbers($("#point2"),charp.tags);
-	statpoints();
-	settle();
-	createlistperk();
+	numbers($("#numberage"),charp.age); // обновление циферок возраста
+	numbers($("#point1"),charp.points); // обновление очков тага навыков
+	numbers($("#point2"),charp.tags);   // обновление скилпоинтов
+	statpoints();                       // обновление статов
+	settle();                           // обновление навыков и параметров
+	createlistperk();                   // создание доступных перков
 	$(".main").animate({'opacity':'1'},200);
-	
 }
 //window.addEventListener('DOMContentLoaded', main);
 window.addEventListener("load", main);
