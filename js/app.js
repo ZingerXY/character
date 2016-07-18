@@ -12,8 +12,6 @@ var select = {
 	quest: ""
 }
 
-var totalskill = {}; // Сколько вкачено навыков на каждом уровне
-var totalperk = {};
 var totalquest = {};
 
 var mychar = {
@@ -21,17 +19,26 @@ var mychar = {
 	perks: {},
 	tags: {},
 	skills: {},
-	stats: {
-		STR: [6, 0], // Сила
-		PER: [7, 0], // Восприятие
-		ENU: [8, 0], // Выносливость
-		CHA: [2, 0], // Обаяние
-		INT: [8, 0], // Интелект
-		AGI: [7, 0], // Ловкость
-		LUC: [2, 0] // Удача
-	}
-};
-// mychar.tags
+	stats: { // Природная,добавленная
+		STR: [6,0], // Сила
+		PER: [7,0], // Восприятие
+		ENU: [8,0], // Выносливость
+		CHA: [2,0], // Обаяние
+		INT: [8,0], // Интелект
+		AGI: [7,0], // Ловкость
+		LUC: [2,0] // Удача
+	},
+    book: { // Доступно книг, лишние очки
+	light: [10,0],
+	energy: [10,0],
+	orderly: [10,0],
+	science: [10,0],
+	repair: [10,0],
+	ranger: [10,0],
+	prewar: [20,0]
+    }
+}; 
+// mychar.book
 var charp = {
 	name:	"", // имя
 	age:	getRandInt(14, 60), // возраст
@@ -397,6 +404,7 @@ function crSkills(str){
 }
 // Удаление ветки обьекта прокачки скилов если он пустой
 function delSkills(str){
+    if(!chSkills(str)) return;
 	if(mychar.skills[charp.level][str][0] == 0 && 
 	   mychar.skills[charp.level][str][1] == 0)
 		delete mychar.skills[charp.level][str];
@@ -875,10 +883,10 @@ function plusbook() {
 	else {
 		strn = str;
 	}
-	if(book[str][0]) {
+	if(mychar.book[str][0]) {
 		var n = skills[strn][0];		// Навык
 		var np = 0;
-		var s = 6 + book[str][1];	// Очки навыков
+		var s = 6 + mychar.book[str][1];	// Очки навыков
 		for(var i = 0;i<6&&s>0;i++){
 			if(n%2)	// нечетный
 			{
@@ -905,10 +913,10 @@ function plusbook() {
 				n++;
 			}
 		}
-		book[str][1] = s;
-		addSkills(strn,np);
-		book[str][0]--;
-		$("#book"+str).html("x"+book[str][0]);
+        mychar.book[str][1] = s;
+		addSkills(strn,np,1);
+		mychar.book[str][0]--;
+		$("#book"+str).html("x"+mychar.book[str][0]);
 		settle();
 	}
 }
@@ -979,9 +987,9 @@ function total() {
 		if(skills[i][0] > 80) 
 			textarea += skills[i][2]+": "+skills[i][0]+"\n";
 	textarea += "\nКниги:\n";
-	for(var i in book) {
-		if(i!="prewar"&&book[i][0]<10)	textarea += textbook[i]+" "+(10-book[i][0])+"\n";
-		else if (i=="prewar"&&book[i][0]<20)textarea += textbook[i]+" "+(20-book[i][0])+"\n"
+	for(var i in mychar.book) {
+		if(i!="prewar"&&mychar.book[i][0]<10)	textarea += textbook[i]+" "+(10-mychar.book[i][0])+"\n";
+		else if (i=="prewar"&&mychar.book[i][0]<20)   textarea += textbook[i]+" "+(20-mychar.book[i][0])+"\n"
 	}
 	$("#totaltext").val(textarea);	
 		
@@ -1055,7 +1063,6 @@ function main()
 							mychar.perks[select.perk].lvl.push(charp.level);
 							charp.perkpoint--;
 							perk[select.perk][6]();
-							totalperk[charp.level] = perk[select.perk]; // WTF??
 							showlistperk();
 							settle();
 							statpoints();
@@ -1086,9 +1093,8 @@ function main()
 	
 	for(var i = 1; i<4;i++) $("#textswitch"+i).click(switchinfo);
 	
-	for(var j in book) // Чтение книг
-		if(j != "point") 
-			$("#book"+j).click(plusbook);
+	for(var j in mychar.book) // Чтение книг 
+        $("#book"+j).click(plusbook);
 	
 	for(var j in stats) {
 		$("#plus"+j).click(plusspec);
