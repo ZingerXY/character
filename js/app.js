@@ -108,6 +108,7 @@ var textbook = {
 };
 // параметр, название, описние
 var feat = { 
+    acrit:  [0,"антикрит",""],
 	dodge:	[0,"улонение",""],
 	live: 	[0,"жизни",""],
 	armc: 	[0,"класс брони",""],
@@ -285,13 +286,13 @@ function settle() {
 	feat.crit[0] = stats.LUC[2];	
 	//Уворот
 	feat.dodge[0] = stats.CHA[2] + (checkperk("PE_HTH_EVADE") ? (feat.apoi[0]/4)+(feat.apoi[0]/2) : 0);
+    //Антикрит
+    feat.acrit[0] = checkperk("PE_TERMINATOR") ? (mychar.stats.STR[0] + mychar.stats.ENU[0])*5 : 
+                    mychar.traits.TRAIT_SKILLED ? 60 : 
+                    checkperk("PE_STONEWALL") ?  40 : 0;
 	
 	for(var i in feat) 
 		feat[i][0] += pr.sum("feats",i);	
-	
-	$("#live").html(feat.live[0]+"/"+feat.live[0]);
-	$("#crit").html(feat.crit[0]+"%");
-	$("#dodge").html(feat.dodge[0]+"%");
 		
 	for(var n in resist) {
 		var res = pr.sumr(n);
@@ -303,9 +304,12 @@ function settle() {
 		
 	}
 	for(var j in feat){
-		if(j != "crit" && j != "live" && j != "dodge") {
+		if(j != "acrit" &&j != "crit" && j != "live" && j != "dodge") 
 			$("#"+j).html(feat[j][0]);
-		}
+        else if(j != "live")
+            $("#"+j).html(feat[j][0]+"%");
+        else
+            $("#"+j).html(feat[j][0]+"/"+feat[j][0]);
 	}
 }
 // Обновление статов
@@ -681,6 +685,7 @@ function selectskill() {
 }
 // Повышение уровня
 function levelup(){
+    $("#leveldown").show();
 	if(charp.level==99) return;
 	charp.level++;
 	$("#level").html(charp.level);
@@ -700,6 +705,11 @@ function levelup(){
 	if(charp.perkpoint)	{
 		listperkup();	
 	}
+}
+// Понижение уовня
+function leveldown() {
+    if(charp.level == 1)
+        $("#leveldown").hide();
 }
 // Окно выбора перков
 function listperkup(){

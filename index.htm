@@ -128,10 +128,12 @@
                 <div id="textnextexp">След.ур.:</div>
                 <div id="nextexp"></div>
                 <div id="levelup"></div>
+                <div id="leveldown"></div>
             </div>
             <div id="feat1" class="text2"> 
-                <div id="life">Жизни</div><div id="live"></div>
-                <div id="dadge">Уворот</div><div id="dodge"></div>
+                <div id="life" class="res-2">Жизни</div><div id="live" class="res0-2"></div>
+                <div id="dadge" class="res-1">Уворот</div><div id="dodge" class="res-1"></div>
+                <div id="anticrit" class="res0">Антикрит</div><div id="acrit" class="res0">0%</div>
                 <div id="textnormal" class="resist res1">Норма</div><div id="normal" class="resist resnum0 res1"></div>
                 <div id="textlaser" class="resist res2">Лазер</div><div id="laser" class="resist resnum0 res2"></div>
                 <div id="textfire" class="resist res3">Огонь</div><div id="fire" class="resist resnum0 res3"></div>

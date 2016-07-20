@@ -3,7 +3,7 @@ var quest = {	// квест, уровней квеста, мин уровень 
         200,1,99,function(){return true;},
         function(){talk("У вас "+(quest.medals[2]-chquest("medals"))+" медалей выберите награду:",{ 	
 			amedals:["1 очко распределения(3 медали)",function(){charp.points++;spoints();return 3;},(quest.medals[2]-chquest("medals"))>=3], // точность +3%
-			bmedals:["1 очко жизней(10 медалей)",function(){feat.live[2]++;return 10;},(quest.medals[2]-chquest("medals"))>=10], // точность врага -3%, 3% уроврота.
+			bmedals:["1 очко жизней(10 медалей)",function(){pr.add("feats","live",1);return 10;},(quest.medals[2]-chquest("medals"))>=10], // точность врага -3%, 3% уроврота.
 			/*cmedals:["+1% любого резиста(10 медалей)",function(){
 				talk("Выберите резист:", {
 					amedals: ["+1% к норме", function(){resist.normal.res[2]++;return 10;},resist.normal.res[0]<25],
@@ -52,8 +52,8 @@ var quest = {	// квест, уровней квеста, мин уровень 
 	per_ncr:["+4% анти/крит в НКР","При хорошей репутации в НКР местный доктор согласится сделать операцию всего за каких-то 50к монеток.",
         1,30,99,function(){return charp.level >= 30;},
         function(){talk("Выберите награду за квест НКР:",{ 	
-			crit5:["+4% к криту",function(){feat.crit[1]+=4;return 1;},true],
-			anticrit5:["+4% к антикриту",function(){return 1;},true],
+			crit5:["+4% к криту",function(){pr.add("feats","crit",4);return 1;},true],
+			anticrit5:["+4% к антикриту",function(){pr.add("feats","acrit",4);return 1;},true],
 			none:["Ничего",function(){return 0;},true]});
         }],
 	cha_vc:["+1 Обояние в ГУ", "Если найти голодиск с инструкциями по пластической хирургии для докторши в ГУ, то она с радостью сделает вам операцию.",
