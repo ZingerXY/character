@@ -708,6 +708,7 @@ function levelup(){
 }
 // Понижение уовня
 function leveldown() {
+    charp.level--;
     if(charp.level == 1)
         $("#leveldown").hide();
 }
@@ -1126,6 +1127,7 @@ function main()
 	$("#cancelquest").click(function(){$("#quest").hide()});
 	
 	$("#levelup").click(levelup);
+    $("#leveldown").click(leveldown);
 	
 	for(var i = 1; i<4;i++) $("#textswitch"+i).click(switchinfo);
 	
