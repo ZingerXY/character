@@ -1,6 +1,7 @@
 var leveluping = false; // для отладки!!!
 var regi = 1;
 var medsp = 0;
+var save = false;
 
 function getRandInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -32,24 +33,24 @@ var mychar = {
 		LUC: [1,0] // Удача
 	},
     book: { // Доступно книг, лишние очки
-        light: [10,0],
-        energy: [10,0],
-        orderly: [10,0],
-        science: [10,0],
-        repair: [10,0],
-        ranger: [10,0],
-        prewar: [20,0]
+        light: [10,0,{}],
+        energy: [10,0,{}],
+        orderly: [10,0,{}],
+        science: [10,0,{}],
+        repair: [10,0,{}],
+        ranger: [10,0,{}],
+        prewar: [20,0,{}]
     }
 }; 
 // mychar.book
 var charp = {
-	name:	"", // имя
-	age:	getRandInt(14, 60), // возраст
-	sex:	"man", // пол
-	level:	1, // уровень
+	name: "", // имя
+	age: getRandInt(14, 60), // возраст
+	sex: "man", // пол
+	level: 1, // уровень
 	tagt: 2, // очки на таг трейтов
-	tags: 	 3, // очки на таг скилов
-	points:  0,	// скилпоинты
+	tags: 3, // очки на таг скилов
+	points: 0,	// скилпоинты
 	specialpoint: 0, // Очки распределения статов
 	perkpoint: 0 // Очки перков
 };
@@ -291,7 +292,7 @@ function settle() {
 		
 	for(var n in resist) {
 		var res = pr.sumr(n);
-		$("#"+n).html(res[0]+"/"+res[1]+"%");
+		$("#"+n).html(res[0]+" / "+res[1]+"%");
 	}
 	for(var j in skills){
 		if(skills[j][0] > 300) skills[j][0] = 300;
@@ -328,6 +329,7 @@ function statpoints(){
 		numbers(link,n);
 	}
 	numbers($("#specialpoint"),charp.specialpoint);
+	settle();
 	createlistperk();
 }
 // Отображение разлиных поинтов
@@ -378,7 +380,6 @@ function plusspec(pop){
 	mychar.stats[str][0] = n - mychar.stats[str][1];
 	charp.specialpoint = s;
 	statpoints();
-	settle();
 }
 // Отнимание стата
 function minusspec(pop){	
@@ -393,8 +394,7 @@ function minusspec(pop){
 	}
 	mychar.stats[str][0] = n - mychar.stats[str][1];
 	charp.specialpoint = s;
-	statpoints();
-	settle();
+	statpoints();	
 }
 // расчет прокачки навыка
 function skpoint(n,p){
@@ -581,23 +581,17 @@ function leveling() {
 			$("#imgparm").html("");
 			$("#main").animate({'opacity':'1'},500);
 		}
+		else {
+			if(charp.level>=28)
+				setbuild();
+		}
 	}	
 	else alert("Не распределены special point или не тагнуты 3 навыка!");
 }
 // Переход обратно к созданию
 function reg(){
-	location.reload();
-	/*return;
-	if(!regi) {
-		$('title').text("Создание персонажа");
-		$("#main").css('backgroundImage', "url(img/reg.png)");
-		$("body").css('backgroundImage', "");
-		$(".reg").show();
-		$(".leveling").hide();
-		$("#select").remove();
-		for(var j = 1; j<4;j++) $("#textlist"+j).hide();
-		regi = 1;
-	}*/
+	Cookies.remove('hash', { path: '' });
+	location.replace("index.htm");
 }
 // Получить количество опыта необходимое для этого уровня
 function levelexp(n) {
@@ -864,6 +858,12 @@ function plusbook() {
 		var sk = skpoint(skills[strn][0],s);
         mychar.book[str][1] = sk[1];
 		pr.add("skills",strn,sk[0],1);
+		if(!(charp.level in mychar.book[str][2]))
+			mychar.book[str][2][charp.level] = {};
+		if(!(strn in mychar.book[str][2][charp.level]))
+			mychar.book[str][2][charp.level][strn] = [0,0];
+		mychar.book[str][2][charp.level][strn][0]++;
+		mychar.book[str][2][charp.level][strn][1]+=sk[0];
 		mychar.book[str][0]--;
 		$("#book"+str).html("x"+mychar.book[str][0]);
 		settle();
@@ -904,6 +904,11 @@ function talk(textdialog,answ) {
 function emptyObject(obj) {
     for (var i in obj) return false;
     return true;
+}
+function totalurl() {
+	$("#total").show();
+	var textarea = "http://"+location.host+"/character/?hash="+Cookies.get("hash");
+	$("#totaltext").val(textarea);
 }
 // Итоговые результаты в текстовом виде
 function total() {
@@ -951,9 +956,12 @@ function imgLoaded(img){
     var $img = $(img);
     $img.parent().addClass('loaded');
 }
+function loadbjson(myc,cp) {
+	loadbuild(JSON.parse(myc),JSON.parse(cp))
+}
 function loadbuild(myc,cp) {
-	mychar = JSON.parse(myc);
-	charp = JSON.parse(cp);
+	mychar = myc;
+	charp = cp;
     for(var i in mychar.tags)
         $("#"+i).css("color", "#ABABAB");
     for(var i in mychar.book)
@@ -968,12 +976,52 @@ function loadbuild(myc,cp) {
     $("#name").html($("#namenter").html().toUpperCase());
 	numbers($("#numberage"),charp.age); // обновление циферок возраста
     $("#age").html(charp.age);
+	if(charp.sex === "men") {
+		$("#men").css('backgroundImage', 'url(img/men.png)');
+		$("#women").css('backgroundImage', '');
+		$("#sex").html("МУЖ.");
+	}
+	else if(charp.sex === "women") {
+		$("#women").css('backgroundImage', 'url(img/women.png)');
+		$("#men").css('backgroundImage', '');
+		$("#sex").html("ЖЕН.");
+	}
 	numbers($("#point1"),charp.points); // обновление очков тага навыков
 	numbers($("#point2"),charp.tags);   // обновление скилпоинтов
 	statpoints();                       // обновление статов
 	settle();                           // обновление навыков и параметров
 	createlistperk();                   // создание доступных перков
     showlistquest();                    // обновление списка квестов
+}
+function setbuild() {
+	var arr = [mychar,charp];
+	var str = "setbuild="+JSON.stringify(arr)+"&name="+charp.name;
+	if(cookiehash)
+		str += "&hash="+cookiehash;
+	
+	$.ajax({
+	type: "POST",
+	url: "basechar.php",
+	data: str,
+	success: function(msg){
+			if(msg)
+				save = true;
+				totalurl();
+			}
+	});
+}
+function getbuild(hash) {
+	hash = hash == undefined?cookiehash:hash;
+	$.ajax({
+	type: "POST",
+	url: "basechar.php",
+	dataType: 'json',
+	data: "getbuild="+hash,
+	success: function(msg){
+			if(msg)			
+				loadbuild(msg[0],msg[1]);
+			}
+	});
 }
 //главная функция
 function main() 
@@ -1090,6 +1138,8 @@ function main()
 	settle();                           // обновление навыков и параметров
 	createlistperk();                   // создание доступных перков
 	$(".main").animate({'opacity':'1'},200);
+	if(cookiehash)
+		getbuild();
 }
 //window.addEventListener('DOMContentLoaded', main);
 window.addEventListener("load", main);

@@ -10,7 +10,6 @@
 		<meta name=viewport content="width=device-width, initial-scale=1">
 		<link rel="alternate" hreflang="ru" href="http://fonline.pe.hu/character/" />
 		<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-		<!--link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'-->
 		<link rel="stylesheet" href="style.css">
 		<script type="text/javascript" async src="js/jquery-2.1.4.min.js" ></script>
 		<script type = "text/javascript" async src = "js/perks.js"></script>
@@ -18,7 +17,12 @@
 		<script type = "text/javascript" async src = "js/app.js"></script>		
 		<script type = "text/javascript" async src = "js/quest.js"></script>
         <script async src="js/js.cookie.js"></script>
-		<!--script>
+		<script> 
+		var cookiehash = <?	if(isset($_GET["hash"])) echo "'".$_GET["hash"]."'";
+							else if(isset($_COOKIE["hash"])) echo "'".$_COOKIE["hash"]."'";
+							else echo "false";?>;
+		</script>
+		<script>
 			  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 			  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 			  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -28,7 +32,7 @@
 			  ga('send', 'pageview');
 		</script>
 		<!-- Yandex.Metrika counter -->
-		<!--script type="text/javascript">
+		<script type="text/javascript">
 			(function (d, w, c) {
 				(w[c] = w[c] || []).push(function() {
 					try {
