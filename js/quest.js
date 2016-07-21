@@ -1,9 +1,9 @@
-var quest = {	// квест, уровней квеста, мин уровень взятия, максимальный уровень взятия, [требования])
+var quest = {	// квест, описание, уровней квеста, мин уровень взятия, максимальный уровень взятия, [требования])
 	medals:["Медали","Делая различные квесты и убивая гуманоидов и животных можно получить немного медалей, которые можно потратить на различные бонусы.",
         200,1,99,function(){return true;},
         function(){talk("У вас "+(quest.medals[2]-chquest("medals"))+" медалей выберите награду:",{ 	
-			amedals:["1 очко распределения(3 медали)",function(){charp.points++;spoints();return 3;},(quest.medals[2]-chquest("medals"))>=3], // точность +3%
-			bmedals:["1 очко жизней(10 медалей)",function(){pr.add("feats","live",1);return 10;},(quest.medals[2]-chquest("medals"))>=10], // точность врага -3%, 3% уроврота.
+			amedals:["1 очко распределения(3 медали)",function(){charp.points++;spoints();return 3;},(quest.medals[2]-chquest("medals"))>=3],
+			bmedals:["1 очко жизней(10 медалей)",function(){pr.add("feats","live",1);return 10;},(quest.medals[2]-chquest("medals"))>=10],
 			/*cmedals:["+1% любого резиста(10 медалей)",function(){
 				talk("Выберите резист:", {
 					amedals: ["+1% к норме", function(){resist.normal.res[2]++;return 10;},resist.normal.res[0]<25],
@@ -14,10 +14,7 @@ var quest = {	// квест, уровней квеста, мин уровень 
 					fmedals: ["+1% к электро", function(){resist.electro.res[2]++;return 10;},resist.electro.res[0]<25],
 					zmedals:["Ничего",function(){return 0;},true]
 				}); return -1;},(quest.medals[1]-quest.medals[0])>=10], // +3 урона*/
-			/*dmedals:["+5 очков навыка(20 медалей)",function(){skillsmedals(5,20);return -1;},(quest.medals[1]-quest.medals[0])>=20],
-			emedals:["+10 очков навыка(40 медалей)",function(){skillsmedals(10,40);return -1;},(quest.medals[1]-quest.medals[0])>=40],
-			fmedals:["+20 очков навыка(60 медалей)",function(){skillsmedals(20,60);return -1;},(quest.medals[1]-quest.medals[0])>=60],
-			gmedals:["+50 очков навыка(100 медалей)",function(){skillsmedals(50,100);return -1;},(quest.medals[1]-quest.medals[0])>=100],*/
+			/*dmedals:["+5 очков навыка(20 медалей)",function(){skillsmedals(5,20);return -1;},(quest.medals[1]-quest.medals[0])>=20],*/
 			fmedals:["+10 очков распределения(10 медалей)",function(){charp.points+=10;medsp+=10;spoints();return 10;},(quest.medals[2]-chquest("medals"))>=10 && medsp<150],
 			gmedals:["+150 очков распределения(150 медалей)",function(){charp.points+=150;medsp+=150;spoints();return 150;},(quest.medals[2]-chquest("medals"))>=150 && medsp<150],
 			zmedals:["Ничего",function(){return 0;},true]});
@@ -53,7 +50,7 @@ var quest = {	// квест, уровней квеста, мин уровень 
         1,30,99,function(){return charp.level >= 30;},
         function(){talk("Выберите награду за квест НКР:",{ 	
 			crit5:["+4% к криту",function(){pr.add("feats","crit",4);return 1;},true],
-			anticrit5:["+4% к антикриту",function(){pr.add("feats","acrit",4);return 1;},true],
+			anticrit5:["+4% к антикриту",function(){pr.add("feats","acrit",4);return 2;},true],
 			none:["Ничего",function(){return 0;},true]});
         }],
 	cha_vc:["+1 Обояние в ГУ", "Если найти голодиск с инструкциями по пластической хирургии для докторши в ГУ, то она с радостью сделает вам операцию.",
@@ -93,45 +90,45 @@ var quest = {	// квест, уровней квеста, мин уровень 
         1,21,99,function(){return true;},
         function(){talk("По поводу награды, есть два варианта: первый - ускоренный курс бойца, узнаешь много всего, но по чуть-чуть. Или второй вариант - специализация на определенном оружии или пелевой поддержке. Что выберешь?",{ 
 			adrayfild:["[Все боевые +5%]",function(){pr.add("skills","melee",5,1);pr.add("skills","steel",5,1);pr.add("skills","light",5,1);pr.add("skills","energy",5,1);pr.add("skills","heavy",5,1);return 1;},true],
-			bdrayfild:["[Рукопашная]",function(){pr.add("skills","melee",10,1);return 1;},true],
-			cdrayfild:["[Холодное оружие]",function(){pr.add("skills","steel",10,1);return 1;},true],
-			ddrayfild:["[Легкое оружие]",function(){pr.add("skills","light",10,1);return 1;},true], 
-			edrayfild:["[Тяжолое оружие]",function(){pr.add("skills","heavy",10,1);return 1;},true],
-			fdrayfild:["[Энергетическое оружие]",function(){pr.add("skills","energy",10,1);return 1;},true],
-			gdrayfild:["[Первая помощь и Доктор]",function(){pr.add("skills","orderly",5,1);pr.add("skills","doctor",5,1);return 1;},true],
+			bdrayfild:["[Рукопашная]",function(){pr.add("skills","melee",10,1);return 2;},true],
+			cdrayfild:["[Холодное оружие]",function(){pr.add("skills","steel",10,1);return 3;},true],
+			ddrayfild:["[Легкое оружие]",function(){pr.add("skills","light",10,1);return 4;},true], 
+			edrayfild:["[Тяжелое оружие]",function(){pr.add("skills","heavy",10,1);return 5;},true],
+			fdrayfild:["[Энергетическое оружие]",function(){pr.add("skills","energy",10,1);return 6;},true],
+			gdrayfild:["[Первая помощь и Доктор]",function(){pr.add("skills","orderly",5,1);pr.add("skills","doctor",5,1);return 7;},true],
 			hdrayfild:["Эм... я еще не готов к знаниям.",function(){return 0;},true]});
         }],
 	imp_battle:["Боевой имплант","В вас вживлен один из эксперементальных имплантантов. Ваши боевые навыки увеличены.",
         1,1,99,function(){return true;},
         function(){talk("Выберите бовевой имплант:",{ 	
-            aimp_battle:["Оптимизация, +15 к очкам жизни, +3% к точности",function(){perk.PE_QUICK_POCKETS[0]+=1;pr.add("feats","live",15);return 1;},true], // точность +3%
-            bimp_battle:["-3% к точности врага, +5 к трешхолду взрыву, +3% уворота",function(){pr.addr("explode",5,0);return 1;},true], // точность врага -3%, 3% уроврота.
-            cimp_battle:["+3 конечного урона, +5% к критическим попаданиям",function(){pr.add("feats","crit",5);return 1;},true], // +3 урона
-            dimp_battle:["+20% Метательное оружие, +15 XP, +5 AC",function(){pr.add("skills","thrown",20,1);pr.add("feats","live",15);pr.add("feats","armc",5);return 1;},true],
-            eimp_battle:["+2 к всем трешхолдам",function(){for(i in resist)pr.addr(i,2,0);return 1;},true],
-            fimp_battle:["+30% Легкое оружие, +30% Тяжелое оружие, +30% Энергооружие",function(){pr.add("skills","light",30,1);pr.add("skills","heavy",30,1);pr.add("skills","energy",30,1);return 1;},true],
+            aimp_battle:["+30% к навыку легкое оружие, +3 к точности.",function(){pr.add("skills","light",30,1);return 1;},true],
+            bimp_battle:["+30% к навыку тяжелое оружие, +3 к точности.",function(){pr.add("skills","heavy",30,1);return 2;},true],
+            cimp_battle:["+30% к навыку энергетическое оружие, +3 к точности.",function(){pr.add("skills","energy",30,1);return 3;},true],
+            dimp_battle:["+30% к навыку метательное оружие, +3 к увороту.",function(){pr.add("skills","thrown",30,1);pr.add("feats","dodge",3);return 4;},true],
+            eimp_battle:["+30% к навыку ремонт, +2 к конечному урону.",function(){pr.add("skills","repair",30,1);return 5;},true],
+            fimp_battle:["+20% к навыку холодное оружие, +20% к навыку рукопашная, -3 секунды КД боя.",function(){pr.add("skills","melee",20,1);pr.add("skills","steel",20,1);return 6;},true],
             none:["Ничего",function(){return 0;},true]});
         }],
 	imp_medical:["Медицинский имплант","В вас вживлен один из эксперементальных имплантантов. Ваши познания в медицине увеличены.",
         1,1,99,function(){return true;},
         function(){talk("Выберите медицинский имплант:",{ 	
-			aimp_medical:["+20% Санитар, +20% Доктор, +50 xp при лечении другого игрока",function(){pr.add("skills","orderly",20,1);pr.add("skills","doctor",20,1);return 1;},true], //+50
-			bimp_medical:["+2 удачи при санитаре, +20 XP.",function(){pr.add("feats","live",20);return 1;},true], //+ 2 удачи
-			cimp_medical:["+40% Доктор, +20 XP лечении санитаром, +5 AC",function(){pr.add("skills","doctor",40,1);pr.add("feats","armc",5);return 1;},true], // 20 при лечении
-			dimp_medical:["+30% Санитар, +5 уровнь лечения.",function(){pr.add("skills","orderly",30,1);pr.add("feats","levh",5);return 1;},true],
-			eimp_medical:["+5 уровнь лечения, +20 XP",function(){pr.add("feats","levh",5);pr.add("feats","live",20);return 1;},true],
-			fimp_medical:["+20% Санитар, +20% Доктор, +20 XP",function(){pr.add("skills","orderly",20,1);pr.add("skills","doctor",20,1);pr.add("feats","live",20);return 1;},true],
+			aimp_medical:["+35% к навыку первая помощь, +40 хп при исцелении союзника.",function(){pr.add("skills","orderly",35,1);return 1;},true],
+			bimp_medical:["(-2) секунды кд на санитар, +25% доктора.",function(){pr.add("skills","doctor",25,1);return 2;},true],
+			cimp_medical:["+20 хп, +10 к уровню лечения.",function(){pr.add("feats","live",20);pr.add("feats","levh",10);return 3;},true],
+            dimp_medical:["+40% доктора, иммунитет к кровотечению. ",function(){pr.add("skills","doctor",40,1);return 4;},true],
+			eimp_medical:["+40 хп при использовании санитара на себя, +5ас.",function(){pr.add("feats","armc",5);return 5;},true],
+			fimp_medical:["+5 хп при использовании суперстимулятора на себя, +30% доктора.",function(){pr.add("skills","doctor",30,1);return 6;},true],
 			none:["Ничего",function(){return 0;},true]});
         }],
 	imp_auxiliary:["Вспомогательный имплант","В вас вживлен один из эксперементальных имплантантов. Ваши вспомогательные функции увеличены.",
         1,1,99,function(){return true;},
         function(){talk("Выберите вспомогательный имплант:",{ 	
-			aimp_auxiliary:["Осведомленность, +20% Скрытность, +5 АС",function(){perk.PE_AWARENESS[0]+=1;pr.add("skills","sneak",20,1);pr.add("feats","armc",5);return 1;},true], 
-			bimp_auxiliary:["Репликант, +30% Наука, +30% Ремонт",function(){perk.PE_VIEW[0]+=1;pr.add("skills","science",30,1);pr.add("skills","repair",30,1);return 1;},true],
-			cimp_auxiliary:["Осведомленность, Следопыт, +50% Скиталец",function(){perk.PE_AWARENESS[0]+=1;perk.PE_PATHFINDER[0]+=1;pr.add("skills","ranger",50,1);return 1;},true],
-			dimp_auxiliary:["Переноска, +20% Атлетизм",function(){perk.PE_STRONG_BACK[0]+=1;pr.add("feats","maxl",100);;pr.add("skills","speed",55,1);return 1;},true],
-			eimp_auxiliary:["+40% Красноречие, +40% Торговля, +100% Ловушки",function(){pr.add("skills","oratory",40,1);pr.add("skills","trade",40,1);pr.add("skills","traps",100,1);return 1;},true],
-			fimp_auxiliary:["Бдительность, +20% Взлом",function(){perk.PE_CAUTIOUS_NATURE[0]+=1;pr.add("feats","oview",3);pr.add("skills","hack",20,1);return 1;},true],
+			aimp_auxiliary:["+100кг переносимого веса.",function(){pr.add("feats","maxl",100);return 1;},true], 
+			bimp_auxiliary:["+25% к скорости движения по глобальной карте.",function(){return 2;},true],
+			cimp_auxiliary:["+100% к навыку ловушки.",function(){pr.add("skills","traps",100,1);return 3;},true],
+			dimp_auxiliary:["способность Репликант, +50 к красноречию.",function(){addperk("PE_VIEW");pr.add("skills","oratory",50,1);return 4;},true],
+			eimp_auxiliary:["+100% к навыку воровство, +20 к навыку взлом.",function(){pr.add("skills","steal",100,1);pr.add("skills","hack",20,1);return 5;},true],
+			fimp_auxiliary:["+50 к навыку атлетизм.",function(){pr.add("skills","speed",50,1);return 6;},true],
 			none:["Ничего",function(){return 0;},true]});
         }],
 	PE_MA_SKIT:["Житель Пустоши(5)", "Вы настолько изучили пустошь, что получаете +5% к навыку Скиталец и передвигаетесь по Пустоши на 5% быстрее с каждым уровнем этой способности.",
@@ -148,6 +145,14 @@ var quest = {	// квест, уровней квеста, мин уровень 
         function(){pr.add("skills","orderly",2*5,1);pr.add("skills","doctor",2*5,1);}]
 }
 
+var questinfo = {
+    imp_auxiliary: ["+100кг переносимого веса.","+25% к скорости движения по глобальной карте.","+100% к навыку ловушки.","способность Репликант, +50 к красноречию.","+100% к навыку воровство, +20 к навыку взлом.","+50 к навыку атлетизм."],
+    imp_medical: ["+35% к навыку первая помощь, +40 хп при исцелении союзника.","(-2) секунды кд на санитар, +25% доктора.","+20 хп, +10 к уровню лечения.","+40% доктора, иммунитет к кровотечению.","+40 хп при использовании санитара на себя, +5ас.","+5 хп при использовании суперстимулятора на себя, +30% доктора."],
+    imp_battle: ["+30% к навыку легкое оружие, +3 к точности.","+30% к навыку тяжелое оружие, +3 к точности.","+30% к навыку энергетическое оружие, +3 к точности.","+30% к навыку метательное оружие, +3 к увороту.","+30% к навыку ремонт, +2 к конечному урону.","+20% к навыку холодное оружие, +20% к навыку рукопашная, -3 секунды КД боя."],
+    drayfild: ["Все боевые +5%","Рукопашная +10%","Холодное оружие +10%","Легкое оружие +10%","Тяжелое оружие +10%","Энергетическое оружие +10%","Первая помощь и Доктор +5%"],
+    per_ncr: ["+4% к криту","+4% к антикриту"]
+}
+
 function skillsmedals(n,m) {
 	var arr = {};
 	for(var i in textskills) {
@@ -158,4 +163,4 @@ function skillsmedals(n,m) {
 	}
 	arr["zmedals"] = ["Ничего",function(){return 0;},true];
 	talk("Выберете навык", arr);
-}	
+}
