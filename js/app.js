@@ -817,10 +817,22 @@ function listquestup(){
 // Выводит взятые квесты в #textlist3
 function showlistquest(){	
 	var lineit = $("#textlist3").html("");
-	lineit.append("<center>Квесты</center>");
-	for(var j in mychar.quest) {
-        lineit.append("<div id=\"list"+j+"\">"+quest[j][0]+(chquest(j)>1?"("+chquest(j)+")":"")+"</div>");
-        $("#list"+j).click(function(){infoparm("quest",this.id.substr(4));});
+    if(!emptyObject(mychar.quest)) {
+        var mquest = [];
+        lineit.append("<div class=\"listhead\">Квесты</div>");
+        for(var j in mychar.quest)
+			for(var i in mychar.quest[j].lvl) {
+                if(mquest[mychar.quest[j].lvl[i]] == undefined) 
+                    mquest[mychar.quest[j].lvl[i]] = [];
+                mquest[mychar.quest[j].lvl[i]].push(j);
+            }			
+        for(var j in mquest) {
+            lineit.append("<div><span id=\"lists"+j+"\" class=\"listlvl\">"+j+" уровень: </span></div>");
+            for(var n in mquest[j]){
+                lineit.append("<div><span id=\"list"+mquest[j][n]+"\" class=\"perklist\">"+quest[mquest[j][n]][0]+(chquest(mquest[j][n])>1?"("+chquest(mquest[j][n])+")":"")+"</span></div>");
+                $("#list"+mquest[j][n]).click(function(){infoparm("quest",this.id.substr(4));});
+            }
+        }
     }
 }
 // Вывод информации о перке или квесте по клику
@@ -840,7 +852,8 @@ function infoparm(ch,prm){
 		break;
 		case "quest":
 			$("#nameparm").html(quest[prm][0]);
-			$("#textparm").html(quest[prm][1]);
+            var str = quest[prm][1] + ((prm in questinfo) ? "<br>" + questinfo[prm][mychar.quest[prm].vol - 1] : "");
+			$("#textparm").html(str);
 		break;
 		case "skills": // добавить описание
 			$("#nameparm").html(perk[prm][0]);
@@ -914,7 +927,7 @@ function talk(textdialog,answ) {
 					pr.add("skills",e.currentTarget.id.substr(4),nup[0],1);
 					nup = nup[1];
 				}
-				mychar.quest[select.quest]={vol:chquest(select.quest) + 1, lvl: chquest(select.quest) ? mychar.quest[select.perk].lvl : []};
+				mychar.quest[select.quest]={vol:chquest(select.quest) + nup, lvl: chquest(select.quest) ? mychar.quest[select.perk].lvl : []};
 				mychar.quest[select.quest].lvl.push(charp.level);
 				settle();
 				statpoints();
@@ -1046,6 +1059,11 @@ function getbuild(hash) {
 			}
 	});
 }
+function addperk(perks) {
+    mychar.perks[perks] = {vol: checkperk(perks) + 1, lvl: checkperk(perks) ? mychar.perks[perks].lvl : []};
+    mychar.perks[perks].lvl.push(charp.level);
+    perk[select.perk][6]();
+}
 //главная функция
 function main() 
 {
@@ -1099,10 +1117,8 @@ function main()
 						$("#perk").hide(); 
 						$("#perk").animate({'opacity':'0'},200);
 						if(select.perk) {
-							mychar.perks[select.perk] = {vol: checkperk(select.perk) + 1, lvl: checkperk(select.perk) ? mychar.perks[select.perk].lvl : []};
-							mychar.perks[select.perk].lvl.push(charp.level);
+							addperk(select.perk);
 							charp.perkpoint--;
-							perk[select.perk][6]();
 							showlistperk();
 							settle();
 							statpoints();
@@ -1115,7 +1131,7 @@ function main()
 						$("#quest").hide(); 
 						if(select.quest) {
 							if(select.quest!="per_ncr" && select.quest!="medals" && select.quest!="drayfild" && select.quest.substr(0,3)!="imp") {
-								mychar.quest[select.quest] = {vol: chquest(select.quest) + 1, lvl: chquest(select.quest) ? mychar.quest[select.perk].lvl : []};
+								mychar.quest[select.quest] = {vol:chquest(select.quest) + 1, lvl:chquest(select.quest) ? mychar.quest[select.quest].lvl:[]};
 								mychar.quest[select.quest].lvl.push(charp.level);
 							}
 							quest[select.quest][6]();
