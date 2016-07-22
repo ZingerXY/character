@@ -16,7 +16,7 @@ var select = {
 	quest: ""
 }
 
-var totalquest = {};
+var testperk = {};
 
 var mychar = {
 	traits: {},
@@ -748,9 +748,9 @@ function chquest(strq) {
 //Создание списка перков в окне доступных перков
 function createlistperk() {
 	$("#crlistperk").html("");	
-	var mperk = {3: [],6: [],9: [],12: [],15: [],18: []};
+	var mperk = {3: [],6: [],9: [],12: [],15: [],18: [],30: [],51: []};
 	for(var i in perk)
-		if(perk[i][5](1)&&perk[i][4]===29||perk[i][4]===32)
+		if(perk[i][5](true)&&perk[i][4]!==1)
 			mperk[perk[i][3]].push(i);						
 	for(var i in mperk) {
 		if(mperk[i].length === 0) continue;
@@ -763,6 +763,14 @@ function createlistperk() {
 				$("#"+this.id).css("color","#00FF00");
 				infoparm("perks",this.id.substr(5));
 			});
+            perkit.dblclick(function(){
+                var pp = this.id.substr(5);
+                if(!(pp in testperk)) 
+                    testperk[pp] = perk[pp][0];
+                else
+                    delete testperk[pp];
+                //console.log(testperks());
+            });
 		}
 	}
 }
@@ -992,9 +1000,11 @@ function imgLoaded(img){
     var $img = $(img);
     $img.parent().addClass('loaded');
 }
+// Загрузка билда из json строк
 function loadbjson(myc,cp) {
 	loadbuild(JSON.parse(myc),JSON.parse(cp))
 }
+// Згарузка билда из обьектов
 function loadbuild(myc,cp) {
 	mychar = myc;
 	charp = cp;
@@ -1029,6 +1039,7 @@ function loadbuild(myc,cp) {
 	createlistperk();                   // создание доступных перков
     showlistquest();                    // обновление списка квестов
 }
+// Сохранение билда в базу данных
 function setbuild() {
 	var arr = [mychar,charp];
 	var str = "setbuild="+JSON.stringify(arr)+"&name="+charp.name;
@@ -1046,6 +1057,7 @@ function setbuild() {
 			}
 	});
 }
+// Загрузка билда из базы данных
 function getbuild(hash) {
 	hash = hash == undefined?cookiehash:hash;
 	$.ajax({
@@ -1076,17 +1088,6 @@ function main()
 	$("#textparmq").on('wheel', scrollit);
 	$("#answ").on('wheel', scrollit);
 	for(var i = 1; i<4;i++) $("#textlist"+i).on('wheel', scrollit);
-	
-	/*var scale = 1;
-	$(document).on('wheel', function(e) {	// маштабирование
-		if($("#"+e.originalEvent.currentTarget.id).css("overflow")!=="auto") {
-			var delta = e.originalEvent.deltaY || e.originalEvent.detail || e.originalEvent.wheelDelta;
-			if (delta > 0) scale += 0.05;
-			else scale -= 0.05;
-			$("#main").css("transform", "scale("+scale+")");
-			e.preventDefault();
-		}
-	});*/
 	
 	$("#totalkey").click(total);
 	$("#canceltotal").click(function(){$("#total").hide();})

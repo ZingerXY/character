@@ -377,8 +377,9 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		1,1,1,function(n){return 0;}]
 }
 
-function testperk(ss) {
+function testpp(ss) {
 	ss = ss===undefined ? 40 : ss;
+    var pp = 93; // количество доступных для взятия перков
 	var m = {n: 0,sum: 0,arr: [],max: 0};
 	for(var i in stats)	stats[i][2]=1;
 	while(1){
@@ -389,12 +390,47 @@ function testperk(ss) {
 		if(stats.CHA[2]>10) {stats.CHA[2]=1;stats.INT[2]++;}
 		if(stats.INT[2]>10) {stats.INT[2]=1;stats.AGI[2]++;}
 		if(stats.AGI[2]>10) {stats.AGI[2]=1;stats.LUC[2]++;}
-		if(stats.LUC[2]>10)	return m;
+		if(stats.LUC[2]>10)	return m.arr.join(' ')+" "+m.max+"/"+pp+" перков доступно";
 		m.sum = 0;
 		for(var i in stats)	m.sum += stats[i][2];
 		if(m.sum!=ss) continue;
 		m.n = 0;
-		for(var i in perk)if(perk[i][5](1)&&perk[i][4]===29||perk[i][4]===32)m.n++;
+		for(var i in perk)if(perk[i][5](true)&&perk[i][4]!==1)m.n++;
 		if(m.n>m.max){m.max = m.n;m.arr = [];for(var i in stats)m.arr.push(stats[i][2]);}
 	}
+}
+
+function testperks(ss) {
+    ss = ss===undefined ? 40 : ss;
+    var count = 0;
+    for(var i in testperk) count++;
+    var n = 0;
+    var sum = 0;
+    var arr = [];
+    var min = 70;
+	for(var i in stats)	stats[i][2]=1;
+    stats.STR[2] = 0;
+	while(1){
+		stats.STR[2]++;
+		if(stats.STR[2]>10) {stats.STR[2]=1;stats.PER[2]++;}
+		if(stats.PER[2]>10) {stats.PER[2]=1;stats.ENU[2]++;}
+		if(stats.ENU[2]>10) {stats.ENU[2]=1;stats.CHA[2]++;}
+		if(stats.CHA[2]>10) {stats.CHA[2]=1;stats.INT[2]++;}
+		if(stats.INT[2]>10) {stats.INT[2]=1;stats.AGI[2]++;}
+		if(stats.AGI[2]>10) {stats.AGI[2]=1;stats.LUC[2]++;}
+		if(stats.LUC[2]>10)	return arr.join(' ');
+		sum = 0;
+		for(var i in stats)	sum += stats[i][2];
+		if(sum>ss) continue;
+		n = 0;
+		for(var i in testperk)
+            if(perk[i][5](true)&&perk[i][4]!==1)
+                n++;
+		if(n==count && sum < min){
+            min = sum;
+            arr = [];
+            for(var i in stats)
+                arr.push(stats[i][2]);
+        }
+    } 
 }
