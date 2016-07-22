@@ -319,7 +319,7 @@
                 <div id="bookranger" class="book">x10</div>
                 <div id="bookprewar" class="book">x20</div>
             </div>
-            <div id="textlist3" class="text2"><center>Квесты</center></div>
+            <div id="textlist3" class="text2"></div>
             <div id="done"></div>
             <div id="cancel"></div>
             <div id="perk">
