@@ -414,7 +414,7 @@ function testperks(ss) {
     for(var i in testperk) count++;
     var n = 0;
     var sum = 0;
-    var arr = [];
+    var arr = {};
     var min = 70;
 	for(var i in stats)	stats[i][2]=1;
     stats.STR[2] = 0;
@@ -426,7 +426,7 @@ function testperks(ss) {
 		if(stats.CHA[2]>10) {stats.CHA[2]=1;stats.INT[2]++;}
 		if(stats.INT[2]>10) {stats.INT[2]=1;stats.AGI[2]++;}
 		if(stats.AGI[2]>10) {stats.AGI[2]=1;stats.LUC[2]++;}
-		if(stats.LUC[2]>10)	return arr.join(' ');
+		if(stats.LUC[2]>10)	return [min,arr];
 		sum = 0;
 		for(var i in stats)	sum += stats[i][2];
 		if(sum>ss) continue;
@@ -436,9 +436,9 @@ function testperks(ss) {
                 n++;
 		if(n==count && sum < min){
             min = sum;
-            arr = [];
+            arr = {};
             for(var i in stats)
-                arr.push(stats[i][2]);
+                arr[i] = stats[i][2];
         }
     } 
 }

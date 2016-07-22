@@ -347,7 +347,7 @@
                 <div id="answ" class="text2"></div>
             </div>
             <div id="createlistperk" class="text2">
-                <div id="titlelistperk" class="text2"><center>Доступные перки</center><hr></div>
+                <div id="titlelistperk" class="text2"><div id="titlelist" class="listhead">Доступные перки</div><hr></div>
                 <div id="crlistperk" class="text2"></div>
                 <div id="fotterperk" class="text2"><center><hr><a href="../message.php">Написать автору</a></center></div>
             </div>
