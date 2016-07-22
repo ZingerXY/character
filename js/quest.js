@@ -1,9 +1,9 @@
 var quest = {	// квест, описание, уровней квеста, мин уровень взятия, максимальный уровень взятия, [требования])
 	medals:["Медали","Делая различные квесты и убивая гуманоидов и животных можно получить немного медалей, которые можно потратить на различные бонусы.",
         200,1,99,function(){return true;},
-        function(){talk("У вас "+(quest.medals[2]-chquest("medals"))+" медалей выберите награду:",{ 	
-			amedals:["1 очко распределения(3 медали)",function(){charp.points++;spoints();return 3;},(quest.medals[2]-chquest("medals"))>=3],
-			bmedals:["1 очко жизней(10 медалей)",function(){pr.add("feats","live",1);return 10;},(quest.medals[2]-chquest("medals"))>=10],
+        function(){talk("У вас "+(quest.medals[2]-chobj("quest","medals"))+" медалей выберите награду:",{ 	
+			amedals:["1 очко распределения(3 медали)",function(){charp.points++;numbers($("#point1"),charp.points);return 3;},(quest.medals[2]-chobj("quest","medals"))>=3],
+			bmedals:["1 очко жизней(10 медалей)",function(){pr.add("feats","live",1);return 10;},(quest.medals[2]-chobj("quest","medals"))>=10],
 			/*cmedals:["+1% любого резиста(10 медалей)",function(){
 				talk("Выберите резист:", {
 					amedals: ["+1% к норме", function(){resist.normal.res[2]++;return 10;},resist.normal.res[0]<25],
@@ -15,8 +15,8 @@ var quest = {	// квест, описание, уровней квеста, ми
 					zmedals:["Ничего",function(){return 0;},true]
 				}); return -1;},(quest.medals[1]-quest.medals[0])>=10], // +3 урона*/
 			/*dmedals:["+5 очков навыка(20 медалей)",function(){skillsmedals(5,20);return -1;},(quest.medals[1]-quest.medals[0])>=20],*/
-			fmedals:["+10 очков распределения(10 медалей)",function(){charp.points+=10;medsp+=10;spoints();return 10;},(quest.medals[2]-chquest("medals"))>=10 && medsp<150],
-			gmedals:["+150 очков распределения(150 медалей)",function(){charp.points+=150;medsp+=150;spoints();return 150;},(quest.medals[2]-chquest("medals"))>=150 && medsp<150],
+			fmedals:["+10 очков распределения(10 медалей)",function(){charp.points+=10;medsp+=10;numbers($("#point1"),charp.points);return 10;},(quest.medals[2]-chobj("quest","medals"))>=10 && medsp<150],
+			gmedals:["+150 очков распределения(150 медалей)",function(){charp.points+=150;medsp+=150;numbers($("#point1"),charp.points);return 150;},(quest.medals[2]-chobj("quest","medals"))>=150 && medsp<150],
 			zmedals:["Ничего",function(){return 0;},true]});
         }],
 	ranger_smile:["Скиталец у Смайли", "Смайли по доброте душевно соврешенно бесплатно может прокачать скитальца до 60-69%",
@@ -55,7 +55,8 @@ var quest = {	// квест, описание, уровней квеста, ми
         }],
 	cha_vc:["+1 Обояние в ГУ", "Если найти голодиск с инструкциями по пластической хирургии для докторши в ГУ, то она с радостью сделает вам операцию.",
         1,1,99,function(){return stats.CHA[2]<4 && skills.oratory[0]>79;},
-        function(){mychar.stats.CHA[1] += 1;}],
+        function(){mychar.stats.CHA[1]++;},
+        function(){mychar.stats.CHA[1]--;}],
 	aс_12:["+12 AC (Класс брони)","Джеймс из Нью-Рено попросит выполнить вас несколько заданий, за это он обучит вас лучше уклоняться, +12 класс брони.",
         1,1,99,function(){return true;},
         function(){pr.add("feats","armc",12);}],
