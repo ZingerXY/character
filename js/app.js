@@ -26,6 +26,7 @@ var mychar = {
     feats: {},
     resist: {},
     quest: {},
+    points: {},
 	stats: { // Природная,добавленная
 		STR: [8,0], // Сила
 		PER: [7,0], // Восприятие
@@ -687,6 +688,7 @@ function selectskill() {
 function levelup(){
     $("#leveldown").show();
 	if(charp.level==99) return;
+    mychar.points[charp.level] = charp.points;
 	charp.level++;
 	$("#level").html(charp.level);
 	$("#exp").html(levelexp(charp.level));
@@ -697,6 +699,7 @@ function levelup(){
 		$("#live").html(feat.live[0]+"/"+feat.live[0]);
 		charp.points += 5 + (stats.INT[2] * 2) - (mychar.traits.TRAIT_NIGHT_PERSON?3:0);
 		numbers($("#point1"),charp.points);
+        
 	}
 	if(!(charp.level%(mychar.traits.TRAIT_SKILLED?4:3)))	{
 		charp.perkpoint++;
@@ -706,11 +709,82 @@ function levelup(){
 		listperkup();	
 	}
 }
+function addperk(perks) {
+    mychar.perks[perks] = {vol: checkperk(perks) + 1, lvl: checkperk(perks) ? mychar.perks[perks].lvl : []};
+    mychar.perks[perks].lvl.push(charp.level);
+    perk[select.perk][6]();
+}
+
+function delobj(obj,str,с) {
+    if(chobj(obj,str)<=1)
+        delete mychar[obj][str];
+    else {
+        if(!(str in questinfo)&&str!="medals") {
+            mychar[obj][str].vol--;
+            delete mychar[obj][str].lvl[c];
+        }
+        else if(str!="medals") 
+            delete mychar[obj][str];
+    }
+    if(obj == "perks")
+        if(perk[str][7]!==undefined)
+            perk[str][7]();
+    else if(obj == "quest")
+        if(quest[str][7]!==undefined)
+            quest[str][7]();
+}
+function checkperk(strperk) {
+	if(mychar.perks[strperk]===undefined)
+		return 0;
+	else
+		return mychar.perks[strperk].vol;
+}
+function chobj(obj,strq) { //chquest => chobj("quest",strq)
+	if(mychar[obj][strq]===undefined)
+		return 0;
+	else
+		return mychar[obj][strq].vol;
+}
 // Понижение уовня
 function leveldown() {
+    if(charp.level < 2) return;
+    // Удаление перка
+    for(var i in mychar.perks)
+        for(var j in mychar.perks[i].lvl)
+            if(mychar.perks[i].lvl[j] == charp.level)
+                delobj("perks",i,j);
+    // Удаление квестов
+    for(var i in mychar.quest)
+        for(var j in mychar.quest[i].lvl)
+            if(mychar.quest[i].lvl[j] == charp.level)
+                delobj("quest",i,j);
+    // Удаление книг
+    for(var i in mychar.book)
+        for(var j in mychar.book[i][2])
+            if(j == charp.level) {
+                mychar.book[i][0] += mychar.book[i][2][j][i][0];
+                delete mychar.book[i][2][j];
+            }
+    delete mychar.feats[charp.level];   // Удаление параметров
+    delete mychar.skills[charp.level];  // Удаление скилов
+    delete mychar.resist[charp.level];  // Удаление резистов
+    
+
+    
     charp.level--;
+    charp.points = mychar.points[charp.level];
+    for(var i in mychar.book)
+        $("#book"+i).html("x"+mychar.book[i][0]);
+    $("#level").html(charp.level);
+	$("#exp").html(levelexp(charp.level));
+	$("#nextexp").html(levelexp(charp.level+1));
     if(charp.level == 1)
         $("#leveldown").hide();
+    numbers($("#point1"),charp.points); // обновление скилпоинтов
+	statpoints();                       // обновление статов
+	settle();                           // обновление навыков и параметров
+    showlistquest();                    // обновление списка квестов
+    showlistperk();
 }
 // Окно выбора перков
 function listperkup(){
@@ -732,18 +806,6 @@ function listperkup(){
 			});
 		}	
 	}	
-}
-function checkperk(strperk) {
-	if(mychar.perks[strperk]===undefined)
-		return 0;
-	else
-		return mychar.perks[strperk].vol;
-}
-function chquest(strq) {
-	if(mychar.quest[strq]===undefined)
-		return 0;
-	else
-		return mychar.quest[strq].vol;
 }
 //Создание списка перков в окне доступных перков
 function createlistperk() {
@@ -802,7 +864,7 @@ function showlistperk(){
 function listquestup(){
 	var chval = false;
 	for(var i in quest)
-		chval = chval || (chquest(i)<quest[i][2]&&charp.level>=quest[i][3]&&charp.level<=quest[i][4]&&quest[i][5]());
+		chval = chval || (chobj("quest",i)<quest[i][2]&&charp.level>=quest[i][3]&&charp.level<=quest[i][4]&&quest[i][5]());
 	if (!chval) return;
 	$("#quest").show();
 	$("#selectquest").html("");
@@ -810,7 +872,7 @@ function listquestup(){
 	$("#textparmq").html("");
 	select.quest = "";
 	for(var i in quest){
-		if(chquest(i)<quest[i][2]&&charp.level>=quest[i][3]&&charp.level<=quest[i][4]&&quest[i][5]()){
+		if(chobj("quest",i)<quest[i][2]&&charp.level>=quest[i][3]&&charp.level<=quest[i][4]&&quest[i][5]()){
 			var questit = $("<div id=\""+i+"\" class=\"perklist\">"+quest[i][0]+"</div>").appendTo("#selectquest");
 			questit.click(function(){
 				if(select.quest) $("#"+select.quest).css("color","#00AB00");
@@ -837,7 +899,7 @@ function showlistquest(){
         for(var j in mquest) {
             lineit.append("<div><span id=\"lists"+j+"\" class=\"listlvl\">"+j+" уровень: </span></div>");
             for(var n in mquest[j]){
-                lineit.append("<div><span id=\"list"+mquest[j][n]+"\" class=\"perklist\">"+quest[mquest[j][n]][0]+(chquest(mquest[j][n])>1?"("+chquest(mquest[j][n])+")":"")+"</span></div>");
+                lineit.append("<div><span id=\"list"+mquest[j][n]+"\" class=\"perklist\">"+quest[mquest[j][n]][0]+(chobj("quest",mquest[j][n])>1?"("+chobj("quest",mquest[j][n])+")":"")+"</span></div>");
                 $("#list"+mquest[j][n]).click(function(){infoparm("quest",this.id.substr(4));});
             }
         }
@@ -935,7 +997,7 @@ function talk(textdialog,answ) {
 					pr.add("skills",e.currentTarget.id.substr(4),nup[0],1);
 					nup = nup[1];
 				}
-				mychar.quest[select.quest]={vol:chquest(select.quest) + nup, lvl: chquest(select.quest) ? mychar.quest[select.perk].lvl : []};
+				mychar.quest[select.quest]={vol:chobj("quest",select.quest) + nup, lvl: chobj("quest",select.quest) ? mychar.quest[select.quest].lvl : []};
 				mychar.quest[select.quest].lvl.push(charp.level);
 				settle();
 				statpoints();
@@ -1032,8 +1094,8 @@ function loadbuild(myc,cp) {
 		$("#men").css('backgroundImage', '');
 		$("#sex").html("ЖЕН.");
 	}
-	numbers($("#point1"),charp.points); // обновление очков тага навыков
-	numbers($("#point2"),charp.tags);   // обновление скилпоинтов
+	numbers($("#point1"),charp.points); // обновление скилпоинтов
+	numbers($("#point2"),charp.tags);   // обновление очков тага навыков
 	statpoints();                       // обновление статов
 	settle();                           // обновление навыков и параметров
 	createlistperk();                   // создание доступных перков
@@ -1070,11 +1132,6 @@ function getbuild(hash) {
 				loadbuild(msg[0],msg[1]);
 			}
 	});
-}
-function addperk(perks) {
-    mychar.perks[perks] = {vol: checkperk(perks) + 1, lvl: checkperk(perks) ? mychar.perks[perks].lvl : []};
-    mychar.perks[perks].lvl.push(charp.level);
-    perk[select.perk][6]();
 }
 //главная функция
 function main() 
@@ -1132,7 +1189,7 @@ function main()
 						$("#quest").hide(); 
 						if(select.quest) {
 							if(select.quest!="per_ncr" && select.quest!="medals" && select.quest!="drayfild" && select.quest.substr(0,3)!="imp") {
-								mychar.quest[select.quest] = {vol:chquest(select.quest) + 1, lvl:chquest(select.quest) ? mychar.quest[select.quest].lvl:[]};
+								mychar.quest[select.quest] = {vol:chobj("quest",select.quest) + 1, lvl:chobj("quest",select.quest) ? mychar.quest[select.quest].lvl:[]};
 								mychar.quest[select.quest].lvl.push(charp.level);
 							}
 							quest[select.quest][6]();
@@ -1174,8 +1231,8 @@ function main()
 	$("#men").css('backgroundImage', 'url(img/men.png)');
 	$("#age").html(charp.age);
 	numbers($("#numberage"),charp.age); // обновление циферок возраста
-	numbers($("#point1"),charp.points); // обновление очков тага навыков
-	numbers($("#point2"),charp.tags);   // обновление скилпоинтов
+	numbers($("#point1"),charp.points); // обновление скилпоинтов
+	numbers($("#point2"),charp.tags);   // обновление очков тага навыков
 	statpoints();                       // обновление статов
 	settle();                           // обновление навыков и параметров
 	createlistperk();                   // создание доступных перков
