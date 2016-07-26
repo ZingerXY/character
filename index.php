@@ -19,8 +19,12 @@
         <script async src="js/js.cookie.js"></script>
 		<script> 
 		var cookiehash = <?	if(isset($_GET["hash"])) echo "'".$_GET["hash"]."'";
-							else if(isset($_COOKIE["hash"])) echo "'".$_COOKIE["hash"]."'";
+							else if(isset($_COOKIE["hash"])) {
+								echo "'".$_COOKIE["hash"]."'";
+								setcookie("hash", $_COOKIE["hash"], time()+60*60*24*7);
+							}
 							else echo "false";?>;
+        var online = true;
 		</script>
 		<script>
 			  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -347,7 +351,7 @@
                 <div id="answ" class="text2"></div>
             </div>
             <div id="createlistperk" class="text2">
-                <div id="titlelistperk" class="text2"><div id="titlelist" class="listhead">Доступные перки</div><hr></div>
+                <div id="titlelistperk" class="text2"><div id="titlelist" class="listhead"></div><hr></div>
                 <div id="crlistperk" class="text2"></div>
                 <div id="fotterperk" class="text2"><center><hr><a href="../message.php">Написать автору</a></center></div>
             </div>
