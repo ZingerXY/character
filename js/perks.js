@@ -651,35 +651,18 @@ function testpp(ss) {
 
 function testperks(ss) {
     ss = ss===undefined ? 40 : ss;
-    var count = 0;
-    for(var i in testperk) count++;
-    var n = 0;
-    var sum = 0;
-    var arr = {};
-    var min = 70;
-	for(var i in stats)	stats[i][2]=1;
-    stats.STR[2] = 0;
-	while(1){
-		stats.STR[2]++;
-		if(stats.STR[2]>10) {stats.STR[2]=1;stats.PER[2]++;}
-		if(stats.PER[2]>10) {stats.PER[2]=1;stats.ENU[2]++;}
-		if(stats.ENU[2]>10) {stats.ENU[2]=1;stats.CHA[2]++;}
-		if(stats.CHA[2]>10) {stats.CHA[2]=1;stats.INT[2]++;}
-		if(stats.INT[2]>10) {stats.INT[2]=1;stats.AGI[2]++;}
-		if(stats.AGI[2]>10) {stats.AGI[2]=1;stats.LUC[2]++;}
-		if(stats.LUC[2]>10)	return [min,arr];
-		sum = 0;
-		for(var i in stats)	sum += stats[i][2];
-		if(sum>ss) continue;
-		n = 0;
-		for(var i in testperk)
-            if(perk[i][5](true)&&perk[i][4]!==1)
-                n++;
-		if(n==count && sum < min){
-            min = sum;
-            arr = {};
-            for(var i in stats)
-                arr[i] = stats[i][2];
-        }
-    } 
+    for(var i in stats)	stats[i][2]=1;
+    for(var i in testperk) {
+        var obj = perk[i][8];
+        if(!emptyObject(obj))
+            if("stats" in obj)
+                for(var j in obj.stats)
+                    if(obj.stats[j]>stats[j][2] && !obj.ch) stats[j][2] = obj.stats[j];
+    }
+    var sum = 0, arr = {};
+    for(var i in stats)	{
+        sum += stats[i][2];
+        arr[i] = stats[i][2];
+    }
+    return [sum,arr];
 }

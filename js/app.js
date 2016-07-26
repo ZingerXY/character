@@ -840,7 +840,7 @@ function createlistperk() {
 		$("<div id=\"lists"+i+"\" class=\"listlevel\">Уровень "+i+"</div>").appendTo("#crlistperk");	
 		for(var j in mperk[i]) {
 			var perkit = $("<div id=\"lists"+mperk[i][j]+"\" class=\"perklist\">"+perk[mperk[i][j]][0]+"</div>").appendTo("#crlistperk");
-            if(mperk[i][j] in testperk) $("#lists"+mperk[i][j]).css("color","#07b");
+            if(mperk[i][j] in testperk) $("#lists"+mperk[i][j]).css("color","#07B");
 			perkit.click(function(){
 				if(select.crperk) 
                     if(!(select.crperk.substr(5) in testperk))
@@ -859,31 +859,30 @@ function createlistperk() {
                 }
                 else {
                     delete testperk[pp];
-                    $("#"+this.id).css("color","#00AB00");
+                    $("#"+this.id).css("color","#00FF00");
                 }
+                decalc();
             });
 		}
 	}
     if(mode == 1 && s > 0) {
         var keycalc = $("<hr><div id=\"keycalc\" class=\"listlevel\">Расчет</div>").appendTo("#crlistperk");
-        keycalc.click(function(){
-            var ss = 40 + (chtr("TRAIT_BRUISER")?3:0) + (chtr("TRAIT_SMALL_FRAME")?1:0) + (chtr("TRAIT_KAMIKAZE")?1:0) + (chtr("TRAIT_SKILLED")?8:0)
-            var res = testperks(ss);
-            console.log("Done");
-            if(res[0]==70) return;
-            charp.specialpoint = ss - res[0];
-            for(var i in mychar.stats) {
-                mychar.stats[i][0] = res[1][i];               
-            }
-            if(chtr("TRAIT_KAMIKAZE")){
-                mychar.stats.AGI[0]--;
-            }
-            if(chtr("TRAIT_SKILLED")){
-                mychar.stats.ENU[0]-=2;mychar.stats.CHA[0]-=2;mychar.stats.INT[0]-=2;mychar.stats.AGI[0]-=2;
-            }
-            statpoints();
-        });
+        keycalc.click(decalc);
     }
+}
+function decalc() {
+    var ss = 40 + (chtr("TRAIT_BRUISER")?3:0) + (chtr("TRAIT_SMALL_FRAME")?1:0) + (chtr("TRAIT_KAMIKAZE")?1:0) + (chtr("TRAIT_SKILLED")?8:0)
+    var res = testperks(ss);
+    if(res[0]==70) return;
+    charp.specialpoint = ss - res[0];
+    for(var i in mychar.stats) 
+        mychar.stats[i][0] = res[1][i];               
+    if(chtr("TRAIT_KAMIKAZE"))
+        mychar.stats.AGI[0]--;
+    if(chtr("TRAIT_SKILLED")) {
+        mychar.stats.ENU[0]-=2;mychar.stats.CHA[0]-=2;mychar.stats.INT[0]-=2;mychar.stats.AGI[0]-=2;
+    }
+    statpoints();
 }
 // Выводит имеющиеся трейты и перки в #textlist1
 function showlistperk(){	
@@ -1228,6 +1227,37 @@ function main()
 	
 	document.addEventListener('keydown', modalCloseEsc);
 	$("#wrap").click(modalCloseClick);
+    $(document).keydown(function(e){
+        if(select.crperk)
+            if(e.which==40) {// down
+                var next = $("#"+select.crperk).next();
+                if(next.attr("id") == undefined) return;
+                if(next.attr("id").length < 8) next = next.next();
+                if(next.position().top >= 408) next.parent().scrollTop(next.parent().scrollTop()+(next.position().top-408));
+                if(!(select.crperk.substr(5) in testperk))
+                    $("#"+select.crperk).css("color","#00AB00");
+                else
+                    $("#"+select.crperk).css("color","#07B");
+				select.crperk = next.attr("id");
+				next.css("color","#00FF00");
+				infoparm("perks",next.attr("id").substr(5));
+            }
+            else if(e.which==38) {// up
+                var prev = $("#"+select.crperk).prev();
+                if(prev.attr("id") == "lists3") return;
+                if(prev.attr("id").length < 8) prev = prev.prev();
+                if(prev.position().top < 0) prev.parent().scrollTop(prev.parent().scrollTop()+prev.position().top);
+                if(prev.parent().scrollTop()==12) prev.parent().scrollTop(0);
+                if(!(select.crperk.substr(5) in testperk))
+                    $("#"+select.crperk).css("color","#00AB00");
+                else
+                    $("#"+select.crperk).css("color","#07B");
+				select.crperk = prev.attr("id");
+				prev.css("color","#00FF00");
+				infoparm("perks",prev.attr("id").substr(5));
+            }
+            else return;
+    })
 	
 	$("#name").click(showthis);
 	$("#age").click(showthis);
