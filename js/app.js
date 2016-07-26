@@ -1,5 +1,5 @@
 var leveluping = false; // для отладки!!!
-var regi = 1;
+var regi = true;
 var medsp = 0;
 var save = false;
 var mode = 0;
@@ -594,7 +594,7 @@ function leveling() {
 				clearInterval(miInterval);
 			});
 			showlistperk();
-			regi = 0;
+			regi = false;
 			$("#nameparm").html("");
 			$("#textparm").html("");
 			$("#imgparm").html("");
@@ -871,6 +871,7 @@ function createlistperk() {
     }
 }
 function decalc() {
+    if(!regi) return;
     var ss = 40 + (chtr("TRAIT_BRUISER")?3:0) + (chtr("TRAIT_SMALL_FRAME")?1:0) + (chtr("TRAIT_KAMIKAZE")?1:0) + (chtr("TRAIT_SKILLED")?8:0)
     var res = testperks(ss);
     if(res[0]==70) return;
@@ -1183,7 +1184,8 @@ function setbuild() {
         success: function(msg){
                 if(msg)
                     save = true;
-                    totalurl("http://"+location.host+"/character/?hash="+Cookies.get("hash"));
+                    cookiehash = Cookies.get("hash");
+                    totalurl("http://"+location.host+"/character/?hash="+Cookies.get("hash"));                  
                 }
         });
     }
