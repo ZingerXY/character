@@ -3,7 +3,7 @@ var regi = 1;
 var medsp = 0;
 var save = false;
 var mode = 0;
-var mod = ["Доступные перки","Все перки","Выбранные перки"];
+var mod = ["Все перки","Выбранные перки","Доступные перки"];
 
 var nameman = ["Август","Авенир","Аврорий","Адам","Адонис","Алевтин","Алексей","Альберт","Альбин","Альфред","Андрей","Анисий","Антоний","Антонин","Антуан","Аполлон","Аргент","Аркадий","Арсен","Арсений","Артемий","Артур","Атеист","Бажен","Богдан","Боеслав","Боримир","Борис","Будимир","Булат","Вадим","Валерий","Вальтер","Василий","Велорий","Виктор","Вилен","Виталий","Витольд","Влад","Владлен","Воин","Воислав","Володар","Волемир","Всемил","Гаврил","Гаррий","Гелий","Гений","Георгий","Герман","Гертруд","Глеб","Гордий","Горимир","Гранит","Давид","Дамир","Дан","Данил","Дар","Денис","Джозеф","Джон","Дионис","Добрыня","Дональт","Донат","Евгений","Евдоким","Егор","Ефим","Ждан","Захар","Зиновий","Зорий","Ибрагим","Иван","Игорь","Сидор","Июлий","Казимир","Карл","Касьян","Киприан","Кир","Кирилл","Клавдий","Клемент","Клим","Козьма","Лазарь","Ларион","Леонард","Леонид","Леонтий","Лука","Лукиан","Любим","Любомир","Люциан","Май","Маеслав","Макарий","Макс","Максим","Милий","Милонег","Мир","Мирон","Михайло","Модест","Моисей","Монолит","Назарий","Натан","Наум","Неон","Неонил","Нестер","Никандр","Норд","Овидий","Одиссей","Октябрь","Олег","Орест","Осип","Павел","Панфил","Пётр","Прохор","Радий","Радим","Радомир","Сава","Савелий","Свет","Светлан","Север","Северин","Северян","Семён","Сергей","Сталий","Стефан","Тарас","Тристан","Трофим","Фаддей","Фёдор","Федор","Феликс","Филимон","Филипп","Флегонт","Флоренц","Флорин","Фрол","Храбр","Христоф","Эдуард","Эльбрус","Энергий","Эрнст","Юлиан","Юрий","Януарий","Ярополк"];
 var namewoman = ["Агата","Агния","Аза","Аида","Акулина","Аксинья","Алёна","Алиса","Алла","Альбина","Анжела","Анисья","Анита","Анна","Антония","Анфуса","Ариадна","Арина","Арсения","Астра","Астрид","Аэлита","Бажена","Беата","Бела","Белла","Берта","Богдана","Валерия","Ванда","Варвара","Венера","Вера","Веста","Видана","Вилена","Влада","Гайя","Галина","Ганна","Гелена","Глория","Дайна","Дана","Дария","Дарина","Дарьяна","Дия","Диана","Диния","Добрава","Домина","Доротея","Ева","Евгения","Евдокия","Елена","Евфимия","Жанна","Ждана","Зорина","Зинаида","Зиновия","Злата","Зоя","Иванна","Илария","Инга","Инесса","Инна","Иоанна","Иона","Ипатия","Ираида","Ироида","Ирина","Исидора","Искра","Ия","Кирилла","Клавдия","Клара","Ксения","Лада","Лариса","Лениана","Ленина","Леонида","Леонила","Леонтия","Леся","Ливия","Лидия","Лилиана","Лилия","Лина","Любава","Любовь","Людмила","Магда","Мадлен","Мая","Марина","Марья","Мари","Марта","Марфа","Матрона","Меланья","Милада","Милица","Мира","Мирра","Млада","Муза","Надежда","Надия","Нелли","Неонила","Ника","Нина","Нинель","Новелла","Нора","Оксана","Олеся","Олимпия","Ольга","Павла","Павлина","Полина","Радмила","Раиса","Ревмира","Регина","Рената","Римма","Рогнеда","Роза","Розалия","Розана","Руслана","Руфь","Савина","Соломея","Свобода","Селина","Слава","Славяна","Снежана","София","Стелла","Сосанна","Сюзанна","Таира","Таисия","Тамара","Томила","Татьяна","Ульяна","Устинья","Фелиция","Феодора","Флавия","Флория","Фотина","Харита","Хиония","Эльвира","Эльмира","Эльза","Эмма","Эрика","Юлиана","Юнона","Ядвига","Яна","Янина","Яромира"];
@@ -290,7 +290,7 @@ function settle() {
 	//Уворот
 	feat.dodge[0] = stats.CHA[2] + (checkperk("PE_HTH_EVADE") ? (feat.apoi[0]/4)+(feat.apoi[0]/2) : 0);
     //Антикрит
-    feat.acrit[0] = checkperk("PE_TERMINATOR") ? (mychar.stats.STR[0] + mychar.stats.ENU[0])*5 : 
+    feat.acrit[0] = checkperk("PE_TERMINATOR") ? (stats.STR[2] + stats.ENU[2])*5 : 
                     mychar.traits.TRAIT_SKILLED ? 60 : 
                     checkperk("PE_STONEWALL") ?  40 : 0;
 	
@@ -717,7 +717,7 @@ function addperk(perks) {
     perk[select.perk][6]();
 }
 
-function delobj(obj,str,с) {
+function delobj(obj,str,c) {
     if(chobj(obj,str)<=1)
         delete mychar[obj][str];
     else {
@@ -818,17 +818,17 @@ function createlistperk() {
 	$("#crlistperk").html("");	
 	var mperk = {3: [],6: [],9: [],12: [],15: [],18: [],30: [],51: []};
     var s = 0;
-    if(mode == 0){
+    /*if(mode == 0){
         for(var i in perk)
             if(perk[i][5](true)&&perk[i][4]!==1)
                 mperk[perk[i][3]].push(i);
     }
-    else if(mode == 1) {
+    else */if(mode == 0) {
         for(var i in perk)
             if(perk[i][4]!==1)
                 mperk[perk[i][3]].push(i);
     }
-    else if(mode == 2) {        
+    else if(mode == 1) {        
         for(var i in testperk){
             mperk[perk[i][3]].push(i);
             s++;
@@ -840,8 +840,13 @@ function createlistperk() {
 		$("<div id=\"lists"+i+"\" class=\"listlevel\">Уровень "+i+"</div>").appendTo("#crlistperk");	
 		for(var j in mperk[i]) {
 			var perkit = $("<div id=\"lists"+mperk[i][j]+"\" class=\"perklist\">"+perk[mperk[i][j]][0]+"</div>").appendTo("#crlistperk");
+            if(mperk[i][j] in testperk) $("#lists"+mperk[i][j]).css("color","#07b");
 			perkit.click(function(){
-				if(select.crperk) $("#"+select.crperk).css("color","#00AB00");
+				if(select.crperk) 
+                    if(!(select.crperk.substr(5) in testperk))
+                        $("#"+select.crperk).css("color","#00AB00");
+                    else
+                        $("#"+select.crperk).css("color","#07B");
 				select.crperk = this.id;
 				$("#"+this.id).css("color","#00FF00");
 				infoparm("perks",this.id.substr(5));
@@ -850,20 +855,21 @@ function createlistperk() {
                 var pp = this.id.substr(5);
                 if(!(pp in testperk)) {
                     testperk[pp] = perk[pp][0];
-                    /*$("#"+this.id).css("text-decoration","line-through");*/
+                    $("#"+this.id).css("color","#07B");
                 }
                 else {
                     delete testperk[pp];
-                    /*$("#"+this.id).css("text-decoration","none");*/
+                    $("#"+this.id).css("color","#00AB00");
                 }
             });
 		}
 	}
-    if(mode == 2 && s > 0) {
-        var keycalc = $("<hr><div class=\"listlevel\">Расчет</div>").appendTo("#crlistperk");
+    if(mode == 1 && s > 0) {
+        var keycalc = $("<hr><div id=\"keycalc\" class=\"listlevel\">Расчет</div>").appendTo("#crlistperk");
         keycalc.click(function(){
             var ss = 40 + (chtr("TRAIT_BRUISER")?3:0) + (chtr("TRAIT_SMALL_FRAME")?1:0) + (chtr("TRAIT_KAMIKAZE")?1:0) + (chtr("TRAIT_SKILLED")?8:0)
             var res = testperks(ss);
+            console.log("Done");
             if(res[0]==70) return;
             charp.specialpoint = ss - res[0];
             for(var i in mychar.stats) {
@@ -948,6 +954,22 @@ function showlistquest(){
         }
     }
 }
+function require(p) {
+    var str = "<br><br>Требования:";
+    var obj = perk[p][8];
+    if(emptyObject(obj)){
+        str += "<br>нет";
+        return str;
+    }
+    if("stats" in obj)
+        for(var i in obj.stats)
+            str += "<br>"+stats[i][0]+": "+(obj.ch?"<":"")+obj.stats[i];
+    if("skills" in obj)
+        for(var i in obj.skills)
+            str += "<br>"+skills[i][2]+": "+obj.skills[i];
+    return str;
+    
+}
 // Вывод информации о перке или квесте по клику
 function infoparm(ch,prm){
 	switch(ch) {
@@ -959,7 +981,8 @@ function infoparm(ch,prm){
 		break;
 		case "perks": 
 			$("#nameparm").html(perk[prm][0]);
-			$("#textparm").html(perk[prm][1]);
+            var str = perk[prm][1] + require(prm);
+			$("#textparm").html(str);
 			$("#imgparm").removeClass('loaded');
 			$("#imgparm").html("<img src=\"skill/"+prm.substr(3)+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
@@ -1054,9 +1077,8 @@ function emptyObject(obj) {
     for (var i in obj) return false;
     return true;
 }
-function totalurl() {
+function totalurl(textarea) {
 	$("#total").show();
-	var textarea = "http://"+location.host+"/character/?hash="+Cookies.get("hash");
 	$("#totaltext").val(textarea);
 }
 // Итоговые результаты в текстовом виде
@@ -1106,15 +1128,18 @@ function imgLoaded(img){
     $img.parent().addClass('loaded');
 }
 // Загрузка билда из json строк
-function loadbjson(myc,cp) {
-	loadbuild(JSON.parse(myc),JSON.parse(cp))
+function loadbjson(str) {
+    var arr = JSON.parse(str);
+	loadbuild(arr[0],arr[1]);
 }
 // Згарузка билда из обьектов
 function loadbuild(myc,cp) {
 	mychar = myc;
 	charp = cp;
-    for(var i in mychar.tags)
-        $("#"+i).css("color", "#ABABAB");
+    for(var i in mychar.tags) {
+        $("#"+i+"s").css("color", "#ABABAB");
+		$("#"+i).css("color", "#ABABAB");
+    }
     for(var i in mychar.book)
         $("#book"+i).html("x"+mychar.book[i][0]);
 	leveluping = true;
@@ -1147,20 +1172,26 @@ function loadbuild(myc,cp) {
 // Сохранение билда в базу данных
 function setbuild() {
 	var arr = [mychar,charp];
-	var str = "setbuild="+JSON.stringify(arr)+"&name="+charp.name;
-	if(cookiehash)
-		str += "&hash="+cookiehash;
-	
-	$.ajax({
-	type: "POST",
-	url: "basechar.php",
-	data: str,
-	success: function(msg){
-			if(msg)
-				save = true;
-				totalurl();
-			}
-	});
+    if(online) {
+        var str = "setbuild="+JSON.stringify(arr)+"&name="+charp.name;
+        if(cookiehash)
+            str += "&hash="+cookiehash;
+
+        $.ajax({
+        type: "POST",
+        url: "basechar.php",
+        data: str,
+        success: function(msg){
+                if(msg)
+                    save = true;
+                    totalurl("http://"+location.host+"/character/?hash="+Cookies.get("hash"));
+                }
+        });
+    }
+    else {
+        save = true;
+        totalurl(JSON.stringify(arr));
+    }
 }
 // Загрузка билда из базы данных
 function getbuild(hash) {
@@ -1273,11 +1304,11 @@ function main()
 	}    
     $("#titlelist").click(function(){
         mode++;
-        if(mode>2) mode = 0;
+        if(mode>1) mode = 0;
         $("#titlelist").html(mod[mode]);
         createlistperk();
     });
-    
+    $("#titlelist").html(mod[mode]);
 	$("#men").css('backgroundImage', 'url(img/men.png)');
 	$("#age").html(charp.age);
 	numbers($("#numberage"),charp.age); // обновление циферок возраста
