@@ -1333,6 +1333,7 @@ function main()
 		$("#key"+j).mouseup(function(){$("#lkey"+this.id.substr(3)).html("");});
 		$("#key"+j).click(tags);
 		$("#butt"+j).click(selectskill);
+        $("#"+j+"s").html(skills[j][2]);
 	}    
     $("#titlelist").click(function(){
         mode++;

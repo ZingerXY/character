@@ -135,9 +135,9 @@
                 <div id="leveldown"></div>
             </div>
             <div id="feat1" class="text2"> 
-                <div id="life" class="res-2">Жизни</div><div id="live" class="res0-2"></div>
-                <div id="dadge" class="res-1">Уворот</div><div id="dodge" class="res-1"></div>
-                <div id="anticrit" class="res0">Антикрит</div><div id="acrit" class="res0">0%</div>
+                <div id="life" class="resist res-2">Жизни</div><div id="live" class="resist resnum0 res-2"></div>
+                <div id="dadge" class="resist res-1">Уворот</div><div id="dodge" class="resist resnum0 res-1"></div>
+                <div id="anticrit" class="resist res0">Антикрит</div><div id="acrit" class="resist resnum0 res0">0%</div>
                 <div id="textnormal" class="resist res1">Норма</div><div id="normal" class="resist resnum0 res1"></div>
                 <div id="textlaser" class="resist res2">Лазер</div><div id="laser" class="resist resnum0 res2"></div>
                 <div id="textfire" class="resist res3">Огонь</div><div id="fire" class="resist resnum0 res3"></div>
@@ -165,24 +165,24 @@
                 <div id="critrate" class="text2 featop9">Шанс на крит.</div><div id="crit" class="text2 featnum featop9"></div>
             </div>
             <div id="skill" class="text2">
-                <div id="lights" class="light skill">Легкое оружие</div><div id="light" class="light point"></div>
-                <div id="heavys" class="heavy skill">Тяжелое оружие</div><div id="heavy" class="heavy point"></div>
-                <div id="energys" class="energy skill">Энергооружие</div><div id="energy" class="energy point"></div>
-                <div id="melees" class="melee skill">Рукопашная</div><div id="melee" class="melee point"></div>
-                <div id="steels" class="steel skill">Холодное оружие</div><div id="steel" class="steel point"></div>
-                <div id="throwns" class="thrown skill">Метательное оружие</div><div id="thrown" class="thrown point"></div>
-                <div id="orderlys" class="orderly skill">Санитар</div><div id="orderly" class="orderly point"></div>
-                <div id="doctors" class="doctor skill">Доктор</div><div id="doctor" class="doctor point"></div>
-                <div id="sneaks" class="sneak skill">Скрытность</div><div id="sneak" class="sneak point"></div>
-                <div id="hacks" class="hack skill">Взлом замков</div><div id="hack" class="hack point"></div>
-                <div id="steals" class="steal skill">Воровство</div><div id="steal" class="steal point"></div>
-                <div id="trapss" class="traps skill">Ловушки</div><div id="traps" class="traps point"></div>
-                <div id="sciences" class="science skill">Наука</div><div id="science" class="science point"></div>
-                <div id="repairs" class="repair skill">Ремонт</div><div id="repair" class="repair point"></div>
-                <div id="oratorys" class="oratory skill">Красноречие</div><div id="oratory" class="oratory point"></div>
-                <div id="trades" class="trade skill">Торговля</div><div id="trade" class="trade point"></div>
-                <div id="speeds" class="speed skill">Атлетизм</div><div id="speed" class="speed point"></div>
-                <div id="rangers" class="ranger skill">Скиталец</div><div id="ranger" class="ranger point"></div>
+                <div id="lights" class="light skill"></div><div id="slight" class="light spoint"></div><div id="light" class="light point"></div>
+                <div id="heavys" class="heavy skill"></div><div id="sheavy" class="heavy spoint"></div><div id="heavy" class="heavy point"></div>
+                <div id="energys" class="energy skill"></div><div id="senergy" class="energy spoint"></div><div id="energy" class="energy point"></div>
+                <div id="melees" class="melee skill"></div><div id="smelee" class="melee spoint"></div><div id="melee" class="melee point"></div>
+                <div id="steels" class="steel skill"></div><div id="ssteel" class="steel spoint"></div><div id="steel" class="steel point"></div>
+                <div id="throwns" class="thrown skill"></div><div id="sthrown" class="thrown spoint"></div><div id="thrown" class="thrown point"></div>
+                <div id="orderlys" class="orderly skill"></div><div id="sorderly" class="orderly spoint"></div><div id="orderly" class="orderly point"></div>
+                <div id="doctors" class="doctor skill"></div><div id="sdoctor" class="doctor spoint"></div><div id="doctor" class="doctor point"></div>
+                <div id="sneaks" class="sneak skill"></div><div id="ssneak" class="sneak spoint"></div><div id="sneak" class="sneak point"></div>
+                <div id="hacks" class="hack skill"></div><div id="shack" class="hack spoint"></div><div id="hack" class="hack point"></div>
+                <div id="steals" class="steal skill"></div><div id="ssteal" class="steal spoint"></div><div id="steal" class="steal point"></div>
+                <div id="trapss" class="traps skill"></div><div id="straps" class="traps spoint"></div><div id="traps" class="traps point"></div>
+                <div id="sciences" class="science skill"></div><div id="sscience" class="science spoint"></div><div id="science" class="science point"></div>
+                <div id="repairs" class="repair skill"></div><div id="srepair" class="repair spoint"></div><div id="repair" class="repair point"></div>
+                <div id="oratorys" class="oratory skill"></div><div id="soratory" class="oratory spoint"></div><div id="oratory" class="oratory point"></div>
+                <div id="trades" class="trade skill"></div><div id="strade" class="trade spoint"></div><div id="trade" class="trade point"></div>
+                <div id="speeds" class="speed skill"></div><div id="sspeed" class="speed spoint"></div><div id="speed" class="speed point"></div>
+                <div id="rangers" class="ranger skill"></div><div id="sranger" class="ranger spoint"></div><div id="ranger" class="ranger point"></div>>
             </div>
             <div id="skillbutt" class="leveling">
                 <div id="buttlight" class="light skillbutt"></div>

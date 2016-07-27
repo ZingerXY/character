@@ -51,7 +51,7 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
         {stats:{ENU:6,INT:4}}],
 	PE_TOUGHNESS: ["Крутизна", "Крутизна позволяет чувствовать себя под защитой. За каждый уровень этой способности вы получаете +8% к Резисту от нормы, огня, взрыва и Сопротивляемость урона от нормы на 2 единицы.",
 		1,3,29,function(n){return /*!checkperk("PE_CULT_OF_PERSONALITY") &&*/ !checkperk("PE_MENTAL_BLOCK") && stats.ENU[2] >= 6 && stats.STR[2] >= 8;},
-		function(){pr.addr("normal",-2,-10);pr.addr("fire",0,-8);pr.addr("explode",0,-8);},
+		function(){pr.addr("normal",2,10);pr.addr("fire",0,8);pr.addr("explode",0,8);},
 		function(){pr.addr("normal",-2,-10);pr.addr("fire",0,-8);pr.addr("explode",0,-8);},
         {stats:{ENU:6,STR:8}}],
 	PE_STRONG_BACK: ["Переноска", "Способность таскать тяжелые грузы - далеко не лишняя в условиях пустыни. Прибавляет 100 кг к Максимальному весу и +35% к Атлетизму.",
@@ -651,13 +651,26 @@ function testpp(ss) {
 
 function testperks(ss) {
     ss = ss===undefined ? 40 : ss;
+    var sk = {};
+    for(var j in skills){
+        $("#s"+j).html("");
+        sk[j] = 0;
+    }
+		
     for(var i in stats)	stats[i][2]=1;
     for(var i in testperk) {
         var obj = perk[i][8];
-        if(!emptyObject(obj))
+        if(!emptyObject(obj)) {
             if("stats" in obj)
                 for(var j in obj.stats)
                     if(obj.stats[j]>stats[j][2] && !obj.ch) stats[j][2] = obj.stats[j];
+            if("skills" in obj)
+                for(var j in obj.skills) {
+                    if(sk[j] < obj.skills[j]) sk[j] = obj.skills[j];
+                    $("#s"+j).html(sk[j]+"%");
+                }
+                    
+        }
     }
     var sum = 0, arr = {};
     for(var i in stats)	{

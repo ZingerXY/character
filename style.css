@@ -363,19 +363,11 @@ body{
 	color:			#303030;
 	position: 		absolute;
 }
-#live{
-	position: 		absolute;
-	top:			0px;
-	left:			80px;
-}
-#dodge{
-	position: 		absolute;
-	top:			13px;
-	left:			80px;
-}
+
+
 #feat1{
 	left:			183px;
-	top:			36px;
+	top:			38px;
 	width:			130px;
 }
 /*
@@ -395,14 +387,14 @@ body{
 }
 /*#overview	{top: 15px;}*/
 .res-2	{top: 0px;}
-.res-1	{top: 13px;}
-.res0	{top: 26px;}
-.res1	{top: 39px;}
-.res2	{top: 52px;}
-.res3	{top: 65px;}
-.res4	{top: 78px;}
-.res5	{top: 91px;}
-.res6	{top: 104px;}
+.res-1	{top: 12px;}
+.res0	{top: 24px;}
+.res1	{top: 36px;}
+.res2	{top: 48px;}
+.res3	{top: 60px;}
+.res4	{top: 72px;}
+.res5	{top: 84px;}
+.res6	{top: 96px;}
 #feat2{
 	left:			182px;
 	top:			171px;
@@ -468,8 +460,6 @@ body{
 	width:			42px;
 }
 .skill	{
-	font-family: 	Arial_Bold;
-	color: 			#0E0;
 	position: 		absolute;
 }
 
@@ -1043,11 +1033,6 @@ img{
     opacity: 1;
 }
 	
-#acrit {
-    position: 		absolute;
-	top:			26px;
-	left:			80px;
-}
 
 #leveldown {
     display: none;
@@ -1061,4 +1046,10 @@ img{
 
 #leveldown:active {
     background-image:	url(img/minusup.png);
+}
+
+.spoint {
+    position: 		absolute;
+	left: 			170px;
+    color:          #B00;
 }
