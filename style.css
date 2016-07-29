@@ -997,6 +997,7 @@ hr {
     height: 		420px;
 	border: 		0px;
     overflow: 		hidden;
+    word-break:     break-all;
 }
 #totalkey {
 	color:			#686665;
@@ -1052,4 +1053,40 @@ img{
     position: 		absolute;
 	left: 			170px;
     color:          #B00;
+}
+
+#loadtotal {
+    display:		none;
+    position: 		absolute;
+		left:		140px;
+		top:		454px;
+	width:			33px;
+	height:			33px;
+    font-family:    Fallout;
+    color:			#686665;
+    font-size:      20px;
+}
+#loadtotal:hover {
+	color:			#8F6F00;
+}
+#loadtotal:active {
+	color:			#AF8F00;
+}
+#loadkey {
+    color:          #7a7a7a;
+    position:       absolute;
+        left:       405px;
+        top:        478px;
+    z-index:        150;
+    font-size:      17px;
+    font-family:    Fallout;
+}
+#loadkey:hover {
+	color:			#8F6F00;
+}
+#loadkey:active {
+	color:			#AF8F00;
+}
+.shadow {
+    text-shadow: 0px 0px 3px #000;
 }

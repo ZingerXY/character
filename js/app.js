@@ -1191,7 +1191,7 @@ function setbuild() {
     }
     else {
         save = true;
-        totalurl(JSON.stringify(arr));
+        totalurl(lzw(JSON.stringify(arr)));
     }
 }
 // Загрузка билда из базы данных
@@ -1341,6 +1341,21 @@ function main()
         $("#titlelist").html(mod[mode]);
         createlistperk();
     });
+    $("#totaltext").on('input', function(){
+        var str = $("#totaltext").val();
+        if(str[0] == '[')
+            $("#loadtotal").show();
+        else 
+            $("#loadtotal").hide();
+    });
+    $("#loadtotal").click(function(){
+        loadbjson(delzw($("#totaltext").val()));
+        $("#total").hide();
+    });
+    $("#loadkey").click(function(){
+        totalurl("");
+    })
+    
     $("#titlelist").html(mod[mode]);
 	$("#men").css('backgroundImage', 'url(img/men.png)');
 	$("#age").html(charp.age);

@@ -68,62 +68,62 @@
 		<!--div id="fon" class="fon"></div-->
         <div id="main" class="main">
             <div id="wrap"></div>
-            <div id="name" class="text"></div>
+            <div id="name" class="text shadow"></div>
             <div id="entername" class="text">
-                <div id="nametext" class="text">ИМЯ</div>
+                <div id="nametext" class="text shadow">ИМЯ</div>
                 <div id="namenter" class="text2" contenteditable></div>
-                <div id="passtext" class="text">ПАРОЛЬ</div>
+                <div id="passtext" class="text shadow">ПАРОЛЬ</div>
                 <div id="pasenter" class="text2" contenteditable></div>	
             </div>
-            <div id="age" class="text">25</div>
+            <div id="age" class="text shadow">25</div>
             <div id="enterage" class="text">
                 <div id="plusage"></div>
                 <div id="numberage" class="npoint"></div>
                 <div id="minusage"></div>
             </div>
-            <div id="sex" class="text">МУЖ.</div>
+            <div id="sex" class="text shadow">МУЖ.</div>
             <div id="entersex" class="text">
                 <div id="men"></div>
                 <div id="women"></div>
             </div>
             <div id="special">
-                <div id="STRn" class="STR text special">СЛ</div>
+                <div id="STRn" class="STR text special shadow">СЛ</div>
                 <div id="STR" class="STR numspec npoint"></div>
                 <div id="STRt" class="STR znach">Средн.</div>
                 <div id="plusSTR" class="STR key reg spec plus" ></div>
                 <div id="minusSTR" class="STR key reg spec minus" ></div>
-                <div id="PERn" class="PER text special">ВС</div>
+                <div id="PERn" class="PER text special shadow">ВС</div>
                 <div id="PER" class="PER numspec npoint"></div>
                 <div id="PERt" class="PER znach">Средн.</div>
                 <div id="plusPER" class="PER key reg spec plus" ></div>
                 <div id="minusPER" class="PER key reg spec minus" ></div>
-                <div id="ENUn" class="ENU text special">ВН</div>
+                <div id="ENUn" class="ENU text special shadow">ВН</div>
                 <div id="ENU" class="ENU numspec npoint"></div>
                 <div id="ENUt" class="ENU znach">Средн.</div>
                 <div id="plusENU" class="ENU key reg spec plus" ></div>
                 <div id="minusENU" class="ENU key reg spec minus" ></div>
-                <div id="CHAn" class="CHA text special">ОБ</div>
+                <div id="CHAn" class="CHA text special shadow">ОБ</div>
                 <div id="CHA" class="CHA numspec npoint"></div>
                 <div id="CHAt" class="CHA znach">Средн.</div>
                 <div id="plusCHA" class="CHA key reg spec plus" ></div>
                 <div id="minusCHA" class="CHA key reg spec minus" ></div>
-                <div id="INTn" class="INT text special">ИН</div>
+                <div id="INTn" class="INT text special shadow">ИН</div>
                 <div id="INT" class="INT numspec npoint"></div>
                 <div id="INTt" class="INT znach">Средн.</div>
                 <div id="plusINT" class="INT key reg spec plus" ></div>
                 <div id="minusINT" class="INT key reg spec minus" ></div>
-                <div id="AGIn" class="AGI text special">ЛВ</div>
+                <div id="AGIn" class="AGI text special shadow">ЛВ</div>
                 <div id="AGI" class="AGI numspec npoint"></div>
                 <div id="AGIt" class="AGI znach">Средн.</div>
                 <div id="plusAGI" class="AGI key reg spec plus" ></div>
                 <div id="minusAGI" class="AGI key reg spec minus" ></div>
-                <div id="LUCn" class="LUC text special">УД</div>
+                <div id="LUCn" class="LUC text special shadow">УД</div>
                 <div id="LUC" class="LUC numspec npoint"></div>
                 <div id="LUCt" class="LUC znach">Средн.</div>
                 <div id="plusLUC" class="LUC key reg spec plus" ></div>
                 <div id="minusLUC" class="LUC key reg spec minus" ></div>
             </div>
-            <div id="specialpointext" class="text reg">ОЧКИ РАСП.</div><div id="specialpoint" class="text reg npoint"></div>
+            <div id="specialpointext" class="text reg shadow">ОЧКИ РАСП.</div><div id="specialpoint" class="text reg npoint"></div>
             <div id="experience" class="leveling text2">
                 <div id="textlevel">Уровень:</div>
                 <div id="level"></div>
@@ -182,7 +182,7 @@
                 <div id="oratorys" class="oratory skill"></div><div id="soratory" class="oratory spoint"></div><div id="oratory" class="oratory point"></div>
                 <div id="trades" class="trade skill"></div><div id="strade" class="trade spoint"></div><div id="trade" class="trade point"></div>
                 <div id="speeds" class="speed skill"></div><div id="sspeed" class="speed spoint"></div><div id="speed" class="speed point"></div>
-                <div id="rangers" class="ranger skill"></div><div id="sranger" class="ranger spoint"></div><div id="ranger" class="ranger point"></div>>
+                <div id="rangers" class="ranger skill"></div><div id="sranger" class="ranger spoint"></div><div id="ranger" class="ranger point"></div>
             </div>
             <div id="skillbutt" class="leveling">
                 <div id="buttlight" class="light skillbutt"></div>
@@ -242,9 +242,9 @@
                     <div id="keyspeed" class="speed minikey2"></div>
                     <div id="keyranger" class="ranger minikey2"></div>
             </div>
-            <div id="skillpoint1" class="text leveling">ОЧКИ УМЕНИЙ</div>
+            <div id="skillpoint1" class="text leveling shadow">ОЧКИ УМЕНИЙ</div>
             <div id="point1" class="leveling npoint"></div>
-            <div id="skillpoint2" class="text reg">ОСОБЫЕ НАВ</div>
+            <div id="skillpoint2" class="text reg shadow">ОСОБЫЕ НАВ</div>
             <div id="point2" class="reg npoint"></div>
             <div id="infoparm">
                 <div id="nameparm"></div>
@@ -253,11 +253,11 @@
             </div>
             <div id="switch" class="leveling">
                 <div id="switch1"></div>
-                <div id="textswitch1" class="text">БОНУСЫ</div>
+                <div id="textswitch1" class="text shadow">БОНУСЫ</div>
                 <div id="switch2"></div>
-                <div id="textswitch2" class="text">КНИГИ</div>
+                <div id="textswitch2" class="text shadow">КНИГИ</div>
                 <div id="switch3"></div>
-                <div id="textswitch3" class="text">КВЕСТЫ</div>
+                <div id="textswitch3" class="text shadow">КВЕСТЫ</div>
             </div>
             <div id="traits" class="text2 reg">
                 <div id="TRAIT_FAST_METABOLISM" class="text2 left1">Быстрый метабол</div>
@@ -357,9 +357,11 @@
             </div>
             <div id="total" class="text2">
                 <textarea id="totaltext" name="text"></textarea>
+                <div id="loadtotal" class="shadow">ЗАГРУЗИТЬ</div>
                 <div id="canceltotal"></div>
             </div>
-            <div id="totalkey" class="text leveling">ИТОГ</div>
+            <div id="loadkey" class="text reg shadow">ЗАГРУЗИТЬ</div>
+            <div id="totalkey" class="text leveling shadow">ИТОГ</div>
         </div>	
 	</body>
 </html>
