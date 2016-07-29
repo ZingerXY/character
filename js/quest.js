@@ -3,6 +3,7 @@ var quest = {	// квест, описание, уровней квеста, ми
         200,1,99,function(){return true;},
         function(){talk("У вас "+(quest.medals[2]-chobj("quest","medals"))+" медалей выберите награду:",{ 	
 			amedals:["1 очко распределения(3 медали)",function(){charp.points++;numbers($("#point1"),charp.points);return 3;},(quest.medals[2]-chobj("quest","medals"))>=3],
+            cmedals:["+15 к грузоподьемности(5 медалей)",function(){pr.add("feats","maxl",15);return 5;},(quest.medals[2]-chobj("quest","medals"))>=5],
 			bmedals:["1 очко жизней(10 медалей)",function(){pr.add("feats","live",1);return 10;},(quest.medals[2]-chobj("quest","medals"))>=10],
 			/*cmedals:["+1% любого резиста(10 медалей)",function(){
 				talk("Выберите резист:", {
