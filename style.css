@@ -71,7 +71,7 @@ body{
 }
 .main	{
 	opacity:				0;
-	background-image:		url(img/reg.png	);
+	/*background-image:		url(img/reg.png	);*/
 	background-repeat: 		no-repeat;
 	-moz-transform: 		scale(1); /* Для Firefox */
     -ms-transform: 			scale(1); /* Для IE */

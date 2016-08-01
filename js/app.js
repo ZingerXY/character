@@ -534,7 +534,12 @@ function leveling() {
 			$("#name").html($("#namenter").html().toUpperCase());
 			$('title').text("Прокачка персонажа");
 			$("#main").animate({'opacity':'0'},100);
-			$("#main").css('backgroundImage', "url(img/char.gif)");
+            var bgImg = new Image();
+            bgImg.src = "img/char.gif";
+            bgImg.onload = function(){
+                $("#main").css('backgroundImage', 'url(' + bgImg.src + ')');
+                $("#main").animate({'opacity':'1'},500);
+            };		
 			$(".reg").hide();
 			$(".leveling").show();
 			$("#level").html(charp.level);
@@ -598,7 +603,6 @@ function leveling() {
 			$("#nameparm").html("");
 			$("#textparm").html("");
 			$("#imgparm").html("");
-			$("#main").animate({'opacity':'1'},500);
 		}
 		else {
 			if(charp.level>=28)
@@ -1136,6 +1140,7 @@ function loadbjson(str) {
 function loadbuild(myc,cp) {
 	mychar = myc;
 	charp = cp;
+    charp.name = decodeURIComponent(charp.name);
     for(var i in mychar.tags) {
         $("#"+i+"s").css("color", "#ABABAB");
 		$("#"+i).css("color", "#ABABAB");
@@ -1171,9 +1176,11 @@ function loadbuild(myc,cp) {
 }
 // Сохранение билда в базу данных
 function setbuild() {
+    var nameui = charp.name;
+    charp.name = encodeURIComponent(charp.name);
 	var arr = [mychar,charp];
     if(online) {
-        var str = "setbuild="+JSON.stringify(arr)+"&name="+charp.name;
+        var str = "setbuild="+JSON.stringify(arr)+"&name="+nameui;
         if(cookiehash)
             str += "&hash="+cookiehash;
 
@@ -1365,7 +1372,13 @@ function main()
 	statpoints();                       // обновление статов
 	settle();                           // обновление навыков и параметров
 	createlistperk();                   // создание доступных перков
-	$(".main").animate({'opacity':'1'},200);
+
+    var bgImg = new Image;
+    bgImg.src = "img/reg.png";
+    bgImg.onload = function(){
+        $("#main").css('backgroundImage', 'url(' + bgImg.src + ')');
+        $("#main").animate({'opacity':'1'},500);
+    };		
 	if(cookiehash)
 		getbuild();
 }
