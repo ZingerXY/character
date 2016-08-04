@@ -71,7 +71,7 @@ body{
 }
 .main	{
 	opacity:				0;
-	background-image:		url(img/reg.png	);
+	/*background-image:		url(img/reg.png	);*/
 	background-repeat: 		no-repeat;
 	-moz-transform: 		scale(1); /* Для Firefox */
     -ms-transform: 			scale(1); /* Для IE */
@@ -85,7 +85,7 @@ body{
 	-khtml-user-select: 	none;
 	-webkit-user-select:	none;
 	user-select:			none;
-	margin: 				90px auto;
+	margin: 				60px auto;
 }
 #wrap{
 	display: none;
@@ -328,17 +328,17 @@ body{
 #level{
 	position:		absolute;
 		top:		0px;
-		left:		55px;
+		left:		50px;
 }
 #exp{
 	position:		absolute;
 	top:			12px;
-	left:			55px;
+	left:			50px;
 }
 #nextexp{
 	position:		absolute;
 	top:			22px;
-	left:			55px;
+	left:			50px;
 }
 #levelup {
 	background-image:	url(img/plus.png);
@@ -363,19 +363,11 @@ body{
 	color:			#303030;
 	position: 		absolute;
 }
-#live{
-	position: 		absolute;
-	top:			0px;
-	left:			80px;
-}
-#dodge{
-	position: 		absolute;
-	top:			13px;
-	left:			80px;
-}
+
+
 #feat1{
 	left:			183px;
-	top:			43px;
+	top:			38px;
 	width:			130px;
 }
 /*
@@ -394,12 +386,15 @@ body{
 	left:			80px;
 }
 /*#overview	{top: 15px;}*/
-.res1	{top: 28px;}
-.res2	{top: 41px;}
-.res3	{top: 54px;}
-.res4	{top: 67px;}
-.res5	{top: 80px;}
-.res6	{top: 93px;}
+.res-2	{top: 0px;}
+.res-1	{top: 12px;}
+.res0	{top: 24px;}
+.res1	{top: 36px;}
+.res2	{top: 48px;}
+.res3	{top: 60px;}
+.res4	{top: 72px;}
+.res5	{top: 84px;}
+.res6	{top: 96px;}
 #feat2{
 	left:			182px;
 	top:			171px;
@@ -465,8 +460,6 @@ body{
 	width:			42px;
 }
 .skill	{
-	font-family: 	Arial_Bold;
-	color: 			#0E0;
 	position: 		absolute;
 }
 
@@ -1004,6 +997,7 @@ hr {
     height: 		420px;
 	border: 		0px;
     overflow: 		hidden;
+    word-break:     break-all;
 }
 #totalkey {
 	color:			#686665;
@@ -1040,3 +1034,59 @@ img{
     opacity: 1;
 }
 	
+
+#leveldown {
+    display: none;
+    background-image:	url(img/minus.png);
+	position:			absolute;
+	top:				1px;
+	left:				75px;
+	width:				33px;
+	height:				33px;
+}
+
+#leveldown:active {
+    background-image:	url(img/minusup.png);
+}
+
+.spoint {
+    position: 		absolute;
+	left: 			170px;
+    color:          #B00;
+}
+
+#loadtotal {
+    display:		none;
+    position: 		absolute;
+		left:		140px;
+		top:		454px;
+	width:			33px;
+	height:			33px;
+    font-family:    Fallout;
+    color:			#686665;
+    font-size:      20px;
+}
+#loadtotal:hover {
+	color:			#8F6F00;
+}
+#loadtotal:active {
+	color:			#AF8F00;
+}
+#loadkey {
+    color:          #7a7a7a;
+    position:       absolute;
+        left:       405px;
+        top:        478px;
+    z-index:        150;
+    font-size:      17px;
+    font-family:    Fallout;
+}
+#loadkey:hover {
+	color:			#8F6F00;
+}
+#loadkey:active {
+	color:			#AF8F00;
+}
+.shadow {
+    text-shadow: 0px 0px 3px #000;
+}

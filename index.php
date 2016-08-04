@@ -18,11 +18,14 @@
 		<script type = "text/javascript" async src = "js/quest.js"></script>
         <script type = "text/javascript" async src = "js/LZW.js"></script>
         <script async src="js/js.cookie.js"></script>
-        <script>var cookiehash = false;var online = false;</script>
-		<!--script> 
-		var cookiehash = <!--?	if(isset($_GET["hash"])) echo "'".$_GET["hash"]."'";
-							else if(isset($_COOKIE["hash"])) echo "'".$_COOKIE["hash"]."'";
+		<script> 
+		var cookiehash = <?	if(isset($_GET["hash"])) echo "'".$_GET["hash"]."'";
+							else if(isset($_COOKIE["hash"])) {
+								echo "'".$_COOKIE["hash"]."'";
+								setcookie("hash", $_COOKIE["hash"], time()+60*60*24*7);
+							}
 							else echo "false";?>;
+        var online = true;
 		</script>
 		<script>
 			  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -34,7 +37,7 @@
 			  ga('send', 'pageview');
 		</script>
 		<!-- Yandex.Metrika counter -->
-		<!--script type="text/javascript">
+		<script type="text/javascript">
 			(function (d, w, c) {
 				(w[c] = w[c] || []).push(function() {
 					try {
