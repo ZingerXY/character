@@ -818,12 +818,9 @@ function createlistperk() {
 	$("#crlistperk").html("");	
 	var mperk = {3: [],6: [],9: [],12: [],15: [],18: [],30: [],51: []};
     var s = 0;
-    /*if(mode == 0){
-        for(var i in perk)
-            if(perk[i][5](true)&&perk[i][4]!==1)
-                mperk[perk[i][3]].push(i);
-    }
-    else */if(mode == 0) {
+    if(!("tperk" in mychar)) 
+        mychar["tperk"] = {};
+    if(mode == 0) {
         for(var i in perk)
             if(perk[i][4]!==1)
                 mperk[perk[i][3]].push(i);
@@ -1208,7 +1205,7 @@ function setbuild() {
     charp.name = encodeURIComponent(charp.name);
 	var arr = [mychar,charp];
     if(online) {
-        var str = "setbuild="+JSON.stringify(arr)+"&name="+nameui;
+        var str = "setbuild="+lzw(JSON.stringify(arr))+"&name="+nameui;
         if(cookiehash)
             str += "&hash="+cookiehash;
 
@@ -1235,11 +1232,12 @@ function getbuild(hash) {
 	$.ajax({
 	type: "POST",
 	url: "basechar.php",
-	dataType: 'json',
+	/*dataType: 'json',*/
 	data: "getbuild="+hash,
 	success: function(msg){
-			if(msg)			
-				loadbuild(msg[0],msg[1]);
+			if(msg)		
+                console.log(msg);
+				//loadbuild(msg[0],msg[1]);
 			}
 	});
 }
