@@ -16,6 +16,7 @@
 		<script type = "text/javascript" async src = "js/traits.js"></script>
 		<script type = "text/javascript" async src = "js/app.js"></script>		
 		<script type = "text/javascript" async src = "js/quest.js"></script>
+        <script type = "text/javascript" async src = "js/LZW.js"></script>
         <script async src="js/js.cookie.js"></script>
 		<script> 
 		var cookiehash = <?	if(isset($_GET["hash"])) echo "'".$_GET["hash"]."'";

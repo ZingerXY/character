@@ -851,7 +851,7 @@ function createlistperk() {
             perkit.dblclick(function(){
                 var pp = this.id.substr(5);
                 if(!(pp in mychar.tperk)) {
-                    mychar.tperk[pp] = perk[pp][0];
+                    mychar.tperk[pp] = 1;
                     $("#"+this.id).css("color","#07B");
                 }
                 else {
@@ -1236,8 +1236,8 @@ function getbuild(hash) {
 	data: "getbuild="+hash,
 	success: function(msg){
 			if(msg)		
-                console.log(msg);
-				//loadbuild(msg[0],msg[1]);
+                //console.log(msg);
+				loadbjson(delzw(msg));
 			}
 	});
 }
