@@ -18,9 +18,8 @@ var select = {
 	quest: ""
 }
 
-var testperk = {};
-
 var mychar = {
+    tperk: {},
 	traits: {},
 	perks: {},
 	tags: {},
@@ -410,12 +409,12 @@ function minusspec(pop){
 function skpoint(n,p){
     var r = [0,0];
     for(var i = p; i > 0 && p > 0; i-- ) {
-        if( n > SkillMod.Add6 && p >= 6 ) p -= 6;
-        else if( n > SkillMod.Add5 && p >= 5 ) p -= 5;
-        else if( n > SkillMod.Add4 && p >= 4 ) p -= 4;
-        else if( n > SkillMod.Add3 && p >= 3 ) p -= 3;
-        else if( n > SkillMod.Add2 && p >= 2 ) p -= 2;
-        else if(n <= SkillMod.Add2 && p >= 1) p -= 1;
+        if( n > SkillMod.Add6 ) {if(p >= 6) p -= 6;}
+        else if( n > SkillMod.Add5 ) {if( p >= 5 ) p -= 5; else break;}
+        else if( n > SkillMod.Add4 ) {if( p >= 4 ) p -= 4; else break;}
+        else if( n > SkillMod.Add3 ) {if( p >= 3 ) p -= 3; else break;}
+        else if( n > SkillMod.Add2 ) {if( p >= 2 ) p -= 2; else break;}
+        else if(n <= SkillMod.Add2 ) {if( p >= 1) p -= 1; else break;}
         else break;
         r[0]++;
         n++;
@@ -693,7 +692,7 @@ function selectskill() {
 // Повышение уровня
 function levelup(){
     $("#leveldown").show();
-	if(charp.level==99) return;
+	if(charp.level==99) {if(matrix==undefined)matrix=new Matrix;return;}
     mychar.points[charp.level] = charp.points;
 	charp.level++;
 	$("#level").html(charp.level);
@@ -706,14 +705,11 @@ function levelup(){
 		charp.points += 5 + (stats.INT[2] * 2) - (mychar.traits.TRAIT_NIGHT_PERSON?3:0);
 		numbers($("#point1"),charp.points);
         
-	}
-	if(!(charp.level%(mychar.traits.TRAIT_SKILLED?4:3)))	{
-		charp.perkpoint++;
+	}   
+	if(!(charp.level%(mychar.traits.TRAIT_SKILLED?4:3)))
+		charp.perkpoint++;	
+	if(charp.perkpoint > 0)	
 		listperkup();	
-	}
-	if(charp.perkpoint)	{
-		listperkup();	
-	}
 }
 function addperk(perks) {
     mychar.perks[perks] = {vol: checkperk(perks) + 1, lvl: checkperk(perks) ? mychar.perks[perks].lvl : []};
@@ -833,7 +829,7 @@ function createlistperk() {
                 mperk[perk[i][3]].push(i);
     }
     else if(mode == 1) {        
-        for(var i in testperk){
+        for(var i in mychar.tperk){
             mperk[perk[i][3]].push(i);
             s++;
         }
@@ -844,10 +840,10 @@ function createlistperk() {
 		$("<div id=\"lists"+i+"\" class=\"listlevel\">Уровень "+i+"</div>").appendTo("#crlistperk");	
 		for(var j in mperk[i]) {
 			var perkit = $("<div id=\"lists"+mperk[i][j]+"\" class=\"perklist\">"+perk[mperk[i][j]][0]+"</div>").appendTo("#crlistperk");
-            if(mperk[i][j] in testperk) $("#lists"+mperk[i][j]).css("color","#07B");
+            if(mperk[i][j] in mychar.tperk) $("#lists"+mperk[i][j]).css("color","#07B");
 			perkit.click(function(){
 				if(select.crperk) 
-                    if(!(select.crperk.substr(5) in testperk))
+                    if(!(select.crperk.substr(5) in mychar.tperk))
                         $("#"+select.crperk).css("color","#00AB00");
                     else
                         $("#"+select.crperk).css("color","#07B");
@@ -857,12 +853,12 @@ function createlistperk() {
 			});
             perkit.dblclick(function(){
                 var pp = this.id.substr(5);
-                if(!(pp in testperk)) {
-                    testperk[pp] = perk[pp][0];
+                if(!(pp in mychar.tperk)) {
+                    mychar.tperk[pp] = perk[pp][0];
                     $("#"+this.id).css("color","#07B");
                 }
                 else {
-                    delete testperk[pp];
+                    delete mychar.tperk[pp];
                     $("#"+this.id).css("color","#00FF00");
                 }
                 decalc();
@@ -874,6 +870,38 @@ function createlistperk() {
         keycalc.click(decalc);
     }
 }
+// Рейверс кальк
+function testperks(ss) {
+    ss = ss===undefined ? 40 : ss;
+    var sk = {};
+    for(var j in skills){
+        $("#s"+j).html("");
+        sk[j] = 0;
+    }
+		
+    for(var i in stats)	stats[i][2]=1;
+    for(var i in mychar.tperk) {
+        var obj = perk[i][8];
+        if(!emptyObject(obj)) {
+            if("stats" in obj)
+                for(var j in obj.stats)
+                    if(obj.stats[j]>stats[j][2] && !obj.ch) stats[j][2] = obj.stats[j];
+            if("skills" in obj)
+                for(var j in obj.skills) {
+                    if(sk[j] < obj.skills[j]) sk[j] = obj.skills[j];
+                    $("#s"+j).html(sk[j]+"%");
+                }
+                    
+        }
+    }
+    var sum = 0, arr = {};
+    for(var i in stats)	{
+        sum += stats[i][2];
+        arr[i] = stats[i][2];
+    }
+    return [sum,arr];
+}
+// Рейверс кальк
 function decalc() {
     if(!regi) return;
     var ss = 40 + (chtr("TRAIT_BRUISER")?3:0) + (chtr("TRAIT_SMALL_FRAME")?1:0) + (chtr("TRAIT_KAMIKAZE")?1:0) + (chtr("TRAIT_SKILLED")?8:0)
@@ -1243,7 +1271,7 @@ function main()
                 if(next.attr("id") == undefined) return;
                 if(next.attr("id").length < 8) next = next.next();
                 if(next.position().top >= 408) next.parent().scrollTop(next.parent().scrollTop()+(next.position().top-408));
-                if(!(select.crperk.substr(5) in testperk))
+                if(!(select.crperk.substr(5) in mychar.tperk))
                     $("#"+select.crperk).css("color","#00AB00");
                 else
                     $("#"+select.crperk).css("color","#07B");
@@ -1257,7 +1285,7 @@ function main()
                 if(prev.attr("id").length < 8) prev = prev.prev();
                 if(prev.position().top < 0) prev.parent().scrollTop(prev.parent().scrollTop()+prev.position().top);
                 if(prev.parent().scrollTop()==12) prev.parent().scrollTop(0);
-                if(!(select.crperk.substr(5) in testperk))
+                if(!(select.crperk.substr(5) in mychar.tperk))
                     $("#"+select.crperk).css("color","#00AB00");
                 else
                     $("#"+select.crperk).css("color","#07B");

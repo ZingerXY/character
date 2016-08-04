@@ -648,34 +648,3 @@ function testpp(ss) {
 		if(m.n>m.max){m.max = m.n;m.arr = [];for(var i in stats)m.arr.push(stats[i][2]);}
 	}
 }
-
-function testperks(ss) {
-    ss = ss===undefined ? 40 : ss;
-    var sk = {};
-    for(var j in skills){
-        $("#s"+j).html("");
-        sk[j] = 0;
-    }
-		
-    for(var i in stats)	stats[i][2]=1;
-    for(var i in testperk) {
-        var obj = perk[i][8];
-        if(!emptyObject(obj)) {
-            if("stats" in obj)
-                for(var j in obj.stats)
-                    if(obj.stats[j]>stats[j][2] && !obj.ch) stats[j][2] = obj.stats[j];
-            if("skills" in obj)
-                for(var j in obj.skills) {
-                    if(sk[j] < obj.skills[j]) sk[j] = obj.skills[j];
-                    $("#s"+j).html(sk[j]+"%");
-                }
-                    
-        }
-    }
-    var sum = 0, arr = {};
-    for(var i in stats)	{
-        sum += stats[i][2];
-        arr[i] = stats[i][2];
-    }
-    return [sum,arr];
-}
