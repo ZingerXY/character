@@ -49,7 +49,6 @@ var mychar = {
 }; 
 // mychar.book
 var charp = {
-	name: "", // имя
 	age: getRandInt(14, 60), // возраст
 	sex: "man", // пол
 	level: 1, // уровень
@@ -57,7 +56,8 @@ var charp = {
 	tags: 3, // очки на таг скилов
 	points: 0,	// скилпоинты
 	specialpoint: 0, // Очки распределения статов
-	perkpoint: 0 // Очки перков
+	perkpoint: 0, // Очки перков
+	name: "" // имя
 };
 // Название, описание, сумма
 var stats = {   
@@ -1173,6 +1173,7 @@ function loadbuild(myc,cp) {
     for(var i in mychar.book)
         $("#book"+i).html("x"+mychar.book[i][0]);
 	leveluping = true;
+    regi = true;
 	leveling();
     showlistperk();
     $("#level").html(charp.level);
@@ -1205,7 +1206,7 @@ function setbuild() {
     charp.name = encodeURIComponent(charp.name);
 	var arr = [mychar,charp];
     if(online) {
-        var str = "setbuild="+lzw(JSON.stringify(arr))+"&name="+nameui;
+        var str = "setbuild="+JSON.stringify(arr)+"&name="+nameui;
         if(cookiehash)
             str += "&hash="+cookiehash;
 
@@ -1214,12 +1215,15 @@ function setbuild() {
         url: "basechar.php",
         data: str,
         success: function(msg){
-                if(msg)
+                if(msg) {
                     save = true;
                     cookiehash = Cookies.get("hash");
                     totalurl("http://"+location.host+"/character/?hash="+Cookies.get("hash"));                  
                 }
-        });
+				else {
+					totalurl("Сохранения временно не работают.");
+				}
+        }});
     }
     else {
         save = true;
@@ -1232,12 +1236,11 @@ function getbuild(hash) {
 	$.ajax({
 	type: "POST",
 	url: "basechar.php",
-	/*dataType: 'json',*/
+	dataType: 'json',
 	data: "getbuild="+hash,
 	success: function(msg){
 			if(msg)		
-                //console.log(msg);
-				loadbjson(delzw(msg));
+                loadbuild(msg[0],msg[1]);
 			}
 	});
 }
