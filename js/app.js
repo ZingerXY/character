@@ -838,34 +838,58 @@ function createlistperk() {
 		for(var j in mperk[i]) {
 			var perkit = $("<div id=\"lists"+mperk[i][j]+"\" class=\"perklist\">"+perk[mperk[i][j]][0]+"</div>").appendTo("#crlistperk");
             if(mperk[i][j] in mychar.tperk) $("#lists"+mperk[i][j]).css("color","#07B");
-			perkit.click(function(){
-				if(select.crperk) 
-                    if(!(select.crperk.substr(5) in mychar.tperk))
+            if(!verPerkandTrait(mperk[i][j])) 
+                $("#lists"+mperk[i][j]).css("color","#B00");
+            perkit.click(function(){
+                if(select.crperk) 
+                    if(!verPerkandTrait(select.crperk.substr(5)))
+                        $("#"+select.crperk).css("color","#B00");                    
+                    else if(!(select.crperk.substr(5) in mychar.tperk))
                         $("#"+select.crperk).css("color","#00AB00");
-                    else
+                    else 
                         $("#"+select.crperk).css("color","#07B");
-				select.crperk = this.id;
-				$("#"+this.id).css("color","#00FF00");
-				infoparm("perks",this.id.substr(5));
-			});
+                select.crperk = this.id;
+                if(!verPerkandTrait(select.crperk.substr(5)))
+                    $("#"+this.id).css("color","#F00");
+                else
+                    $("#"+this.id).css("color","#0F0");
+                infoparm("perks",this.id.substr(5));
+            });
             perkit.dblclick(function(){
                 var pp = this.id.substr(5);
+                if(!verPerkandTrait(pp))
+                    return;
                 if(!(pp in mychar.tperk)) {
                     mychar.tperk[pp] = 1;
                     $("#"+this.id).css("color","#07B");
                 }
                 else {
                     delete mychar.tperk[pp];
-                    $("#"+this.id).css("color","#00FF00");
+                    $("#"+this.id).css("color","#0F0");
                 }
                 decalc();
             });
+                
 		}
 	}
-    if(mode == 1 && s > 0) {
-        var keycalc = $("<hr><div id=\"keycalc\" class=\"listlevel\">Расчет</div>").appendTo("#crlistperk");
-        keycalc.click(decalc);
+}
+function verPerkandTrait(p) {   
+    var obj = perk[p][8];
+    if(!emptyObject(obj)) {
+        if("traits" in obj)
+            for(var j in obj.traits)
+                if(j in mychar.traits) {
+                    delete mychar.tperk[p];
+                    return false;
+                }
+        if("perks" in obj)
+            for(var j in obj.perks)
+                if(j in mychar.tperk) {
+                    delete mychar.tperk[p];
+                    return false;   
+                }
     }
+    return true;
 }
 // Рейверс кальк
 function testperks(ss) {
@@ -887,8 +911,7 @@ function testperks(ss) {
                 for(var j in obj.skills) {
                     if(sk[j] < obj.skills[j]) sk[j] = obj.skills[j];
                     $("#s"+j).html(sk[j]+"%");
-                }
-                    
+                }                    
         }
     }
     var sum = 0, arr = {};
@@ -901,16 +924,30 @@ function testperks(ss) {
 // Рейверс кальк
 function decalc() {
     if(!regi) return;
-    var ss = 40 + (chtr("TRAIT_BRUISER")?3:0) + (chtr("TRAIT_SMALL_FRAME")?1:0) + (chtr("TRAIT_KAMIKAZE")?1:0) + (chtr("TRAIT_SKILLED")?8:0)
-    var res = testperks(ss);
-    if(res[0]==70) return;
-    charp.specialpoint = ss - res[0];
-    for(var i in mychar.stats) 
-        mychar.stats[i][0] = res[1][i];               
-    if(chtr("TRAIT_KAMIKAZE"))
-        mychar.stats.AGI[0]--;
-    if(chtr("TRAIT_SKILLED")) {
-        mychar.stats.ENU[0]-=2;mychar.stats.CHA[0]-=2;mychar.stats.INT[0]-=2;mychar.stats.AGI[0]-=2;
+    if(emptyObject(mychar.tperk)) {
+        testperks();
+        mychar.stats = {
+            STR: [8+(chtr("TRAIT_BRUISER")?3:0),0],
+            PER: [7,0],
+            ENU: [8,0+(chtr("TRAIT_SKILLED")?2:0)],
+            CHA: [1,0+(chtr("TRAIT_SKILLED")?2:0)],
+            INT: [8,0+(chtr("TRAIT_SKILLED")?2:0)],
+            AGI: [7+(chtr("TRAIT_SMALL_FRAME")?1:0),0+(chtr("TRAIT_KAMIKAZE")?1:0)+(chtr("TRAIT_SKILLED")?2:0)],
+            LUC: [1,0]};
+            charp.specialpoint = 0;
+    }
+    else {
+        var ss = 40 + (chtr("TRAIT_BRUISER")?3:0) + (chtr("TRAIT_SMALL_FRAME")?1:0) + (chtr("TRAIT_KAMIKAZE")?1:0) + (chtr("TRAIT_SKILLED")?8:0)
+        var res = testperks(ss);
+        if(res[0]==70) return;
+        charp.specialpoint = ss - res[0];
+        for(var i in mychar.stats) 
+            mychar.stats[i][0] = res[1][i];               
+        if(chtr("TRAIT_KAMIKAZE"))
+            mychar.stats.AGI[0]--;
+        if(chtr("TRAIT_SKILLED")) {
+            mychar.stats.ENU[0]-=2;mychar.stats.CHA[0]-=2;mychar.stats.INT[0]-=2;mychar.stats.AGI[0]-=2;
+        }
     }
     statpoints();
 }
@@ -1376,6 +1413,7 @@ function main()
         if(mode>1) mode = 0;
         $("#titlelist").html(mod[mode]);
         createlistperk();
+        decalc();
     });
     $("#totaltext").on('input', function(){
         var str = $("#totaltext").val();
