@@ -1033,6 +1033,12 @@ function require(p) {
     if("skills" in obj)
         for(var i in obj.skills)
             str += "<br>"+skills[i][2]+": "+obj.skills[i];
+    if("traits" in obj)
+        for(var i in obj.traits)
+            str += "<br><span class='deperk'>-"+traits[i][1]+"</span>";
+    if("perks" in obj)
+        for(var i in obj.perks)
+            str += "<br><span class='deperk'>-"+perk[i][0]+"</span>";
     return str;
     
 }
