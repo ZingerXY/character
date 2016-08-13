@@ -888,6 +888,14 @@ function verPerkandTrait(p) {
                     delete mychar.tperk[p];
                     return false;   
                 }
+        /*if("stats" in obj)
+            for(var j in obj.stats)
+                if("ch" in obj) {
+                    if(obj.stats[j] <= stats[j][2])
+                        return false;
+                }
+                else if(obj.stats[j] > stats[j][2])
+                    return false;*/
     }
     return true;
 }
@@ -1302,6 +1310,15 @@ function main()
 	
 	$("#totalkey").click(total);
 	$("#canceltotal").click(function(){$("#total").hide();})
+    
+    $("#upscroll").click(function(){
+        var idscroll = $("#selectperk");
+        idscroll.scrollTop(idscroll.scrollTop() - 12);
+    });
+    $("#downscroll").click(function(){
+        var idscroll = $("#selectperk");
+        idscroll.scrollTop(idscroll.scrollTop() + 12);
+    });
 	
 	$("#men").click(changesex);
 	$("#women").click(changesex);

@@ -336,6 +336,8 @@
                     <div id="textparms" class="text2"></div>
                     <div id="imgparms"></div>
                 </div>
+                <div id="upscroll"></div>
+                <div id="downscroll"></div>
             </div>
             <div id="quest">
                 <div id="selectquest" class="text2"></div>
