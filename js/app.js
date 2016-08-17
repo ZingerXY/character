@@ -1217,10 +1217,16 @@ function loadbuild(myc,cp) {
 	mychar = myc;
 	charp = cp;
     charp.name = decodeURIComponent(charp.name);
-    for(var i in mychar.tags) {
-        $("#"+i+"s").css("color", "#ABABAB");
-		$("#"+i).css("color", "#ABABAB");
-    }
+	for(var i in skills){
+		if(i in mychar.tags) {
+			$("#"+i+"s").css("color", "#ABABAB");
+			$("#"+i).css("color", "#ABABAB");
+		}
+		else {
+			$("#"+i+"s").css("color", "#0E0");
+			$("#"+i).css("color", "#0E0");
+		}
+	}	
     for(var i in mychar.book)
         $("#book"+i).html("x"+mychar.book[i][0]);
 	leveluping = true;
@@ -1319,6 +1325,12 @@ function main()
         var idscroll = $("#selectperk");
         idscroll.scrollTop(idscroll.scrollTop() + 12);
     });
+	
+	$("#selectbuild").change(function(){
+		var bhash = $("#selectbuild option:selected").val();
+		console.log(bhash);
+		getbuild(bhash);
+	});
 	
 	$("#men").click(changesex);
 	$("#women").click(changesex);

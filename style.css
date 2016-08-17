@@ -1119,3 +1119,23 @@ img{
 #downscroll:active {
     background-image: url(img/greendot_big.png);
 }
+
+#selectop {
+    position: absolute;
+    top: -16px;
+    left: 610px;
+}
+
+#selectbuild {
+    padding: 2px;
+    width: 170px;
+    outline: none;
+    color: #0e0;
+    font-family: Arial_Bold;
+    background-color: #0A0A0A;
+    border-color: grey;
+    border: 1px solid #808080;
+    border-radius: 4px;
+}
+
+
