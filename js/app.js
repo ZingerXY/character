@@ -409,7 +409,7 @@ function minusspec(pop){
 function skpoint(n,p){
     var r = [0,0];
     for(var i = p; i > 0 && p > 0; i-- ) {
-        if( n > SkillMod.Add6 ) {if(p >= 6) p -= 6;}
+        if( n > SkillMod.Add6 ) {if(p >= 6) p -= 6; else break;}
         else if( n > SkillMod.Add5 ) {if( p >= 5 ) p -= 5; else break;}
         else if( n > SkillMod.Add4 ) {if( p >= 4 ) p -= 4; else break;}
         else if( n > SkillMod.Add3 ) {if( p >= 3 ) p -= 3; else break;}
@@ -869,7 +869,6 @@ function createlistperk() {
                 }
                 decalc();
             });
-                
 		}
 	}
 }
@@ -1188,11 +1187,16 @@ function total() {
 	for(var i in skills) 
 		if(skills[i][0] > 80) 
 			textarea += skills[i][2]+": "+skills[i][0]+"\n";
+	textarea += "\nИмпланты:\n";
+	for(var i in questinfo)
+		if(i.substr(0,3) == "imp")
+			if(i in mychar.quest)
+				textarea += questinfo[i][mychar.quest[i].vol - 1]+"\n";
 	textarea += "\nКниги:\n";
 	for(var i in mychar.book) {
 		if(i!="prewar"&&mychar.book[i][0]<10)	textarea += textbook[i]+" "+(10-mychar.book[i][0])+"\n";
 		else if (i=="prewar"&&mychar.book[i][0]<20)   textarea += textbook[i]+" "+(20-mychar.book[i][0])+"\n"
-	}
+	}	
 	$("#totaltext").val(textarea);		
 }
 // Скрол по 1 строчке
