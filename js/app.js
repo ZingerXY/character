@@ -289,12 +289,15 @@ function settle() {
 	//Уворот
 	feat.dodge[0] = stats.CHA[2] + (checkperk("PE_HTH_EVADE") ? (feat.apoi[0]/4)+(feat.apoi[0]/2) : 0);
     //Антикрит
-    feat.acrit[0] = checkperk("PE_TERMINATOR") ? (stats.STR[2] + stats.ENU[2])*5 : 
+    feat.acrit[0] = (checkperk("PE_TERMINATOR") ? (stats.STR[2] + stats.ENU[2])*5 : 
                     mychar.traits.TRAIT_SKILLED ? 60 : 
-                    checkperk("PE_STONEWALL") ?  40 : 0;
+                    checkperk("PE_STONEWALL") ?  40 : 0);
 	
 	for(var i in feat) 
-		feat[i][0] += pr.sum("feats",i);	
+		feat[i][0] += pr.sum("feats",i);
+
+	if(feat.acrit[0] > 100) 
+		feat.acrit[0] = 100;
 		
 	for(var n in resist) {
 		var res = pr.sumr(n);
@@ -705,7 +708,12 @@ function levelup(){
 		charp.points += 5 + (stats.INT[2] * 2) - (mychar.traits.TRAIT_NIGHT_PERSON?3:0);
 		numbers($("#point1"),charp.points);
         
-	}   
+	}
+	if(charp.level==29)	{
+		pr.add("feats", "live", 1);
+		feat.live[0] = pr.sum("feats", "live") + 60 + stats.STR[2] + stats.ENU[2]*2;
+		$("#live").html(feat.live[0]+"/"+feat.live[0]);
+	}
 	if(!(charp.level%(mychar.traits.TRAIT_SKILLED?4:3)))
 		charp.perkpoint++;	
 	if(charp.perkpoint > 0)	
