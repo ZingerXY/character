@@ -707,7 +707,6 @@ function levelup(){
 		$("#live").html(feat.live[0]+"/"+feat.live[0]);
 		charp.points += 5 + (stats.INT[2] * 2) - (mychar.traits.TRAIT_NIGHT_PERSON?3:0);
 		numbers($("#point1"),charp.points);
-        
 	}
 	if(charp.level==29)	{
 		pr.add("feats", "live", 1);
@@ -783,7 +782,8 @@ function leveldown() {
     delete mychar.skills[charp.level];  // Удаление скилов
     delete mychar.resist[charp.level];  // Удаление резистов
     
-
+	if(!((charp.level)%(mychar.traits.TRAIT_SKILLED?4:3)))
+		charp.perkpoint--;
     
     charp.level--;
     charp.points = mychar.points[charp.level];
@@ -1203,8 +1203,8 @@ function total() {
 	textarea += "\nКниги:\n";
 	for(var i in mychar.book) {
 		if(i!="prewar"&&mychar.book[i][0]<10)	textarea += textbook[i]+" "+(10-mychar.book[i][0])+"\n";
-		else if (i=="prewar"&&mychar.book[i][0]<20)   textarea += textbook[i]+" "+(20-mychar.book[i][0])+"\n"
-	}	
+		else if (i=="prewar"&&mychar.book[i][0]<20)   textarea += textbook[i]+" "+(20-mychar.book[i][0])+"\n";
+	}
 	$("#totaltext").val(textarea);		
 }
 // Скрол по 1 строчке
