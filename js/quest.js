@@ -20,6 +20,9 @@ var quest = {	// квест, описание, уровней квеста, ми
 			gmedals:["+150 очков распределения(150 медалей)",function(){charp.points+=150;medsp+=150;numbers($("#point1"),charp.points);return 150;},(quest.medals[2]-chobj("quest","medals"))>=150 && medsp<150],
 			zmedals:["Ничего",function(){return 0;},true]});
         }],
+	PE_NCR_REPAIR:["Секреты мастерства: Ремонт", "Механик Модока ознакомил вас с новой технологией починки оружия. Ваш навык Ремонта повышен на 5%.",
+        1,1,99,function(){return true;},
+        function(){pr.add("skills","repair",5,1);}],
 	ranger_smile:["Скиталец у Смайли", "Смайли по доброте душевно соврешенно бесплатно может прокачать скитальца до 60-69%",
         1,1,99,function(){return skills.ranger[0]<60;},
         function(){var t = 10;while ((skills.ranger[0]+t)<60) t += 10;pr.add("skills","ranger",t,1);}],
@@ -128,7 +131,7 @@ var quest = {	// квест, описание, уровней квеста, ми
 			aimp_auxiliary:["+100кг переносимого веса.",function(){pr.add("feats","maxl",100);return 1;},true], 
 			bimp_auxiliary:["+25% к скорости движения по глобальной карте.",function(){return 2;},true],
 			cimp_auxiliary:["+100% к навыку ловушки.",function(){pr.add("skills","traps",100,1);return 3;},true],
-			dimp_auxiliary:["способность Репликант, +50 к красноречию.",function(){addperk("PE_VIEW");pr.add("skills","oratory",50,1);return 4;},true],
+			dimp_auxiliary:["способность Репликант, +50 к красноречию.",function(){/*addperk("PE_VIEW");*/pr.add("skills","oratory",50,1);return 4;},true],
 			eimp_auxiliary:["+100% к навыку воровство, +20 к навыку взлом.",function(){pr.add("skills","steal",100,1);pr.add("skills","hack",20,1);return 5;},true],
 			fimp_auxiliary:["+50 к навыку атлетизм.",function(){pr.add("skills","speed",50,1);return 6;},true],
 			none:["Ничего",function(){return 0;},true]});
