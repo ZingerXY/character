@@ -4,6 +4,7 @@ var medsp = 0;
 var save = false;
 var mode = 0;
 var mod = ["Все перки","Выбранные перки","Доступные перки"];
+var send = false; // Чтоб отправлялось в базу 1 раз за раз.
 
 var nameman = ["Август","Авенир","Аврорий","Адам","Адонис","Алевтин","Алексей","Альберт","Альбин","Альфред","Андрей","Анисий","Антоний","Антонин","Антуан","Аполлон","Аргент","Аркадий","Арсен","Арсений","Артемий","Артур","Атеист","Бажен","Богдан","Боеслав","Боримир","Борис","Будимир","Булат","Вадим","Валерий","Вальтер","Василий","Велорий","Виктор","Вилен","Виталий","Витольд","Влад","Владлен","Воин","Воислав","Володар","Волемир","Всемил","Гаврил","Гаррий","Гелий","Гений","Георгий","Герман","Гертруд","Глеб","Гордий","Горимир","Гранит","Давид","Дамир","Дан","Данил","Дар","Денис","Джозеф","Джон","Дионис","Добрыня","Дональт","Донат","Евгений","Евдоким","Егор","Ефим","Ждан","Захар","Зиновий","Зорий","Ибрагим","Иван","Игорь","Сидор","Июлий","Казимир","Карл","Касьян","Киприан","Кир","Кирилл","Клавдий","Клемент","Клим","Козьма","Лазарь","Ларион","Леонард","Леонид","Леонтий","Лука","Лукиан","Любим","Любомир","Люциан","Май","Маеслав","Макарий","Макс","Максим","Милий","Милонег","Мир","Мирон","Михайло","Модест","Моисей","Монолит","Назарий","Натан","Наум","Неон","Неонил","Нестер","Никандр","Норд","Овидий","Одиссей","Октябрь","Олег","Орест","Осип","Павел","Панфил","Пётр","Прохор","Радий","Радим","Радомир","Сава","Савелий","Свет","Светлан","Север","Северин","Северян","Семён","Сергей","Сталий","Стефан","Тарас","Тристан","Трофим","Фаддей","Фёдор","Федор","Феликс","Филимон","Филипп","Флегонт","Флоренц","Флорин","Фрол","Храбр","Христоф","Эдуард","Эльбрус","Энергий","Эрнст","Юлиан","Юрий","Януарий","Ярополк"];
 var namewoman = ["Агата","Агния","Аза","Аида","Акулина","Аксинья","Алёна","Алиса","Алла","Альбина","Анжела","Анисья","Анита","Анна","Антония","Анфуса","Ариадна","Арина","Арсения","Астра","Астрид","Аэлита","Бажена","Беата","Бела","Белла","Берта","Богдана","Валерия","Ванда","Варвара","Венера","Вера","Веста","Видана","Вилена","Влада","Гайя","Галина","Ганна","Гелена","Глория","Дайна","Дана","Дария","Дарина","Дарьяна","Дия","Диана","Диния","Добрава","Домина","Доротея","Ева","Евгения","Евдокия","Елена","Евфимия","Жанна","Ждана","Зорина","Зинаида","Зиновия","Злата","Зоя","Иванна","Илария","Инга","Инесса","Инна","Иоанна","Иона","Ипатия","Ираида","Ироида","Ирина","Исидора","Искра","Ия","Кирилла","Клавдия","Клара","Ксения","Лада","Лариса","Лениана","Ленина","Леонида","Леонила","Леонтия","Леся","Ливия","Лидия","Лилиана","Лилия","Лина","Любава","Любовь","Людмила","Магда","Мадлен","Мая","Марина","Марья","Мари","Марта","Марфа","Матрона","Меланья","Милада","Милица","Мира","Мирра","Млада","Муза","Надежда","Надия","Нелли","Неонила","Ника","Нина","Нинель","Новелла","Нора","Оксана","Олеся","Олимпия","Ольга","Павла","Павлина","Полина","Радмила","Раиса","Ревмира","Регина","Рената","Римма","Рогнеда","Роза","Розалия","Розана","Руслана","Руфь","Савина","Соломея","Свобода","Селина","Слава","Славяна","Снежана","София","Стелла","Сосанна","Сюзанна","Таира","Таисия","Тамара","Томила","Татьяна","Ульяна","Устинья","Фелиция","Феодора","Флавия","Флория","Фотина","Харита","Хиония","Эльвира","Эльмира","Эльза","Эмма","Эрика","Юлиана","Юнона","Ядвига","Яна","Янина","Яромира"];
@@ -49,7 +50,6 @@ var mychar = {
 }; 
 // mychar.book
 var charp = {
-	name: "", // имя
 	age: getRandInt(14, 60), // возраст
 	sex: "man", // пол
 	level: 1, // уровень
@@ -57,7 +57,8 @@ var charp = {
 	tags: 3, // очки на таг скилов
 	points: 0,	// скилпоинты
 	specialpoint: 0, // Очки распределения статов
-	perkpoint: 0 // Очки перков
+	perkpoint: 0, // Очки перков
+	name: "" // имя
 };
 // Название, описание, сумма
 var stats = {   
@@ -289,12 +290,15 @@ function settle() {
 	//Уворот
 	feat.dodge[0] = stats.CHA[2] + (checkperk("PE_HTH_EVADE") ? (feat.apoi[0]/4)+(feat.apoi[0]/2) : 0);
     //Антикрит
-    feat.acrit[0] = checkperk("PE_TERMINATOR") ? (stats.STR[2] + stats.ENU[2])*5 : 
+    feat.acrit[0] = (checkperk("PE_TERMINATOR") ? (stats.STR[2] + stats.ENU[2])*5 : 
                     mychar.traits.TRAIT_SKILLED ? 60 : 
-                    checkperk("PE_STONEWALL") ?  40 : 0;
+                    checkperk("PE_STONEWALL") ?  40 : 0);
 	
 	for(var i in feat) 
-		feat[i][0] += pr.sum("feats",i);	
+		feat[i][0] += pr.sum("feats",i);
+
+	if(feat.acrit[0] > 100) 
+		feat.acrit[0] = 100;
 		
 	for(var n in resist) {
 		var res = pr.sumr(n);
@@ -409,7 +413,7 @@ function minusspec(pop){
 function skpoint(n,p){
     var r = [0,0];
     for(var i = p; i > 0 && p > 0; i-- ) {
-        if( n > SkillMod.Add6 ) {if(p >= 6) p -= 6;}
+        if( n > SkillMod.Add6 ) {if(p >= 6) p -= 6; else break;}
         else if( n > SkillMod.Add5 ) {if( p >= 5 ) p -= 5; else break;}
         else if( n > SkillMod.Add4 ) {if( p >= 4 ) p -= 4; else break;}
         else if( n > SkillMod.Add3 ) {if( p >= 3 ) p -= 3; else break;}
@@ -704,8 +708,12 @@ function levelup(){
 		$("#live").html(feat.live[0]+"/"+feat.live[0]);
 		charp.points += 5 + (stats.INT[2] * 2) - (mychar.traits.TRAIT_NIGHT_PERSON?3:0);
 		numbers($("#point1"),charp.points);
-        
-	}   
+	}
+	if(charp.level==29)	{
+		pr.add("feats", "live", 1);
+		feat.live[0] = pr.sum("feats", "live") + 60 + stats.STR[2] + stats.ENU[2]*2;
+		$("#live").html(feat.live[0]+"/"+feat.live[0]);
+	}
 	if(!(charp.level%(mychar.traits.TRAIT_SKILLED?4:3)))
 		charp.perkpoint++;	
 	if(charp.perkpoint > 0)	
@@ -714,7 +722,7 @@ function levelup(){
 function addperk(perks) {
     mychar.perks[perks] = {vol: checkperk(perks) + 1, lvl: checkperk(perks) ? mychar.perks[perks].lvl : []};
     mychar.perks[perks].lvl.push(charp.level);
-    perk[select.perk][6]();
+    perk[perks][6]();
 }
 
 function delobj(obj,str,c) {
@@ -775,7 +783,9 @@ function leveldown() {
     delete mychar.skills[charp.level];  // Удаление скилов
     delete mychar.resist[charp.level];  // Удаление резистов
     
-
+	if(!((charp.level)%(mychar.traits.TRAIT_SKILLED?4:3)))
+		if(charp.perkpoint>0)
+			charp.perkpoint--;
     
     charp.level--;
     charp.points = mychar.points[charp.level];
@@ -838,34 +848,65 @@ function createlistperk() {
 		for(var j in mperk[i]) {
 			var perkit = $("<div id=\"lists"+mperk[i][j]+"\" class=\"perklist\">"+perk[mperk[i][j]][0]+"</div>").appendTo("#crlistperk");
             if(mperk[i][j] in mychar.tperk) $("#lists"+mperk[i][j]).css("color","#07B");
-			perkit.click(function(){
-				if(select.crperk) 
-                    if(!(select.crperk.substr(5) in mychar.tperk))
+            if(!verPerkandTrait(mperk[i][j])) 
+                $("#lists"+mperk[i][j]).css("color","#B00");
+            perkit.click(function(){
+                if(select.crperk) 
+                    if(!verPerkandTrait(select.crperk.substr(5)))
+                        $("#"+select.crperk).css("color","#B00");                    
+                    else if(!(select.crperk.substr(5) in mychar.tperk))
                         $("#"+select.crperk).css("color","#00AB00");
-                    else
+                    else 
                         $("#"+select.crperk).css("color","#07B");
-				select.crperk = this.id;
-				$("#"+this.id).css("color","#00FF00");
-				infoparm("perks",this.id.substr(5));
-			});
+                select.crperk = this.id;
+                if(!verPerkandTrait(select.crperk.substr(5)))
+                    $("#"+this.id).css("color","#F00");
+                else
+                    $("#"+this.id).css("color","#0F0");
+                infoparm("perks",this.id.substr(5));
+            });
             perkit.dblclick(function(){
                 var pp = this.id.substr(5);
+                if(!verPerkandTrait(pp))
+                    return;
                 if(!(pp in mychar.tperk)) {
                     mychar.tperk[pp] = 1;
                     $("#"+this.id).css("color","#07B");
                 }
                 else {
                     delete mychar.tperk[pp];
-                    $("#"+this.id).css("color","#00FF00");
+                    $("#"+this.id).css("color","#0F0");
                 }
                 decalc();
             });
 		}
 	}
-    if(mode == 1 && s > 0) {
-        var keycalc = $("<hr><div id=\"keycalc\" class=\"listlevel\">Расчет</div>").appendTo("#crlistperk");
-        keycalc.click(decalc);
+}
+function verPerkandTrait(p) {   
+    var obj = perk[p][8];
+    if(!emptyObject(obj)) {
+        if("traits" in obj)
+            for(var j in obj.traits)
+                if(j in mychar.traits) {
+                    delete mychar.tperk[p];
+                    return false;
+                }
+        if("perks" in obj)
+            for(var j in obj.perks)
+                if(j in mychar.tperk) {
+                    delete mychar.tperk[p];
+                    return false;   
+                }
+        /*if("stats" in obj)
+            for(var j in obj.stats)
+                if("ch" in obj) {
+                    if(obj.stats[j] <= stats[j][2])
+                        return false;
+                }
+                else if(obj.stats[j] > stats[j][2])
+                    return false;*/
     }
+    return true;
 }
 // Рейверс кальк
 function testperks(ss) {
@@ -887,8 +928,7 @@ function testperks(ss) {
                 for(var j in obj.skills) {
                     if(sk[j] < obj.skills[j]) sk[j] = obj.skills[j];
                     $("#s"+j).html(sk[j]+"%");
-                }
-                    
+                }                    
         }
     }
     var sum = 0, arr = {};
@@ -901,16 +941,30 @@ function testperks(ss) {
 // Рейверс кальк
 function decalc() {
     if(!regi) return;
-    var ss = 40 + (chtr("TRAIT_BRUISER")?3:0) + (chtr("TRAIT_SMALL_FRAME")?1:0) + (chtr("TRAIT_KAMIKAZE")?1:0) + (chtr("TRAIT_SKILLED")?8:0)
-    var res = testperks(ss);
-    if(res[0]==70) return;
-    charp.specialpoint = ss - res[0];
-    for(var i in mychar.stats) 
-        mychar.stats[i][0] = res[1][i];               
-    if(chtr("TRAIT_KAMIKAZE"))
-        mychar.stats.AGI[0]--;
-    if(chtr("TRAIT_SKILLED")) {
-        mychar.stats.ENU[0]-=2;mychar.stats.CHA[0]-=2;mychar.stats.INT[0]-=2;mychar.stats.AGI[0]-=2;
+    if(emptyObject(mychar.tperk)) {
+        testperks();
+        mychar.stats = {
+            STR: [8+(chtr("TRAIT_BRUISER")?3:0),0],
+            PER: [7,0],
+            ENU: [8,0+(chtr("TRAIT_SKILLED")?2:0)],
+            CHA: [1,0+(chtr("TRAIT_SKILLED")?2:0)],
+            INT: [8,0+(chtr("TRAIT_SKILLED")?2:0)],
+            AGI: [7+(chtr("TRAIT_SMALL_FRAME")?1:0),0+(chtr("TRAIT_KAMIKAZE")?1:0)+(chtr("TRAIT_SKILLED")?2:0)],
+            LUC: [1,0]};
+            charp.specialpoint = 0;
+    }
+    else {
+        var ss = 40 + (chtr("TRAIT_BRUISER")?3:0) + (chtr("TRAIT_SMALL_FRAME")?1:0) + (chtr("TRAIT_KAMIKAZE")?1:0) + (chtr("TRAIT_SKILLED")?8:0)
+        var res = testperks(ss);
+        if(res[0]==70) return;
+        charp.specialpoint = ss - res[0];
+        for(var i in mychar.stats) 
+            mychar.stats[i][0] = res[1][i];               
+        if(chtr("TRAIT_KAMIKAZE"))
+            mychar.stats.AGI[0]--;
+        if(chtr("TRAIT_SKILLED")) {
+            mychar.stats.ENU[0]-=2;mychar.stats.CHA[0]-=2;mychar.stats.INT[0]-=2;mychar.stats.AGI[0]-=2;
+        }
     }
     statpoints();
 }
@@ -996,6 +1050,12 @@ function require(p) {
     if("skills" in obj)
         for(var i in obj.skills)
             str += "<br>"+skills[i][2]+": "+obj.skills[i];
+    if("traits" in obj)
+        for(var i in obj.traits)
+            str += "<br><span class='deperk'>-"+traits[i][1]+"</span>";
+    if("perks" in obj)
+        for(var i in obj.perks)
+            str += "<br><span class='deperk'>-"+perk[i][0]+"</span>";
     return str;
     
 }
@@ -1137,11 +1197,18 @@ function total() {
 	for(var i in skills) 
 		if(skills[i][0] > 80) 
 			textarea += skills[i][2]+": "+skills[i][0]+"\n";
+	textarea += "\nИмпланты:\n";
+	for(var i in questinfo)
+		if(i.substr(0,3) == "imp")
+			if(i in mychar.quest)
+				textarea += questinfo[i][mychar.quest[i].vol - 1]+"\n";
 	textarea += "\nКниги:\n";
 	for(var i in mychar.book) {
 		if(i!="prewar"&&mychar.book[i][0]<10)	textarea += textbook[i]+" "+(10-mychar.book[i][0])+"\n";
-		else if (i=="prewar"&&mychar.book[i][0]<20)   textarea += textbook[i]+" "+(20-mychar.book[i][0])+"\n"
+		else if (i=="prewar"&&mychar.book[i][0]<20)   textarea += textbook[i]+" "+(20-mychar.book[i][0])+"\n";
 	}
+	if(cookiehash)
+		textarea += "http://"+location.host+"/character/?hash="+cookiehash;
 	$("#totaltext").val(textarea);		
 }
 // Скрол по 1 строчке
@@ -1166,13 +1233,20 @@ function loadbuild(myc,cp) {
 	mychar = myc;
 	charp = cp;
     charp.name = decodeURIComponent(charp.name);
-    for(var i in mychar.tags) {
-        $("#"+i+"s").css("color", "#ABABAB");
-		$("#"+i).css("color", "#ABABAB");
-    }
+	for(var i in skills){
+		if(i in mychar.tags) {
+			$("#"+i+"s").css("color", "#ABABAB");
+			$("#"+i).css("color", "#ABABAB");
+		}
+		else {
+			$("#"+i+"s").css("color", "#0E0");
+			$("#"+i).css("color", "#0E0");
+		}
+	}	
     for(var i in mychar.book)
         $("#book"+i).html("x"+mychar.book[i][0]);
 	leveluping = true;
+    regi = true;
 	leveling();
     showlistperk();
     $("#level").html(charp.level);
@@ -1201,30 +1275,37 @@ function loadbuild(myc,cp) {
 }
 // Сохранение билда в базу данных
 function setbuild() {
+	if (send)
+		return;
     var nameui = charp.name;
     charp.name = encodeURIComponent(charp.name);
 	var arr = [mychar,charp];
     if(online) {
-        var str = "setbuild="+lzw(JSON.stringify(arr))+"&name="+nameui;
+        var str = "setbuild="+JSON.stringify(arr)+"&name="+nameui;
         if(cookiehash)
             str += "&hash="+cookiehash;
-
+		send = true;
         $.ajax({
         type: "POST",
         url: "basechar.php",
         data: str,
         success: function(msg){
-                if(msg)
+                if(msg) {
+					send = false;
                     save = true;
                     cookiehash = Cookies.get("hash");
                     totalurl("http://"+location.host+"/character/?hash="+Cookies.get("hash"));                  
                 }
-        });
+				else {
+					totalurl("Сохранения временно не работают.");
+				}
+        }});
     }
     else {
         save = true;
         totalurl(lzw(JSON.stringify(arr)));
     }
+	charp.name = nameui;
 }
 // Загрузка билда из базы данных
 function getbuild(hash) {
@@ -1232,12 +1313,11 @@ function getbuild(hash) {
 	$.ajax({
 	type: "POST",
 	url: "basechar.php",
-	/*dataType: 'json',*/
+	dataType: 'json',
 	data: "getbuild="+hash,
 	success: function(msg){
 			if(msg)		
-                //console.log(msg);
-				loadbjson(delzw(msg));
+                loadbuild(msg[0],msg[1]);
 			}
 	});
 }
@@ -1256,6 +1336,22 @@ function main()
 	
 	$("#totalkey").click(total);
 	$("#canceltotal").click(function(){$("#total").hide();})
+    
+    $("#upscroll").click(function(){
+        var idscroll = $("#selectperk");
+        idscroll.scrollTop(idscroll.scrollTop() - 12);
+    });
+    $("#downscroll").click(function(){
+        var idscroll = $("#selectperk");
+        idscroll.scrollTop(idscroll.scrollTop() + 12);
+    });
+	
+	$("#selectbuild").change(function(){
+		var bhash = $("#selectbuild option:selected").val();
+		console.log(bhash);
+		cookiehash = bhash;
+		getbuild(bhash);
+	});
 	
 	$("#men").click(changesex);
 	$("#women").click(changesex);
@@ -1373,6 +1469,7 @@ function main()
         if(mode>1) mode = 0;
         $("#titlelist").html(mod[mode]);
         createlistperk();
+        decalc();
     });
     $("#totaltext").on('input', function(){
         var str = $("#totaltext").val();
