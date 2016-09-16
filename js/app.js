@@ -264,7 +264,7 @@ function settle() {
     for(var i in mychar.stats)
 			stats[i][2] = mychar.stats[i][0] + mychar.stats[i][1];
 	// Жизни
-	feat.live[0] = 60 + stats.STR[2] + stats.ENU[2]*2;		
+	feat.live[0] = 60 + stats.STR[2] + stats.ENU[2]*2 + mychar.stats.STR[0]*5;		
 	// Класс брони
 	feat.armc[0] = stats.AGI[2]*(mychar.traits.TRAIT_KAMIKAZE ? 0 : 1)+(mychar.traits.TRAIT_KAMIKAZE ? 1 : 0);							
 	// Очки действий
@@ -1279,11 +1279,12 @@ function setbuild() {
 		return;
     var nameui = charp.name;
     charp.name = encodeURIComponent(charp.name);
-	var arr = [mychar,charp];
+	var arr = [mychar,charp];	
     if(online) {
         var str = "setbuild="+JSON.stringify(arr)+"&name="+nameui;
         if(cookiehash)
             str += "&hash="+cookiehash;
+
 		send = true;
         $.ajax({
         type: "POST",
