@@ -264,7 +264,7 @@ function settle() {
     for(var i in mychar.stats)
 			stats[i][2] = mychar.stats[i][0] + mychar.stats[i][1];
 	// Жизни
-	feat.live[0] = 60 + stats.STR[2] + stats.ENU[2]*2 + mychar.stats.STR[0]*5;		
+	feat.live[0] = 60 + stats.STR[2] + stats.ENU[2]*2 + mychar.stats.STR[0]*2;		
 	// Класс брони
 	feat.armc[0] = stats.AGI[2]*(mychar.traits.TRAIT_KAMIKAZE ? 0 : 1)+(mychar.traits.TRAIT_KAMIKAZE ? 1 : 0);							
 	// Очки действий
@@ -549,58 +549,60 @@ function leveling() {
 			$("#exp").html(levelexp(charp.level));
 			$("#nextexp").html(levelexp(charp.level+1));
 			numbers($("#point1"),charp.points);
-			$("<div/>", {"id": "select"}).appendTo("#main").css({	'backgroundImage': 	"url(img/skillpad.png)", 
-																	"position": 		"absolute",
-																	"top":				"-9px",
-																	"left":				"324px",
-																	"width":			"286px",
-																	"height":			"70px",
-																	"z-index":			"100"
-																	});
-			var pl = $("<div/>", {"id": "pluslight"}).appendTo("#select").css({	
-																	"position": 		"absolute",
-																	"left":				"246px",
-																	"width":			"33px",
-																	"height":			"33px"});
-			var mi = $("<div/>", {"id": "minuslight"}).appendTo("#select").css({
-																	"position": 		"absolute",
-																	"left":				"246px",
-																	"top":				"33px",
-																	"width":			"33px",
-																	"height":			"33px"});
-			
-			pl.mousedown(	function()	{pl.css('backgroundImage',"url(img/greendot_big.png)");});
-			pl.mouseup(	function()	{pl.css(	'backgroundImage', 	"")});
-			mi.mousedown(function()	{mi.css('backgroundImage', 	"url(img/greendot_big.png)");});
-			mi.mouseup(	function()	{mi.css(	'backgroundImage', 	"");});
-			pl.click(plus);
-			mi.click(minus);
-			var plInterval;
-			var collp = 1;
-			var collm = 1;
-			pl.on('mousedown', function(){
-				clearInterval(plInterval);
-				collp = 1;
-				plInterval = setInterval(function(){
-					for(var i = 0; i<collp; i++) pl.click();
-					if(collp<10) collp+=2;
-				}, 200);
-			});
-			pl.on('mouseup mouseout', function(){
-				clearInterval(plInterval);
-			});		
-			var miInterval;
-			mi.on('mousedown', function(){
-				clearInterval(miInterval);
-				collm = 1;
-				miInterval = setInterval(function(){
-					for(var i = 0; i<collm; i++) mi.click();
-					if(collm<10) collm+=2;
-				}, 200);
-			});
-			mi.on('mouseup mouseout', function(){
-				clearInterval(miInterval);
-			});
+			if(!$("div").is('#select')) {
+				$("<div/>", {"id": "select"}).appendTo("#main").css({	'backgroundImage': 	"url(img/skillpad.png)", 
+																		"position": 		"absolute",
+																		"top":				"-9px",
+																		"left":				"324px",
+																		"width":			"286px",
+																		"height":			"70px",
+																		"z-index":			"100"
+																		});
+				var pl = $("<div/>", {"id": "pluslight"}).appendTo("#select").css({	
+																		"position": 		"absolute",
+																		"left":				"246px",
+																		"width":			"33px",
+																		"height":			"33px"});
+				var mi = $("<div/>", {"id": "minuslight"}).appendTo("#select").css({
+																		"position": 		"absolute",
+																		"left":				"246px",
+																		"top":				"33px",
+																		"width":			"33px",
+																		"height":			"33px"});
+				
+				pl.mousedown(	function()	{pl.css('backgroundImage',"url(img/greendot_big.png)");});
+				pl.mouseup(	function()	{pl.css(	'backgroundImage', 	"")});
+				mi.mousedown(function()	{mi.css('backgroundImage', 	"url(img/greendot_big.png)");});
+				mi.mouseup(	function()	{mi.css(	'backgroundImage', 	"");});
+				pl.click(plus);
+				mi.click(minus);
+				var plInterval;
+				var collp = 1;
+				var collm = 1;
+				pl.on('mousedown', function(){
+					clearInterval(plInterval);
+					collp = 1;
+					plInterval = setInterval(function(){
+						for(var i = 0; i<collp; i++) pl.click();
+						if(collp<10) collp+=2;
+					}, 200);
+				});
+				pl.on('mouseup mouseout', function(){
+					clearInterval(plInterval);
+				});		
+				var miInterval;
+				mi.on('mousedown', function(){
+					clearInterval(miInterval);
+					collm = 1;
+					miInterval = setInterval(function(){
+						for(var i = 0; i<collm; i++) mi.click();
+						if(collm<10) collm+=2;
+					}, 200);
+				});
+				mi.on('mouseup mouseout', function(){
+					clearInterval(miInterval);
+				});
+			}
 			showlistperk();
 			regi = false;
 			$("#nameparm").html("");
@@ -826,7 +828,7 @@ function listperkup(){
 //Создание списка перков в окне доступных перков
 function createlistperk() {
 	$("#crlistperk").html("");	
-	var mperk = {3: [],6: [],9: [],12: [],15: [],18: [],30: [],51: []};
+	var mperk = {3: [],6: [],9: [],12: [],15: [],18: [],30: [],33: [],51: []};
     var s = 0;
     if(!("tperk" in mychar)) 
         mychar["tperk"] = {};
@@ -846,7 +848,7 @@ function createlistperk() {
 		if(mperk[i].length === 0) continue;
 		$("<div id=\"lists"+i+"\" class=\"listlevel\">Уровень "+i+"</div>").appendTo("#crlistperk");	
 		for(var j in mperk[i]) {
-			var perkit = $("<div id=\"lists"+mperk[i][j]+"\" class=\"perklist\">"+perk[mperk[i][j]][0]+"</div>").appendTo("#crlistperk");
+			var perkit = $("<div id=\"lists"+mperk[i][j]+"\" class=\"perklist\">"+perk[mperk[i][j]][0]+(perk[mperk[i][j]][2]>1?"("+perk[mperk[i][j]][2]+")":"")+"</div>").appendTo("#crlistperk");
             if(mperk[i][j] in mychar.tperk) $("#lists"+mperk[i][j]).css("color","#07B");
             if(!verPerkandTrait(mperk[i][j])) 
                 $("#lists"+mperk[i][j]).css("color","#B00");
@@ -1349,9 +1351,10 @@ function main()
 	
 	$("#selectbuild").change(function(){
 		var bhash = $("#selectbuild option:selected").val();
-		console.log(bhash);
+		//console.log(bhash);
 		cookiehash = bhash;
-		getbuild(bhash);
+		document.location.search = "?hash="+bhash;
+		//getbuild(bhash);
 	});
 	
 	$("#men").click(changesex);
@@ -1500,10 +1503,12 @@ function main()
     var bgImg = new Image;
     bgImg.src = "img/reg.png";
     bgImg.onload = function(){
-        $("#main").css('backgroundImage', 'url(' + bgImg.src + ')');
-        $("#main").animate({'opacity':'1'},500);
+		if(regi) {
+			$("#main").css('backgroundImage', 'url(' + bgImg.src + ')');
+			$("#main").animate({'opacity':'1'},500);
+		}
     };		
-	if(cookiehash)
+	if(cookiehash)		
 		getbuild();
 }
 //window.addEventListener('DOMContentLoaded', main);
