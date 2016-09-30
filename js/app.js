@@ -706,14 +706,14 @@ function levelup(){
 	$("#nextexp").html(levelexp(charp.level+1));
 	if(charp.level<29)	{
 		pr.add("feats", "live", 2+Math.floor(stats.ENU[2]/2)+(stats.ENU[2]%2?(charp.level%2?0:1):0));
-		feat.live[0] = pr.sum("feats", "live") + 60 + stats.STR[2] + stats.ENU[2]*2;
+		feat.live[0] = pr.sum("feats", "live") + 60 + stats.STR[2] + stats.ENU[2]*2 + mychar.stats.STR[0]*2;
 		$("#live").html(feat.live[0]+"/"+feat.live[0]);
 		charp.points += 5 + (stats.INT[2] * 2) - (mychar.traits.TRAIT_NIGHT_PERSON?3:0);
 		numbers($("#point1"),charp.points);
 	}
 	if(charp.level==29)	{
 		pr.add("feats", "live", 1);
-		feat.live[0] = pr.sum("feats", "live") + 60 + stats.STR[2] + stats.ENU[2]*2;
+		feat.live[0] = pr.sum("feats", "live") + 60 + stats.STR[2] + stats.ENU[2]*2 + mychar.stats.STR[0]*2;
 		$("#live").html(feat.live[0]+"/"+feat.live[0]);
 	}
 	if(!(charp.level%(mychar.traits.TRAIT_SKILLED?4:3)))
@@ -1197,8 +1197,11 @@ function total() {
 	}
 	textarea += "\nПрокаченные навыки:\n";
 	for(var i in skills) 
-		if(skills[i][0] > 80) 
-			textarea += skills[i][2]+": "+skills[i][0]+"\n";
+		if(skills[i][0] > 80) {
+			/*var sum = 0;
+			for(var j in mychar.skills) if(mychar.skills[j][i] != undefined) sum += mychar.skills[j][i][1] - (i in mychar.tags && j == 1)?20:0;*/
+			textarea += skills[i][2]+": "+skills[i][0]+"\n";//+" "+"("+sum+" не скилпоинтами)"+"\n";
+		}			
 	textarea += "\nИмпланты:\n";
 	for(var i in questinfo)
 		if(i.substr(0,3) == "imp")
