@@ -1120,9 +1120,9 @@ function total() {
 	textarea += "\n"+anytext.procnav+"\n";
 	for(var i in skills) 
 		if(skills[i][0] > 80) {
-			/*var sum = 0;
-			for(var j in mychar.skills) if(mychar.skills[j][i] != undefined) sum += mychar.skills[j][i][1] - (i in mychar.tags && j == 1)?20:0;*/
-			textarea += skills[i][2]+": "+skills[i][0]+"\n";//+" "+"("+sum+" не скилпоинтами)"+"\n";
+			var sum = 0;
+			for(var j in mychar.skills) if(mychar.skills[j][i] != undefined) sum += mychar.skills[j][i][0];
+			textarea += skills[i][2]+": "+skills[i][0]+"= <b>"+sum+"</b>"+"\n";
 		}			
 	textarea += "\n"+anytext.imp+"\n";
 	for(var i in questinfo)
