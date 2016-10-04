@@ -65,6 +65,26 @@ var SkillMod = {
     Add5: 175,
     Add6: 200
 };
+startskills = {
+	light: (5 + mychar.stats.AGI[0]*4),					
+	heavy: (mychar.stats.AGI[0]*2),						
+	energy: (0 + mychar.stats.AGI[0]*2),					
+	melee: (30 + (mychar.stats.STR[0]+mychar.stats.AGI[0])*2),	
+	steel: (20 + (mychar.stats.STR[0]+mychar.stats.AGI[0])*2),	
+	thrown: (mychar.stats.AGI[0]*4),						
+	orderly: ((mychar.stats.PER[0]+mychar.stats.INT[0])*2),		
+	doctor: (5 + mychar.stats.PER[0]+mychar.stats.INT[0]),		
+	sneak: (5 + mychar.stats.AGI[0]*3),					
+	hack: (10 + mychar.stats.AGI[0]+ mychar.stats.PER[0]),		
+	steal: (mychar.stats.AGI[0]*3),						
+	traps: (10 + mychar.stats.AGI[0]+ mychar.stats.PER[0]),		
+	science: (mychar.stats.INT[0]*4),					
+	repair: (mychar.stats.INT[0]*3),						
+	oratory: (mychar.stats.CHA[0]*5),						
+	trade: (mychar.stats.CHA[0]*4),						
+	speed: (0),									
+	ranger: ((mychar.stats.ENU[0]+mychar.stats.INT[0])*2)
+}
 // SKILLS
 var pr = {// Создание ветки обьекта crSkills
     cr: function(pr,str){
@@ -1121,8 +1141,17 @@ function total() {
 	for(var i in skills) 
 		if(skills[i][0] > 80) {
 			var sum = 0;
-			for(var j in mychar.skills) if(mychar.skills[j][i] != undefined) sum += mychar.skills[j][i][0];
-			textarea += skills[i][2]+": "+skills[i][0]+"= <b>"+sum+"</b>"+"\n";
+			for(var j in mychar.skills) {
+				if(mychar.skills[j][i] != undefined) {
+					sum += mychar.skills[j][i][0];
+					if (j == 1)
+						sum += mychar.skills[j][i][1];
+				}					
+			}
+			sumperk = sum+startskills[i];
+			if(sumperk > skills[i][0]) sumperk = skills[i][0];
+			sumperk2 = skills[i][0]-sumperk;
+			textarea += skills[i][2]+": "+skills[i][0]+(sumperk2>0?" = "+sumperk+" + "+sumperk2:"")+"\n";
 		}			
 	textarea += "\n"+anytext.imp+"\n";
 	for(var i in questinfo)
