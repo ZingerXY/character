@@ -66,24 +66,24 @@ var SkillMod = {
     Add6: 200
 };
 startskills = {
-	light: (5 + mychar.stats.AGI[0]*4),					
-	heavy: (mychar.stats.AGI[0]*2),						
-	energy: (0 + mychar.stats.AGI[0]*2),					
-	melee: (30 + (mychar.stats.STR[0]+mychar.stats.AGI[0])*2),	
-	steel: (20 + (mychar.stats.STR[0]+mychar.stats.AGI[0])*2),	
-	thrown: (mychar.stats.AGI[0]*4),						
-	orderly: ((mychar.stats.PER[0]+mychar.stats.INT[0])*2),		
-	doctor: (5 + mychar.stats.PER[0]+mychar.stats.INT[0]),		
-	sneak: (5 + mychar.stats.AGI[0]*3),					
-	hack: (10 + mychar.stats.AGI[0]+ mychar.stats.PER[0]),		
-	steal: (mychar.stats.AGI[0]*3),						
-	traps: (10 + mychar.stats.AGI[0]+ mychar.stats.PER[0]),		
-	science: (mychar.stats.INT[0]*4),					
-	repair: (mychar.stats.INT[0]*3),						
-	oratory: (mychar.stats.CHA[0]*5),						
-	trade: (mychar.stats.CHA[0]*4),						
-	speed: (0),									
-	ranger: ((mychar.stats.ENU[0]+mychar.stats.INT[0])*2)
+	light: function(){return (5 + mychar.stats.AGI[0]*4)},					
+	heavy: function(){return (mychar.stats.AGI[0]*2)},						
+	energy: function(){return (0 + mychar.stats.AGI[0]*2)},					
+	melee: function(){return (30 + (mychar.stats.STR[0]+mychar.stats.AGI[0])*2)},	
+	steel: function(){return (20 + (mychar.stats.STR[0]+mychar.stats.AGI[0])*2)},	
+	thrown: function(){return (mychar.stats.AGI[0]*4)},					
+	orderly: function(){return ((mychar.stats.PER[0]+mychar.stats.INT[0])*2)},
+	doctor: function(){return (5 + mychar.stats.PER[0]+mychar.stats.INT[0])},
+	sneak: function(){return (5 + mychar.stats.AGI[0]*3)},
+	hack: function(){return (10 + mychar.stats.AGI[0]+ mychar.stats.PER[0])},
+	steal: function(){return (mychar.stats.AGI[0]*3)},
+	traps: function(){return (10 + mychar.stats.AGI[0]+ mychar.stats.PER[0])},
+	science: function(){return (mychar.stats.INT[0]*4)},		
+	repair: function(){return (mychar.stats.INT[0]*3)},
+	oratory: function(){return (mychar.stats.CHA[0]*5)},
+	trade: function(){return (mychar.stats.CHA[0]*4)},
+	speed: function(){return (0)},
+	ranger: function(){return ((mychar.stats.ENU[0]+mychar.stats.INT[0])*2)}
 }
 // SKILLS
 var pr = {// Создание ветки обьекта crSkills
@@ -1148,7 +1148,7 @@ function total() {
 						sum += mychar.skills[j][i][1];
 				}					
 			}
-			sumperk = sum+startskills[i];
+			sumperk = sum+startskills[i]();
 			if(sumperk > skills[i][0]) sumperk = skills[i][0];
 			sumperk2 = skills[i][0]-sumperk;
 			textarea += skills[i][2]+": "+skills[i][0]+(sumperk2>0?" = "+sumperk+" + "+sumperk2:"")+"\n";
