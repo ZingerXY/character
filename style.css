@@ -1138,4 +1138,9 @@ img{
     border-radius: 4px;
 }
 
-
+#by {
+	position: absolute;
+    right: 0px;
+    bottom: 0px;
+    color: green;
+}
