@@ -561,7 +561,7 @@ function leveling() {
 // Переход обратно к созданию
 function reg(){
 	Cookies.remove('hash', { path: '' });
-	location.replace("index.htm");
+	document.location.search = "";
 }
 // Получить количество опыта необходимое для этого уровня
 function levelexp(n) {

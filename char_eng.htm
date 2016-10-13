@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Создание персонажа - калькулятор билдов Fallout Online: Requiem</title>
+		<title>Character build calculator for Fallout Online: Requiem</title>
 		<meta name="description" content="Калькулятор билдов Fallout Online для сервера Requiem">		
 		<meta name="title" content="Калькулятор билдов Fallout Online для сервера Requiem">
 		<meta itemprop="name" content="Калькулятор билдов Fallout Online для сервера Requiem">
@@ -16,7 +16,7 @@
 		<script type = "text/javascript" async src = "js/traits.js"></script>
 		<script type = "text/javascript" async src = "js/app.js"></script>		
 		<script type = "text/javascript" async src = "js/quest.js"></script>
-		<script type = "text/javascript" async src = "js/text.js"></script>
+		<script type = "text/javascript" async src = "js/text_eng.js"></script>
         <script type = "text/javascript" async src = "js/LZW.js"></script>
         <script async src="js/js.cookie.js"></script>
         <script>var cookiehash = false;var online = false;</script>
@@ -69,9 +69,9 @@
             <div id="wrap"></div>
             <div id="name" class="text shadow"></div>
             <div id="entername" class="text">
-                <div id="nametext" class="text shadow">ИМЯ</div>
+                <div id="nametext" class="text shadow">NAME</div>
                 <div id="namenter" class="text2" contenteditable></div>
-                <div id="passtext" class="text shadow">ПАРОЛЬ</div>
+                <div id="passtext" class="text shadow">PASSWORD</div>
                 <div id="pasenter" class="text2" contenteditable></div>	
             </div>
             <div id="age" class="text shadow">25</div>
@@ -80,69 +80,69 @@
                 <div id="numberage" class="npoint"></div>
                 <div id="minusage"></div>
             </div>
-            <div id="sex" class="text shadow">МУЖ.</div>
+            <div id="sex" class="text shadow">Sex</div>
             <div id="entersex" class="text">
                 <div id="men"></div>
                 <div id="women"></div>
             </div>
             <div id="special">
-                <div id="STRn" class="STR text special shadow">СЛ</div>
+                <div id="STRn" class="STR text special shadow">ST</div>
                 <div id="STR" class="STR numspec npoint"></div>
-                <div id="STRt" class="STR znach">Средн.</div>
+                <div id="STRt" class="STR znach">Avrg</div>
                 <div id="plusSTR" class="STR key reg spec plus" ></div>
                 <div id="minusSTR" class="STR key reg spec minus" ></div>
-                <div id="PERn" class="PER text special shadow">ВС</div>
+                <div id="PERn" class="PER text special shadow">PE</div>
                 <div id="PER" class="PER numspec npoint"></div>
-                <div id="PERt" class="PER znach">Средн.</div>
+                <div id="PERt" class="PER znach">Avrg</div>
                 <div id="plusPER" class="PER key reg spec plus" ></div>
                 <div id="minusPER" class="PER key reg spec minus" ></div>
-                <div id="ENUn" class="ENU text special shadow">ВН</div>
+                <div id="ENUn" class="ENU text special shadow">EN</div>
                 <div id="ENU" class="ENU numspec npoint"></div>
-                <div id="ENUt" class="ENU znach">Средн.</div>
+                <div id="ENUt" class="ENU znach">Avrg</div>
                 <div id="plusENU" class="ENU key reg spec plus" ></div>
                 <div id="minusENU" class="ENU key reg spec minus" ></div>
-                <div id="CHAn" class="CHA text special shadow">ОБ</div>
+                <div id="CHAn" class="CHA text special shadow">CH</div>
                 <div id="CHA" class="CHA numspec npoint"></div>
-                <div id="CHAt" class="CHA znach">Средн.</div>
+                <div id="CHAt" class="CHA znach">Avrg</div>
                 <div id="plusCHA" class="CHA key reg spec plus" ></div>
                 <div id="minusCHA" class="CHA key reg spec minus" ></div>
-                <div id="INTn" class="INT text special shadow">ИН</div>
+                <div id="INTn" class="INT text special shadow">IN</div>
                 <div id="INT" class="INT numspec npoint"></div>
-                <div id="INTt" class="INT znach">Средн.</div>
+                <div id="INTt" class="INT znach">Avrg</div>
                 <div id="plusINT" class="INT key reg spec plus" ></div>
                 <div id="minusINT" class="INT key reg spec minus" ></div>
-                <div id="AGIn" class="AGI text special shadow">ЛВ</div>
+                <div id="AGIn" class="AGI text special shadow">AG</div>
                 <div id="AGI" class="AGI numspec npoint"></div>
-                <div id="AGIt" class="AGI znach">Средн.</div>
+                <div id="AGIt" class="AGI znach">Avrg</div>
                 <div id="plusAGI" class="AGI key reg spec plus" ></div>
                 <div id="minusAGI" class="AGI key reg spec minus" ></div>
-                <div id="LUCn" class="LUC text special shadow">УД</div>
+                <div id="LUCn" class="LUC text special shadow">LK</div>
                 <div id="LUC" class="LUC numspec npoint"></div>
-                <div id="LUCt" class="LUC znach">Средн.</div>
+                <div id="LUCt" class="LUC znach">Avrg</div>
                 <div id="plusLUC" class="LUC key reg spec plus" ></div>
                 <div id="minusLUC" class="LUC key reg spec minus" ></div>
             </div>
-            <div id="specialpointext" class="text reg shadow">ОЧКИ РАСП.</div><div id="specialpoint" class="text reg npoint"></div>
+            <div id="specialpointext" class="text reg shadow">SPECIAL.</div><div id="specialpoint" class="text reg npoint"></div>
             <div id="experience" class="leveling text2">
-                <div id="textlevel">Уровень:</div>
+                <div id="textlevel">Level:</div>
                 <div id="level"></div>
-                <div id="textexp">Опыт:</div>
+                <div id="textexp">Exp:</div>
                 <div id="exp"></div>
-                <div id="textnextexp">След.ур.:</div>
+                <div id="textnextexp">Next lvl:</div>
                 <div id="nextexp"></div>
                 <div id="levelup"></div>
                 <div id="leveldown"></div>
             </div>
             <div id="feat1" class="text2"> 
-                <div id="life" class="resist res-2">Жизни</div><div id="live" class="resist resnum0 res-2"></div>
-                <div id="dadge" class="resist res-1">Уворот</div><div id="dodge" class="resist resnum0 res-1"></div>
-                <div id="anticrit" class="resist res0">Антикрит</div><div id="acrit" class="resist resnum0 res0">0%</div>
-                <div id="textnormal" class="resist res1">Норма</div><div id="normal" class="resist resnum0 res1"></div>
-                <div id="textlaser" class="resist res2">Лазер</div><div id="laser" class="resist resnum0 res2"></div>
-                <div id="textfire" class="resist res3">Огонь</div><div id="fire" class="resist resnum0 res3"></div>
-                <div id="textplasma" class="resist res4">Плазма</div><div id="plasma" class="resist resnum0 res4"></div>
-                <div id="textexplode" class="resist res5">Взрыв</div><div id="explode" class="resist resnum0 res5"></div>
-                <div id="textelectro" class="resist res6">Электро</div><div id="electro" class="resist resnum0 res6"></div>
+                <div id="life" class="resist res-2">Hitpoints</div><div id="live" class="resist resnum0 res-2"></div>
+                <div id="dadge" class="resist res-1">Evasion</div><div id="dodge" class="resist resnum0 res-1"></div>
+                <div id="anticrit" class="resist res0">Anticrit</div><div id="acrit" class="resist resnum0 res0">0%</div>
+                <div id="textnormal" class="resist res1">Normal</div><div id="normal" class="resist resnum0 res1"></div>
+                <div id="textlaser" class="resist res2">Laser</div><div id="laser" class="resist resnum0 res2"></div>
+                <div id="textfire" class="resist res3">Fire</div><div id="fire" class="resist resnum0 res3"></div>
+                <div id="textplasma" class="resist res4">Plasma</div><div id="plasma" class="resist resnum0 res4"></div>
+                <div id="textexplode" class="resist res5">Explosion</div><div id="explode" class="resist resnum0 res5"></div>
+                <div id="textelectro" class="resist res6">Electro</div><div id="electro" class="resist resnum0 res6"></div>
                 <!--div id="toxic" class="effect">Отравление</div>
                 <div id="radiation" class="effect">Облучение</div>
                 <div id="woundeye" class="effect">Ранение в глаз</div>
@@ -152,16 +152,16 @@
                 <div id="brokeleftleg" class="effect">Сломана левая нога</div-->
             </div>
             <div id="feat2" class="text2"> 
-                <div id="armorclass" class="text2 featop0">Класс брони</div><div id="armc" class="text2 featnum featop0"></div>
-                <div id="actionpoint" class="text2 featop1">Очки действий</div><div id="apoi" class="text2 featnum featop1"></div>
-                <div id="maxload" class="text2 featop2">Макс. груз</div><div id="maxl" class="text2 featnum featop2"></div>
-                <div id="meledmg" class="text2 featop3">Рукоп. повр.</div><div id="mdmg" class="text2 featnum featop3"></div>
-                <div id="overview" class="text2 featop4">Радиус обзора</div><div id="oview"  class="text2 featnum featop4"></div>
-                <div id="stabiltoxic" class="text2 featop5">Уст. к яду</div><div id="stox" class="text2 featnum featop5"></div>
-                <div id="stabilradi" class="text2 featop6">Уст. к рад</div><div id="srad" class="text2 featnum featop6"></div>
-                <div id="procedure" class="text2 featop7">Порядок</div><div id="proc" class="text2 featnum featop7"></div>
-                <div id="levelhil" class="text2 featop8">Уров. лечен.</div><div id="levh" class="text2 featnum featop8"></div>
-                <div id="critrate" class="text2 featop9">Шанс на крит.</div><div id="crit" class="text2 featnum featop9"></div>
+                <div id="armorclass" class="text2 featop0">Armor class</div><div id="armc" class="text2 featnum featop0"></div>
+                <div id="actionpoint" class="text2 featop1">Action points</div><div id="apoi" class="text2 featnum featop1"></div>
+                <div id="maxload" class="text2 featop2">Maximum AP</div><div id="maxl" class="text2 featnum featop2"></div>
+                <div id="meledmg" class="text2 featop3">Melee damage</div><div id="mdmg" class="text2 featnum featop3"></div>
+                <div id="overview" class="text2 featop4">Field of View</div><div id="oview"  class="text2 featnum featop4"></div>
+                <div id="stabiltoxic" class="text2 featop5">Poison Res.</div><div id="stox" class="text2 featnum featop5"></div>
+                <div id="stabilradi" class="text2 featop6">Radiation Res.</div><div id="srad" class="text2 featnum featop6"></div>
+                <div id="procedure" class="text2 featop7">Sequence</div><div id="proc" class="text2 featnum featop7"></div>
+                <div id="levelhil" class="text2 featop8">Healing Rate</div><div id="levh" class="text2 featnum featop8"></div>
+                <div id="critrate" class="text2 featop9">Critical Chance</div><div id="crit" class="text2 featnum featop9"></div>
             </div>
             <div id="skill" class="text2">
                 <div id="lights" class="light skill"></div><div id="slight" class="light spoint"></div><div id="light" class="light point"></div>
@@ -241,9 +241,9 @@
                     <div id="keyspeed" class="speed minikey2"></div>
                     <div id="keyranger" class="ranger minikey2"></div>
             </div>
-            <div id="skillpoint1" class="text leveling shadow">ОЧКИ УМЕНИЙ</div>
+            <div id="skillpoint1" class="text leveling shadow">SKILLPOINTS</div>
             <div id="point1" class="leveling npoint"></div>
-            <div id="skillpoint2" class="text reg shadow">ОСОБЫЕ НАВ</div>
+            <div id="skillpoint2" class="text reg shadow">TAGS</div>
             <div id="point2" class="reg npoint"></div>
             <div id="infoparm">
                 <div id="nameparm"></div>
@@ -252,29 +252,29 @@
             </div>
             <div id="switch" class="leveling">
                 <div id="switch1"></div>
-                <div id="textswitch1" class="text shadow">БОНУСЫ</div>
+                <div id="textswitch1" class="text shadow">BONUSES</div>
                 <div id="switch2"></div>
-                <div id="textswitch2" class="text shadow">КНИГИ</div>
+                <div id="textswitch2" class="text shadow">BOOKS</div>
                 <div id="switch3"></div>
-                <div id="textswitch3" class="text shadow">КВЕСТЫ</div>
+                <div id="textswitch3" class="text shadow">QUESTS</div>
             </div>
             <div id="traits" class="text2 reg">
-                <div id="TRAIT_FAST_METABOLISM" class="text2 left1">Быстрый метабол</div>
-                <div id="TRAIT_BRUISER" class="text2 left2">Крушила</div>
-                <div id="TRAIT_SMALL_FRAME" class="text2 left3">Хилое тело</div>
-                <div id="TRAIT_ONE_HANDER" class="text2 left4">Однорукий</div>
-                <div id="TRAIT_FINESSE" class="text2 left5">Точность</div>
-                <div id="TRAIT_KAMIKAZE" class="text2 left6">Камикадзе</div>
-                <div id="TRAIT_HEAVY_HANDED" class="text2 left7">Громила</div>
-                <div id="TRAIT_FAST_SHOT" class="text2 left8">Быстрый стрелок</div>
-                <div id="TRAIT_BLOODY_MESS" class="text2 right left1">Маньяк</div>
-                <div id="TRAIT_JINXED" class="text2 right left2">Дурной глаз</div>
-                <div id="TRAIT_GOOD_NATURED" class="text2 right left3">Добродушие</div>
-                <div id="TRAIT_CHEM_RELIANT" class="text2 right left4">Химик</div>
-                <div id="TRAIT_CHEM_RESISTANT" class="text2 right left5">Стабильный</div>
-                <div id="TRAIT_SEX_APPEAL" class="text2 right left6">Жидкое тело</div>
-                <div id="TRAIT_SKILLED" class="text2 right left7">Умелец</div>
-                <div id="TRAIT_NIGHT_PERSON" class="text2 right left8">Импульсивный</div>
+                <div id="TRAIT_FAST_METABOLISM" class="text2 left1">Fast Metabolism</div>
+                <div id="TRAIT_BRUISER" class="text2 left2">Bruiser</div>
+                <div id="TRAIT_SMALL_FRAME" class="text2 left3">Small Frame</div>
+                <div id="TRAIT_ONE_HANDER" class="text2 left4">One Handed</div>
+                <div id="TRAIT_FINESSE" class="text2 left5">Finesse</div>
+                <div id="TRAIT_KAMIKAZE" class="text2 left6">Kamikaze</div>
+                <div id="TRAIT_HEAVY_HANDED" class="text2 left7">Heavy Handed</div>
+                <div id="TRAIT_FAST_SHOT" class="text2 left8">Fast Shoot</div>
+                <div id="TRAIT_BLOODY_MESS" class="text2 right left1">Maniac</div>
+                <div id="TRAIT_JINXED" class="text2 right left2">Jinxed</div>
+                <div id="TRAIT_GOOD_NATURED" class="text2 right left3">Goodheart</div>
+                <div id="TRAIT_CHEM_RELIANT" class="text2 right left4">Chemist</div>
+                <div id="TRAIT_CHEM_RESISTANT" class="text2 right left5">Stable</div>
+                <div id="TRAIT_SEX_APPEAL" class="text2 right left6">Liquid Body</div>
+                <div id="TRAIT_SKILLED" class="text2 right left7">Skilled</div>
+                <div id="TRAIT_NIGHT_PERSON" class="text2 right left8">Impulsive</div>
             </div>
             <div id="keytraits01" class="text2 reg">
                 <div id="lkeyTRAIT_FAST_METABOLISM" class="lkey1 keys"></div>
@@ -354,15 +354,15 @@
             <div id="createlistperk" class="text2">
                 <div id="titlelistperk" class="text2"><div id="titlelist" class="listhead"></div><hr></div>
                 <div id="crlistperk" class="text2"></div>
-                <div id="fotterperk" class="text2"><center><hr><a href="../message.php">Написать автору</a></center></div>
+                <div id="fotterperk" class="text2"><center><hr><a href="../message.php">Message author</a></center></div>
             </div>
             <div id="total" class="text2">
                 <textarea id="totaltext" name="text"></textarea>
-                <div id="loadtotal" class="shadow">ЗАГРУЗИТЬ</div>
+                <div id="loadtotal" class="shadow">LOAD</div>
                 <div id="canceltotal"></div>
             </div>
-            <div id="loadkey" class="text reg shadow">ЗАГРУЗИТЬ</div>
-            <div id="totalkey" class="text leveling shadow">ИТОГ</div>
+            <div id="loadkey" class="text reg shadow">LOAD</div>
+            <div id="totalkey" class="text leveling shadow">SUMMARY</div>
 			<div id="by" class="text2">by ZingerY by supported BountyHunters</div>
             <!--div id="selectop"><select id="selectbuild">
                 <option selected="selected">Персонаж 1</option>
