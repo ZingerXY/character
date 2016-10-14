@@ -930,7 +930,7 @@ function showlistperk(){
 			for(var i in mychar.perks[j].lvl)
 				mperk[mychar.perks[j].lvl[i]] = j;
 		for(var j in mperk){
-			lineit.append("<div><span id=\"lists"+j+"\" class=\"listlvl\">"+j+" ур: </span><span id=\"list"+mperk[j]+"\" class=\"perklist\">"+textperk[mperk[j]][0]/*+(checkperk(mperk[j])>1?"("+checkperk(mperk[j])+")":"")*/+"</span></div>");
+			lineit.append("<div><span id=\"lists"+j+"\" class=\"listlvl\">"+j+anytext.lvl3+" </span><span id=\"list"+mperk[j]+"\" class=\"perklist\">"+textperk[mperk[j]][0]/*+(checkperk(mperk[j])>1?"("+checkperk(mperk[j])+")":"")*/+"</span></div>");
 			$("#list"+mperk[j]).click(function(){infoparm("perks",this.id.substr(4));});
 		}
 	}
