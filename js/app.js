@@ -594,6 +594,7 @@ function switchinfo() {
 }
 // Выбор навыка для прокачки
 function selectskill() {
+	if(regi) return;
 	var n = $("#select").remove();
 	var tops = this.offsetParent.offsetTop + this.offsetTop - 27;
 	var lefts = this.offsetParent.offsetLeft + this.offsetLeft - 6;
@@ -1025,10 +1026,10 @@ function infoparm(ch,prm){
 			$("#textparm").html(str);
 		break;
 		case "skills": // добавить описание
-			$("#nameparm").html(textperk[prm][0]);
-			$("#textparm").html(textperk[prm][1]);
+			$("#nameparm").html(skills[prm][2]);
+			$("#textparm").html(skills[prm][3]);
 			$("#imgparm").removeClass('loaded');
-			$("#imgparm").html("<img src=\"skill/"+prm.substr(3)+".jpg\" onload=\"imgLoaded(this)\">");
+			$("#imgparm").html("<img src=\"skill/"+prm+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
 		case "stats": // добавить описание
 			$("#nameparm").html(stats[prm][0]);
@@ -1420,6 +1421,7 @@ function main()
 		$("#key"+j).mouseup(function(){$("#lkey"+this.id.substr(3)).html("");});
 		$("#key"+j).click(tags);
 		$("#butt"+j).click(selectskill);
+		$("#butt"+j).click(function(){infoparm("skills",this.id.substr(4))});
         $("#"+j+"s").html(skills[j][2]);
 	}    
     $("#titlelist").click(function(){
