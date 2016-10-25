@@ -4,6 +4,7 @@ var medsp = 0;
 var save = false;
 var mode = 0;
 var send = false; // Чтоб отправлялось в базу 1 раз за раз.
+var req = false;
 
 function getRandInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -982,8 +983,9 @@ function showlistquest(){
         }
     }
 }
+// Создает строку требований перка
 function require(p) {
-    var str = "<br><br>"+anytext.treb;
+    var str = anytext.treb;
     var obj = perk[p][8];
     if(emptyObject(obj)){
         str += "<br>"+anytext.net;
@@ -1015,8 +1017,8 @@ function infoparm(ch,prm){
 		break;
 		case "perks": 
 			$("#nameparm").html(textperk[prm][0]);
-            var str = textperk[prm][1] + require(prm);
-			$("#textparm").html(str);
+			$("#textparm").html(textperk[prm][1]);
+			$("#textparmreq").html(require(prm));
 			$("#imgparm").removeClass('loaded');
 			$("#imgparm").html("<img src=\"skill/"+prm.substr(3)+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
@@ -1252,7 +1254,7 @@ function setbuild() {
 					send = false;
                     save = true;
                     cookiehash = Cookies.get("hash");
-                    totalurl("http://"+location.host+"/character/?hash="+Cookies.get("hash"));                  
+                    totalurl("http://"+location.host+"/?char&hash="+Cookies.get("hash"));                   
                 }
 				else {
 					totalurl(anytext.nosave);
@@ -1292,6 +1294,19 @@ function main()
 	$("#answ").on('wheel', scrollit);
 	for(var i = 1; i<4;i++) $("#textlist"+i).on('wheel', scrollit);
 	
+	$("#buttreq").click(function(e){
+		if(req) {
+			$("#buttreq").css("background-color", "rgba(255, 0, 0, 0.55)");
+			$("#textparm").show();
+			$("#textparmreq").hide();
+		}
+		else {
+			$("#buttreq").css("background-color", "rgba(0, 255, 0, 0.55)");
+			$("#textparm").hide();
+			$("#textparmreq").show();			
+		}
+		req = !req;
+	});
 	$("#totalkey").click(total);
 	$("#canceltotal").click(function(){$("#total").hide();})
     

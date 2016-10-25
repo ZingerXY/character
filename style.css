@@ -1149,3 +1149,21 @@ img{
 				1px -1px 0px #000, 
 				-1px 1px 0px #000;
 }
+
+#buttreq {
+	position: absolute;
+    height: 10px;
+    width: 10px;
+    background-color: rgba(255, 0, 0, 0.55);
+    right: 4px;
+    border: rgba(255,255,255,0.50) solid 1px;
+    border-radius: 2px;
+}
+
+#buttreq:hover {
+	border-color: rgba(255,255,255,0.80);
+}
+
+#textparmreq {
+	display: none;
+}
