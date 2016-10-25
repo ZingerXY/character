@@ -265,7 +265,7 @@ var textperk = {
 	PE_VAULT_CITY_TRAINING: ["VC Med Course", "You managed to get medical training from the best Vault City specialists."],
 	PE_EXPERT_EXCREMENT: ["Expert Expeditor", "You're best in anything involving brahmin shit."],
 	PE_JINXED_II: ["Jinxed Eye", "A good side of it - enemy are making stupid mistakes more often. Bad side is - same applies to you!"],
-	PE_TERMINATOR: ["Terminator}", "You don't know anything about knockdowns, blind or cripples. All critical effects are ignored following this formula: (Str+End)*5."],
+	PE_TERMINATOR: ["Terminator", "You don't know anything about knockdowns, blind or cripples. All critical effects are ignored following this formula: (Str+End)*5."],
 	PE_IRON_MAN: ["Iron Man", "You receive less pizduley with this perk."],
     PE_PRO_UDAR: ["Piercing Strike", "Your Chi-energy control allows you to pierce enemy armor. Enemy Resistances are greatly decreased when using melee weapon."],
 	PE_ADD_ATAC: ["Bonus Attacks", "Weapon trigger pressing is your finest ability. You have 20% chance to restore 2 Action Points on each attack."],
