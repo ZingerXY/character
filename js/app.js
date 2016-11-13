@@ -172,7 +172,8 @@ function tags() {
 	settle();
 }
 // расчеты навыков и параметров и их обновление
-function settle() {	
+function settle(str) {	
+	str = str || false;
 	// Легкое оружие
 	skills.light[0] = 5 + mychar.stats.AGI[0]*4;					
 	// Тяжелое
@@ -269,6 +270,14 @@ function settle() {
         else
             $("#"+j).html(feat[j][0]+"/"+feat[j][0]);
 	}
+	if(str && str == "speed"){
+		infoparm("skills","speed");
+		$("#buttreq").css("background-color", "rgba(0, 255, 0, 0.55)");
+		$("#textparm").hide();
+		$("#textparmreq").show();
+		req = true;
+	}
+		
 }
 // Обновление статов
 function statpoints(){	
@@ -387,7 +396,7 @@ function plus() {
 	pr.add("skills",str, n - skills[str][0]);
 	charp.points -= s;
 	numbers($("#point1"),charp.points);
-	settle();
+	settle(str);
 }
 // Откачка навыков
 function minus() {
@@ -409,7 +418,7 @@ function minus() {
 	pr.add("skills",str, n - skills[str][0]);
 	charp.points += s;
 	numbers($("#point1"),charp.points);
-	settle();
+	settle(str);
 }
 // скрытие окон по Esc
 function modalCloseEsc (pop) {	
@@ -661,7 +670,7 @@ function levelup(){
 		$("#live").html(feat.live[0]+"/"+feat.live[0]);
 	}
 	if(!(charp.level%(mychar.traits.TRAIT_SKILLED?4:3)))
-		charp.perkpoint++;	
+		charp.perkpoint = 1;	
 	if(charp.perkpoint > 0)	
 		listperkup();	
 }
@@ -731,7 +740,7 @@ function leveldown() {
     
 	if(!((charp.level)%(mychar.traits.TRAIT_SKILLED?4:3)))
 		if(charp.perkpoint>0)
-			charp.perkpoint--;
+			charp.perkpoint = 0;
     
     charp.level--;
     charp.points = mychar.points[charp.level];
@@ -1006,36 +1015,44 @@ function require(p) {
     return str;
     
 }
+
 // Вывод информации о перке или квесте по клику
 function infoparm(ch,prm){
 	switch(ch) {
-		case "traits": 
+		case "traits": // описание трейтов
 			$("#nameparm").html(texttraits[prm][0]);
 			$("#textparm").html(texttraits[prm][1]);
+			$("#textparmreq").html("");
 			$("#imgparm").removeClass('loaded');
 			$("#imgparm").html("<img src=\"skill/"+prm+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
-		case "perks": 
+		case "perks": // описание перков
 			$("#nameparm").html(textperk[prm][0]);
 			$("#textparm").html(textperk[prm][1]);
 			$("#textparmreq").html(require(prm));
 			$("#imgparm").removeClass('loaded');
 			$("#imgparm").html("<img src=\"skill/"+prm.substr(3)+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
-		case "quest":
+		case "quest": // описание квестов
 			$("#nameparm").html(textquest[prm][0]);
+			$("#textparmreq").html("");
             var str = textquest[prm][1] + ((prm in questinfo) ? "<br>" + questinfo[prm][mychar.quest[prm].vol - 1] : "");
 			$("#textparm").html(str);
 		break;
-		case "skills": // добавить описание
+		case "skills": // описание скилов
 			$("#nameparm").html(skills[prm][2]);
 			$("#textparm").html(skills[prm][3]);
+			$("#textparmreq").html((prm == "speed" ? skills["speed"][0] >= 100 ? 
+				"<br>Ходьба: "+Math.floor(300000/(1200*2.5-2.5*skills["speed"][0]))+"%"+
+				"<br>Бег: "+Math.floor(200000/(2000-skills["speed"][0]))+"%" 
+				: "" : "" ));
 			$("#imgparm").removeClass('loaded');
 			$("#imgparm").html("<img src=\"skill/"+prm+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
-		case "stats": // добавить описание
+		case "stats": // описание статов
 			$("#nameparm").html(stats[prm][0]);
 			$("#textparm").html(stats[prm][1]);
+			$("#textparmreq").html("");
 			$("#imgparm").removeClass('loaded');
 			$("#imgparm").html("<img src=\"skill/"+prm+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
@@ -1283,7 +1300,12 @@ function getbuild(hash) {
 }
 //главная функция
 function main() 
-{
+{	
+	if (window == top)
+		$("body").css("background-color",	"rgba(0, 0, 0, 255)");
+	else
+		$("body").css("background-color",	"rgba(0, 0, 0, 0)");
+
 	$("#totaltext").on('wheel', scrollit);
 	$("#crlistperk").on('wheel', scrollit);
 	$("#selectperk").on('wheel', scrollit);
@@ -1385,7 +1407,7 @@ function main()
 						$("#perk").animate({'opacity':'0'},200);
 						if(select.perk) {
 							addperk(select.perk);
-							charp.perkpoint--;
+							charp.perkpoint = 0;
 							showlistperk();
 							settle();
 							statpoints();
