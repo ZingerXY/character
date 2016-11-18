@@ -488,13 +488,14 @@ function leveling() {
 			$("#namenter").html(charp.name);
 			$("#name").html($("#namenter").html().toUpperCase());
 			$('title').text(anytext.training);
+			$("#main").stop(true,true);
 			$("#main").animate({'opacity':'0'},100);
-            var bgImg = new Image();
-            bgImg.src = "img/char.gif";
-            bgImg.onload = function(){
-                $("#main").css('backgroundImage', 'url(' + bgImg.src + ')');
-                $("#main").animate({'opacity':'1'},500);
-            };		
+			var bgImg = new Image();
+			bgImg.src = "img/char.gif";
+			bgImg.onload = function(){
+				$("#main").css('backgroundImage', 'url(' + bgImg.src + ')');
+				$("#main").animate({'opacity':'1'},500);
+			};		
 			$(".reg").hide();
 			$(".leveling").show();
 			$("#level").html(charp.level);
@@ -1256,8 +1257,8 @@ function setbuild() {
     var nameui = charp.name;
     charp.name = encodeURIComponent(charp.name);
 	var arr = [mychar,charp];	
-    if(online) {
-        var str = "setbuild="+JSON.stringify(arr)+"&name="+nameui;
+    if(online) { // Сохранение билда в онлайн версии
+        var str = "setbuild="+encodeURIComponent(Base64.encode(lzw(JSON.stringify(arr))))+"&name="+nameui;
         if(cookiehash)
             str += "&hash="+cookiehash;
 
@@ -1271,16 +1272,16 @@ function setbuild() {
 					send = false;
                     save = true;
                     cookiehash = Cookies.get("hash");
-                    totalurl("http://"+location.host+"/?char&hash="+Cookies.get("hash"));                   
+                    totalurl("http://"+location.host+"/?hash="+Cookies.get("hash"));                   
                 }
 				else {
 					totalurl(anytext.nosave);
 				}
         }});
     }
-    else {
+    else { // Сохранение билда в офлайн версии
         save = true;
-        totalurl(lzw(JSON.stringify(arr)));
+        totalurl(Base64.encode(lzw(JSON.stringify(arr))));
     }
 	charp.name = nameui;
 }
@@ -1290,11 +1291,19 @@ function getbuild(hash) {
 	$.ajax({
 	type: "POST",
 	url: "basechar.php",
-	dataType: 'json',
+	//dataType: 'json',
 	data: "getbuild="+hash,
 	success: function(msg){
-			if(msg)		
-                loadbuild(msg[0],msg[1]);
+				if(msg) {
+					if(msg[0] == '[')
+						loadbjson(msg);
+					else if(msg[0] == 'W') {
+						var temp = Base64.decode(msg);
+						temp = delzw(temp);
+						loadbjson(temp);
+					}
+				}				
+                //loadbuild(msg[0],msg[1]);
 			}
 	});
 }
@@ -1470,13 +1479,21 @@ function main()
     });
     $("#totaltext").on('input', function(){
         var str = $("#totaltext").val();
-        if(str[0] == '[')
+        if(str[0] == '[' || str[0] == 'W')
             $("#loadtotal").show();
         else 
             $("#loadtotal").hide();
     });
     $("#loadtotal").click(function(){
-        loadbjson(delzw($("#totaltext").val()));
+		var str = $("#totaltext").val();
+		if(str[0] == '[')
+			loadbjson(delzw(str));
+		else if(str[0] == 'W') {
+			var temp = Base64.decode(str);
+			temp = delzw(temp);
+			loadbjson(temp);
+		}
+			
         $("#total").hide();
     });
     $("#loadkey").click(function(){
@@ -1493,16 +1510,16 @@ function main()
 	settle();                           // обновление навыков и параметров
 	createlistperk();                   // создание доступных перков
 
-    var bgImg = new Image;
-    bgImg.src = "img/reg.png";
-    bgImg.onload = function(){
+	if(cookiehash)		
+		getbuild();
+	var bgImg = new Image;
+	bgImg.src = "img/reg.png";
+	bgImg.onload = function(){
 		if(regi) {
 			$("#main").css('backgroundImage', 'url(' + bgImg.src + ')');
 			$("#main").animate({'opacity':'1'},500);
 		}
-    };		
-	if(cookiehash)		
-		getbuild();
+	};	
 }
 //window.addEventListener('DOMContentLoaded', main);
 window.addEventListener("load", main);
