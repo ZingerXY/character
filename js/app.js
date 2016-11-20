@@ -1185,8 +1185,14 @@ function total() {
 		else if (i=="prewar"&&mychar.book[i][0]<20)   textarea += textbook[i]+" "+(20-mychar.book[i][0])+"\n";
 	}
 	if(cookiehash)
-		textarea += "http://"+location.host+"/character/?hash="+cookiehash;
+		textarea += "http://"+location.host+"/character/?hash="+cookiehash+"\n";
+	
+	textarea += "base64:\n";
+	var nameui = charp.name;
+    charp.name = encodeURIComponent(charp.name);
+	textarea += Base64.encode(lzw(JSON.stringify([mychar,charp])));
 	$("#totaltext").val(textarea);		
+	charp.name = nameui;
 }
 // Скрол по 1 строчке
 function scrollit(e){
