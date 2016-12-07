@@ -1158,7 +1158,7 @@ function total() {
 		for(var j in mperk)
 			textarea += ""+j+" ур: "+textperk[mperk[j]][0] + "\n";
 	}
-	textarea += "\n"+anytext.procnav+"\n";
+	var str = "";
 	for(var i in skills) 
 		if(skills[i][0] > 80) {
 			var sum = 0;
@@ -1172,27 +1172,33 @@ function total() {
 			sumperk = sum+startskills[i]();
 			if(sumperk > skills[i][0]) sumperk = skills[i][0];
 			sumperk2 = skills[i][0]-sumperk;
-			textarea += skills[i][2]+": "+skills[i][0]+(sumperk2>0?" = "+sumperk+" + "+sumperk2:"")+"\n";
+			str += skills[i][2]+": "+skills[i][0]+(sumperk2>0?" = "+sumperk+" + "+sumperk2:"")+"\n";
 		}			
-	textarea += "\n"+anytext.imp+"\n";
+	if(str != "")
+		textarea += "\n"+anytext.procnav+"\n"+str;
+	str = "";
 	for(var i in questinfo)
 		if(i.substr(0,3) == "imp")
 			if(i in mychar.quest)
-				textarea += questinfo[i][mychar.quest[i].vol - 1]+"\n";
-	textarea += "\n"+anytext.book+"\n";
+				str += questinfo[i][mychar.quest[i].vol - 1]+"\n";
+	if(str != "")
+		textarea += "\n"+anytext.imp+"\n"+str;
+	str = "";
 	for(var i in mychar.book) {
-		if(i!="prewar"&&mychar.book[i][0]<10)	textarea += textbook[i]+" "+(10-mychar.book[i][0])+"\n";
-		else if (i=="prewar"&&mychar.book[i][0]<20)   textarea += textbook[i]+" "+(20-mychar.book[i][0])+"\n";
-	}
+		if(i!="prewar"&&mychar.book[i][0]<10)	str += textbook[i]+" "+(10-mychar.book[i][0])+"\n";
+		else if (i=="prewar"&&mychar.book[i][0]<20)   str += textbook[i]+" "+(20-mychar.book[i][0])+"\n";
+	}	
+	if(str != "")
+		textarea += "\n"+anytext.book+"\n"+str;
 	if(cookiehash)
 		textarea += "http://"+location.host+"/character/?hash="+cookiehash+"\n";
 	
-	textarea += "base64:\n";
+	/*textarea += "base64:\n";
 	var nameui = charp.name;
     charp.name = encodeURIComponent(charp.name);
-	textarea += Base64.encode(lzw(JSON.stringify([mychar,charp])));
-	$("#totaltext").val(textarea);		
-	charp.name = nameui;
+	textarea += Base64.encode(lzw(JSON.stringify([mychar,charp])));	
+	charp.name = nameui;*/
+	$("#totaltext").val(textarea);	
 }
 // Скрол по 1 строчке
 function scrollit(e){
