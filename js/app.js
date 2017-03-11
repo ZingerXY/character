@@ -1191,7 +1191,7 @@ function total() {
 	if(str != "")
 		textarea += "\n"+anytext.book+"\n"+str;
 	if(cookiehash)
-		textarea += "http://"+location.host+"/character/?hash="+cookiehash+"\n";
+		textarea += "http://"+location.host+"/?hash="+cookiehash+"\n";
 	
 	/*textarea += "base64:\n";
 	var nameui = charp.name;
