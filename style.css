@@ -1154,6 +1154,10 @@ img{
 				-1px 1px 0px #000;
 }
 
+#by a {
+	color: #00a000;
+}
+
 #buttreq {
 	position: absolute;
     height: 10px;
