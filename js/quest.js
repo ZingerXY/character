@@ -109,8 +109,8 @@ var quest = {	// квест, описание, уровней квеста, ми
             aimp_battle:[questinfo.imp_battle[0],function(){pr.add("skills","light",30,1);return 1;},true],
             bimp_battle:[questinfo.imp_battle[1],function(){pr.add("skills","heavy",30,1);return 2;},true],
             cimp_battle:[questinfo.imp_battle[2],function(){pr.add("skills","energy",30,1);return 3;},true],
-            dimp_battle:[questinfo.imp_battle[3],function(){pr.add("skills","thrown",30,1);pr.add("feats","dodge",3);return 4;},true],
-            eimp_battle:[questinfo.imp_battle[4],function(){pr.add("skills","repair",30,1);return 5;},true],
+            dimp_battle:[questinfo.imp_battle[3],function(){pr.add("skills","thrown",30,1);return 4;},true],
+            eimp_battle:[questinfo.imp_battle[4],function(){pr.add("skills","repair",20,1);return 5;},true],
             fimp_battle:[questinfo.imp_battle[5],function(){pr.add("skills","melee",20,1);pr.add("skills","steel",20,1);return 6;},true],
             none:[dialog.none,function(){return 0;},true]});
         }],
@@ -118,11 +118,11 @@ var quest = {	// квест, описание, уровней квеста, ми
         1,2,99,function(){return true;},
         function(){talk(dialog.imp_medical,{ 	
 			aimp_medical:[questinfo.imp_medical[0],function(){pr.add("skills","orderly",35,1);return 1;},true],
-			bimp_medical:[questinfo.imp_medical[1],function(){pr.add("skills","doctor",25,1);return 2;},true],
-			cimp_medical:[questinfo.imp_medical[2],function(){pr.add("feats","live",20);pr.add("feats","levh",10);return 3;},true],
-            dimp_medical:[questinfo.imp_medical[3],function(){pr.add("skills","doctor",40,1);return 4;},true],
-			eimp_medical:[questinfo.imp_medical[4],function(){pr.add("feats","armc",5);return 5;},true],
-			fimp_medical:[questinfo.imp_medical[5],function(){pr.add("skills","doctor",30,1);return 6;},true],
+			bimp_medical:[questinfo.imp_medical[1],function(){pr.add("feats","live",10);pr.add("feats","dodge",3);pr.add("feats","armc",5);return 2;},true],
+			cimp_medical:[questinfo.imp_medical[2],function(){pr.add("skills","doctor",20,1);pr.add("feats","live",10);pr.add("feats","levh",15);return 3;},true],
+            dimp_medical:[questinfo.imp_medical[3],function(){pr.add("skills","doctor",20,1);return 4;},true],
+			eimp_medical:[questinfo.imp_medical[4],function(){pr.add("skills","orderly",20,1);return 5;},true],
+			fimp_medical:[questinfo.imp_medical[5],function(){pr.add("skills","doctor",20,1);return 6;},true],
 			none:[dialog.none,function(){return 0;},true]});
         }],
 	imp_auxiliary:["Вспомогательный имплант","В вас вживлен один из эксперементальных имплантантов. Ваши вспомогательные функции увеличены.",
@@ -130,10 +130,10 @@ var quest = {	// квест, описание, уровней квеста, ми
         function(){talk(dialog.imp_auxiliary,{ 	
 			aimp_auxiliary:[questinfo.imp_auxiliary[0],function(){pr.add("feats","maxl",100);return 1;},true], 
 			bimp_auxiliary:[questinfo.imp_auxiliary[1],function(){return 2;},true],
-			cimp_auxiliary:[questinfo.imp_auxiliary[2],function(){pr.add("skills","traps",100,1);return 3;},true],
-			dimp_auxiliary:[questinfo.imp_auxiliary[3],function(){/*addperk("PE_VIEW");*/pr.add("skills","oratory",50,1);return 4;},true],
-			eimp_auxiliary:[questinfo.imp_auxiliary[4],function(){pr.add("skills","steal",100,1);pr.add("skills","hack",20,1);return 5;},true],
-			fimp_auxiliary:[questinfo.imp_auxiliary[5],function(){pr.add("skills","speed",50,1);return 6;},true],
+			cimp_auxiliary:[questinfo.imp_auxiliary[2],function(){pr.add("skills","traps",80,1);pr.add("skills","sneak",20,1);return 3;},true],
+			dimp_auxiliary:[questinfo.imp_auxiliary[3],function(){pr.add("skills","oratory",50,1);return 4;},true],
+			eimp_auxiliary:[questinfo.imp_auxiliary[4],function(){pr.add("skills","steal",20,1);pr.add("skills","hack",20,1);return 5;},true],
+			fimp_auxiliary:[questinfo.imp_auxiliary[5],function(){pr.add("skills","speed",40,1);return 6;},true],
 			none:[dialog.none,function(){return 0;},true]});
         }],
 	PE_MA_SKIT:["Житель Пустоши(5)", "Вы настолько изучили пустошь, что получаете +5% к навыку Скиталец и передвигаетесь по Пустоши на 5% быстрее с каждым уровнем этой способности.",
