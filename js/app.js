@@ -842,11 +842,17 @@ function verPerkandTrait(p) {
     var obj = perk[p][8];
     if(!emptyObject(obj)) {
         if("traits" in obj)
-            for(var j in obj.traits)
+            for(var j in obj.traits) {
                 if(j in mychar.traits) {
-                    delete mychar.tperk[p];
-                    return false;
-                }
+					if(obj.traits[j] == 1) {
+						delete mychar.tperk[p];
+						return false;
+					}
+                } else if(obj.traits[j] == 0) {
+					delete mychar.tperk[p];
+					return false;
+				}
+			}
         if("perks" in obj)
             for(var j in obj.perks)
                 if(j in mychar.tperk) {
@@ -1009,7 +1015,10 @@ function require(p) {
             str += "<br>"+skills[i][2]+": "+obj.skills[i];
     if("traits" in obj)
         for(var i in obj.traits)
-            str += "<br><span class='deperk'>-"+texttraits[i][0]+"</span>";
+			if(obj.traits[i] == 1)
+            	str += "<br><span class='deperk'>-"+texttraits[i][0]+"</span>";
+			else(obj.traits[i] == 0)
+				str += "<br><span class='dedeperk'>"+texttraits[i][0]+"</span>";
     if("perks" in obj)
         for(var i in obj.perks)
             str += "<br><span class='deperk'>-"+textperk[i][0]+"</span>";
