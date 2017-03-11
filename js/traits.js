@@ -1,29 +1,31 @@
 var traits = {
 	// Быстрый метаболизм
-	// Плюсы: Добавляется 60 жизней и 15 к уровню лечения.
-	// Минусы: Обнуляется защита к радиации и отравлению. Уменьшает защиту от радиации и отравления в 2 раза. Яд не выводится из организма самостоятельно.
+	// Плюсы: +50нр, 20 к уровню лечения.Время восстановления нр 10 сек, но не в боевом режиме.
+	// Минусы: Устойчивость к яду и Устойчивость к радиации равна 0. Устойчивость к яду и Устойчивость к радиации от перков, наркотиков и предметов уменьшается в 2 раза. Яд не выводится из организма самостоятельно.
 	TRAIT_FAST_METABOLISM: function(str){	
 			if(!mychar.traits[str] && charp.tagt>0) {
-				pr.add("feats","live",40); 
-				pr.add("feats","levh",35); 
+				pr.add("feats","live",50); 
+				pr.add("feats","levh",20); 
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2) {
-				pr.add("feats","live",-40); 
-				pr.add("feats","levh",-35); 
+				pr.add("feats","live",-50); 
+				pr.add("feats","levh",-20); 
 				delete mychar.traits[str];
 				charp.tagt++;	}
 			},
-	// Крушила Плюсы: +3 силы, игнор тиков плазмы. Минусы: -1 Очко Действия (ОД).
+	// Крушила Плюсы: +3 к силе, +25 рукопашных повреждений. Минусы: -1ОД, -30 к критроллу.
 	TRAIT_BRUISER: function(str){	
 			if(!mychar.traits[str] && charp.tagt>0) {
 				mychar.stats.STR[0]+=3; 
 				pr.add("feats","apoi",-1);
+				pr.add("feats","mdmg",25);
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2) {
 				mychar.stats.STR[0]-=3;
 				pr.add("feats","apoi",1);
+				pr.add("feats","mdmg",-25);
 				delete mychar.traits[str];
 				charp.tagt++;	}
 			},
@@ -82,16 +84,16 @@ var traits = {
 				charp.tagt++;	
 			}
 			},
-	// Громила
-	// Плюсы: +25 к рукопашным повреждениям (урезаются повреждения у Доп. рукопашн. повр. и у Слеера)
-	// Минусы: -30 критролла.
+	// Вор (вместо Громилы)
+	// Плюсы: Холодное одноручное оружие и метательные ножи наносят +10 конечного урона, Уровень лечения +20. Бонусы вора.
+	// Минусы: Точность стрелкового и двуручного оружия делится пополам. Вы не можете критовать.
 	TRAIT_HEAVY_HANDED: function(str){	
 			if(!mychar.traits[str] && charp.tagt>0){
-				pr.add("feats","mdmg",25);
+				pr.add("feats","levh",20); 
 				mychar.traits[str] = 1; 
 				charp.tagt--;	} 
 			else if(mychar.traits[str] && charp.tagt<2){
-				pr.add("feats","mdmg",-25);
+				pr.add("feats","levh",-20); 
 				delete mychar.traits[str]; 
 				charp.tagt++;	
 			}
@@ -181,20 +183,22 @@ var traits = {
 			}
 			},
 	// Стабильный
-	// Плюсы: Вы никогда критически не промахиваетесь, +25 бонуса к окончательной точности (даже в дыму). Игнорируется эффект плазмы (тики).
-	// Минусы: Вы никогда критически не попадаете.
+	// Плюсы: Вы критически не промахиваетесь, +25 к точности, +1 Восприятия
+	// Минусы: Вы критически не попадаете.
 	TRAIT_CHEM_RESISTANT: function(str){	
 			if(!mychar.traits[str] && charp.tagt>0){
 				mychar.traits[str] = 1; 
+				mychar.stats.PER[1]+=1;
 				charp.tagt--;	} 
 			else if(mychar.traits[str] && charp.tagt<2){
 				delete mychar.traits[str]; 
+				mychar.stats.PER[1]-=1;
 				charp.tagt++;	
 			}
 			},
 	// Жидкое тело
-	// Плюсы: Каждый выстрел наносит вам на 10 повреждений меньше. Игнорирование тиков от огня. +50 веса.
-	// Минусы: Стимуляторы и Санитар не работают в полную мощь (-20 к отхилу).
+	// Плюсы: -10 к конечному урону по вам. +50 к Переносимому грузу.
+	// Минусы: -20 к лечению Санитаром. -20 к лечению суперстимуляторами..
 	TRAIT_SEX_APPEAL: function(str){	
 			if(!mychar.traits[str] && charp.tagt>0){
 				pr.add("feats","maxl",50);
