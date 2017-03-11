@@ -1095,6 +1095,10 @@ img{
     color: rgba(0, 0, 0, 0.85);
     text-shadow: 0px 0px 0px #f00;
 }
+.dedeperk {
+    color: rgba(0, 0, 0, 0.85);
+    text-shadow: 0px 0px 0px #0f0;
+}
 #upscroll {
     background-repeat: no-repeat;
     position: absolute;
