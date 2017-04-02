@@ -1017,8 +1017,8 @@ function require(p) {
         for(var i in obj.traits)
 			if(obj.traits[i] == 1)
             	str += "<br><span class='deperk'>-"+texttraits[i][0]+"</span>";
-			else(obj.traits[i] == 0)
-				str += "<br><span class='dedeperk'>"+texttraits[i][0]+"</span>";
+			else if(obj.traits[i] == 0)
+				str += "<br><span class='dedeperk'>+"+texttraits[i][0]+"</span>";
     if("perks" in obj)
         for(var i in obj.perks)
             str += "<br><span class='deperk'>-"+textperk[i][0]+"</span>";
@@ -1369,6 +1369,15 @@ function main()
     $("#downscroll").click(function(){
         var idscroll = $("#selectperk");
         idscroll.scrollTop(idscroll.scrollTop() + 12);
+    });
+	
+	$("#upscrollist").click(function(){
+        var idscroll = $("#crlistperk");
+        idscroll.scrollTop(idscroll.scrollTop() - 12*3);
+    });
+    $("#downscrollist").click(function(){
+        var idscroll = $("#crlistperk");
+        idscroll.scrollTop(idscroll.scrollTop() + 12*3);
     });
 	
 	$("#selectbuild").change(function(){

@@ -1125,6 +1125,37 @@ img{
     background-image: url(img/greendot_big.png);
 }
 
+#scrollupdown {
+	position: absolute;
+	background-repeat: no-repeat;
+	background-image: url(img/scrolupdown.png);
+	width: 33px;
+    height: 72px;
+	padding: 3px 0px;
+    top: 20px;
+    left: 176px;
+}
+
+#upscrollist {
+    background-repeat: no-repeat;
+    width: 33px;
+    height: 33px;
+}
+
+#upscrollist:active {
+    background-image: url(img/greendot_big.png);
+}
+
+#downscrollist {
+    background-repeat: no-repeat;   
+    width: 33px;
+    height: 33px;
+}
+
+#downscrollist:active {
+    background-image: url(img/greendot_big.png);
+}
+
 #selectop {
     position: absolute;
     top: -16px;

@@ -323,7 +323,11 @@
             <div id="createlistperk" class="text2">
                 <div id="titlelistperk" class="text2"><div id="titlelist" class="listhead"></div><hr></div>
                 <div id="crlistperk" class="text2"></div>
-                <div id="fotterperk" class="text2"><center><hr><a href="../message.php">Написать автору</a></center></div>
+                <div id="fotterperk" class="text2"><center><hr><!--a href="../message.php">Написать автору</a--></center></div>
+				<div id="scrollupdown">
+					<div id="upscrollist"></div>
+					<div id="downscrollist"></div>
+				</div>
             </div>
             <div id="total" class="text2">
                 <textarea id="totaltext" name="text"></textarea>
@@ -332,22 +336,24 @@
             </div>
             <div id="loadkey" class="text reg shadow">ЗАГРУЗИТЬ</div>
             <div id="totalkey" class="text leveling shadow">ИТОГ</div>
-			<div id="by" class="text2">by ZingerY by supported BountyHunters</div>
+			<div id="by" class="text2">by <a href="http://forum.fallout2online.ru/memberlist.php?mode=viewprofile&u=6419">ZingerY</a> by supported <a href="http://bountyhunters.ixbb.ru/">BountyHunters</a></div>
             <?
 			include '../config.php';
 			if(isset($_COOKIE["id"])) {
 				$uid = mysqli_real_escape_string($mysqli,$_COOKIE["id"]);
 				$query = "SELECT name,hash FROM build WHERE uniqueid='$uid'";		
 				$result = mysqli_query($mysqli, $query);
-				$count = mysqli_num_rows( $result );
-				if($count > 0){
-					echo "<div id='selectop'><select id='selectbuild'>";
-					while($myrow = mysqli_fetch_assoc($result)) {
-						$name = $myrow["name"];
-						$thishash = $myrow["hash"];
-						echo "<option value='$thishash'".($thishash==$hash?" selected='selected'":"").">$name</option>";
+				if($result) {
+					$count = mysqli_num_rows( $result );
+					if($count > 0){
+						echo "<div id='selectop'><select id='selectbuild'>";
+						while($myrow = mysqli_fetch_assoc($result)) {
+							$name = $myrow["name"];
+							$thishash = $myrow["hash"];
+							echo "<option value='$thishash'".($thishash==$hash?" selected='selected'":"").">$name</option>";
+						}
+						echo "</select></div>";
 					}
-					echo "</select></div>";
 				}
 			}
 			mysqli_close($mysqli);
