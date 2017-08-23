@@ -1489,7 +1489,7 @@ function main()
 		$("#key"+j).mousedown(function(){$("#lkey"+this.id.substr(3)).html("<img src=\"img/small_key.png\" onload=\"imgLoaded(this)\">");});
 		$("#key"+j).mouseup(function(){$("#lkey"+this.id.substr(3)).html("");});
 		$("#key"+j).click(trait);
-		$("#"+j).click(function(){infoparm("traits",this.id)});
+		$("#"+j).click(function(){infoparm("traits",this.id)}).html(texttraits[j][0]);
 	}
 	
 	for(var j in skills){
