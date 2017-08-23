@@ -104,22 +104,22 @@ var questinfo = {
 }
 
 var texttraits = {
-	TRAIT_FAST_METABOLISM: ["Fast Metabolism", "You receive +40 hp, +35 to Healing Rate. On the contrary, you're very vulnerable to poison and radiation."],
-	TRAIT_BRUISER: ["Bruiser", "-1 maximum AP, but +3 Str. You receive half less plasma tick damage."],
-	TRAIT_SMALL_FRAME: ["Small Frame", "You receive +1 Agi and +5% to Evasion, but Carryweight is reduced."],
-	TRAIT_ONE_HANDER: ["One Handed", "For all onehanded weapons: ignorance of Str requirement, +60 to a Skill on accuracy check, +7 to flat damage. Two-handed receive -40 to skill on accuracy."],
-	TRAIT_FINESSE: ["Finesse", "+20% to critical chance. -10 to critroll against you. But, -5% to a total damage."],
-	TRAIT_KAMIKAZE: ["Kamikaze", "+1 Agi, each 10 seconds you restore 1 AP. If you're not in combat, your 1st attack will cost 2 AP less. Gives immunity to Suppression. AC decreased by 10."],
-	TRAIT_HEAVY_HANDED: ["Heavy Handed", "You deal devastating damage to people in melee - +25 to melee damage, but crits is really bad (-30 to critroll)."],
-	TRAIT_FAST_SHOT: ["Fast Shot", "You don't have much time to aim. Shooting and throwing costs 1 AP less. You can't aim. Your critical damage is always 1x."],
-	TRAIT_BLOODY_MESS: ["Maniac", "+175% to Athleticism, but -25 hitpoints. Enemies always die in most harsh way."],
-	TRAIT_JINXED: ["Jinxed", "A good side of it - enemy are making critical misses more often. Bad side is - same applies to you! You need Luck to be effective."],
-	TRAIT_GOOD_NATURED: ["Goodheart", "-25% damage from bursts or fire. You can't take any offensive perk. You can't apply DoT effects."],
-	TRAIT_CHEM_RELIANT: ["Chemist", "Drugs duration are increased by 3 times. Drawbacks are nearly instant. If you'll get affliction, it'll last for long time."],
-	TRAIT_CHEM_RESISTANT: ["Stable", "You can't critically hit - at all, and can't critically miss - at all. All your attacks receive +25 bonus to final Accuracy calculation."],
-	TRAIT_SEX_APPEAL: ["Liquid Body", "You ignore 10 flat damage, maximum Carryweight increases by 50. Superstims and First Aid are decreased by 20 (ss will become +55, -20 to ending FA heal amount)."],
-	TRAIT_SKILLED: ["Skilled", "Stats of character increases - +2 to End, Cha, Int, Agi. +60 anticrit, +15 crit. But, you can't take any uberperk and you receive perks only each 4 level, not each 3."],
-	TRAIT_NIGHT_PERSON: ["Impulsive", "+20% to Throwing, +2 AP и 30% chance to restore 1 AP during reload. But, you receive 3 less skillpoints each level."]
+	TRAIT_FAST_METABOLISM: ["Fast Metabolism", "<font color='#1B73D6'> Pros: </font> You receive +50 hp, +20 to Healing Rate. In non-combat you're regenerating each 10 seconds.</br><font color='#F43225'> Cons: </font> You're VERY vulnerable to poison and radiation."],
+	TRAIT_BRUISER: ["Bruiser", "A little slower, and a little bigger.</br><font color='#1B73D6'> Pros: </font> +3 Str.</br><font color='#F43225'> Cons: </font> -1 maximum AP."],
+	TRAIT_SMALL_FRAME: ["Small Frame", "You are not big as the other people, but that never slowed you down.</br><font color='#1B73D6'> Pros: </font> You receive <font color='#F2E519'> +1 </font> to Agi and <font color='#F2E519'> +5% </font> to Evasion.</br><font color='#F43225'> Cons: </font> Carryweight is reduced."],
+	TRAIT_ONE_HANDER: ["One Handed", "<font color='#1B73D6'> Pros: </font> For all onehanded weapons: ignorance of Str requirement, +60 to a Skill on accuracy check, +7 to flat damage. </br><font color='#F43225'> Cons: </font> Two-handed weapons receive -40 to Skill on accuracy check."],
+	TRAIT_FINESSE: ["Finesse", "Trade your damage for precious shots.</br><font color='#1B73D6'> Pros: </font> +20% to critical chance. -10 to critroll against you.</br><font color='#F43225'> Cons: </font> -5% to a total damage."],
+	TRAIT_KAMIKAZE: ["Kamikaze", "<font color='#1B73D6'> Pros: </font> +1 Agi, each 10 seconds you restore 1 AP. If you're not in combat, your 1st attack will cost 2 AP less. Gives immunity to 'Suppression'.</br><font color='#F43225'> Cons: </font> AC decreased by 10."],
+	TRAIT_HEAVY_HANDED: ["Thief", "<font color='#1B73D6'> Pros: </font> +20 HR. +10 flat damage to one-h melee & throw. knives. Wearing CLJ gives +10% to Evasion and -30 critroll against you.</br><font color='#F43225'> Cons: </font> Accuracy of all other weapons divided by 2."],
+	TRAIT_FAST_SHOT: ["Fast Shot", "You don't have much time to aim.</br><font color='#1B73D6'> Pros: </font> Shooting and throwing costs 1 AP less.</br><font color='#F43225'> Cons: </font> You can't aim. Your critical damage is always 1x."],
+	TRAIT_BLOODY_MESS: ["Maniac", "You need to be fast to get precious kills.</br><font color='#1B73D6'> Pros: </font> +175% to Athleticism, Enemies always die in the harshest way.</br><font color='#F43225'> Cons: </font> -25 to Maximum hitpoints. Both your and enemy's armor deteriorate REAL quick."],
+	TRAIT_JINXED: ["Jinxed", "<font color='#1B73D6'> Pros: </font> A good side of it - enemy are making stupid mistakes more often. Works only if enemy hitchance is above 87% and attack WAS NOT an Evasion.</br><font color='#F43225'> Cons: </font> Bad side is - same applies to you!</br>You need Luck to negate critical misses chance."],
+	TRAIT_GOOD_NATURED: ["Good Natured", "<font color='#1B73D6'> Pros: </font> -25% damage from bursts or fire.</br><font color='#F43225'> Cons: </font> You can't take any offensive perk. You can't apply DoT effects."],
+	TRAIT_CHEM_RELIANT: ["Chemist", "<font color='#1B73D6'> Pros: </font> Duration of drugs you're taking are increased by 3 times. Drawbacks are nearly instant.</br><font color='#F43225'> Cons: </font> If you'll get affliction, it'll last for a really long time."],
+	TRAIT_CHEM_RESISTANT: ["Stable", "<font color='#1B73D6'> Pros: </font> You can't critically miss - at all. All your attacks receive +25 bonus to final Accuracy calculation. +1 to Perception.</br><font color='#F43225'> Cons: </font> You can't critically hit - at all."],
+	TRAIT_SEX_APPEAL: ["Liquid Body", "<font color='#1B73D6'> Pros: </font> You ignore 10 flat damage, maximum Carryweight increases by 50.</br><font color='#F43225'> Cons: </font> Superstims and First Aid heal are decreased by 20 (ss will become +55, -20 to ending FA heal amount)."],
+	TRAIT_SKILLED: ["Skilled", "<font color='#1B73D6'> Pros: </font> Stats of character increases - +2 to End, Cha, Int, Agi. +60 anticrit, +15 crit.</br><font color='#F43225'> Cons: </font> You can't take any uberperk (Sniper, Teminator, Expendable, Silent Running) and you receive perks only each 4 level, not each 3."],
+	TRAIT_NIGHT_PERSON: ["Impulsive", "<font color='#1B73D6'> Pros: </font> +20% to Throwing, +2 AP and 30% chance to restore 1 AP during Reload.</br><font color='#F43225'> Cons: </font> You receive 3 less Skillpoints each level."]
 }
 
 var textquest = {
