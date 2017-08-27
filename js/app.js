@@ -665,11 +665,11 @@ function levelup(){
 		charp.points += 5 + (stats.INT[2] * 2) - (mychar.traits.TRAIT_NIGHT_PERSON?3:0);
 		numbers($("#point1"),charp.points);
 	}
-	if(charp.level==29)	{
+	/*if(charp.level==29)	{
 		pr.add("feats", "live", 1);
 		feat.live[0] = pr.sum("feats", "live") + 60 + stats.STR[2] + stats.ENU[2]*2 + mychar.stats.STR[0]*2;
 		$("#live").html(feat.live[0]+"/"+feat.live[0]);
-	}
+	}*/
 	if(!(charp.level%(mychar.traits.TRAIT_SKILLED?4:3)))
 		charp.perkpoint = 1;	
 	if(charp.perkpoint > 0)	
