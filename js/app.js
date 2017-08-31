@@ -1270,6 +1270,12 @@ function loadbuild(myc,cp) {
 	settle();                           // обновление навыков и параметров
 	createlistperk();                   // создание доступных перков
     showlistquest();                    // обновление списка квестов
+	// Отображение требования навыков к перкам
+	for(var k in mychar.tperk)
+		if("skills" in perk[k][8])
+			for(var j in perk[k][8].skills) {
+				$("#s"+j).html(perk[k][8].skills[j]+"%");
+			}
 }
 // Сохранение билда в базу данных
 function setbuild() {
