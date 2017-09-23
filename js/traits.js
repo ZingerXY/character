@@ -190,11 +190,11 @@ var traits = {
 	TRAIT_CHEM_RESISTANT: function(str){	
 			if(!mychar.traits[str] && charp.tagt>0){
 				mychar.traits[str] = 1; 
-				mychar.stats.PER[1]+=1;
+				mychar.stats.PER[0]+=1;
 				charp.tagt--;	} 
 			else if(mychar.traits[str] && charp.tagt<2){
 				delete mychar.traits[str]; 
-				mychar.stats.PER[1]-=1;
+				mychar.stats.PER[0]-=1;
 				charp.tagt++;	
 			}
 			},
