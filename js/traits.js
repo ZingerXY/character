@@ -4,13 +4,13 @@ var traits = {
 	// Минусы: Устойчивость к яду и Устойчивость к радиации равна 0. Устойчивость к яду и Устойчивость к радиации от перков, наркотиков и предметов уменьшается в 2 раза. Яд не выводится из организма самостоятельно.
 	TRAIT_FAST_METABOLISM: function(str){	
 			if(!mychar.traits[str] && charp.tagt>0) {
-				pr.add("feats","live",50); 
-				pr.add("feats","levh",20); 
+				//pr.add("feats","live",50); 
+				pr.add("feats","levh",40); 
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2) {
-				pr.add("feats","live",-50); 
-				pr.add("feats","levh",-20); 
+				//pr.add("feats","live",-50); 
+				pr.add("feats","levh",-40); 
 				delete mychar.traits[str];
 				charp.tagt++;	}
 			},
@@ -63,11 +63,11 @@ var traits = {
 	// Минусы: -5% к урону.
 	TRAIT_FINESSE: function(str){	
 			if(!mychar.traits[str] && charp.tagt>0){
-				pr.add("feats","crit",20);
+				//pr.add("feats","crit",20);
 				mychar.traits[str] = 1; 
 				charp.tagt--;	} 
 			else if(mychar.traits[str] && charp.tagt<2){
-				pr.add("feats","crit",-20);
+				//pr.add("feats","crit",-20);
 				delete mychar.traits[str]; 
 				charp.tagt++;	
 			}
@@ -117,13 +117,13 @@ var traits = {
 	// Минусы: -25 ОЗ.
 	TRAIT_BLOODY_MESS: function(str){	
 			if(!mychar.traits[str] && charp.tagt>0){
-				pr.add("skills","speed",175,1);
-				pr.add("feats","live",-25);
+				//pr.add("skills","speed",175,1);
+				//pr.add("feats","live",-25);
 				mychar.traits[str] = 1; 
 				charp.tagt--;	} 
 			else if(mychar.traits[str] && charp.tagt<2){
-				pr.add("skills","speed",-175,1);
-				pr.add("feats","live",25);
+				//pr.add("skills","speed",-175,1);
+				//pr.add("feats","live",25);
 				delete mychar.traits[str]; 
 				charp.tagt++;	
 			}
