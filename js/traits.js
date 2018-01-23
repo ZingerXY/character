@@ -20,14 +20,14 @@ var traits = {
 				mychar.stats.STR[0]+=3; 
 				pr.add("feats","apoi",-1);
 				pr.add("feats","mdmg",25);
-				pr.add("feats","critr",-30);
+				//pr.add("feats","critr",-30);
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2) {
 				mychar.stats.STR[0]-=3;
 				pr.add("feats","apoi",1);
 				pr.add("feats","mdmg",-25);
-				pr.add("feats","critr",30);
+				//pr.add("feats","critr",30);
 				delete mychar.traits[str];
 				charp.tagt++;	}
 			},
