@@ -4,20 +4,9 @@ var quest = {	// квест, описание, уровней квеста, ми
         function(){talk(dialog.med+(quest.medals[2]-chobj("quest","medals"))+dialog.med2,{ 	
 			amedals:[dialog.medals.amedals,function(){charp.points++;numbers($("#point1"),charp.points);return 3;},(quest.medals[2]-chobj("quest","medals"))>=3],
             cmedals:[dialog.medals.cmedals,function(){pr.add("feats","maxl",15);return 5;},(quest.medals[2]-chobj("quest","medals"))>=5],
-			bmedals:[dialog.medals.bmedals,function(){pr.add("feats","live",1);return 10;},(quest.medals[2]-chobj("quest","medals"))>=10],
-			/*cmedals:["+1% любого резиста(10 медалей)",function(){
-				talk("Выберите резист:", {
-					amedals: ["+1% к норме", function(){resist.normal.res[2]++;return 10;},resist.normal.res[0]<25],
-					bmedals: ["+1% к лвзеру", function(){resist.laser.res[2]++;return 10;},resist.laser.res[0]<25],
-					cmedals: ["+1% к огню", function(){resist.fire.res[2]++;return 10;},resist.fire.res[0]<25],
-					dmedals: ["+1% к плазме", function(){resist.plasma.res[2]++;return 10;},resist.plasma.res[0]<25],
-					emedals: ["+1% к взрыву", function(){resist.explode.res[2]++;return 10;},resist.explode.res[0]<25],
-					fmedals: ["+1% к электро", function(){resist.electro.res[2]++;return 10;},resist.electro.res[0]<25],
-					zmedals:["Ничего",function(){return 0;},true]
-				}); return -1;},(quest.medals[1]-quest.medals[0])>=10], // +3 урона*/
-			/*dmedals:["+5 очков навыка(20 медалей)",function(){skillsmedals(5,20);return -1;},(quest.medals[1]-quest.medals[0])>=20],*/
-			fmedals:[dialog.medals.fmedals,function(){charp.points+=10;medsp+=10;numbers($("#point1"),charp.points);return 10;},(quest.medals[2]-chobj("quest","medals"))>=10 && medsp<150],
-			gmedals:[dialog.medals.gmedals,function(){charp.points+=150;medsp+=150;numbers($("#point1"),charp.points);return 150;},(quest.medals[2]-chobj("quest","medals"))>=150 && medsp<150],
+			bmedals:[dialog.medals.bmedals,function(){pr.add("feats","live",1);return 10;},(quest.medals[2]-chobj("quest","medals"))>=6],
+			fmedals:[dialog.medals.fmedals,function(){charp.points+=10;medsp+=10;numbers($("#point1"),charp.points);return 10;},(quest.medals[2]-chobj("quest","medals"))>=10 && medsp<80],
+			gmedals:[dialog.medals.gmedals,function(){charp.points+=80;medsp+=80;numbers($("#point1"),charp.points);return 80;},(quest.medals[2]-chobj("quest","medals"))>=80 && medsp<80],
 			zmedals:[dialog.none,function(){return 0;},true]});
         }],
 	PE_NCR_REPAIR:["Секреты мастерства: Ремонт", "Механик Модока ознакомил вас с новой технологией починки оружия. Ваш навык Ремонта повышен на 5%.",
@@ -118,11 +107,11 @@ var quest = {	// квест, описание, уровней квеста, ми
         1,2,99,function(){return true;},
         function(){talk(dialog.imp_medical,{ 	
 			aimp_medical:[questinfo.imp_medical[0],function(){pr.add("skills","orderly",35,1);return 1;},true],
-			bimp_medical:[questinfo.imp_medical[1],function(){pr.add("feats","live",10);pr.add("feats","dodge",3);pr.add("feats","armc",5);return 2;},true],
+			bimp_medical:[questinfo.imp_medical[1],function(){pr.add("feats","dodge",3);pr.add("feats","armc",5);return 2;},true],
 			cimp_medical:[questinfo.imp_medical[2],function(){pr.add("skills","doctor",20,1);pr.add("feats","live",10);pr.add("feats","levh",15);return 3;},true],
             dimp_medical:[questinfo.imp_medical[3],function(){pr.add("skills","doctor",20,1);return 4;},true],
 			eimp_medical:[questinfo.imp_medical[4],function(){pr.add("skills","orderly",20,1);return 5;},true],
-			fimp_medical:[questinfo.imp_medical[5],function(){pr.add("skills","doctor",20,1);return 6;},true],
+			fimp_medical:[questinfo.imp_medical[5],function(){pr.add("feats","live",15);pr.add("skills","doctor",20,1);return 6;},true],
 			none:[dialog.none,function(){return 0;},true]});
         }],
 	imp_auxiliary:["Вспомогательный имплант","В вас вживлен один из эксперементальных имплантантов. Ваши вспомогательные функции увеличены.",
@@ -133,7 +122,7 @@ var quest = {	// квест, описание, уровней квеста, ми
 			cimp_auxiliary:[questinfo.imp_auxiliary[2],function(){pr.add("skills","traps",80,1);pr.add("skills","sneak",20,1);return 3;},true],
 			dimp_auxiliary:[questinfo.imp_auxiliary[3],function(){pr.add("skills","oratory",50,1);return 4;},true],
 			eimp_auxiliary:[questinfo.imp_auxiliary[4],function(){pr.add("skills","steal",20,1);pr.add("skills","hack",20,1);return 5;},true],
-			fimp_auxiliary:[questinfo.imp_auxiliary[5],function(){pr.add("skills","speed",40,1);return 6;},true],
+			fimp_auxiliary:[questinfo.imp_auxiliary[5],function(){pr.add("skills","speed",20,1);return 6;},true],
 			none:[dialog.none,function(){return 0;},true]});
         }],
 	PE_MA_SKIT:["Житель Пустоши(5)", "Вы настолько изучили пустошь, что получаете +5% к навыку Скиталец и передвигаетесь по Пустоши на 5% быстрее с каждым уровнем этой способности.",

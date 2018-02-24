@@ -5,12 +5,12 @@ var traits = {
 	TRAIT_FAST_METABOLISM: function(str){	
 			if(!mychar.traits[str] && charp.tagt>0) {
 				//pr.add("feats","live",50); 
-				pr.add("feats","levh",40); 
+				pr.add("feats","levh",30); 
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2) {
 				//pr.add("feats","live",-50); 
-				pr.add("feats","levh",-40); 
+				pr.add("feats","levh",-30); 
 				delete mychar.traits[str];
 				charp.tagt++;	}
 			},

@@ -229,10 +229,10 @@ function settle(str) {
 	// Радиус обзора
 	feat.oview[0] = 20 + stats.PER[2]*3;										
 	// Уст. яду
-	feat.stox[0] = (mychar.traits.TRAIT_FAST_METABOLISM ? 0 : 1)*stats.ENU[2]*5;
+	feat.stox[0] = (mychar.traits.TRAIT_FAST_METABOLISM ? 0.5 : 1)*stats.ENU[2]*5;
 	if(feat.stox[0]>95) feat.stox[0] = 95;
 	// Уст. радиации
-	feat.srad[0] = (mychar.traits.TRAIT_FAST_METABOLISM ? 0 : 1)*stats.ENU[2]*2;	
+	feat.srad[0] = (mychar.traits.TRAIT_FAST_METABOLISM ? 0.5 : 1)*stats.ENU[2]*2;	
 	if(feat.srad[0]>95) feat.srad[0] = 95;
 	// Порядок
 	feat.proc[0] = stats.PER[2]*2;							
@@ -241,7 +241,7 @@ function settle(str) {
 	// Крит
 	feat.crit[0] = stats.LUC[2];	
 	//Уворот
-	feat.dodge[0] = stats.CHA[2] + (checkperk("PE_HTH_EVADE") ? (feat.apoi[0]/4)+(feat.apoi[0]/2) : 0);
+	feat.dodge[0] = /*stats.CHA[2] +*/ (checkperk("PE_HTH_EVADE") ? (feat.apoi[0]/4)+(feat.apoi[0]/2) : 0);
     //Антикрит
     feat.acrit[0] = (checkperk("PE_TERMINATOR") ? (stats.STR[2] + stats.ENU[2])*5 : 
                     mychar.traits.TRAIT_SKILLED ? 60 : 
