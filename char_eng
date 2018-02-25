@@ -122,7 +122,7 @@
             <div id="feat2" class="text2"> 
                 <div id="armorclass" class="text2 featop0">Armor class</div><div id="armc" class="text2 featnum featop0"></div>
                 <div id="actionpoint" class="text2 featop1">Action points</div><div id="apoi" class="text2 featnum featop1"></div>
-                <div id="maxload" class="text2 featop2">Maximum AP</div><div id="maxl" class="text2 featnum featop2"></div>
+                <div id="maxload" class="text2 featop2">Carryweight</div><div id="maxl" class="text2 featnum featop2"></div>
                 <div id="meledmg" class="text2 featop3">Melee damage</div><div id="mdmg" class="text2 featnum featop3"></div>
                 <div id="overview" class="text2 featop4">Field of View</div><div id="oview"  class="text2 featnum featop4"></div>
                 <div id="stabiltoxic" class="text2 featop5">Poison Res.</div><div id="stox" class="text2 featnum featop5"></div>
