@@ -198,7 +198,7 @@ var textperk = {
 	PE_BONUS_HTH_ATTACKS: ["Fast Fists", "You have learned the secret arts of the East, or you just punch faster. In any case, your Hand-to-Hand attacks cost 1 AP less to perform."],
 	PE_BONUS_HTH_DAMAGE: ["Bonus HtH Damage", "Experience in unarmed combat is giving you an edge when it comes to dealing damage. For each instance of this perk you receive +3 bonus damage to Unarmed."],
 	PE_BONUS_MOVE: ["Bonus Moves", "For each instance of this perk you receive 10% chance to get 1 AP back for using stimpacks. Also you regenerate 1 AP each 10 seconds."],
-	PE_BONUS_RANGED_DAMAGE: ["Bonus Ranged Damage", "After training in urban warfare, you've become a deadly close combat machine. You do (20+Luck)% points of damage when using bursts."],
+	PE_BONUS_RANGED_DAMAGE: ["Bonus Ranged Damage", "You deal +(Burst Bullets Amount + 10) additional raw damage. Works with bursts only."],
 	PE_BONUS_RATE_OF_FIRE: ["Bonus Rate of Fire", "This Perk allows you to pull the trigger a little faster and still remain as accurate as before. Each ranged weapon attack costs 1 AP less to perform."],
 	PE_EARLIER_SEQUENCE: ["Earlier Sequence", "You are more likely to move before your opponents in combat, since your Sequence is +4 for each level of this Perk."],
 	PE_FASTER_HEALING: ["Faster Healing", "You know how to do it quick and efficient. You get +20 to Healing Rate. You receive 1\4 your maximum AP when using First Aid. First Aid and Doctor AP cost reduced by 1."],
