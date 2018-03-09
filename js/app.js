@@ -1207,7 +1207,9 @@ function total() {
     charp.name = encodeURIComponent(charp.name);
 	textarea += Base64.encode(lzw(JSON.stringify([mychar,charp])));	
 	charp.name = nameui;*/
-	$("#totaltext").val(textarea);	
+	$("#totaltext").val(textarea);
+	if((typeof autoArr) == "function")
+		autoArr();
 }
 // Скрол по 1 строчке
 function scrollit(e){
