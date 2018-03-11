@@ -4,7 +4,7 @@ var quest = {	// квест, описание, уровней квеста, ми
         function(){talk(dialog.med+(quest.medals[2]-chobj("quest","medals"))+dialog.med2,{ 	
 			amedals:[dialog.medals.amedals,function(){charp.points++;numbers($("#point1"),charp.points);return 3;},(quest.medals[2]-chobj("quest","medals"))>=3],
             cmedals:[dialog.medals.cmedals,function(){pr.add("feats","maxl",15);return 5;},(quest.medals[2]-chobj("quest","medals"))>=5],
-			bmedals:[dialog.medals.bmedals,function(){pr.add("feats","live",1);return 10;},(quest.medals[2]-chobj("quest","medals"))>=6],
+			bmedals:[dialog.medals.bmedals,function(){pr.add("feats","live",1);return 7;},(quest.medals[2]-chobj("quest","medals"))>=7],
 			fmedals:[dialog.medals.fmedals,function(){charp.points+=10;medsp+=10;numbers($("#point1"),charp.points);return 10;},(quest.medals[2]-chobj("quest","medals"))>=10 && medsp<80],
 			gmedals:[dialog.medals.gmedals,function(){charp.points+=80;medsp+=80;numbers($("#point1"),charp.points);return 80;},(quest.medals[2]-chobj("quest","medals"))>=80 && medsp<80],
 			zmedals:[dialog.none,function(){return 0;},true]});

@@ -179,7 +179,7 @@ var dialog = {
 	medals: {
 		amedals: "1 skillpoint(3 medals)",
 		cmedals: "+15 carryweight(5 medals)",
-		bmedals: "1 hp(10 medals)",
+		bmedals: "1 hp(7 medals)",
 		fmedals: "+10 skillpoints(10 medals)",
 		gmedals: "+150 skillpoints(150 medals)",
 	},
