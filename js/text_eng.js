@@ -236,7 +236,7 @@ var textperk = {
 	PE_CULT_OF_PERSONALITY: ["Excellence", "Studying Cat's Paws, Issue 6 on particular, has given you unique knowledge. 6% Resist from Laser, Plasma damage and 8% Resist from Electro damage. Can't take Durability."],
 	PE_SCROUNGER: ["Field Medic", "Your knowledge of battlefield treatment is incredible. +20% to First Aid, +30% to Doctor. +3 Luck for a First Aid formula."],
 	PE_EXPLORER: ["Explorer", "Harsh and tough adventures in wasteland didn't go in a vain. Your chances to find special encounter increase, also you receive +(STR*5) bonus hitpoints."],
-	PE_FLOWER_CHILD: ["Combat Medic", "Decreases First Aid cooldown by 4 seconds. You receive (Int+Luck)*2 additional hp after FA use, also you have chances equal to (Luck*4) to restore full hp."],
+	PE_FLOWER_CHILD: ["Combat Medic", "Decreases First Aid cooldown by 4 seconds. You receive (Int+Luck)*3 additional hp after FA use, also you have chances equal to (Luck*4) to restore full hp."],
 	PE_PATHFINDER: ["Pathfinder", "With this Perk, your travel speed on the World Map is increased by 25%."],
 	PE_ANIMAL_FRIEND: ["Lucky Move", "You like the way you move. Each time an attack against you misses, you restore 1 AP. With changes (CHA+AGI+PE)% you will recover AP equal to enemy's accuracy\10."],
 	PE_SCOUT: ["Scout", "Increases your tracking radar range by 1 square, as well as opening black squares on WM. Increases chances for special encounter."],
