@@ -670,8 +670,10 @@ function levelup(){
 		feat.live[0] = pr.sum("feats", "live") + 60 + stats.STR[2] + stats.ENU[2]*2 + mychar.stats.STR[0]*2;
 		$("#live").html(feat.live[0]+"/"+feat.live[0]);
 	}*/
-	if(!(charp.level%(mychar.traits.TRAIT_SKILLED?4:3)))
-		charp.perkpoint = 1;	
+	if(!(charp.level%(mychar.traits.TRAIT_SKILLED?4:3))) {
+		charp.perkpoint = 1;
+		$("#textswitch1").addClass("perkup");
+	}
 	if(charp.perkpoint > 0)	
 		listperkup();	
 }
@@ -740,8 +742,10 @@ function leveldown() {
     delete mychar.resist[charp.level];  // Удаление резистов
     
 	if(!((charp.level)%(mychar.traits.TRAIT_SKILLED?4:3)))
-		if(charp.perkpoint>0)
+		if(charp.perkpoint>0) {
 			charp.perkpoint = 0;
+			$("#textswitch1").removeClass("perkup");
+		}
     
     charp.level--;
     charp.points = mychar.points[charp.level];
@@ -1455,6 +1459,7 @@ function main()
 						if(select.perk) {
 							addperk(select.perk);
 							charp.perkpoint = 0;
+							$("#textswitch1").removeClass("perkup");
 							showlistperk();
 							settle();
 							statpoints();
