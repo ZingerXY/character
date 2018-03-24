@@ -145,10 +145,10 @@ var traits = {
 	// Минусы: Все боевые навыки уменьшаются на 15.
 	TRAIT_GOOD_NATURED: function(str){	
 			if(!mychar.traits[str] && charp.tagt>0){
-				pr.add("skills","orderly",15,1);
-				pr.add("skills","doctor",25,1);
-				pr.add("skills","oratory",35,1);
-				pr.add("skills","trade",25,1);
+				pr.add("skills","orderly",25,1);
+				pr.add("skills","doctor",40,1);
+				pr.add("skills","oratory",50,1);
+				pr.add("skills","trade",50,1);
 				pr.add("skills","light",-15,1);
 				pr.add("skills","heavy",-15,1);
 				pr.add("skills","energy",-15,1);
@@ -158,10 +158,10 @@ var traits = {
 				mychar.traits[str] = 1; 	
 				charp.tagt--;	} 
 			else if(mychar.traits[str] && charp.tagt<2){
-				pr.add("skills","orderly",-15,1);
-				pr.add("skills","doctor",-25,1);
-				pr.add("skills","oratory",-35,1);
-				pr.add("skills","trade",-25,1);
+				pr.add("skills","orderly",-25,1);
+				pr.add("skills","doctor",-40,1);
+				pr.add("skills","oratory",-50,1);
+				pr.add("skills","trade",-50,1);
 				pr.add("skills","light",15,1);
 				pr.add("skills","heavy",15,1);
 				pr.add("skills","energy",15,1);
