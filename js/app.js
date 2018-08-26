@@ -216,8 +216,8 @@ function settle(str) {
 	
     for(var i in mychar.stats)
 			stats[i][2] = mychar.stats[i][0] + mychar.stats[i][1];
-	// Жизни
-	feat.live[0] = 60 + stats.STR[2] + stats.ENU[2]*2 + mychar.stats.STR[0]*2;		
+	// Жизни Выносливость*16+Сила*3+109
+	feat.live[0] = stats.ENU[2]*16 + stats.STR[2]*3 + 109;
 	// Класс брони
 	feat.armc[0] = stats.AGI[2]*(mychar.traits.TRAIT_KAMIKAZE ? 0 : 1)+(mychar.traits.TRAIT_KAMIKAZE ? 1 : 0);							
 	// Очки действий
@@ -659,9 +659,9 @@ function levelup(){
 	$("#exp").html(levelexp(charp.level));
 	$("#nextexp").html(levelexp(charp.level+1));
 	if(charp.level<29)	{
-		pr.add("feats", "live", 2+Math.floor(stats.ENU[2]/2)+(stats.ENU[2]%2?(charp.level%2?0:1):0));
-		feat.live[0] = pr.sum("feats", "live") + 60 + stats.STR[2] + stats.ENU[2]*2 + mychar.stats.STR[0]*2;
-		$("#live").html(feat.live[0]+"/"+feat.live[0]);
+		//pr.add("feats", "live", 2+Math.floor(stats.ENU[2]/2)+(stats.ENU[2]%2?(charp.level%2?0:1):0));
+		//feat.live[0] = pr.sum("feats", "live") + 60 + stats.STR[2] + stats.ENU[2]*2 + mychar.stats.STR[0]*2;
+		//$("#live").html(feat.live[0]+"/"+feat.live[0]);
 		charp.points += 5 + (stats.INT[2] * 2) - (mychar.traits.TRAIT_NIGHT_PERSON?3:0);
 		numbers($("#point1"),charp.points);
 	}
