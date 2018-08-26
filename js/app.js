@@ -669,7 +669,7 @@ function levelup(){
 		feat.live[0] = pr.sum("feats", "live") + 60 + stats.STR[2] + stats.ENU[2]*2 + mychar.stats.STR[0]*2;
 		$("#live").html(feat.live[0]+"/"+feat.live[0]);
 	}*/
-	if(!(charp.level%(mychar.traits.TRAIT_SKILLED?4:3))) {
+	if(!(charp.level%(mychar.traits.TRAIT_SKILLED?4:(mychar.traits.TRAIT_GOOD_NATURED?2:3)))) {
 		charp.perkpoint = 1;
 		$("#textswitch1").addClass("perkup");
 	}
