@@ -785,7 +785,7 @@ function listperkup(){
 //Создание списка перков в окне доступных перков
 function createlistperk() {
 	$("#crlistperk").html("");	
-	var mperk = {3: [],6: [],9: [],12: [],15: [],18: [],30: [],33: [],51: []};
+	var mperk = {2: [],6: [],9: [],12: [],15: [],18: [],30: [],33: [],51: []};
     var s = 0;
     if(!("tperk" in mychar)) 
         mychar["tperk"] = {};
