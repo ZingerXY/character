@@ -1,26 +1,28 @@
+<?$ver = "1535325298";?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
 		<title>Character build calculator for Fallout Online: Requiem</title>
-		<meta name="description" content="Калькулятор билдов Fallout Online для сервера Requiem">		
-		<meta name="title" content="Калькулятор билдов Fallout Online для сервера Requiem">
-		<meta itemprop="name" content="Калькулятор билдов Fallout Online для сервера Requiem">
-		<meta property="og:title" content="Калькулятор билдов Fallout Online для сервера Requiem">
+		<meta name="description" content="Character build calculator for Fallout Online: Requiem">		
+		<meta name="title" content="Character build calculator for Fallout Online: Requiem">
+		<meta itemprop="name" content="Character build calculator for Fallout Online: Requiem">
+		<meta property="og:title" content="Character build calculator for Fallout Online: Requiem">
 		<meta name=viewport content="width=device-width, initial-scale=1">
-		<link rel="alternate" hreflang="ru" href="http://fonline.pe.hu/character/" />
+		<link rel="alternate" hreflang="en" href="http://fonlinew.ru/?en&char" />
+		<link rel="alternate" hreflang="ru" href="http://fonlinew.ru/?char" />
 		<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-		<link rel="stylesheet" href="style.css">
-		<link rel="stylesheet" href="style_eng.css">
-		<script type="text/javascript" async src="js/jquery-3.1.0.min.js"></script>
-		<script type = "text/javascript" async src = "js/perks.js"></script>
-		<script type = "text/javascript" async src = "js/traits.js"></script>
-		<script type = "text/javascript" async src = "js/app.js"></script>		
-		<script type = "text/javascript" async src = "js/quest.js"></script>
-		<script type = "text/javascript" async src = "js/text_eng.js"></script>
-        <script type = "text/javascript" async src = "js/LZW.js"></script>
-		<script type = "text/javascript" async src = "js/base64.min.js"></script>
-        <script async src="js/js.cookie.js"></script>
+		<link rel="stylesheet" href="style.css?ver=<?=$ver?>">
+		<link rel="stylesheet" href="style_eng.css?ver=<?=$ver?>">
+		<script type="text/javascript" async src="js/jquery-3.1.0.min.js?ver=<?=$ver?>"></script>
+		<script type = "text/javascript" async src = "js/perks.js?ver=<?=$ver?>"></script>
+		<script type = "text/javascript" async src = "js/traits.js?ver=<?=$ver?>"></script>
+		<script type = "text/javascript" async src = "js/app.js?ver=<?=$ver?>"></script>		
+		<script type = "text/javascript" async src = "js/quest.js?ver=<?=$ver?>"></script>
+		<script type = "text/javascript" async src = "js/text_eng.js?ver=<?=$ver?>"></script>
+        <script type = "text/javascript" async src = "js/LZW.js?ver=<?=$ver?>"></script>
+		<script type = "text/javascript" async src = "js/base64.min.js?ver=<?=$ver?>"></script>
+        <script async src="js/js.cookie.js?ver=<?=$ver?>"></script>
 		<script> 
 		var cookiehash = <?	if(isset($_GET["hash"])) echo "'".$_GET["hash"]."'";
 							else if(isset($_COOKIE["hash"])) {
