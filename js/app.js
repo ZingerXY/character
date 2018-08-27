@@ -740,7 +740,7 @@ function leveldown() {
     delete mychar.skills[charp.level];  // Удаление скилов
     delete mychar.resist[charp.level];  // Удаление резистов
     
-	if(!((charp.level)%(mychar.traits.TRAIT_SKILLED?4:3)))
+	if(!((charp.level)%(mychar.traits.TRAIT_SKILLED?4:(mychar.traits.TRAIT_GOOD_NATURED?2:3))))
 		if(charp.perkpoint>0) {
 			charp.perkpoint = 0;
 			$("#textswitch1").removeClass("perkup");
@@ -799,7 +799,7 @@ function createlistperk() {
             mperk[perk[i][3]].push(i);
             s++;
         }
-        $("<div class=\"listlevel\">"+anytext.perks+s+" / "+(mychar.traits.TRAIT_SKILLED?7:9)+"</div><hr>").appendTo("#crlistperk");
+        $("<div class=\"listlevel\">"+anytext.perks+s+" / "+(mychar.traits.TRAIT_SKILLED?7:(mychar.traits.TRAIT_GOOD_NATURED?14:9))+"</div><hr>").appendTo("#crlistperk");
     }
 	for(var i in mperk) {
 		if(mperk[i].length === 0) continue;
