@@ -15,6 +15,7 @@
 		<link rel="stylesheet" href="style.css?ver=<?=$ver?>">
 		<link rel="stylesheet" href="style_eng.css?ver=<?=$ver?>">
 		<script type="text/javascript" async src="js/jquery-3.1.0.min.js?ver=<?=$ver?>"></script>
+		<script type = "text/javascript" async src = "js/auto.js?ver=<?=$ver?>"></script>
 		<script type = "text/javascript" async src = "js/perks.js?ver=<?=$ver?>"></script>
 		<script type = "text/javascript" async src = "js/traits.js?ver=<?=$ver?>"></script>
 		<script type = "text/javascript" async src = "js/app.js?ver=<?=$ver?>"></script>		
