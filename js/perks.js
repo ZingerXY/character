@@ -480,7 +480,7 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		function(){},
         {stats:{AGI:7,INT:7}}],
 	PE_NAPROLOM: ["Бывалый", "Вы знаток оружия. +10% к навыку Легкое оружие, Тяжелое оружие, Энергетическое оружие. +15% к навыку Рукопашная и Холодное оружие.",
-		1,2,31,function(n){return stats.INT[2] >= 5},
+		1,2,32,function(n){return stats.INT[2] >= 5},
 		function(){pr.add("skills","light",7,1);pr.add("skills","heavy",7,1);pr.add("skills","energy",7,1);pr.add("skills","thrown",10,1);pr.add("skills","melee",15,1);pr.add("skills","steel",15,1);},
 		function(){pr.add("skills","light",-7,1);pr.add("skills","heavy",-7,1);pr.add("skills","energy",-7,1);pr.add("skills","thrown",-10,1);pr.add("skills","melee",-15,1);pr.add("skills","steel",-15,1);},
         {stats:{INT:5}}],
