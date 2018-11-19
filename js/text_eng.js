@@ -120,7 +120,8 @@ var questinfo = {
 			   "Small Guns +10%",
 			   "Big Guns +10%",
 			   "Energy Weapons +10%",
-			   "First Aid and Doctor +5%"],
+			   "First Aid and Doctor +5%",
+			   "Thrown Weapons +10%"],
     per_ncr: ["+4% to crit","+4% to anticrit"]
 }
 
