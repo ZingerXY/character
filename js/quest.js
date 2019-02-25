@@ -88,7 +88,7 @@ var quest = {	// квест, описание, уровней квеста, ми
 			cdrayfild:["["+questinfo.drayfild[2]+"]",function(){pr.add("skills","steel",10,1);return 3;},true],
 			ddrayfild:["["+questinfo.drayfild[3]+"]",function(){pr.add("skills","light",10,1);return 4;},true],
 			edrayfild:["["+questinfo.drayfild[4]+"]",function(){pr.add("skills","heavy",10,1);return 5;},true],
-			fdrayfild:["["+questinfo.drayfild[5]+"]",function(){pr.add("skills","energy",10,1);return 6;},true],
+			idrayfild:["["+questinfo.drayfild[5]+"]",function(){pr.add("skills","energy",10,1);return 6;},true],
 			gdrayfild:["["+questinfo.drayfild[6]+"]",function(){pr.add("skills","orderly",5,1);pr.add("skills","doctor",5,1);return 7;},true],
 			fdrayfild:["["+questinfo.drayfild[7]+"]",function(){pr.add("skills","thrown",10,1);return 8;},true],
 			hdrayfild:[dialog.drynone,function(){return 0;},true]});
