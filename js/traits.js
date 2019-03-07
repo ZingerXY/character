@@ -215,20 +215,24 @@ var traits = {
 	// Минусы: Перк дается через 4 уровня, а не через 3. Нельзя взять перки: Бесшумный бег, Терминатор, Снайпер и Неудержимый
 	TRAIT_SKILLED: function(str){
 			if(!mychar.traits[str] && charp.tagt>0){
-				mychar.stats.ENU[1]+=2;
-				mychar.stats.CHA[1]+=2;
-				mychar.stats.INT[1]+=2;
-				mychar.stats.AGI[1]+=2;
+				mychar.stats.STR[1]+=1;
+				mychar.stats.ENU[1]+=1;				
+				mychar.stats.INT[1]+=1;
+				mychar.stats.AGI[1]+=1;
 				pr.add("feats","crit",15);
 				mychar.traits[str] = 1;
+				charp.tags++;
+				numbers($("#point2"),charp.tags);
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2){
-				mychar.stats.ENU[1]-=2;
-				mychar.stats.CHA[1]-=2;
-				mychar.stats.INT[1]-=2;
-				mychar.stats.AGI[1]-=2;
+				mychar.stats.STR[1]-=1;
+				mychar.stats.ENU[1]-=1;				
+				mychar.stats.INT[1]-=1;
+				mychar.stats.AGI[1]-=1;
 				pr.add("feats","crit",-15);
 				delete mychar.traits[str];
+				charp.tags--;
+				numbers($("#point2"),charp.tags);
 				charp.tagt++;
 			}
 			},

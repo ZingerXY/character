@@ -659,17 +659,9 @@ function levelup(){
 	$("#exp").html(levelexp(charp.level));
 	$("#nextexp").html(levelexp(charp.level+1));
 	if (charp.level<29)	{
-		//pr.add("feats", "live", 2+Math.floor(stats.ENU[2]/2)+(stats.ENU[2]%2?(charp.level%2?0:1):0));
-		//feat.live[0] = pr.sum("feats", "live") + 60 + stats.STR[2] + stats.ENU[2]*2 + mychar.stats.STR[0]*2;
-		//$("#live").html(feat.live[0]+"/"+feat.live[0]);
-		charp.points += 5 + (stats.INT[2] * 2) - (mychar.traits.TRAIT_NIGHT_PERSON?3:0);
+		charp.points += 5 + (stats.INT[2] * 2) + (mychar.traits.TRAIT_SKILLED?3:0) - (mychar.traits.TRAIT_NIGHT_PERSON?3:0);
 		numbers($("#point1"),charp.points);
 	}
-	/*if (charp.level==29)	{
-		pr.add("feats", "live", 1);
-		feat.live[0] = pr.sum("feats", "live") + 60 + stats.STR[2] + stats.ENU[2]*2 + mychar.stats.STR[0]*2;
-		$("#live").html(feat.live[0]+"/"+feat.live[0]);
-	}*/
 	if (!(charp.level%(mychar.traits.TRAIT_SKILLED?4:(mychar.traits.TRAIT_GOOD_NATURED?2:3)))) {
 		charp.perkpoint = 1;
 		$("#textswitch1").addClass("perkup");
@@ -863,14 +855,6 @@ function verPerkandTrait(p) {
 					delete mychar.tperk[p];
 					return false;
 				}
-		/*if ("stats" in obj)
-			for(var j in obj.stats)
-				if ("ch" in obj) {
-					if (obj.stats[j] <= stats[j][2])
-						return false;
-				}
-				else if (obj.stats[j] > stats[j][2])
-					return false;*/
 	}
 	return true;
 }
@@ -910,17 +894,17 @@ function decalc() {
 	if (emptyObject(mychar.tperk)) {
 		testperks();
 		mychar.stats = {
-			STR: [8+(chtr("TRAIT_BRUISER")?3:0),0],
+			STR: [8+(chtr("TRAIT_BRUISER")?3:0)+(chtr("TRAIT_SKILLED")?1:0),0],
 			PER: [7,0],
-			ENU: [8,0+(chtr("TRAIT_SKILLED")?2:0)],
-			CHA: [1,0+(chtr("TRAIT_SKILLED")?2:0)],
-			INT: [8,0+(chtr("TRAIT_SKILLED")?2:0)],
-			AGI: [7+(chtr("TRAIT_SMALL_FRAME")?1:0),0+(chtr("TRAIT_KAMIKAZE")?1:0)+(chtr("TRAIT_SKILLED")?2:0)],
+			ENU: [8,0+(chtr("TRAIT_SKILLED")?1:0)],
+			CHA: [1,0],
+			INT: [8,0+(chtr("TRAIT_SKILLED")?1:0)],
+			AGI: [7+(chtr("TRAIT_SMALL_FRAME")?1:0),0+(chtr("TRAIT_KAMIKAZE")?1:0)+(chtr("TRAIT_SKILLED")?1:0)],
 			LUC: [1,0]};
 			charp.specialpoint = 0;
 	}
 	else {
-		var ss = 40 + (chtr("TRAIT_BRUISER")?3:0) + (chtr("TRAIT_SMALL_FRAME")?1:0) + (chtr("TRAIT_KAMIKAZE")?1:0) + (chtr("TRAIT_SKILLED")?8:0)
+		var ss = 40 + (chtr("TRAIT_BRUISER")?3:0) + (chtr("TRAIT_SMALL_FRAME")?1:0) + (chtr("TRAIT_KAMIKAZE")?1:0) + (chtr("TRAIT_SKILLED")?4:0)
 		var res = testperks(ss);
 		if (res[0]==70) return;
 		charp.specialpoint = ss - res[0];
