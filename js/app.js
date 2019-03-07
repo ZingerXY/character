@@ -298,8 +298,9 @@ function statpoints(){
 }
 // Отображение разлиных поинтов
 function numbers(div,n) {
-	if (n<0) {
-		n = 0;
+	if (div.hasClass('numspec') && (n < 1 || n > 10)) {
+		if (n < 1)
+			n = 0;
 		div.css("text-shadow", "0 0 1px #e00");
 	}
 	else {
