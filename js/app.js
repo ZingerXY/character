@@ -674,7 +674,7 @@ function levelup(){
 function addperk(perks) {
 	mychar.perks[perks] = {vol: checkperk(perks) + 1, lvl: checkperk(perks) ? mychar.perks[perks].lvl : []};
 	mychar.perks[perks].lvl.push(charp.level);
-	perk[perks][6]();
+	perk[perks][5]();
 }
 
 function delobj(obj,str,c) {
@@ -689,11 +689,11 @@ function delobj(obj,str,c) {
 			delete mychar[obj][str];
 	}
 	if (obj == "perks")
-		if (perk[str][7]!==undefined)
-			perk[str][7]();
+		if (perk[str][6]!==undefined)
+			perk[str][6]();
 	else if (obj == "quest")
-		if (quest[str][7]!==undefined)
-			quest[str][7]();
+		if (quest[str][6]!==undefined)
+			quest[str][6]();
 }
 function checkperk(strperk) {
 	if (mychar.perks[strperk]===undefined)
@@ -766,7 +766,7 @@ function listperkup(){
 	$("#imgparms").html("");
 	select.perk = "";
 	for(var i in perk){
-		if (checkperk(i)<perk[i][2]&&charp.level>=perk[i][3]&&charp.level<=perk[i][4]&&perk[i][5](0)){
+		if (verRequirPerk(i)){
 			var perkit = $("<div id=\""+i+"\" class=\"perklist\">"+textperk[i][0]+"</div>").appendTo("#selectperk");
 			perkit.click(function(){
 				if (select.perk) $("#"+select.perk).css("color","#00AB00");
@@ -837,7 +837,7 @@ function createlistperk() {
 	}
 }
 function verPerkandTrait(p) {
-	var obj = perk[p][8];
+	var obj = perk[p][7];
 	if (!emptyObject(obj)) {
 		if ("traits" in obj)
 			for(var j in obj.traits) {
@@ -860,6 +860,49 @@ function verPerkandTrait(p) {
 	}
 	return true;
 }
+// Проверка требований перка
+function verRequirPerk(p) {
+	// Проверка колличества разрядов перка
+	if (checkperk(p) >= perk[p][2]) 
+		return false;
+	// Проверка соответствия уровня
+	if (charp.level < perk[p][3] || charp.level > perk[p][4]) 
+		return false;
+	var obj = perk[p][7];
+	if (!emptyObject(obj)) {
+		if ("traits" in obj) // Проверка исключающих трейтов
+			for(var j in obj.traits) {
+				if (j in mychar.traits) {
+					if (obj.traits[j] == 1)
+						return false;
+				} else if (obj.traits[j] == 0) {
+					return false;
+				}
+			}
+		if ("perks" in obj) // Проверка исключающих перков
+			for(var j in obj.perks) {
+				if (j in mychar.perks) {
+					if (obj.perks[j] == 1)
+						return false;
+				} else if (obj.perks[j] == 0) {
+					return false;
+				}
+			}
+		if ("stats" in obj) // Проверка статов
+			for(var j in obj.stats) {
+				if (obj.ch && stats[j][2] >= obj.stats[j]) 
+					return false;
+				else if (!obj.ch && stats[j][2] < obj.stats[j])
+					return false;
+			}
+		if ("skills" in obj) // Проверка скилов
+			for(var j in obj.skills) {
+				if (skills[j][0] < obj.skills[j]) 
+					return false;
+			}
+	}
+	return true;
+}
 // Рейверс кальк
 function testperks(ss) {
 	ss = ss===undefined ? 40 : ss;
@@ -871,7 +914,7 @@ function testperks(ss) {
 
 	for(var i in stats)	stats[i][2]=1;
 	for(var i in mychar.tperk) {
-		var obj = perk[i][8];
+		var obj = perk[i][7];
 		if (!emptyObject(obj)) {
 			if ("stats" in obj)
 				for(var j in obj.stats)
@@ -992,7 +1035,7 @@ function showlistquest(){
 // Создает строку требований перка
 function require(p) {
 	var str = anytext.treb;
-	var obj = perk[p][8];
+	var obj = perk[p][7];
 	if (emptyObject(obj)){
 		str += "<br>"+anytext.net;
 		return str;
@@ -1264,9 +1307,9 @@ function loadbuild(myc,cp) {
 	showlistquest();					// обновление списка квестов
 	// Отображение требования навыков к перкам
 	for(var k in mychar.tperk)
-		if ("skills" in perk[k][8])
-			for(var j in perk[k][8].skills) {
-				$("#s"+j).html(perk[k][8].skills[j]+"%");
+		if ("skills" in perk[k][7])
+			for(var j in perk[k][7].skills) {
+				$("#s"+j).html(perk[k][7].skills[j]+"%");
 			}
 }
 // Сохранение билда в базу данных
