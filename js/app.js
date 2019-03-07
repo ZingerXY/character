@@ -248,6 +248,8 @@ function settle(str) {
 
 	for(var i in feat)
 		feat[i][0] += pr.sum("feats",i);
+	
+	feat.crit[0] = mychar.traits.TRAIT_CHEM_RESISTANT ? 0 : feat.crit[0];
 
 	if (feat.acrit[0] > 100)
 		feat.acrit[0] = 100;
