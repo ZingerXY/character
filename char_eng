@@ -340,7 +340,7 @@
             </div>
             <div id="loadkey" class="text reg shadow">LOAD</div>
             <div id="totalkey" class="text leveling shadow">SUMMARY</div>
-			<div id="by" class="text2">by <a href="http://forum.fallout2online.ru/memberlist.php?mode=viewprofile&u=6419">ZingerY</a> by supported <a href="http://bountyhunters.ixbb.ru/">BountyHunters</a></div>
+			<div id="by" class="text2">by <a href="http://forum.fallout2online.ru/memberlist.php?mode=viewprofile&u=6419">ZingerY</a> supported by <a href="http://bountyhunters.ixbb.ru/">BountyHunters</a></div>
             <?
 			include '../config.php';
 			if(isset($_COOKIE["id"])) {
