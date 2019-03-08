@@ -868,6 +868,7 @@ function verRequirPerk(p) {
 	if (charp.level < perk[p][3] || charp.level > perk[p][4]) 
 		return false;
 	var obj = perk[p][7];
+	var ormode = false;
 	if (!emptyObject(obj)) {
 		if ("traits" in obj) // Проверка исключающих трейтов
 			for(var j in obj.traits) {
@@ -887,19 +888,27 @@ function verRequirPerk(p) {
 					return false;
 				}
 			}
-		if ("stats" in obj) // Проверка статов
-			for(var j in obj.stats) {
-				if (obj.ch && stats[j][2] >= obj.stats[j]) 
-					return false;
-				else if (!obj.ch && stats[j][2] < obj.stats[j])
-					return false;
-			}
 		if ("skills" in obj) // Проверка скилов
 			for(var j in obj.skills) {
 				if (skills[j][0] < obj.skills[j]) 
 					return false;
 			}
+		if ("stats" in obj) // Проверка статов
+			for(var j in obj.stats) {
+				if ("ormode" in obj && "stats" in obj.ormode) {
+					if (j in obj.ormode.stats && stats[j][2] >= obj.stats[j])
+						ormode = ormode || true;
+				}
+				else {
+					if (obj.ch && stats[j][2] >= obj.stats[j]) 
+						return false;
+					else if (!obj.ch && stats[j][2] < obj.stats[j])
+						return false;
+				}			
+			}
 	}
+	if ("ormode" in obj && !ormode)
+		return false;
 	return true;
 }
 // Рейверс кальк
