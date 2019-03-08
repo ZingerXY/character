@@ -219,7 +219,6 @@ var traits = {
 				mychar.stats.ENU[1]+=1;				
 				mychar.stats.INT[1]+=1;
 				mychar.stats.AGI[1]+=1;
-				pr.add("feats","crit",15);
 				mychar.traits[str] = 1;
 				charp.tags++;
 				numbers($("#point2"),charp.tags);
@@ -229,7 +228,6 @@ var traits = {
 				mychar.stats.ENU[1]-=1;				
 				mychar.stats.INT[1]-=1;
 				mychar.stats.AGI[1]-=1;
-				pr.add("feats","crit",-15);
 				delete mychar.traits[str];
 				charp.tags--;
 				numbers($("#point2"),charp.tags);

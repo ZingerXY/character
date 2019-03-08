@@ -243,8 +243,7 @@ function settle(str) {
 	//Уворот
 	feat.dodge[0] = /*stats.CHA[2] +*/ (checkperk("PE_HTH_EVADE") ? (feat.apoi[0]/4)+(feat.apoi[0]/2) : 0);
 	//Антикрит
-	feat.acrit[0] = stats.STR[2] * 5 + (checkperk("PE_TERMINATOR") ? stats.ENU[2]*5 :
-					mychar.traits.TRAIT_SKILLED ? 15 : 0);
+	feat.acrit[0] = stats.STR[2] * 5 + (checkperk("PE_TERMINATOR") ? stats.ENU[2] * 5 : 0);
 
 	for(var i in feat)
 		feat[i][0] += pr.sum("feats",i);
