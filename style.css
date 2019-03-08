@@ -1168,10 +1168,11 @@ img{
     outline: none;
     color: #0e0;
     font-family: Arial_Bold;
-    background-color: #0A0A0A;
     border-color: grey;
     border: 1px solid #808080;
     border-radius: 4px;
+	-moz-appearance: none;
+    background: #0A0A0A url(../img/select-arrow.png) no-repeat center right;
 }
 
 #by {
