@@ -966,7 +966,7 @@ function decalc() {
 		if (chtr("TRAIT_KAMIKAZE"))
 			mychar.stats.AGI[0]--;
 		if (chtr("TRAIT_SKILLED")) {
-			mychar.stats.ENU[0]-=2;mychar.stats.CHA[0]-=2;mychar.stats.INT[0]-=2;mychar.stats.AGI[0]-=2;
+			mychar.stats.STR[0]-=1;mychar.stats.ENU[0]-=1;mychar.stats.INT[0]-=1;mychar.stats.AGI[0]-=1;
 		}
 	}
 	statpoints();
