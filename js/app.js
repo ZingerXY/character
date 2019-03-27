@@ -727,7 +727,12 @@ function leveldown() {
 	for(var i in mychar.book)
 		for(var j in mychar.book[i][2])
 			if (j == charp.level) {
-				mychar.book[i][0] += mychar.book[i][2][j][i][0];
+				if (i != 'prewar') {
+					mychar.book[i][0] += mychar.book[i][2][j][i][0];
+				} else {
+					for(var k in mychar.book[i][2][j])
+						mychar.book[i][0] += mychar.book[i][2][j][k][0];
+				}
 				delete mychar.book[i][2][j];
 			}
 	delete mychar.feats[charp.level];	// Удаление параметров
