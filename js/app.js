@@ -193,7 +193,7 @@ function settle(str) {
 	// Скрытность
 	skills.sneak[0] = 5 + mychar.stats.AGI[0]*3;
 	// Взлом
-	skills.hack[0] = 10 + mychar.stats.AGI[0]+ mychar.stats.PER[0];
+	skills.hack[0] = 6 + mychar.stats.AGI[0]+ mychar.stats.PER[0];
 	// Воровство
 	skills.steal[0] = mychar.stats.AGI[0]*3;
 	// Ловушки
@@ -201,7 +201,7 @@ function settle(str) {
 	// Наука
 	skills.science[0] = mychar.stats.INT[0]*4;
 	// Ремонт
-	skills.repair[0] = mychar.stats.INT[0]*3;
+	skills.repair[0] = 6 + mychar.stats.INT[0]*2;
 	// Красноречие
 	skills.oratory[0] = mychar.stats.CHA[0]*5;
 	// Торговля
