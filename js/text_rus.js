@@ -90,8 +90,13 @@ var anytext = {
 	net: "нет",
 	traits: "Трейты: ",
 	nav: "Навыки: ",
-	procnav: "Прокаченные навыки:",
-	imp: "Импланты:",
+	procnav: "Прокаченные навыки: ",
+	imp: "Импланты: ",
+	medals: "Медали: ",
+	medals_in: " медалей -> ",
+	medals_skillpoint: " скилпоинтов",
+	medals_carryweight: " веса",
+	medals_hp: " хп",
 	book: "Книги:",
 	nosave: "Сохранения временно не работают."
 }

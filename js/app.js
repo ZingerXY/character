@@ -1238,6 +1238,7 @@ function total() {
 		for(var j in mperk)
 			textarea += ""+j+" ур: "+textperk[mperk[j]][0] + "\n";
 	}
+	// Прокаченые навыки
 	var str = "";
 	for(var i in skills)
 		if (skills[i][0] > 80) {
@@ -1256,6 +1257,7 @@ function total() {
 		}
 	if (str != "")
 		textarea += "\n"+anytext.procnav+"\n"+str;
+	// Импланты
 	str = "";
 	for(var i in questinfo)
 		if (i.substr(0,3) == "imp")
@@ -1263,6 +1265,34 @@ function total() {
 				str += questinfo[i][mychar.quest[i].vol - 1]+"\n";
 	if (str != "")
 		textarea += "\n"+anytext.imp+"\n"+str;
+	// Медали
+	str = "";
+	if (mychar.quest.medals && mychar.quest.medals.med) {
+		var medinfo = {skillpoint: [0,0], carryweight: [0,0], hp: [0,0]}
+		for(var i in mychar.quest.medals.med) {
+			var elem = mychar.quest.medals.med[i];
+			if (elem[0] == 1 || elem[0] == 4 || elem[0] == 5) {
+				medinfo.skillpoint[0] += (elem[0] > 1) ? ((elem[0] == 4) ? 10 : 80) : 1;
+				medinfo.skillpoint[1] += elem[1];
+			} else if (elem[0] == 2) {
+				medinfo.carryweight[0] += 15;
+				medinfo.carryweight[1] += elem[1];
+			} else if (elem[0] == 3) {
+				medinfo.hp[0] += 1;
+				medinfo.hp[1] += elem[1];
+			}
+		}
+		if (medinfo.skillpoint[1])
+			str += medinfo.skillpoint[1] + anytext.medals_in + medinfo.skillpoint[0] + anytext.medals_skillpoint + "\n";
+		if (medinfo.carryweight[1])
+			str += medinfo.carryweight[1] + anytext.medals_in + medinfo.carryweight[0] + anytext.medals_carryweight + "\n";
+		if (medinfo.hp[1])
+			str += medinfo.hp[1] + anytext.medals_in + medinfo.hp[0] + anytext.medals_hp + "\n";
+		
+	}
+	if (str != "" || mychar.quest.medals)
+		textarea += "\n" + anytext.medals+mychar.quest.medals.vol + "\n" + str;
+	// Книги
 	str = "";
 	for(var i in mychar.book) {
 		if (i!="prewar"&&mychar.book[i][0]<10)	str += textbook[i]+" "+(10-mychar.book[i][0])+"\n";

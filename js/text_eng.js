@@ -85,13 +85,18 @@ var anytext = {
 	dop: "Additional",
 	bonus: "Bonuses",
 	quest: "Quests",
-	treb: "Requirement:",
+	treb: "Requirement: ",
 	net: "no",
 	traits: "Traits: ",
 	nav: "Skills: ",
-	procnav: "Learned skills:",
-	imp: "Implants:",
-	book: "Books:",
+	procnav: "Learned skills: ",
+	imp: "Implants: ",
+	medals: "Medals: ",
+	medals_in: " medals -> ",
+	medals_skillpoint: " skillpoint",
+	medals_carryweight: " carryweight",
+	medals_hp: " hp",
+	book: "Books: ",
 	nosave: "Saves is temporarily not working.",
 }
 
@@ -127,7 +132,7 @@ var questinfo = {
 			 "+15 carryweight",
 			 "1 hp",
 			 "+10 skillpoints",
-			 "+150 skillpoints"]
+			 "+80 skillpoints"]
 }
 
 var texttraits = {
