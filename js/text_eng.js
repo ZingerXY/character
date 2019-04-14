@@ -122,7 +122,12 @@ var questinfo = {
 			   "Energy Weapons +10%",
 			   "First Aid and Doctor +5%",
 			   "Thrown Weapons +10%"],
-    per_ncr: ["+4% to crit","+4% to anticrit"]
+    per_ncr: ["+4% to crit","+4% to anticrit"],
+	medals: ["1 skillpoint",
+			 "+15 carryweight",
+			 "1 hp",
+			 "+10 skillpoints",
+			 "+150 skillpoints"]
 }
 
 var texttraits = {

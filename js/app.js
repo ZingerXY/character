@@ -1030,17 +1030,29 @@ function showlistquest(){
 	if (!emptyObject(mychar.quest)) {
 		var mquest = [];
 		lineit.append("<div class=\"listhead\">"+anytext.quest+"</div>");
-		for(var j in mychar.quest)
+		for (var j in mychar.quest)
 			for(var i in mychar.quest[j].lvl) {
 				if (mquest[mychar.quest[j].lvl[i]] == undefined)
 					mquest[mychar.quest[j].lvl[i]] = [];
-				mquest[mychar.quest[j].lvl[i]].push(j);
+				if (j == "medals" && mychar.quest[j]['med']) {
+					mquest[mychar.quest[j].lvl[i]].push([j,i].concat(mychar.quest[j].med[i]));
+				} else {
+					mquest[mychar.quest[j].lvl[i]].push(j);
+				}
 			}
-		for(var j in mquest) {
+		for (var j in mquest) {
 			lineit.append("<div><span id=\"lists"+j+"\" class=\"listlvl\">"+j+anytext.lvl2+" </span></div>");
-			for(var n in mquest[j]){
-				lineit.append("<div><span id=\"list"+mquest[j][n]+"\" class=\"perklist\">"+textquest[mquest[j][n]][0]+(chobj("quest",mquest[j][n])>1?"("+chobj("quest",mquest[j][n])+")":"")+"</span></div>");
-				$("#list"+mquest[j][n]).click(function(){infoparm("quest",this.id.substr(4));});
+			for (var n in mquest[j]) {
+				var elem = mquest[j][n];
+				if (typeof elem == "object") {
+					namequest = elem[0];
+					idquest = elem[1];
+					lineit.append("<div><span id=\"list"+namequest+idquest+"\" data-namequest=\""+namequest+"\" data-idquest=\""+idquest+"\" class=\"perklist\">"+textquest[namequest][0]+(chobj("quest",namequest)>1?"("+elem[3]+")":"")+"</span></div>");
+					$("#list"+namequest+idquest).click(function(){infoparm("quest",this.dataset.namequest,this.dataset.idquest);});
+				} else {
+					lineit.append("<div><span id=\"list"+elem+"\" class=\"perklist\">"+textquest[elem][0]+(chobj("quest",elem)>1?"("+chobj("quest",elem)+")":"")+"</span></div>");
+					$("#list"+elem).click(function(){infoparm("quest",this.id.substr(4));});
+				}
 			}
 		}
 	}
@@ -1073,7 +1085,7 @@ function require(p) {
 }
 
 // Вывод информации о перке или квесте по клику
-function infoparm(ch,prm){
+function infoparm(ch,prm,med){
 	switch(ch) {
 		case "traits": // описание трейтов
 			$("#nameparm").html(texttraits[prm][0]);
@@ -1092,7 +1104,12 @@ function infoparm(ch,prm){
 		case "quest": // описание квестов
 			$("#nameparm").html(textquest[prm][0]);
 			$("#textparmreq").html("");
-			var str = textquest[prm][1] + ((prm in questinfo) ? "<br>" + questinfo[prm][mychar.quest[prm].vol - 1] : "");
+			var str = "";
+			if (med || prm == 'medals') {
+				str = textquest[prm][1] + ((prm in questinfo && med) ? "<br>" + questinfo[prm][mychar.quest[prm].med[med][0] - 1] : "");
+			} else {
+				str = textquest[prm][1] + ((prm in questinfo) ? "<br>" + questinfo[prm][mychar.quest[prm].vol - 1] : "");
+			}
 			$("#textparm").html(str);
 		break;
 		case "skills": // описание скилов
@@ -1168,11 +1185,19 @@ function talk(textdialog,answ) {
 				if (nup==-1) return;
 				$("#talk").hide();
 				if (nup===0) return;
-				if (typeof nup == "object") {
-					pr.add("skills",e.currentTarget.id.substr(4),nup[0],1);
-					nup = nup[1];
+				if (typeof nup == "object" && select.quest == "medals") {
+					mychar.quest[select.quest]={ 
+											 vol: chobj("quest",select.quest) + nup[1], 
+											 lvl: chobj("quest",select.quest) ? mychar.quest[select.quest].lvl : [],
+											 med: chobj("quest",select.quest) ? mychar.quest[select.quest].med : [],
+										   };
+					mychar.quest[select.quest].med.push(nup);
+				} else {
+					mychar.quest[select.quest]={ 
+											 vol: chobj("quest",select.quest) + nup, 
+											 lvl: chobj("quest",select.quest) ? mychar.quest[select.quest].lvl : []
+										   };
 				}
-				mychar.quest[select.quest]={vol:chobj("quest",select.quest) + nup, lvl: chobj("quest",select.quest) ? mychar.quest[select.quest].lvl : []};
 				mychar.quest[select.quest].lvl.push(charp.level);
 				settle();
 				statpoints();
