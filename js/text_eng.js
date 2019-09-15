@@ -180,7 +180,7 @@ var textquest = {
 	imp_battle:["Combat Implant","Combat one."],
 	imp_medical:["Medical Implant","Medical one."],
 	imp_auxiliary:["Utility Implant","Utility one."],
-	PE_MA_SKIT:["Wasteland Dweller(5)", "+5% to Outdoorsman and 5% worldmap speed. Tracking opens from Mastery Level 3."],
+	PE_MA_SKIT:["Wasteland Dweller(5)", "+5% to Outdoorsman. Tracking opens from Mastery Level 3."],
 	PE_MA_REM:["Master of Repairs(5)", "You receive +3% to Repair and +1% to Science with each level."],
 	PE_MA_FIX:["Master of Science(5)", "You receive +3% to Science and +1% to Repair with each level."],
 	PE_MA_AID:["Master of Medkit(5)", "You receive +2% to First Aid and +2% to Doctor."]
