@@ -242,11 +242,18 @@ function settle(str) {
 	feat.crit[0] = stats.LUC[2];
 	//Уворот
 	feat.dodge[0] = /*stats.CHA[2] +*/ (checkperk("PE_HTH_EVADE") ? (feat.apoi[0]/4)+(feat.apoi[0]/2) : 0);
+	if (mychar.traits.TRAIT_GOOD_NATURED) 
+		feat.dodge[0] = Math.floor(feat.dodge[0] / 2);
 	//Антикрит
 	feat.acrit[0] = stats.STR[2] * 5 + (checkperk("PE_TERMINATOR") ? stats.ENU[2] * 5 : 0);
 
-	for(var i in feat)
-		feat[i][0] += pr.sum("feats",i);
+	for(var i in feat) {
+		if (i == "dodge" && mychar.traits.TRAIT_GOOD_NATURED) {
+			feat[i][0] += Math.floor(pr.sum("feats",i) / 2);
+		} else {
+			feat[i][0] += pr.sum("feats",i);
+		}
+	}
 	
 	feat.crit[0] = mychar.traits.TRAIT_CHEM_RESISTANT ? 0 : feat.crit[0];
 
