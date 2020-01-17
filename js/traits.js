@@ -59,13 +59,15 @@ var traits = {
 			}
 			},
 	// Точность
-	// Плюсы: +20 к окончательному урону
+	// Плюсы: +10 к критшансу
 	// Минусы: +1 ОД к стоимости неприцельных атак
 	TRAIT_FINESSE: function(str){
 			if(!mychar.traits[str] && charp.tagt>0){
+				pr.add("feats","crit",10);
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2){
+				pr.add("feats","crit",-10);
 				delete mychar.traits[str];
 				charp.tagt++;
 			}
@@ -100,7 +102,7 @@ var traits = {
 			},
 	// Быстрый стрелок
 	// Плюсы: -1 ОД для дальнебойного оружия (кроме инженерного).
-	// Минусы: Вы не можете прицельно атаковать, ваш критурон не увеличивается. К штрафу в дыму прибавляется 20 ед.
+	// Минусы: Вы не можете прицельно атаковать, ваш критурон не увеличивается. -50 к используемому боевому навыку.
 	TRAIT_FAST_SHOT: function(str){
 			if(!mychar.traits[str] && charp.tagt>0){
 				mychar.traits[str] = 1;
@@ -111,16 +113,16 @@ var traits = {
 			}
 			},
 	// Маньяк
-	// Плюсы: +175 к навыку Атлетизма.
+	// Плюсы: +125 к навыку Атлетизма.
 	// Минусы: -25 ОЗ.
 	TRAIT_BLOODY_MESS: function(str){
 			if(!mychar.traits[str] && charp.tagt>0){
-				//pr.add("skills","speed",175,1);
+				pr.add("skills","speed",125,1);
 				//pr.add("feats","live",-25);
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2){
-				//pr.add("skills","speed",-175,1);
+				pr.add("skills","speed",-125,1);
 				//pr.add("feats","live",25);
 				delete mychar.traits[str];
 				charp.tagt++;
@@ -183,7 +185,7 @@ var traits = {
 			}
 			},
 	// Стабильный
-	// Плюсы: Вы критически не промахиваетесь, +35 к навыку при попадании, Штраф дыма уменьшается на ваше ВОС*2, +1 Восприятия
+	// Плюсы: Вы критически не промахиваетесь, +35 к навыку при попадании, +(Восприятие)% к навыку при расчетах штрафа дыма, +1 Восприятия
 	// Минусы: Вы критически не попадаете.
 	TRAIT_CHEM_RESISTANT: function(str){
 			if(!mychar.traits[str] && charp.tagt>0){
