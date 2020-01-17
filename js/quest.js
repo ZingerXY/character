@@ -5,8 +5,8 @@ var quest = {	// квест, описание, уровней квеста, ми
 			amedals:[dialog.medals.amedals,function(){charp.points++;numbers($("#point1"),charp.points);return [1,3];},(quest.medals[2]-chobj("quest","medals"))>=3],
 			cmedals:[dialog.medals.cmedals,function(){pr.add("feats","maxl",15);return [2,5];},(quest.medals[2]-chobj("quest","medals"))>=5],
 			bmedals:[dialog.medals.bmedals,function(){pr.add("feats","live",1);return [3,7];},(quest.medals[2]-chobj("quest","medals"))>=7],
-			fmedals:[dialog.medals.fmedals,function(){charp.points+=10;medsp+=10;numbers($("#point1"),charp.points);return [4,10];},(quest.medals[2]-chobj("quest","medals"))>=10 && medsp<80],
-			gmedals:[dialog.medals.gmedals,function(){charp.points+=80;medsp+=80;numbers($("#point1"),charp.points);return [5,80];},(quest.medals[2]-chobj("quest","medals"))>=80 && medsp==0],
+			fmedals:[dialog.medals.fmedals,function(){charp.points+=10;medsp+=10;numbers($("#point1"),charp.points);return [4,10];},(quest.medals[2]-chobj("quest","medals"))>=10 && medsp<maxMedals()],
+			gmedals:[dialog.medals.gmedals.split('%n%').join(maxMedals()),function(){charp.points+=maxMedals();medsp+=maxMedals();numbers($("#point1"),charp.points);return [5,maxMedals()];},(quest.medals[2]-chobj("quest","medals"))>=maxMedals() && medsp==0],
 			zmedals:[dialog.none,function(){return 0;},true]});
 		}],
 	PE_NCR_REPAIR:["Секреты мастерства: Ремонт", "Механик Модока ознакомил вас с новой технологией починки оружия. Ваш навык Ремонта повышен на 5%.",

@@ -216,12 +216,14 @@ function settle(str) {
 
 	for(var i in mychar.stats)
 			stats[i][2] = mychar.stats[i][0] + mychar.stats[i][1];
-	// Жизни Выносливость*16+Сила*3+109
-	feat.live[0] = stats.ENU[2]*16 + stats.STR[2]*3 + 109;
+	// Жизни 150+Сила*3+Выносливость*10+Ловкость*2, если добродуш Харизма*10+Выносливость*5+Удача*5
+	feat.live[0] = mychar.traits.TRAIT_GOOD_NATURED ? 
+		(stats.CHA[2] * 10 + stats.ENU[2] * 5 + stats.LUC[2] * 5) : 
+		(150 + stats.STR[2] * 3 + stats.ENU[2] * 10 + stats.AGI[2] * 2);
 	// Класс брони
 	feat.armc[0] = stats.AGI[2]*(mychar.traits.TRAIT_KAMIKAZE ? 0 : 1)+(mychar.traits.TRAIT_KAMIKAZE ? 1 : 0);
-	// Очки действий
-	feat.apoi[0] = 5 + Math.floor(stats.AGI[2]/2);
+	// Очки действий 7+Ловкость/3
+	feat.apoi[0] = 7 + Math.floor(stats.AGI[2]/3);
 	// Макс груз
 	feat.maxl[0] = Math.round(0.453*( 25 + stats.STR[2] * ( 25 - (mychar.traits.TRAIT_SMALL_FRAME ? 1 : 0) * 10 )));
 	// Рукоп. повр.
@@ -1448,6 +1450,9 @@ function getbuild(hash) {
 				//loadbuild(msg[0],msg[1]);
 			}
 	});
+}
+function maxMedals() {
+	return 60 + stats.CHA[2] * 10;
 }
 //главная функция
 function main()
