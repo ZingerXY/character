@@ -175,41 +175,41 @@ function tags() {
 function settle(str) {
 	str = str || false;
 	// Легкое оружие
-	skills.light[0] = 5 + mychar.stats.AGI[0]*3 + stats.LUC[2];
+	skills.light[0] = mychar.stats.AGI[0]*3 + mychar.stats.LUC[0];
 	// Тяжелое
-	skills.heavy[0] = mychar.stats.AGI[0]*2 + stats.LUC[2];
+	skills.heavy[0] = mychar.stats.AGI[0]*2 + mychar.stats.LUC[0];
 	// Энергетическое
-	skills.energy[0] = 0 + mychar.stats.AGI[0]*2 + stats.LUC[2];
+	skills.energy[0] = 0 + mychar.stats.AGI[0]*2 + mychar.stats.LUC[0];
 	// Рукопашка
-	skills.melee[0] = 30 + (mychar.stats.STR[0]+mychar.stats.AGI[0])*2 + stats.LUC[2];
+	skills.melee[0] = 30 + (mychar.stats.STR[0]+mychar.stats.AGI[0])*2 + mychar.stats.LUC[0];
 	// Холодное
-	skills.steel[0] = 20 + (mychar.stats.STR[0]+mychar.stats.AGI[0])*2 + stats.LUC[2];
+	skills.steel[0] = 20 + (mychar.stats.STR[0]+mychar.stats.AGI[0])*2 + mychar.stats.LUC[0];
 	// Метательное
-	skills.thrown[0] = mychar.stats.AGI[0]*4 + stats.LUC[2];
+	skills.thrown[0] = mychar.stats.AGI[0]*4 + mychar.stats.LUC[0];
 	// Санитар
-	skills.orderly[0] = (mychar.stats.PER[0]+mychar.stats.INT[0])*2 + stats.LUC[2];
+	skills.orderly[0] = (mychar.stats.PER[0]+mychar.stats.INT[0])*2 + mychar.stats.LUC[0];
 	// Доктор
-	skills.doctor[0] = 5 + mychar.stats.PER[0]+mychar.stats.INT[0] + stats.LUC[2];
+	skills.doctor[0] = 5 + mychar.stats.PER[0]+mychar.stats.INT[0] + mychar.stats.LUC[0];
 	// Скрытность
-	skills.sneak[0] = 5 + mychar.stats.AGI[0]*3 + stats.LUC[2];
+	skills.sneak[0] = 5 + mychar.stats.AGI[0]*3 + mychar.stats.LUC[0];
 	// Взлом
-	skills.hack[0] = 6 + mychar.stats.AGI[0]+ mychar.stats.PER[0] + stats.LUC[2];
+	skills.hack[0] = 5 + mychar.stats.AGI[0] + mychar.stats.PER[0] + mychar.stats.LUC[0]*2;
 	// Воровство
-	skills.steal[0] = mychar.stats.AGI[0]*3 + stats.LUC[2];
+	skills.steal[0] = mychar.stats.AGI[0]*3 + mychar.stats.LUC[0];
 	// Ловушки
-	skills.traps[0] = 10 + mychar.stats.AGI[0]+ mychar.stats.PER[0] + stats.LUC[2];
+	skills.traps[0] = 9 + mychar.stats.AGI[0] + mychar.stats.PER[0] + mychar.stats.LUC[0];
 	// Наука
-	skills.science[0] = mychar.stats.INT[0]*3 + stats.LUC[2];
+	skills.science[0] = mychar.stats.INT[0]*3 + mychar.stats.LUC[0];
 	// Ремонт
-	skills.repair[0] = 6 + mychar.stats.INT[0]*2 + stats.LUC[2];
+	skills.repair[0] = 5 + mychar.stats.INT[0]*2 + mychar.stats.LUC[0];
 	// Красноречие
-	skills.oratory[0] = mychar.stats.CHA[0]*5 + stats.LUC[2];
+	skills.oratory[0] = mychar.stats.CHA[0]*5 + mychar.stats.LUC[0];
 	// Торговля
-	skills.trade[0] = mychar.stats.CHA[0]*4 + stats.LUC[2];
+	skills.trade[0] = mychar.stats.CHA[0]*4 + mychar.stats.LUC[0];
 	// Атлет
-	skills.speed[0] =  stats.LUC[2];
+	skills.speed[0] =  mychar.stats.LUC[0] - 1;
 	// Скиталец
-	skills.ranger[0] = (mychar.stats.ENU[0]+mychar.stats.INT[0])*2 + stats.LUC[2];
+	skills.ranger[0] = (mychar.stats.ENU[0]+mychar.stats.INT[0])*2 + mychar.stats.LUC[0];
 
 	for(var i in skills)
 		skills[i][0] += pr.sum("skills",i);
