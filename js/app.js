@@ -690,22 +690,32 @@ function addperk(perks) {
 }
 
 function delobj(obj,str,c) {
-	if (chobj(obj,str)<=1)
+	if (chobj(obj,str)<=1) {
 		delete mychar[obj][str];
-	else {
+	} else {
 		if (!(str in questinfo)&&str!="medals") {
 			mychar[obj][str].vol--;
 			delete mychar[obj][str].lvl[c];
 		}
-		else if (str!="medals")
+		else if (str!="medals") {
 			delete mychar[obj][str];
+		}
 	}
-	if (obj == "perks")
+	if (str == "medals") {
+		var numMed = mychar[obj][str].med[c][0];
+		var diffMed = mychar[obj][str].med[c][1];
+		mychar[obj][str].vol -= diffMed;
+		if (numMed > 3) medsp -= diffMed;
+		delete mychar[obj][str].med[c];
+		delete mychar[obj][str].lvl[c];
+		if (!chobj(obj,str)) {
+			delete mychar[obj][str]
+		}
+	}
+	if (obj == "perks") {
 		if (perk[str][6]!==undefined)
 			perk[str][6]();
-	else if (obj == "quest")
-		if (quest[str][6]!==undefined)
-			quest[str][6]();
+	}
 }
 function checkperk(strperk) {
 	if (mychar.perks[strperk]===undefined)
