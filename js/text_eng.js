@@ -173,7 +173,7 @@ var textquest = {
 	skill_geck:["+3% all combat in Gecko","Ask Harold, and don't forget to take 5k+ coins."],
 	trade_den:["+5% barter","For completeing all James quests in Den."],
 	trade_mod:["+7% barter","Becoming Modoc citizen will allow you to learn few things from mayor."],
-	trade_up:["Barter before 40%","Some caravans in the Wasteland - inb4 40% for 1к coins for 1%."],
+	trade_up:["Barter before 240%","Some caravans in the Wasteland - inb4 240%."],
 	steel_reno:["Melee Weapons +10%", "New-Reno, Mordino junior, 200 caps."],
 	valerie_letter:["+10% SG and Repair", "Valery letter. Starts at May 5 up to May 31, ask Valery in Vault-City."],
 	drayfild:["NeoArk","Go in, kill fuggin wasp, then use toxic spray on beetol, dismantol turet and get teh reword. Who cares, noone reads anyway."],
