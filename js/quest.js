@@ -120,7 +120,7 @@ var quest = {	// квест, описание, уровней квеста, ми
 		function(){talk(dialog.imp_auxiliary,{
 			aimp_auxiliary:[questinfo.imp_auxiliary[0],function(){pr.add("feats","maxl",100);return 1;},true],
 			bimp_auxiliary:[questinfo.imp_auxiliary[1],function(){return 2;},true],
-			cimp_auxiliary:[questinfo.imp_auxiliary[2],function(){pr.add("skills","traps",80,1);pr.add("skills","sneak",20,1);return 3;},true],
+			cimp_auxiliary:[questinfo.imp_auxiliary[2],function(){pr.add("skills","traps",15,1);pr.add("skills","sneak",20,1);return 3;},true],
 			dimp_auxiliary:[questinfo.imp_auxiliary[3],function(){pr.add("skills","oratory",20,1);return 4;},true],
 			eimp_auxiliary:[questinfo.imp_auxiliary[4],function(){pr.add("skills","steal",20,1);pr.add("skills","hack",20,1);return 5;},true],
 			fimp_auxiliary:[questinfo.imp_auxiliary[5],function(){pr.add("skills","speed",20,1);return 6;},true],

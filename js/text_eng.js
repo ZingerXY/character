@@ -126,7 +126,7 @@ var questinfo = {
 				  "+5 hp per superstim on self, +30% doc."],
     imp_auxiliary: ["+100kg carryweight.",
 					"+25% to worldmap movespeed.",
-					"+100% to Traps.",
+					"+15% to Traps, +20% Sneak.",
 					"Replicanto perk, +20% to Speech.",
 					"+100% to Pickpocket, +20% to Lockpick.",
 					"+50 to Athleticism."], 
