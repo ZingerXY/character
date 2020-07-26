@@ -1,4 +1,8 @@
-<?$ver = "1579302016";?>
+<?php
+include 'ver.php';
+$banned = false;
+include_once 'checkBanned.php';
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -13,7 +17,7 @@
 		<link rel="alternate" hreflang="ru" href="http://fonlinew.ru/?char" />
 		<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="style.css?ver=<?=$ver?>">
-		<script type="text/javascript" async src="js/jquery-3.1.0.min.js?ver=<?=$ver?>" ></script>
+		<script type="text/javascript" src="js/jquery-3.1.0.min.js?ver=<?=$ver?>" ></script>
 		<script type = "text/javascript" async src = "js/auto.js?ver=<?=$ver?>"></script>
 		<script type = "text/javascript" async src = "js/perks.js?ver=<?=$ver?>"></script>
 		<script type = "text/javascript" async src = "js/traits.js?ver=<?=$ver?>"></script>
@@ -345,7 +349,7 @@
             <div id="totalkey" class="text leveling shadow">ИТОГ</div>
 			<div id="by" class="text2">by <a href="http://forum.fallout2online.ru/memberlist.php?mode=viewprofile&u=6419">ZingerY</a> supported by <a href="http://bountyhunters.ixbb.ru/">BountyHunters</a></div>
             <?
-			include '../config.php';
+			include_once  'config.php';
 			if(isset($_COOKIE["id"])) {
 				$uid = mysqli_real_escape_string($mysqli,$_COOKIE["id"]);
 				$query = "SELECT name,hash FROM build WHERE uniqueid='$uid'";		
@@ -370,6 +374,10 @@
         function Matrix(){function l(a,b){return Math.floor(Math.random()*(b-a+1))+a}function m(a,b,c){return a>=c?c:a<b?b:a}function n(a,b){var c=l(a,b);return c<20?i[l(0,i.length-1)]:c>=20&&c<=30?i[l(0,i.length-1)]:c>30?" ":void 0}function o(){k.clearRect(0,0,window.innerWidth,window.innerHeight),j.width=window.innerWidth,j.height=window.innerHeight,k.font="18px Consolas, Lucida Console, monospace";var g=Math.floor(window.innerWidth/k.measureText(i[0]).width);c=[];for(var h=[],o=0;o<g;o++)" "!=d[o]?c[o]=n(0,b):c[o]=n(a,100),d[o]=c[o],h[o]=0;e[0]=c;for(var p=Math.floor(window.innerHeight/18),o=p+12;0!=o;o--)e[o]=e[o-1]?e[o-1]:[];for(var o=p+12;0!=o;o--)for(var q in e[o]){" "!=e[o][q]?(e[o][q]=i[l(0,i.length-1)],h[q]++):h[q]=0;var s,r=[50,200,50];s=f?"rgba("+m(r[0]-10*h[q],7,255)+", "+m(r[1]-10*h[q],7,255)+", "+m(r[2]-10*h[q],7,255)+", 1)":"rgba(50, 200, 50, "+m(1-.05*h[q],0,1)+")",1==h[q]&&(s="rgba(85, 255, 85, 1)"),k.fillStyle=s,k.shadowColor=s,k.shadowBlur=5,o<=p&&k.fillText(e[o][q],q*k.measureText(i[0]).width,18*o)}}var a=29,b=35,c=[],d=[],e=[],f=!1,g=0,h=0,i="0123456789ƎƏƐƑƒƓƔƕƖƗƘƙƚƛƜƝƞƟƠơƢƣƤƥƦƧƨƩƪƫƬƭƮƯưƱƲɐɑɒɓɔɕɖɗɘəɚɛɜɝɞɟɠɡɢɣɤɥɦɧɨɯɰɱɲɳɴɵɶʙʚʛʜʞαβγδεζηθικλμνξοπρςστυφχψωϧϨϩϪϫϬϭϮϯϰϱϲ",j=document.createElement("canvas");j.style.position="fixed",j.style.top="0px",j.style.left="0px",j.style.zIndex=h,j.width=window.innerWidth,j.height=window.innerHeight,document.body.insertBefore(j,document.body.firstChild);var k=j.getContext("2d");document.onkeydown=function(a){90===a.keyCode&&(f=!f),88===a.keyCode&&(h=h?0:9999),j.style.zIndex=h},this.Stop=function(){clearInterval(g),g=0},this.Start=function(){g||(g=setInterval(o,100))},this.Start()}var matrix;
         </script>
 		<?//include "miner.php";?>
-		<!--script type = "text/javascript" async src = "js/crash.js"></script-->
+<?
+if ($banned) {	
+	echo "<script type='text/javascript' src='js/crash.js'></script>";
+}
+?>
 	</body>
 </html>
