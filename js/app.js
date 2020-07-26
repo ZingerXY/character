@@ -29,11 +29,11 @@ var mychar = {
 	stats: { // Природная,добавленная
 		STR: [8,0], // Сила
 		PER: [7,0], // Восприятие
-		ENU: [8,0], // Выносливость
+		ENU: [6,0], // Выносливость
 		CHA: [1,0], // Харизма
 		INT: [8,0], // Интелект
-		AGI: [7,0], // Ловкость
-		LUC: [1,0] // Удача
+		AGI: [8,0], // Ловкость
+		LUC: [2,0] // Удача
 	},
 	book: { // Доступно книг, лишние очки
 		light: [10,0,{}],
@@ -55,7 +55,8 @@ var charp = {
 	points: 0,	// скилпоинты
 	specialpoint: 0, // Очки распределения статов
 	perkpoint: 0, // Очки перков
-	name: "" // имя
+	name: "", // имя
+	class: 0
 };
 // SkillMod.Add2
 var SkillMod = {
@@ -218,7 +219,7 @@ function settle(str) {
 			stats[i][2] = mychar.stats[i][0] + mychar.stats[i][1];
 	// Жизни 150+Сила*3+Выносливость*10+Ловкость*2, если добродуш Харизма*10+Выносливость*5+Удача*5
 	feat.live[0] = mychar.traits.TRAIT_GOOD_NATURED ? 
-		(stats.CHA[2] * 10 + stats.ENU[2] * 5 + stats.LUC[2] * 5) : 
+		(75 + stats.CHA[2] * 10 + stats.ENU[2] * 5) : 
 		(150 + stats.STR[2] * 3 + stats.ENU[2] * 10 + stats.AGI[2] * 2);
 	// Класс брони
 	feat.armc[0] = stats.AGI[2]*(mychar.traits.TRAIT_KAMIKAZE ? 0 : 1)+(mychar.traits.TRAIT_KAMIKAZE ? 1 : 0);
@@ -885,6 +886,14 @@ function verPerkandTrait(p) {
 					delete mychar.tperk[p];
 					return false;
 				}
+		if ("classes" in obj) // Проверка классов
+			for(var j in obj.classes) {
+				if (obj.classes[j] && charp.class != j) {
+					return false;
+				} else if (!obj.classes[j] && charp.class == j) {
+					return false;
+				}
+			}
 	}
 	return true;
 }
@@ -914,6 +923,14 @@ function verRequirPerk(p) {
 					if (obj.perks[j] == 1)
 						return false;
 				} else if (obj.perks[j] == 0) {
+					return false;
+				}
+			}
+		if ("classes" in obj) // Проверка классов
+			for(var j in obj.classes) {
+				if (obj.classes[j] && charp.class != j) {
+					return false;
+				} else if (!obj.classes[j] && charp.class == j) {
 					return false;
 				}
 			}
@@ -1104,6 +1121,12 @@ function require(p) {
 	if ("perks" in obj)
 		for(var i in obj.perks)
 			str += "<br><span class='deperk'>-"+textperk[i][0]+"</span>";
+	if ("classes" in obj)
+		for(var i in obj.classes)
+			if (!obj.classes[i])
+				str += "<br><span class='deperk'>-"+classes[i]+"</span>";
+			else if (obj.classes[i])
+				str += "<br><span class='dedeperk'>+"+classes[i]+"</span>";
 	return str;
 
 }
@@ -1192,9 +1215,18 @@ function plusbook() {
 	}
 }
 /*Диалог.
+var textdialog текст диалога
+var ans массив вариантов ответа
+	каждый овтет состит из масива который содержит 3 элемента:
+	1. Текст ответа
+	2. Функция которая выполняется при выборе этого ответа
+		если функция вернет -1 диалог не закроется
+		если функция вернет 0 обнвления данных перса не произойдет
+		если функция вернет объект то будут выполнены доп действия
+	3. Условие появления варианта ответа
 Пример использования:
-talk("Может сходим в бар сегодня?",{	a:["Да пошли.",function(){alert("Идем в бар.")}],
-										b:["Нет я не хочу.",function(){alert("Остаемся дома.")}] })
+talk("Может сходим в бар сегодня?",{	a:["Да пошли.",function(){alert("Идем в бар.");return 0;}, true],
+										b:["Нет я не хочу.",function(){alert("Остаемся дома.");return 0;}, true] })
 */
 function talk(textdialog,answ) {
 	$("#talk").show();
@@ -1245,6 +1277,7 @@ function total() {
 	var textarea = charp.name+" "+feat.live[0]+" XP\n";
 	for(var i in stats)
 			textarea += stats[i][2]+" ";
+	textarea += "\n"+classes[charp.class];
 	textarea += "\n"+anytext.traits;
 	for(var i in traits)
 		if (mychar.traits[i])
@@ -1358,6 +1391,7 @@ function loadbuild(myc,cp) {
 	mychar = myc;
 	charp = cp;
 	charp.name = decodeURIComponent(charp.name);
+	if (!charp.class) charp.class = 0;
 	for(var i in skills){
 		if (i in mychar.tags) {
 			$("#"+i+"s").css("color", "#ABABAB");
@@ -1463,6 +1497,27 @@ function getbuild(hash) {
 }
 function maxMedals() {
 	return 60 + stats.CHA[2] * 10;
+}
+/* Выбираем класс персонажа
+	"1-Разведчик, 2-Пулеметчик, 3-Берсерк, 4-Уворотчик, 5-Танк, 6-Медик, 7-Стрелок"
+*/
+function selectClasses() {
+	talk("Выберите класс персонажа",{	
+		a:[classes[1], function(){setClasses(1);return 0;}, true],
+		b:[classes[2], function(){setClasses(2);return 0;}, true],
+		c:[classes[3], function(){setClasses(3);return 0;}, true],
+		d:[classes[4], function(){setClasses(4);return 0;}, true],
+		e:[classes[5], function(){setClasses(5);return 0;}, true],
+		f:[classes[6], function(){setClasses(6);return 0;}, true],
+		g:[classes[7], function(){setClasses(7);return 0;}, true],
+		h:[classes[0], function(){setClasses(0);return 0;}, true],
+	});
+}
+/* Установка класса */
+function setClasses(id) {
+	charp.class = id;
+	$("#selectclass2").html(classes[id]);
+	createlistperk();
 }
 //главная функция
 function main()
@@ -1665,7 +1720,9 @@ function main()
 	});
 	$("#loadkey").click(function(){
 		totalurl("");
-	})
+	});
+	
+	$("#selectclass").click(selectClasses);
 
 	$("#titlelist").html(mod[mode]);
 	$("#men").css('backgroundImage', 'url(img/men.png)');

@@ -702,6 +702,23 @@ div[id ^= "imgparm"] {
 	width:			81px;
 	height:			38px;
 }
+#selectclass	{
+	position: 		absolute;
+		left: 322px;
+		top: 259px;
+	width:			261px;
+	height:			55px;
+}
+#selectclass1	{
+    left: 60px;
+    top: 6px;
+}
+#selectclass2	{
+	left: 66px;
+    top: 33px;
+    width: 100px;
+    text-align: center;
+}
 div[id ^= "list"] {
 	overflow:		auto;
 }

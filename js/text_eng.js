@@ -71,6 +71,17 @@ var resist = {
 	explode:	["Explosion",""],
 	electro:	["Electro",""]
 };
+// Классы
+var classes = {
+	0: "Без класса",
+	1: "Разведчик",
+	2: "Пулеметчик",
+	3: "Берсерк",
+	4: "Уворотчик",
+	5: "Танк",
+	6: "Медик",
+	7: "Стрелок",
+}
 
 var statlvl = ["Error","V. Bad", "Bad","Poor","Fair","Avrg","Good","V.Good","Great","Exl.","Heroic"];
 var sextext = {	men: "Man.", women: "Wom."};
@@ -282,6 +293,12 @@ var textperk = {
 	PE_HARD: ["Hardened", "Your organism is adapted for survival in difficult situations. Your Healing Rate is increased by 5. Can't take Push Up."],
 	PE_VIEW: ["Replicanto", "Replication removes all negative effects, and becomes for free as well."],
 	PE_TRAPPER: ["Сапер","Изучение капканов и взрывных устройст дало вам стойкость к норме и взрыву (срез урона на 25% к Норме и Взрыву). Исключает Толстокожего."],
+	// NEW PERK >>
+	PE_NEW_PERK1: ["Глаза и уши", "Вы получаете 10 Восприятия по умолчанию. Для входа в сник вам не нужны спецпредметы."],
+	PE_NEW_PERK2: ["Голем", "На расстоянии 6 гексов вас не свалить."],
+	PE_NEW_PERK3: ["Ярость", "Яростный удар валит противника на пол (кроме голема), добавляет 8 к урону и снимает 1 ОД. Кд удара 6 секунд."],
+	PE_NEW_PERK4: ["Броня", "Игнор тиков огня, плазмы и иприта."],
+	// << NEW PERK
 	PE_ADRENALINE_RUSH: ["Vampiro", "You've studied blood so closely, that you receive +30 hitpoints. Each your direct (not AoE) attack is restoring (PE*2) hitpoints. Additionally, using FA skill, you remove HEAT debuff from self."],
 	PE_CAUTIOUS_NATURE: ["Cautious Nature", "Your FoV increases by 3 hexes. You recover 1 AP each time you miss a shot. Encounter NPC spawn distance - +3 Perception to calculation."],
 	PE_COMPREHENSION: ["Comprehension", "You pay much closer attention to the smaller details when reading (+1 Intelligence). You gain 200 experience for each book you read."],
@@ -312,13 +329,22 @@ var textperk = {
 	PE_WEAPON_HANDLING: ["Weapon Handling", "Adds +3 Str for a weapon handling check."],
 	PE_VAULT_CITY_TRAINING: ["VC Med Course", "You managed to get medical training from the best Vault City specialists."],
 	PE_EXPERT_EXCREMENT: ["Expert Expeditor", "You're best in anything involving brahmin shit."],
+	// NEW PERK >>
+	PE_NEW_PERK5: ["Опытный медик", "При лечении санитара минимум лечения берется как среднее значение первоначального максимума и минимума лечения. При расчетах получение Раны к удаче добавляется 10."],
+	// << NEW PERK
 	PE_JINXED_II: ["Jinxed Eye", "A good side of it - enemy are making stupid mistakes more often. Bad side is - same applies to you!"],
 	PE_TERMINATOR: ["Terminator", "You don't know anything about knockdowns, blinds or cripples. All critical effects are ignored following this formula: End*5."],
 	PE_IRON_MAN: ["Explosion Producer", "With this feature, you can clear the territory within a radius of 1 hex ('Science for yourself'), the switches of the plates are faster and there is an opportunity to make robot shahids (robot + plastids)."],
 	PE_PRO_UDAR: ["Toxicologist", "+(10-(Выносливость цели/2)) к урону по НПС. При атаке оружием вы вешаете цели 20 уровня отравления. Если цель имеет больше 75% резиста к яду, то резист равен 75%. Иммунитет к контактному отравлению."],
 	PE_ADD_ATAC: ["Bonus Attacks", "Weapon trigger pressing is your finest ability. You have chance to restore 2 Action Points equal to (10 * attack AP Cost)%."],
 	PE_NAPROLOM: ["Seasoned", "+7% to Small, Energy and Big Guns skills. +10% to Throwing. +15% to Unarmed and Melee Weapons."],
-	PE_ADW_MET: ["Throwing Expert", "You're a pro at everything involving  throwing for 35% more damage. Can't be taken with Silent Running."],
+	PE_ADW_MET: ["Карман", "У вас карман стал глубже и можно добавить 1 веса."],
+	// NEW PERK >>
+	PE_NEW_PERK6: ["Быстрый санитар", "Ваш кд Санитара на 15 секунд меньше."],
+	PE_NEW_PERK7: ["Удачный врач", "Вы лечите всегда на максимум."],
+	PE_NEW_PERK8: ["Прицел", "Режется штраф дыма (60-дистанция)/2, к боевому навыку добавляется 15."],
+	PE_NEW_PERK9: ["Выстрел", "+5 урона, если стреляете одиночным неприцельным выстрелом."],
+	// << NEW PERK
 	PE_GECKO_SKINNING: ["Skinner", "Skinning different lizards to get some profit is no mystery for you any more."],
 	PE_VAULT_CITY_INOCULATIONS: ["VC Inoculations", "You received 10% Resistance to Poison and Radiation."],
 	PE_DERMAL_IMPACT: ["Zinger", "You're a very healty person. +35 hitpoints and natural regeneration - +20 to Healing Rate."],
@@ -333,6 +359,9 @@ var textperk = {
 	PE_DRIVER: ["Driver", "Removes Charisma check for amount of people to drag with using cars."],
 	PE_OFFICER: ["Officer", "Professional yelling at people. You receive +20 hitpoints, and final damage reduce by 5%. End instead of Cha checks for group number."],
 	PE_BISNES_RENO: ["Watcher", "Now you're the one who's watching over business in New-Reno."],
+	// NEW PERK >>
+	PE_NEW_PERK10: ["Быстрота", "Вам добавляется одно очко действия и -0,3 к регену ОД."],
+	// << NEW PERK
 	PE_IMP1: ["Combat Implant", "You have an experimental dermal stuff injected. Your combat abilities improves."],
 	PE_IMP2: ["Medical Implant", "You have an experimental dermal stuff injected. Your medic abilities improves."],
 	PE_IMP3: ["Utility Implant", "You have an experimental dermal stuff injected. Your utility capabilities increases."],
@@ -345,6 +374,16 @@ var textperk = {
 	PE_DA_ELECTRO: ["Master of Electro", "You receive 4% chance to decrease enemy's AP by 1 with each level. Doesn't work if Good Natured trait is taken."],
 	PE_DA_EMP: ["Master of Emp", "You deal 3% more damage with each level. Doesn't work if Good Natured trait is taken."],
 	PE_DA_EXPLODE: ["Master of Explosion", "You deal 1% more damage with explosion damage type with each level."],
+	// NEW PERK >>
+	PE_NEW_PERK11: ["Зоркий", "В случае выстрела очередью игнор дыма."],
+	PE_NEW_PERK12: ["Стальной дождь", "В радиусе 6 гексов все патроны летят в цель, а сама цель теряет 1 ОД."],
+	// << NEW PERK
+	// MASTER PERK >>
+	PE_MASTER_PERK1: ["Житель пустоши", "Вы настолько изучили пустошь, что получаете +5% к навыку Скиталец."],
+	PE_MASTER_PERK2: ["Опытный ремонтник", "Вы настолько часто ремонтировали, что получаете +3% к навыку Ремонт и +1% к навыку Наука с каждым уровнем этой способности."],
+	PE_MASTER_PERK3: ["Опытный инженер", "Вы настолько часто изобретали, что получаете +3% к навыку Наука и +1% к навыку Ремонт с каждым уровнем этой способности."],
+	PE_MASTER_PERK4: ["Опытный врач", "Вы настолько часто лечили, что получаете +2% к навыку Санитар и +2% к навыку Доктор с каждым уровнем этой способности."],
+	// << MASTER PERK
 	PE_SUPPORTER: ["Fire Support", "Adds ability of BG burst and SG single shot weapons with perk 'Long Range' to Suppress targets. AoE effect of fire (Molotof), smoke and gas grenades are increased by 1 hex. You also receive +20% to Throwing."]
 }
 

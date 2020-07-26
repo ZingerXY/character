@@ -241,12 +241,12 @@ var traits = {
 	// Минусы: -3 Очков Умений за каждый уровень.
 	TRAIT_NIGHT_PERSON: function(str){
 			if(!mychar.traits[str] && charp.tagt>0){
-				pr.add("feats","apoi",2);
+				pr.add("feats","apoi",1);
 				pr.add("skills","thrown",20,1);
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2){
-				pr.add("feats","apoi",-2);
+				pr.add("feats","apoi",-1);
 				pr.add("skills","thrown",-20,1);
 				delete mychar.traits[str];
 				charp.tagt++;
