@@ -829,7 +829,16 @@ function createlistperk() {
 		if (mperk[i].length === 0) continue;
 		$("<div id=\"lists"+i+"\" class=\"listlevel\">"+anytext.lvl+i+"</div>").appendTo("#crlistperk");
 		for(var j in mperk[i]) {
-			var perkit = $("<div id=\"lists"+mperk[i][j]+"\" class=\"perklist\">"+textperk[mperk[i][j]][0]+(perk[mperk[i][j]][2]>1?"("+perk[mperk[i][j]][2]+")":"")+"</div>").appendTo("#crlistperk");
+			var classesPerk = false;
+			var objtestperk = perk[mperk[i][j]][7];
+			if ("classes" in objtestperk) {
+				for(var n in objtestperk.classes)
+					if (objtestperk.classes[n] && charp.class == n) {
+						classesPerk = true;
+						break;
+					}
+			}
+			var perkit = $("<div id=\"lists"+mperk[i][j]+"\" class=\"perklist\">"+(classesPerk?'> ':'')+textperk[mperk[i][j]][0]+(perk[mperk[i][j]][2]>1?"("+perk[mperk[i][j]][2]+")":"")+"</div>").appendTo("#crlistperk");
 			if (mperk[i][j] in mychar.tperk) $("#lists"+mperk[i][j]).css("color","#07B");
 			if (!verPerkandTrait(mperk[i][j]))
 				$("#lists"+mperk[i][j]).css("color","#B00");
