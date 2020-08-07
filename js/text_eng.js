@@ -48,7 +48,7 @@ var textbook = {
 };
 // параметр, название, описние
 var feat = { 
-    acrit:  [0,"antricrit",""],
+	acrit:  [0,"antricrit",""],
 	dodge:	[0,"evasion",""],
 	live: 	[0,"hp",""],
 	armc: 	[0,"armor class",""],
@@ -74,13 +74,13 @@ var resist = {
 // Классы
 var classes = {
 	0: "Без класса",
-	1: "Разведчик",
-	2: "Пулеметчик",
-	3: "Берсерк",
-	4: "Уворотчик",
-	5: "Танк",
-	6: "Медик",
-	7: "Стрелок",
+	1: "Scout",
+	2: "Machine Gunner",
+	3: "Berserker",
+	4: "Dodger",
+	5: "Tank",
+	6: "Medic",
+	7: "Shooter",
 }
 
 var statlvl = ["Error","V. Bad", "Bad","Poor","Fair","Avrg","Good","V.Good","Great","Exl.","Heroic"];
@@ -112,25 +112,25 @@ var anytext = {
 }
 
 var questinfo = {
-    imp_battle: ["+30% to Small Guns, +3 to final accuracy.",
+	imp_battle: ["+30% to Small Guns, +3 to final accuracy.",
 				 "+30% to Big Guns, +3 to final accuracy.",
 				 "+30% to Energy Weapons, +3 to final accuracy.",
 				 "+30% to Throwing, +3 to Evasion.",
 				 "+30% to Repair, +2 to ending damage.",
 				 "+20% to melee weapons, +20% to unarmed, -3 seconds combat timer."],
-    imp_medical: ["+35% to FA, +40 to friendly heal.",
+	imp_medical: ["+35% to FA, +40 to friendly heal.",
 				  "(-2) sec FA cd, +25% doc.",
 				  "+20 hp, +10 to healing rate.",
 				  "+40% doc, immune to Bleed.",
 				  "+40 HP when using FA on self, +5 AC.",
 				  "+5 hp per superstim on self, +30% doc."],
-    imp_auxiliary: ["+100kg carryweight.",
+	imp_auxiliary: ["+100kg carryweight.",
 					"+25% to worldmap movespeed.",
 					"+15% to Traps, +20% Sneak.",
 					"Replicanto perk, +20% to Speech.",
 					"+100% to Pickpocket, +20% to Lockpick.",
 					"+50 to Athleticism."], 
-    drayfild: ["All combat +5%",
+	drayfild: ["All combat +5%",
 			   "Unarmed +10%",
 			   "Melee Weapons +10%",
 			   "Small Guns +10%",
@@ -138,7 +138,7 @@ var questinfo = {
 			   "Energy Weapons +10%",
 			   "First Aid and Doctor +5%",
 			   "Thrown Weapons +10%"],
-    per_ncr: ["+4% to crit","+4% to anticrit"],
+	per_ncr: ["+4% to crit","+4% to anticrit"],
 	medals: ["1 skillpoint",
 			 "+15 carryweight",
 			 "1 hp",
@@ -219,13 +219,13 @@ var dialog = {
 var textperk = {
 	PE_BONUS_HTH_ATTACKS: ["Fast Fists", "You have learned the secret arts of the East, or you just punch faster. In any case, your Hand-to-Hand attacks cost 1 AP less to perform."],
 	PE_BONUS_HTH_DAMAGE: ["Bonus HtH Damage", "Experience in unarmed combat is giving you an edge when it comes to dealing damage. For each instance of this perk you receive +3 bonus damage to Unarmed."],
-	PE_BONUS_MOVE: ["Bonus Moves", "For each instance of this perk you receive 10% chance to get 1 AP back for using stimpacks. Also you regenerate 1 AP each 10 seconds."],
-	PE_BONUS_RANGED_DAMAGE: ["Bonus Ranged Damage", "You deal +(Burst Bullets Amount + 10) additional raw damage. Works with bursts only."],
-	PE_BONUS_RATE_OF_FIRE: ["Bonus Rate of Fire", "This Perk allows you to pull the trigger a little faster and still remain as accurate as before. Each ranged weapon no aim attack costs 1 AP less to perform."],
+	PE_BONUS_MOVE: ["Bonus Moves", "For each instance of this perk you receive 10% chance to get 1 AP back for using stimpacks. You also regenerate 1 AP each 10 seconds."],
+	PE_BONUS_RANGED_DAMAGE: ["Bonus Ranged Damage", "You've unlocked potential to become a deadly close combat machine. You deal +(Burst Bullets Amount + 10) additional raw damage. Works with bursts only."],
+	PE_BONUS_RATE_OF_FIRE: ["Bonus Rate of Fire", "This Perk allows you to pull the trigger a little faster and still remain as accurate as before. Each ranged weapon attack costs 1 AP less to perform."],
 	PE_EARLIER_SEQUENCE: ["Earlier Sequence", "You are more likely to move before your opponents in combat, since your Sequence is +4 for each level of this Perk."],
 	PE_FASTER_HEALING: ["Faster Healing", "You know how to do it quick and efficient. You get +20 to Healing Rate. You receive 1\4 your maximum AP when using First Aid. First Aid and Doctor AP cost reduced by 1."],
 	PE_MORE_CRITICALS: ["More Critical", "Each level of More Critical gives you an additional +8% chance to cause a critical hit."],
-	PE_NIGHT_VISION: ["Immunity", "You have very high immunity to... bullets. Each shot decreases raw damage dealt to your character equal to your Strength."],
+	PE_NIGHT_VISION: ["Immunity", "You have very high immunity to... everything. Decreases raw damage dealt to your character equal to your Strength. DoT effects ain't considered raw damage."],
 	PE_PRESENCE: ["Town Keeper", "You're in your own town, even the walls help here. You receive +4% to all Resistances."],
 	PE_RAD_RESISTANCE: ["Rad Resistance", "You are better able to avoid radiation and the bad effects radiation causes.  Each level of this Perk improves your Radiation Resistance by 10%."],
 	PE_TOUGHNESS: ["Toughness", "If you are tough, you're tough. This Perk adds +5% to Normal DR, +8% to Explosion and Fire DR. Doesn't stack with Durability perk."],
@@ -273,31 +273,30 @@ var textperk = {
 	PE_AWARENESS: ["Awareness", "With Awareness, you can see exact hit points and information about any weapon\armor the guys you're looking at are equipped with."],
 	PE_BIVALIY: ["Die Hard", "You're a real hard nut to crack. Critroll of attackers negates with formula: (PE*3)+STR. Critical damage -(PE + Agi) / 2 value for Luck."],
 	// NEW PERK
-	PE_PALESKIN:["Эгоист","При применении навыка Санитар вы выходите из боя, если не отравлены и не облучены."],
-	PE_GECKON:["Ящерица","У вас была терминальная стадия рака и единственным выходом было нетрадиционное лечение. Никто не знал, что инъекции стволовых клеток ящерицы обернутся таким приятным сюрпризом. Входящий по вам урон свыше 65 ед. с вероятностью 50% восстановит Сила*2 ОЖ."],
-	PE_GUY:["Крутой парень","+20 очков жизней, Игнорирование требования Силы на дальность метания. Ваша атака по сопернику и атака соперника по вам имеет шанс сжечь ему 3 Од. Сжигание ОД работает на погексовые атаки. Шанс(Порядок>Рандом(0,ПорядокПротивника+100))."],
-	PE_BIGSKIN:["Толстокожий","От типов урона норма, взрыв, импульс, плазма вы полчаете на 15% меньше повреждений."],
-	PE_MASTERMELE:["Мастер ближнего боя","Шанс на атаку с эффектом малая Контузия(без Паники) если атака Рукопашным или Холодным оружием зависит от навыка Скрытность (чем меньше навык, тем выше шанс). (Восприятие + Харизма)% шанс блокировать треть урона если атака по вам на расстоянии от 10 гексов"],
-	PE_COWBOY:["Ковбой","Все бонусы действуют только для огнестрельных пистолетов. Прицельные атаки вернут 1 од (если нет перка Снайпер). Шанс крита +5%. Если не в бою, то выстрел обнуляет патроны цели  в магазине. Исключает Бесшумный бег."],
-	PE_FISTRAGE:["Критическое мышление","Каждый выстрел увеличивает на 5% критшанс. После выпадении крита он становится равным Удаче."],
-	PE_ADEPTGLOW:["Рикошет", "Если в эффекте Цель по вам пройдет больше чем 1 выстрел, второй и последующие пройдут по касательной с рандомным (1, урон) уроном. Исключение Толстокожий и Снайпер."],
-	PE_FANAT:["Фанатик","Вы остаетесь в сознании даже получая смертельные раны. При получении такого ранения ваше здоровье останавливается на значении 1хп. По истечении 3 секунд, если ваше здоровье меньше 50% от мах, вы умираете. Кд способности 1 минута. Ислючает Стоика."],
-	PE_STOIK:["Стоик","Хабологи хранят в строжайшей тайне то, что заставляет вас возвращаться к жизни вновь и вновь. При получении летального урона персонаж не умрет и восстановит здоровье по формуле (Уд+Хар)2+Вн3=%. Кд способности минута. Исключает Фаната."],
-	PE_CRITTER:["Концентрация","Вы получаете -1 очко действия на прицельные выстрелы."],
-	PE_TARGETING:["Пристрелка","При атаке одной и той же цели вы получаете +2 урона и +3 точности за каждое попадание вплоть до +10 и +15 соответственно. При смене цели бонусы пропадают."],
-	PE_AVTORITET: ["Авторитет","Если нанести урон взрывом, а потом выпустить урон очередью с 1-3 гексов, то цель получит эффект Ошарашен (с вероятностью (9+Удача-УдачаЦели)*2%).В этом эффекте цель не может применять предметы и стрелять(включается паника) и входящий урон увеличен на 25%. Эффект проходит через количество секунд равное Удаче атакера."],
-	
+	PE_PALESKIN:["Egoist","When using the Medic skill, you exit the battle."],
+	PE_GECKON:["Lizard","You had terminal cancer and the only way out was non-traditional treatment. No one knew that injections of lizard stem cells would turn out to be such a pleasant surprise. Which according to you the damage more than 65 with a 50% chance to restore Str*2 coolant."],
+	PE_GUY:["Tough guy","Ignore the requirements of the Forces into attack range. Your attack at the opponent and attack the opponent you have a chance of (Perception/2+Strength/2)% to burn him 3 АР.  The burning OD works on pagesave attack."],
+	PE_BIGSKIN:["Thick-Skinned","The types of damage the norm, explode, pulse, plasma, you get 15% less damage."],
+	PE_MASTERMELE:["Melee Master","Chance Perception+Charisma=% block or reflect in the attacking 2/3 of the damage with the distance from 1-6 hexes."],
+	PE_COWBOY:["Cowboy","all bonuses are valid for firearms only. Sighting the attack of 1 ap less. Chance of a crit +5%. If not in combat, then shot zeroes target ammo's in the magazine. Eliminates Silent running."],
+	PE_FISTRAGE:["Critical thinking","Each shot increases the critshance by 10%. After the loss of the crit, it becomes equal to Luck."],
+	PE_ADEPTGLOW:["Rebound", "If more than 1 shot hits you in the Target effect, the second and subsequent shots will be tangent with random (1, damage) damage."],
+	PE_FANAT:["Fan","You stay conscious even receiving fatal wounds. If you receive such a wound, your health stops at the value 1хп. After 3 seconds, if your health is less than 50% of max, you die. Ability CD 1 minute. Excludes Stoic."],
+	PE_STOIK:["Stoic","The Hubologists are kept in the strictest confidence that makes you come back to life again and again. When you receive fatal damage, the character dies and restore health by the formula (UD+har)2+Вн3=%. Ability CD a minute. Excludes The Fan."],
+	PE_CRITTER:["Concentration","You get -1 action point on aimed shots."],
+	PE_TARGETING:["Targeting","When attacking the same target, you get +2 damage and +3 accuracy for each hit up to +10 and +15, respectively. When you change the target bonuses disappear."],
+	PE_AVTORITET: ["Authority","If you deal damage with an explosion, and then release damage with a burst of 1-3 hexes, the target will get the Dumbfounded effect (with a probability of (9 + Luck-Luck)*2%).In this effect, the target can't use items and shoot(panic is enabled) and incoming damage is increased by 25%. The effect passes through the number of seconds equal To the luck of the attacker."],
 	PE_RAGE: ["Push Up", "You have a good habit to keep your body fit and tight. With push-ups. You receive +5 hitpoints. Can't take Hardened."],
 	PE_DEFENCE: ["Reflexes", "One of your strong side is super reflexes. -1 AP for unaimed shot. Can't be taken with Sniper perk or Fast Shot trait. Doesn't work on engineer weapons."],
 	PE_ATTACK: ["Expendable", "You're... well, expendable. You receive Agi/2 AP and +(Agi + PE)*5% bonus to Athleticism skill. Incompatible with tons of perks, check wiki. 0% anticrit glasscanon, as it is."],
 	PE_HARD: ["Hardened", "Your organism is adapted for survival in difficult situations. Your Healing Rate is increased by 5. Can't take Push Up."],
 	PE_VIEW: ["Replicanto", "Replication removes all negative effects, and becomes for free as well."],
-	PE_TRAPPER: ["Сапер","Изучение капканов и взрывных устройст дало вам стойкость к норме и взрыву (срез урона на 25% к Норме и Взрыву). Исключает Толстокожего."],
+	PE_TRAPPER: ["Minesweeper","Studying traps and explosive devices gave you resistance to normal and explosion (25% damage cut to Normal and Explosion)."],
 	// NEW PERK >>
-	PE_NEW_PERK1: ["Глаза и уши", "Вы получаете 10 Восприятия по умолчанию. Для входа в сник вам не нужны спецпредметы."],
-	PE_NEW_PERK2: ["Голем", "На расстоянии 6 гексов вас не свалить."],
-	PE_NEW_PERK3: ["Ярость", "Яростный удар валит противника на пол (кроме голема), добавляет 8 к урону и снимает 1 ОД. Кд удара 6 секунд."],
-	PE_NEW_PERK4: ["Броня", "Игнор тиков огня, плазмы и иприта."],
+	PE_RAZVEDKA: ["Eyes and ears", "You get 10 Perceptions by default. If you shoot from a distance, you drop the target."],
+	PE_GOLEM: ["Golem", "At a distance of 6 hexes, you will not fall."],
+	PE_RAGEBER: ["Rage", "A furious blow knocks the opponent to the floor (except for the Golem), adds 8 to the damage, and removes 1 OD. The impact CD is 6 seconds."],
+	PE_ARMOR: ["Armor", "Ignore ticks of fire, plasma and poisoning, if there is armor in the slot."],
 	// << NEW PERK
 	PE_ADRENALINE_RUSH: ["Vampiro", "You've studied blood so closely, that you receive +30 hitpoints. Each your direct (not AoE) attack is restoring (PE*2) hitpoints. Additionally, using FA skill, you remove HEAT debuff from self."],
 	PE_CAUTIOUS_NATURE: ["Cautious Nature", "Your FoV increases by 3 hexes. You recover 1 AP each time you miss a shot. Encounter NPC spawn distance - +3 Perception to calculation."],
@@ -330,7 +329,7 @@ var textperk = {
 	PE_VAULT_CITY_TRAINING: ["VC Med Course", "You managed to get medical training from the best Vault City specialists."],
 	PE_EXPERT_EXCREMENT: ["Expert Expeditor", "You're best in anything involving brahmin shit."],
 	// NEW PERK >>
-	PE_NEW_PERK5: ["Опытный медик", "При лечении санитара минимум лечения берется как среднее значение первоначального максимума и минимума лечения. При расчетах получение Раны к удаче добавляется 10."],
+	PE_EXPERT_MEDIC: ["Experienced medic", "When treating other characters, your CD on the medic 15 seconds."],
 	// << NEW PERK
 	PE_JINXED_II: ["Jinxed Eye", "A good side of it - enemy are making stupid mistakes more often. Bad side is - same applies to you!"],
 	PE_TERMINATOR: ["Terminator", "You don't know anything about knockdowns, blinds or cripples. All critical effects are ignored following this formula: End*5."],
@@ -338,12 +337,12 @@ var textperk = {
 	PE_PRO_UDAR: ["Toxicologist", "+(10-(Выносливость цели/2)) к урону по НПС. При атаке оружием вы вешаете цели 20 уровня отравления. Если цель имеет больше 75% резиста к яду, то резист равен 75%. Иммунитет к контактному отравлению."],
 	PE_ADD_ATAC: ["Bonus Attacks", "Weapon trigger pressing is your finest ability. You have chance to restore 2 Action Points equal to (10 * attack AP Cost)%."],
 	PE_NAPROLOM: ["Seasoned", "+7% to Small, Energy and Big Guns skills. +10% to Throwing. +15% to Unarmed and Melee Weapons."],
-	PE_ADW_MET: ["Карман", "У вас карман стал глубже и можно добавить 1 веса."],
+	PE_ADW_MET: ["Pocket", "You have pocket became deeper and can be add 1 weight."],
 	// NEW PERK >>
-	PE_NEW_PERK6: ["Быстрый санитар", "Ваш кд Санитара на 15 секунд меньше."],
-	PE_NEW_PERK7: ["Удачный врач", "Вы лечите всегда на максимум."],
-	PE_NEW_PERK8: ["Прицел", "Режется штраф дыма (60-дистанция)/2, к боевому навыку добавляется 15."],
-	PE_NEW_PERK9: ["Выстрел", "+5 урона, если стреляете одиночным неприцельным выстрелом."],
+	PE_FISTSANITAR: ["Quick medic", "Your Medic's TO is 15 seconds less."],
+	PE_LUCKDOC: ["A good doctor", "You always treat to the maximum."],
+	PE_PRICEL: ["Aim", "A smoke penalty is cut (60 - distance), and 35 is added to the combat skill."],
+	PE_FIRESHOOT: ["Shot", "+5 damage if you shoot a single non-aimed shot."],
 	// << NEW PERK
 	PE_GECKO_SKINNING: ["Skinner", "Skinning different lizards to get some profit is no mystery for you any more."],
 	PE_VAULT_CITY_INOCULATIONS: ["VC Inoculations", "You received 10% Resistance to Poison and Radiation."],
@@ -360,7 +359,7 @@ var textperk = {
 	PE_OFFICER: ["Officer", "Professional yelling at people. You receive +20 hitpoints, and final damage reduce by 5%. End instead of Cha checks for group number."],
 	PE_BISNES_RENO: ["Watcher", "Now you're the one who's watching over business in New-Reno."],
 	// NEW PERK >>
-	PE_NEW_PERK10: ["Быстрота", "Вам добавляется одно очко действия и -0,3 к регену ОД."],
+	PE_SPEED: ["Speed", "One action point is added to you."],
 	// << NEW PERK
 	PE_IMP1: ["Combat Implant", "You have an experimental dermal stuff injected. Your combat abilities improves."],
 	PE_IMP2: ["Medical Implant", "You have an experimental dermal stuff injected. Your medic abilities improves."],
@@ -375,14 +374,14 @@ var textperk = {
 	PE_DA_EMP: ["Master of Emp", "You deal 3% more damage with each level. Doesn't work if Good Natured trait is taken."],
 	PE_DA_EXPLODE: ["Master of Explosion", "You deal 1% more damage with explosion damage type with each level."],
 	// NEW PERK >>
-	PE_NEW_PERK11: ["Зоркий", "В случае выстрела очередью игнор дыма."],
-	PE_NEW_PERK12: ["Стальной дождь", "В радиусе 6 гексов все патроны летят в цель, а сама цель теряет 1 ОД."],
+	PE_KEEN: ["sharp-Sighted", "In case of a burst of fire, ignore the smoke."],
+	PE_STEELRAIN: ["Steel rain", "In a radius of 6 hexes, all cartridges fly to the target, and the target itself loses 1 OD."],
 	// << NEW PERK
 	// MASTER PERK >>
-	PE_MASTER_PERK1: ["Житель пустоши", "Вы настолько изучили пустошь, что получаете +5% к навыку Скиталец."],
-	PE_MASTER_PERK2: ["Опытный ремонтник", "Вы настолько часто ремонтировали, что получаете +3% к навыку Ремонт и +1% к навыку Наука с каждым уровнем этой способности."],
-	PE_MASTER_PERK3: ["Опытный инженер", "Вы настолько часто изобретали, что получаете +3% к навыку Наука и +1% к навыку Ремонт с каждым уровнем этой способности."],
-	PE_MASTER_PERK4: ["Опытный врач", "Вы настолько часто лечили, что получаете +2% к навыку Санитар и +2% к навыку Доктор с каждым уровнем этой способности."],
+	PE_MA_SKIT: ["Wasteland Dweller", "You receive +5% to Outdoorsman and travel in Wasteland 5% faster with each level. Tracking opens with 3rd level."],
+	PE_MA_REM: ["Master of Repairs", "You receive +3% to Repair and +1% to Science with each level."],
+	PE_MA_FIX: ["Master of Science", "You receive +3% to Science and +1% to Repair with each level."],
+	PE_MA_AID: ["Master of Medkit", "You receive +2% to First Aid and +2% to Doctor."],
 	// << MASTER PERK
 	PE_SUPPORTER: ["Fire Support", "Adds ability of BG burst and SG single shot weapons with perk 'Long Range' to Suppress targets. AoE effect of fire (Molotof), smoke and gas grenades are increased by 1 hex. You also receive +20% to Throwing."]
 }
