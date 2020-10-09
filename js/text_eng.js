@@ -148,7 +148,7 @@ var questinfo = {
 
 var texttraits = {
 	TRAIT_FAST_METABOLISM: ["Fast Metabolism", "<font color='#000096'> Pros: </font> You receive +40 to Healing Rate. +15 superstimpack healing bonus. </br><font color='#CC0000'> Cons: </font> Radiation and Poison resistances from perks, items and drugs are halved. Poison dot effects are ticking twice as fast. Superstimpacks drawback is two times faster and more powerful."],
-	TRAIT_BRUISER: ["Bruiser", ".<font color='#000096'> Pros: </font> +3 Str.</br><font color='#CC0000'> Cons: </font> -1 maximum AP."],
+	TRAIT_BRUISER: ["Bruiser", "<font color='#000096'> Pros: </font> +3 Str.</br><font color='#CC0000'> Cons: </font> -1 maximum AP."],
 	TRAIT_SMALL_FRAME: ["Small Frame", "<font color='#000096'> Pros: </font> You receive +1 to Agi and +5% to Evasion.</br><font color='#CC0000'> Cons: </font> Carryweight is reduced."],
 	TRAIT_ONE_HANDER: ["One Handed", "<font color='#000096'> Pros: </font> For all onehanded weapons: ignorance of Str requirement, +60 to a Skill on accuracy check, +7 to flat damage. </br><font color='#CC0000'> Cons: </font> Two-handed weapons receive -40 to Skill on accuracy check."],
 	TRAIT_FINESSE: ["Finesse", "<font color='#000096'> Pros: </font> +10% crit chance.</br><font color='#CC0000'> Cons: </font> AP to unaimed shot cost."],
@@ -199,9 +199,9 @@ var textquest = {
 
 var dialog = {
 	medals: {
-		amedals: "1 skillpoint(3 medals)",
+		amedals: "+1 skillpoint(3 medals)",
 		cmedals: "+15 carryweight(5 medals)",
-		bmedals: "1 hp(7 medals)",
+		bmedals: "+1 hp(7 medals)",
 		fmedals: "+10 skillpoints(10 medals)",
 		gmedals: "+%n% skillpoints(%n% medals)",
 	},
@@ -213,7 +213,8 @@ var dialog = {
 	per_ncr: "Choose NCR quest reward:",
 	imp_battle: "Choose combat implant:",
 	imp_medical: "Choose medical implant:",
-	imp_auxiliary: "Choose utility implant:"
+	imp_auxiliary: "Choose utility implant:",
+	select_class: "Select character class"
 }
 
 var textperk = {

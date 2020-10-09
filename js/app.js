@@ -1511,7 +1511,7 @@ function maxMedals() {
 	"1-Разведчик, 2-Пулеметчик, 3-Берсерк, 4-Уворотчик, 5-Танк, 6-Медик, 7-Стрелок"
 */
 function selectClasses() {
-	talk("Выберите класс персонажа",{	
+	talk(dialog.select_class,{	
 		a:[classes[1], function(){setClasses(1);return 0;}, true],
 		b:[classes[2], function(){setClasses(2);return 0;}, true],
 		c:[classes[3], function(){setClasses(3);return 0;}, true],
