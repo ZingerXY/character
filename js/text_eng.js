@@ -148,19 +148,19 @@ var questinfo = {
 
 var texttraits = {
 	TRAIT_FAST_METABOLISM: ["Fast Metabolism", "<font color='#000096'> Pros: </font> You receive +40 to Healing Rate. +15 superstimpack healing bonus. </br><font color='#CC0000'> Cons: </font> Radiation and Poison resistances from perks, items and drugs are halved. Poison dot effects are ticking twice as fast. Superstimpacks drawback is two times faster and more powerful."],
-	TRAIT_BRUISER: ["Bruiser", ".</br><font color='#000096'> Pros: </font> +3 Str.</br><font color='#CC0000'> Cons: </font> -1 maximum AP."],
-	TRAIT_SMALL_FRAME: ["Small Frame", "</br><font color='#000096'> Pros: </font> You receive +1 to Agi and +5% to Evasion.</br><font color='#CC0000'> Cons: </font> Carryweight is reduced."],
+	TRAIT_BRUISER: ["Bruiser", ".<font color='#000096'> Pros: </font> +3 Str.</br><font color='#CC0000'> Cons: </font> -1 maximum AP."],
+	TRAIT_SMALL_FRAME: ["Small Frame", "<font color='#000096'> Pros: </font> You receive +1 to Agi and +5% to Evasion.</br><font color='#CC0000'> Cons: </font> Carryweight is reduced."],
 	TRAIT_ONE_HANDER: ["One Handed", "<font color='#000096'> Pros: </font> For all onehanded weapons: ignorance of Str requirement, +60 to a Skill on accuracy check, +7 to flat damage. </br><font color='#CC0000'> Cons: </font> Two-handed weapons receive -40 to Skill on accuracy check."],
-	TRAIT_FINESSE: ["Finesse", "</br><font color='#000096'> Pros: </font> +10% crit chance.</br><font color='#CC0000'> Cons: </font> AP to unaimed shot cost."],
+	TRAIT_FINESSE: ["Finesse", "<font color='#000096'> Pros: </font> +10% crit chance.</br><font color='#CC0000'> Cons: </font> AP to unaimed shot cost."],
 	TRAIT_KAMIKAZE: ["Kamikaze", "<font color='#000096'> Pros: </font> +1 Agi, each 10 seconds you restore 1 AP. If you're not in combat, your 1st attack will cost 2 AP less. Gives immunity to 'Suppression'.</br><font color='#CC0000'> Cons: </font> AC decreased by 10."],
 	TRAIT_HEAVY_HANDED: ["Thief", "<font color='#000096'> Pros: </font> +20 HR. +10 flat damage to one-h melee & throw. knives. Wearing CLJ gives +10% to Evasion and -30 critroll against you.</br><font color='#CC0000'> Cons: </font> Accuracy of all other weapons divided by 2."],
-	TRAIT_FAST_SHOT: ["Fast Shot", "</br><font color='#000096'> Pros: </font> Shooting and throwing costs 1 AP less.</br><font color='#CC0000'> Cons: </font> You can't aim. Your critical damage is always 1x. -(your level)% to combat skill (up to -40%)"],
-	TRAIT_BLOODY_MESS: ["Maniac", "</br><font color='#000096'> Pros: </font> Leave combat upon player kill. Receive 6 AP per player kill. Receive 3 AP per NPC kill. +125% to Athleticism.</br><font color='#CC0000'> Cons: </font> Both your's and enemy's armor deteriorates twice as fast upon taking damage and upon death. Your weapon deteriorate twice as fast."],
+	TRAIT_FAST_SHOT: ["Fast Shot", "<font color='#000096'> Pros: </font> Shooting and throwing costs 1 AP less.</br><font color='#CC0000'> Cons: </font> You can't aim. Your critical damage is always 1x. -(your level)% to combat skill (up to -40%)"],
+	TRAIT_BLOODY_MESS: ["Maniac", "<font color='#000096'> Pros: </font> Leave combat upon player kill. Receive 6 AP per player kill. Receive 3 AP per NPC kill. +125% to Athleticism.</br><font color='#CC0000'> Cons: </font> Both your's and enemy's armor deteriorates twice as fast upon taking damage and upon death. Your weapon deteriorate twice as fast."],
 	TRAIT_JINXED: ["Jinxed", "<font color='#000096'> Pros: </font> A good side of it - enemy are making stupid mistakes more often. Works only if enemy hitchance is above 87% and attack WAS NOT an Evasion.</br><font color='#CC0000'> Cons: </font> Bad side is - same applies to you!</br>You need Luck to negate critical misses chance."],
-	TRAIT_GOOD_NATURED: ["Good Natured", "</br><font color='#000096'> Pros: </font> You recieve perks every two levels, humanoid NPCs don't aggro on you but all other aggro instantly.</br><font color='#CC0000'> Cons: </font> You can't take any offensive perks. You can't apply DoT effects. Penalty to combat skills."],
+	TRAIT_GOOD_NATURED: ["Good Natured", "<font color='#000096'> Pros: </font> You recieve perks every two levels, humanoid NPCs don't aggro on you but all other aggro instantly.</br><font color='#CC0000'> Cons: </font> You can't take any offensive perks. You can't apply DoT effects. Penalty to combat skills."],
 	TRAIT_CHEM_RELIANT: ["Chemist", "<font color='#000096'> Pros: </font> Duration of drugs you're taking are increased by 3 times. Drawbacks are nearly instant.</br><font color='#CC0000'> Cons: </font> If you'll get affliction, it'll last for a really long time."],
-	TRAIT_CHEM_RESISTANT: ["Stable", "</br><font color='#000096'> Pros: </font> You can't critically miss - at all. All your attacks receive +35 bonus to Accuracy. +1 to Perception, and bonus to hit target in the smoke.</br><font color='#CC0000'> Cons: </font> You can't critically hit - at all."],
-	TRAIT_SEX_APPEAL: ["Liquid Body", "</br><font color='#000096'> Pros: </font> You ignore 20% of burst and fire damage, carryweight increased by 50 pounds. Immune to fire ticks. 1/3 of fire damage taken restores health. </br><font color='#CC0000'> Cons: </font> Superstimpacks heal is decreased by 20%."],
+	TRAIT_CHEM_RESISTANT: ["Stable", "<font color='#000096'> Pros: </font> You can't critically miss - at all. All your attacks receive +35 bonus to Accuracy. +1 to Perception, and bonus to hit target in the smoke.</br><font color='#CC0000'> Cons: </font> You can't critically hit - at all."],
+	TRAIT_SEX_APPEAL: ["Liquid Body", "<font color='#000096'> Pros: </font> You ignore 20% of burst and fire damage, carryweight increased by 50 pounds. Immune to fire ticks. 1/3 of fire damage taken restores health. </br><font color='#CC0000'> Cons: </font> Superstimpacks heal is decreased by 20%."],
 	TRAIT_SKILLED: ["Skilled", "<font color='#000096'> Pros: </font> +1 to St, En, In and Ag, +1 tagged skill, combat mode lasts only 5 seconds when you're attacking.</br><font color='#CC0000'> Cons: </font> You receive perks only each 4 levels, not 3. Each 3 when mixed with Good Natured trait."],
 	TRAIT_NIGHT_PERSON: ["Impulsive", "<font color='#000096'> Pros: </font> +20% to Throwing, +1 AP, 30% chance to restore 1 AP by Reload,faster AP recovery.</br><font color='#CC0000'> Cons: </font> You receive 3 less Skillpoints each level."]
 }
@@ -293,7 +293,7 @@ var textperk = {
 	PE_VIEW: ["Replicanto", "Replication removes all negative effects, and becomes for free as well."],
 	PE_TRAPPER: ["Minesweeper","Studying traps and explosive devices gave you resistance to normal and explosion types of damage (25% damage reduction at the end of calculations)."],
 	// NEW PERK >>
-	PE_RAZVEDKA: ["Eyes and ears", "{Your perception becomes 10. No more stealth boy or sneak suit needed to enter the sneak."],
+	PE_RAZVEDKA: ["Eyes and ears", "Your perception becomes 10. No more stealth boy or sneak suit needed to enter the sneak."],
 	PE_GOLEM: ["Golem", "In close combat(less than 6 hexes), you will never fall on your back."],
 	PE_RAGEBER: ["Rage", "A furious blow knocks the opponent to the floor (except for the Golem), adds 8 to the damage, and removes 1 OD. The impact CD is 6 seconds."],
 	PE_ARMOR: ["Armor", "Ignores damage over time from fire, plasma and gas grenades, if there is armor in the slot."],
