@@ -73,14 +73,16 @@ var resist = {
 };
 // Классы
 var classes = {
-	0: "Classless",
-	1: "Scout",
-	2: "Machine Gunner",
-	3: "Berserker",
-	4: "Dodger",
-	5: "Tank",
-	6: "Medic",
-	7: "Shooter",
+	0: ["Classless", "Без бонусов"],
+	1: ["Scout", "Встроенный Бесшумный бег, только Разведчик может войти в скрытность.<br>Нельзя брать перки на атаку, защиту, очки действия и крит."],
+	2: ["Machine Gunner", "Встроенный Бонус точности.<br>Нельзя брать перки на очки действия."],
+	3: ["Berserker", "Встроенный Рикошет и Дробила.<br>Точность в стрельбе - 5%."],
+	4: ["Dodger", "Нет требований при взятии перков на уворот. Каждый уворот добавляет 25 очков жизней.<br>Нельзя брать перки на защиту и атаку."],
+	5: ["Tank", "+150 жизней. Нельзя брать перки на защиту и атаку.<br>Критшанс всегда равен нулю."],
+	6: ["Medic", "Ваш Кд санитара на 15 секунд меньше. Отхил Санитаром всегда максимальный. При атаке вы добавляете 3 секунды к восстановлению Санитара у цели, при условии, что у цели кд санитара равен нулю.<br>Нельзя брать перки на защиту, атаку и крит."],
+	7: ["Shooter", "-1 очко действия на прицельный выстрел, +10% к урону за одиночный выстрел.<br>Вы не можете взять перки на крит, уворот и од."],
+	8: ["Pyro", "Встроенный перк Пироманьяк. Иммунитет к тикам огня.<br>Нельзя брать перки на очки действия."],
+	length: 8,
 }
 
 var statlvl = ["Error","V. Bad", "Bad","Poor","Fair","Avrg","Good","V.Good","Great","Exl.","Heroic"];
@@ -109,6 +111,7 @@ var anytext = {
 	medals_hp: " hp",
 	book: "Books: ",
 	nosave: "Saves is temporarily not working.",
+	class: "Class",
 }
 
 var questinfo = {
@@ -147,7 +150,7 @@ var questinfo = {
 }
 
 var texttraits = {
-	TRAIT_FAST_METABOLISM: ["Fast Metabolism", "<font color='#000096'> Pros: </font> You receive +40 to Healing Rate. +15 superstimpack healing bonus. </br><font color='#CC0000'> Cons: </font> Radiation and Poison resistances from perks, items and drugs are halved. Poison dot effects are ticking twice as fast. Superstimpacks drawback is two times faster and more powerful."],
+	TRAIT_FAST_METABOLISM: ["Fast Metabolism", "<font color='#000096'> Pros: </font> You receive +15 to Healing Rate. +15 superstimpack healing bonus. </br><font color='#CC0000'> Cons: </font> Radiation and Poison resistances from perks, items and drugs are halved. Poison dot effects are ticking twice as fast. Superstimpacks drawback is two times faster and more powerful."],
 	TRAIT_BRUISER: ["Bruiser", "<font color='#000096'> Pros: </font> +3 Str.</br><font color='#CC0000'> Cons: </font> -1 maximum AP."],
 	TRAIT_SMALL_FRAME: ["Small Frame", "<font color='#000096'> Pros: </font> You receive +1 to Agi and +5% to Evasion.</br><font color='#CC0000'> Cons: </font> Carryweight is reduced."],
 	TRAIT_ONE_HANDER: ["One Handed", "<font color='#000096'> Pros: </font> For all onehanded weapons: ignorance of Str requirement, +60 to a Skill on accuracy check, +7 to flat damage. </br><font color='#CC0000'> Cons: </font> Two-handed weapons receive -40 to Skill on accuracy check."],
@@ -224,7 +227,7 @@ var textperk = {
 	PE_BONUS_RANGED_DAMAGE: ["Bonus Ranged Damage", "You've unlocked potential to become a deadly close combat machine. You deal +(Burst Bullets Amount + 10) additional raw damage. Works with bursts only."],
 	PE_BONUS_RATE_OF_FIRE: ["Bonus Rate of Fire", "This Perk allows you to pull the trigger a little faster and still remain as accurate as before. Each ranged weapon attack costs 1 AP less to perform."],
 	PE_EARLIER_SEQUENCE: ["Earlier Sequence", "You are more likely to move before your opponents in combat, since your Sequence is +4 for each level of this Perk."],
-	PE_FASTER_HEALING: ["Faster Healing", "You know how to do it quick and efficient. You get +20 to Healing Rate. You receive 1\4 your maximum AP when using First Aid."],
+	PE_FASTER_HEALING: ["Faster Healing", "You know how to do it quick and efficient. You get +15 to Healing Rate. You receive 1\4 your maximum AP when using First Aid."],
 	PE_MORE_CRITICALS: ["More Critical", "Each level of More Critical gives you an additional +8% chance to cause a critical hit."],
 	PE_NIGHT_VISION: ["Immunity", "You have very high immunity to... everything. Decreases raw damage dealt to your character equal to your Strength. DoT effects ain't considered raw damage."],
 	PE_PRESENCE: ["Town Keeper", "You're in your own town, even the walls help here. You receive +4% to all Resistances."],

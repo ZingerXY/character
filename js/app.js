@@ -218,9 +218,10 @@ function settle(str) {
 	for(var i in mychar.stats)
 			stats[i][2] = mychar.stats[i][0] + mychar.stats[i][1];
 	// Жизни 150+Сила*3+Выносливость*10+Ловкость*2, если добродуш Харизма*10+Выносливость*5+Удача*5
-	feat.live[0] = mychar.traits.TRAIT_GOOD_NATURED ? 
+	feat.live[0] = (charp.class == 5 ? 150 : 0) +
+		(mychar.traits.TRAIT_GOOD_NATURED ? 
 		(75 + stats.CHA[2] * 10 + stats.ENU[2] * 5) : 
-		(150 + stats.STR[2] * 3 + stats.ENU[2] * 10 + stats.AGI[2] * 2);
+		(150 + stats.STR[2] * 3 + stats.ENU[2] * 10 + stats.AGI[2] * 2));
 	// Класс брони
 	feat.armc[0] = stats.AGI[2]*(mychar.traits.TRAIT_KAMIKAZE ? 0 : 1)+(mychar.traits.TRAIT_KAMIKAZE ? 1 : 0);
 	// Очки действий 7+Ловкость/3
@@ -815,11 +816,18 @@ function createlistperk() {
 		mychar["tperk"] = {};
 	if (mode == 0) {
 		for(var i in perk)
-			if (perk[i][4]!==1)
-				mperk[perk[i][3]].push(i);
+			if (perk[i][4]!==1) {
+				let lvl = perk[i][3] == 33 ? 32 : perk[i][3];
+				try {
+					mperk[lvl].push(i);
+				} catch (e) {
+					console.log(e,perk, lvl, i, perk[i]);
+				}
+			}
 	}
 	else if (mode == 1) {
 		for(var i in mychar.tperk){
+			let lvl = perk[i][3] == 33 ? 32 : perk[i][3];
 			mperk[perk[i][3]].push(i);
 			s++;
 		}
@@ -897,6 +905,11 @@ function verPerkandTrait(p) {
 				}
 		if ("classes" in obj) // Проверка классов
 			for(var j in obj.classes) {
+				if ("ormode" in obj && "classes" in obj.ormode) {
+					if (j in obj.ormode.classes && charp.class != j) {
+						continue;
+					}
+				} 
 				if (obj.classes[j] && charp.class != j) {
 					return false;
 				} else if (!obj.classes[j] && charp.class == j) {
@@ -937,10 +950,15 @@ function verRequirPerk(p) {
 			}
 		if ("classes" in obj) // Проверка классов
 			for(var j in obj.classes) {
-				if (obj.classes[j] && charp.class != j) {
-					return false;
-				} else if (!obj.classes[j] && charp.class == j) {
-					return false;
+				if ("ormode" in obj && "classes" in obj.ormode) {
+					if (j in obj.ormode.classes && charp.class == j)
+						ormode = ormode || true;
+				} else {
+					if (obj.classes[j] && charp.class != j) {
+						return false;
+					} else if (!obj.classes[j] && charp.class == j) {
+						return false;
+					}
 				}
 			}
 		if ("skills" in obj) // Проверка скилов
@@ -953,8 +971,7 @@ function verRequirPerk(p) {
 				if ("ormode" in obj && "stats" in obj.ormode) {
 					if (j in obj.ormode.stats && stats[j][2] >= obj.stats[j])
 						ormode = ormode || true;
-				}
-				else {
+				} else {
 					if (obj.ch && stats[j][2] >= obj.stats[j]) 
 						return false;
 					else if (!obj.ch && stats[j][2] < obj.stats[j])
@@ -1029,6 +1046,11 @@ function decalc() {
 // Выводит имеющиеся трейты и перки в #textlist1
 function showlistperk(){
 	var lineit = $("#textlist1").html("");
+	if (charp.class) {
+		lineit.append("<div class=\"listhead\">" + anytext.class + "</div>");
+		lineit.append("<div data-class='"+charp.class+"' class=\"perklist\">" + classes[charp.class][0] + "</div>");
+		lineit.children().last().click(function(){infoparm("class",this.dataset.class);});
+	}
 	if (charp.tagt<2){
 		lineit.append("<div class=\"listhead\">"+anytext.dop+"</div>");
 		for(var j in mychar.traits)
@@ -1133,15 +1155,15 @@ function require(p) {
 	if ("classes" in obj)
 		for(var i in obj.classes)
 			if (!obj.classes[i])
-				str += "<br><span class='deperk'>-"+classes[i]+"</span>";
+				str += "<br><span class='deperk'>-"+classes[i][0]+"</span>";
 			else if (obj.classes[i])
-				str += "<br><span class='dedeperk'>+"+classes[i]+"</span>";
+				str += "<br><span class='dedeperk'>+"+classes[i][0]+"</span>";
 	return str;
 
 }
 
 // Вывод информации о перке или квесте по клику
-function infoparm(ch,prm,med){
+function infoparm(ch,prm,med) {
 	switch(ch) {
 		case "traits": // описание трейтов
 			$("#nameparm").html(texttraits[prm][0]);
@@ -1181,6 +1203,13 @@ function infoparm(ch,prm,med){
 		case "stats": // описание статов
 			$("#nameparm").html(stats[prm][0]);
 			$("#textparm").html(stats[prm][1]);
+			$("#textparmreq").html("");
+			$("#imgparm").removeClass('loaded');
+			$("#imgparm").html("<img src=\"skill/"+prm+".jpg\" onload=\"imgLoaded(this)\">");
+		break;
+		case "class": // описание классов
+			$("#nameparm").html(classes[prm][0]);
+			$("#textparm").html(classes[prm][1]);
 			$("#textparmreq").html("");
 			$("#imgparm").removeClass('loaded');
 			$("#imgparm").html("<img src=\"skill/"+prm+".jpg\" onload=\"imgLoaded(this)\">");
@@ -1286,7 +1315,7 @@ function total() {
 	var textarea = charp.name+" "+feat.live[0]+" XP\n";
 	for(var i in stats)
 			textarea += stats[i][2]+" ";
-	textarea += "\n"+classes[charp.class];
+	textarea += "\n"+classes[charp.class][0];
 	textarea += "\n"+anytext.traits;
 	for(var i in traits)
 		if (mychar.traits[i])
@@ -1510,23 +1539,28 @@ function maxMedals() {
 /* Выбираем класс персонажа
 	"1-Разведчик, 2-Пулеметчик, 3-Берсерк, 4-Уворотчик, 5-Танк, 6-Медик, 7-Стрелок"
 */
-function selectClasses() {
-	talk(dialog.select_class,{	
-		a:[classes[1], function(){setClasses(1);return 0;}, true],
-		b:[classes[2], function(){setClasses(2);return 0;}, true],
-		c:[classes[3], function(){setClasses(3);return 0;}, true],
-		d:[classes[4], function(){setClasses(4);return 0;}, true],
-		e:[classes[5], function(){setClasses(5);return 0;}, true],
-		f:[classes[6], function(){setClasses(6);return 0;}, true],
-		g:[classes[7], function(){setClasses(7);return 0;}, true],
-		h:[classes[0], function(){setClasses(0);return 0;}, true],
-	});
+function prevClasses() {
+	let curClass = charp.class;
+	curClass--;
+	if (curClass < 0) {
+		curClass = classes.length;
+	}
+	setClasses(curClass);
 }
-/* Установка класса */
-function setClasses(id) {
-	charp.class = id;
-	$("#selectclass2").html(classes[id]);
+function nextClasses() {
+	let curClass = charp.class;
+	curClass++;
+	if (curClass > classes.length) {
+		curClass = 0;
+	}
+	setClasses(curClass);
+}
+function setClasses(curClass) {
+	charp.class = curClass;
+	$("#selectclass2").html(classes[charp.class][0]).data('class', charp.class);
+	infoparm('class', charp.class);
 	createlistperk();
+	settle();
 }
 //главная функция
 function main()
@@ -1731,7 +1765,11 @@ function main()
 		totalurl("");
 	});
 	
-	$("#selectclass").click(selectClasses);
+	$("#nextclass").click(nextClasses);
+	$("#prevclass").click(prevClasses);
+	$("#selectclass2").click(function() {
+		infoparm('class', $(this).data('class'));
+	});
 
 	$("#titlelist").html(mod[mode]);
 	$("#men").css('backgroundImage', 'url(img/men.png)');
