@@ -109,7 +109,7 @@ var quest = {	// квест, описание, уровней квеста, ми
 		function(){talk(dialog.imp_medical,{
 			aimp_medical:[questinfo.imp_medical[0],function(){pr.add("skills","orderly",35,1);return 1;},true],
 			bimp_medical:[questinfo.imp_medical[1],function(){pr.add("feats","dodge",3);pr.add("feats","armc",5);return 2;},true],
-			cimp_medical:[questinfo.imp_medical[2],function(){pr.add("skills","doctor",20,1);pr.add("feats","live",10);pr.add("feats","levh",15);return 3;},true],
+			cimp_medical:[questinfo.imp_medical[2],function(){pr.add("skills","doctor",20,1);pr.add("feats","live",10);pr.add("feats","levh",5);return 3;},true],
 			dimp_medical:[questinfo.imp_medical[3],function(){pr.add("skills","doctor",20,1);return 4;},true],
 			eimp_medical:[questinfo.imp_medical[4],function(){pr.add("skills","orderly",20,1);return 5;},true],
 			fimp_medical:[questinfo.imp_medical[5],function(){pr.add("feats","live",15);pr.add("skills","doctor",20,1);return 6;},true],

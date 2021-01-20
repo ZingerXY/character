@@ -217,11 +217,11 @@ function settle(str) {
 
 	for(var i in mychar.stats)
 			stats[i][2] = mychar.stats[i][0] + mychar.stats[i][1];
-	// Жизни 150+Сила*3+Выносливость*10+Ловкость*2, если добродуш Харизма*10+Выносливость*5+Удача*5
+	// Жизни 150+Сила*3+Выносливость*10+Ловкость*2, если добродуш Выносливость * 5 + Харизма * Харизма * 2
 	feat.live[0] = (charp.class == 5 ? 150 : 0) +
-		(mychar.traits.TRAIT_GOOD_NATURED ? 
-		(75 + stats.CHA[2] * 10 + stats.ENU[2] * 5) : 
-		(150 + stats.STR[2] * 3 + stats.ENU[2] * 10 + stats.AGI[2] * 2));
+		(mychar.traits.TRAIT_GOOD_NATURED ?
+		(mychar.stats.CHA[0] * mychar.stats.CHA[0] * 2 + mychar.stats.ENU[0] * 5) :
+		(150 + mychar.stats.STR[0] * 3 + mychar.stats.ENU[0] * 10 + mychar.stats.AGI[0] * 2));
 	// Класс брони
 	feat.armc[0] = stats.AGI[2]*(mychar.traits.TRAIT_KAMIKAZE ? 0 : 1)+(mychar.traits.TRAIT_KAMIKAZE ? 1 : 0);
 	// Очки действий 7+Ловкость/3
@@ -241,7 +241,7 @@ function settle(str) {
 	// Порядок
 	feat.proc[0] = stats.PER[2]*2;
 	// Уровень лечения
-	feat.levh[0] = (stats.ENU[2] > 5 ? Math.floor(stats.ENU[2]/3) : 1);
+	feat.levh[0] = (stats.ENU[2] > 5 ? Math.floor(stats.ENU[2]/3) : 1) + (mychar.traits.TRAIT_FAST_METABOLISM ? stats.CHA[2] * 3 : 0);
 	// Крит
 	feat.crit[0] = stats.LUC[2];
 	//Уворот
@@ -828,7 +828,7 @@ function createlistperk() {
 	else if (mode == 1) {
 		for(var i in mychar.tperk){
 			let lvl = perk[i][3] == 33 ? 32 : perk[i][3];
-			mperk[perk[i][3]].push(i);
+			mperk[lvl].push(i);
 			s++;
 		}
 		$("<div class=\"listlevel\">"+anytext.perks+s+" / "+(mychar.traits.TRAIT_SKILLED?7:(mychar.traits.TRAIT_GOOD_NATURED?14:9))+"</div><hr>").appendTo("#crlistperk");
