@@ -2,9 +2,11 @@ var traits = {
 	// Быстрый метаболизм
 	TRAIT_FAST_METABOLISM: function(str){
 			if(!mychar.traits[str] && charp.tagt>0) {
+				pr.add("feats","levh",15);
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2) {
+				pr.add("feats","levh",-15);
 				delete mychar.traits[str];
 				charp.tagt++;	}
 			},
