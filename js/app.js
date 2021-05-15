@@ -56,7 +56,6 @@ var charp = {
 	specialpoint: 0, // Очки распределения статов
 	perkpoint: 0, // Очки перков
 	name: "", // имя
-	class: 0
 };
 // SkillMod.Add2
 var SkillMod = {
@@ -218,8 +217,7 @@ function settle(str) {
 	for(var i in mychar.stats)
 			stats[i][2] = mychar.stats[i][0] + mychar.stats[i][1];
 	// Жизни 150+Сила*3+Выносливость*10+Ловкость*2, если добродуш Выносливость * 5 + Харизма * Харизма * 2
-	feat.live[0] = (charp.class == 5 ? 150 : 0) +
-		(mychar.traits.TRAIT_GOOD_NATURED ?
+	feat.live[0] = (mychar.traits.TRAIT_GOOD_NATURED ?
 		(mychar.stats.CHA[0] * mychar.stats.CHA[0] * 2 + mychar.stats.ENU[0] * 5) :
 		(150 + mychar.stats.STR[0] * 3 + mychar.stats.ENU[0] * 10 + mychar.stats.AGI[0] * 2));
 	// Класс брони
@@ -837,16 +835,7 @@ function createlistperk() {
 		if (mperk[i].length === 0) continue;
 		$("<div id=\"lists"+i+"\" class=\"listlevel\">"+anytext.lvl+i+"</div>").appendTo("#crlistperk");
 		for(var j in mperk[i]) {
-			var classesPerk = false;
-			var objtestperk = perk[mperk[i][j]][7];
-			if ("classes" in objtestperk) {
-				for(var n in objtestperk.classes)
-					if (objtestperk.classes[n] && charp.class == n) {
-						classesPerk = true;
-						break;
-					}
-			}
-			var perkit = $("<div id=\"lists"+mperk[i][j]+"\" class=\"perklist\">"+(classesPerk?'> ':'')+textperk[mperk[i][j]][0]+(perk[mperk[i][j]][2]>1?"("+perk[mperk[i][j]][2]+")":"")+"</div>").appendTo("#crlistperk");
+			var perkit = $("<div id=\"lists"+mperk[i][j]+"\" class=\"perklist\">"+textperk[mperk[i][j]][0]+(perk[mperk[i][j]][2]>1?"("+perk[mperk[i][j]][2]+")":"")+"</div>").appendTo("#crlistperk");
 			if (mperk[i][j] in mychar.tperk) $("#lists"+mperk[i][j]).css("color","#07B");
 			if (!verPerkandTrait(mperk[i][j]))
 				$("#lists"+mperk[i][j]).css("color","#B00");
@@ -903,19 +892,6 @@ function verPerkandTrait(p) {
 					delete mychar.tperk[p];
 					return false;
 				}
-		if ("classes" in obj) // Проверка классов
-			for(var j in obj.classes) {
-				if ("ormode" in obj && "classes" in obj.ormode) {
-					if (j in obj.ormode.classes && charp.class != j) {
-						continue;
-					}
-				} 
-				if (obj.classes[j] && charp.class != j) {
-					return false;
-				} else if (!obj.classes[j] && charp.class == j) {
-					return false;
-				}
-			}
 	}
 	return true;
 }
@@ -946,19 +922,6 @@ function verRequirPerk(p) {
 						return false;
 				} else if (obj.perks[j] == 0) {
 					return false;
-				}
-			}
-		if ("classes" in obj) // Проверка классов
-			for(var j in obj.classes) {
-				if ("ormode" in obj && "classes" in obj.ormode) {
-					if (j in obj.ormode.classes && charp.class == j)
-						ormode = ormode || true;
-				} else {
-					if (obj.classes[j] && charp.class != j) {
-						return false;
-					} else if (!obj.classes[j] && charp.class == j) {
-						return false;
-					}
 				}
 			}
 		if ("skills" in obj) // Проверка скилов
@@ -1046,11 +1009,6 @@ function decalc() {
 // Выводит имеющиеся трейты и перки в #textlist1
 function showlistperk(){
 	var lineit = $("#textlist1").html("");
-	if (charp.class) {
-		lineit.append("<div class=\"listhead\">" + anytext.class + "</div>");
-		lineit.append("<div data-class='"+charp.class+"' class=\"perklist\">" + classes[charp.class][0] + "</div>");
-		lineit.children().last().click(function(){infoparm("class",this.dataset.class);});
-	}
 	if (charp.tagt<2){
 		lineit.append("<div class=\"listhead\">"+anytext.dop+"</div>");
 		for(var j in mychar.traits)
@@ -1152,12 +1110,6 @@ function require(p) {
 	if ("perks" in obj)
 		for(var i in obj.perks)
 			str += "<br><span class='deperk'>-"+textperk[i][0]+"</span>";
-	if ("classes" in obj)
-		for(var i in obj.classes)
-			if (!obj.classes[i])
-				str += "<br><span class='deperk'>-"+classes[i][0]+"</span>";
-			else if (obj.classes[i])
-				str += "<br><span class='dedeperk'>+"+classes[i][0]+"</span>";
 	return str;
 
 }
@@ -1203,13 +1155,6 @@ function infoparm(ch,prm,med) {
 		case "stats": // описание статов
 			$("#nameparm").html(stats[prm][0]);
 			$("#textparm").html(stats[prm][1]);
-			$("#textparmreq").html("");
-			$("#imgparm").removeClass('loaded');
-			$("#imgparm").html("<img src=\"skill/"+prm+".jpg\" onload=\"imgLoaded(this)\">");
-		break;
-		case "class": // описание классов
-			$("#nameparm").html(classes[prm][0]);
-			$("#textparm").html(classes[prm][1]);
 			$("#textparmreq").html("");
 			$("#imgparm").removeClass('loaded');
 			$("#imgparm").html("<img src=\"skill/"+prm+".jpg\" onload=\"imgLoaded(this)\">");
@@ -1315,7 +1260,6 @@ function total() {
 	var textarea = charp.name+" "+feat.live[0]+" XP\n";
 	for(var i in stats)
 			textarea += stats[i][2]+" ";
-	textarea += "\n"+classes[charp.class][0];
 	textarea += "\n"+anytext.traits;
 	for(var i in traits)
 		if (mychar.traits[i])
@@ -1429,7 +1373,6 @@ function loadbuild(myc,cp) {
 	mychar = myc;
 	charp = cp;
 	charp.name = decodeURIComponent(charp.name);
-	if (!charp.class) charp.class = 0;
 	for(var i in skills){
 		if (i in mychar.tags) {
 			$("#"+i+"s").css("color", "#ABABAB");
@@ -1535,32 +1478,6 @@ function getbuild(hash) {
 }
 function maxMedals() {
 	return 60 + stats.CHA[2] * 10;
-}
-/* Выбираем класс персонажа
-	"1-Разведчик, 2-Пулеметчик, 3-Берсерк, 4-Уворотчик, 5-Танк, 6-Медик, 7-Стрелок"
-*/
-function prevClasses() {
-	let curClass = charp.class;
-	curClass--;
-	if (curClass < 0) {
-		curClass = classes.length;
-	}
-	setClasses(curClass);
-}
-function nextClasses() {
-	let curClass = charp.class;
-	curClass++;
-	if (curClass > classes.length) {
-		curClass = 0;
-	}
-	setClasses(curClass);
-}
-function setClasses(curClass) {
-	charp.class = curClass;
-	$("#selectclass2").html(classes[charp.class][0]).data('class', charp.class);
-	infoparm('class', charp.class);
-	createlistperk();
-	settle();
 }
 //главная функция
 function main()
@@ -1763,12 +1680,6 @@ function main()
 	});
 	$("#loadkey").click(function(){
 		totalurl("");
-	});
-	
-	$("#nextclass").click(nextClasses);
-	$("#prevclass").click(prevClasses);
-	$("#selectclass2").click(function() {
-		infoparm('class', $(this).data('class'));
 	});
 
 	$("#titlelist").html(mod[mode]);

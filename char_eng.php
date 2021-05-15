@@ -235,14 +235,6 @@ include_once 'checkBanned.php';
                 <div id="switch3"></div>
                 <div id="textswitch3" class="text shadow">QUESTS</div>
             </div>
-            <div id="selectclass" class="reg">
-                <div id="selectclass1" class="text shadow">SELECT CLASS</div>
-                <div id="selectclass2" class="text shadow" data-class='0'>Classless</div>
-                <div class="text shadow prevchangeclass"></div>
-                <div id="prevclass" class="text chengeclass prev click"></div>
-                <div class="text shadow nextchangeclass"></div>
-                <div id="nextclass" class="text chengeclass next click"></div>
-            </div>
             <div id="traits" class="text2 reg">
                 <div id="TRAIT_FAST_METABOLISM" class="text2 left1">Fast Metabolism</div>
                 <div id="TRAIT_BRUISER" class="text2 left2">Bruiser</div>

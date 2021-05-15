@@ -702,25 +702,6 @@ div[id ^= "imgparm"] {
 	width: 81px;
 	height: 38px;
 }
-#selectclass {
-	position: absolute;
-		left: 322px;
-		top: 259px;
-	width: 261px;
-	height: 55px;
-}
-#selectclass1 {
-	left: 20px;
-	top: 6px;
-	width: 210px;
-	text-align: center;
-}
-#selectclass2 {
-	left: 20px;
-	top: 32px;
-	width: 210px;
-	text-align: center;
-}
 div[id ^= "list"] {
 	overflow: auto;
 }
