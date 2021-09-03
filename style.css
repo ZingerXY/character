@@ -1244,3 +1244,28 @@ img{
 .chengeclass:active {
 	background-image: url(img/greendot_big.png);
 }
+
+#search {
+	font-family: Arial_Bold;
+	box-sizing: border-box;
+	width: 160px;
+	height: 20px;
+	background: #fff0;
+	border: 1px solid #00AB00;
+	color: #00AB00;
+	border-radius: 6px;
+	padding: 1px 5px;
+	outline: none;
+}
+
+#search::placeholder {
+	color: #00ab0080;
+}
+
+#search:hover {
+	border: 1px solid #00EE00;
+}
+
+#search:focus {
+	border: 1px solid #00EE00;
+}

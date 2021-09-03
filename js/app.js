@@ -5,6 +5,7 @@ var save = false;
 var mode = 0;
 var send = false; // Чтоб отправлялось в базу 1 раз за раз.
 var req = false;
+var textSeachPerk = '';
 
 function getRandInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -817,7 +818,8 @@ function createlistperk() {
 			if (perk[i][4]!==1) {
 				let lvl = perk[i][3] == 33 ? 32 : perk[i][3];
 				try {
-					mperk[lvl].push(i);
+					if (perk[i][0].toLowerCase().includes(textSeachPerk))
+						mperk[lvl].push(i);
 				} catch (e) {
 					console.log(e,perk, lvl, i, perk[i]);
 				}
@@ -1658,6 +1660,8 @@ function main()
 		$("#titlelist").html(mod[mode]);
 		createlistperk();
 		decalc();
+		$("#search").val('');
+		textSeachPerk = '';
 	});
 	$("#totaltext").on('input', function(){
 		var str = $("#totaltext").val();
@@ -1680,6 +1684,10 @@ function main()
 	});
 	$("#loadkey").click(function(){
 		totalurl("");
+	});
+	$("#search").on('input', function(e) {
+		textSeachPerk = e.currentTarget.value.toLowerCase();
+		createlistperk();
 	});
 
 	$("#titlelist").html(mod[mode]);
