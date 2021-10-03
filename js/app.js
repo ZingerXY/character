@@ -1093,10 +1093,7 @@ function showlistquest(){
 function require(p) {
 	var str = anytext.treb;
 	var obj = perk[p][7];
-	if (emptyObject(obj)){
-		str += "<br>"+anytext.net;
-		return str;
-	}
+	str += "<br>" + anytext.lvl + ": " + perk[p][3] + " - " + perk[p][4];
 	if ("stats" in obj)
 		for(var i in obj.stats)
 			str += "<br>"+stats[i][0]+": "+(obj.ch?"<":"")+obj.stats[i];
