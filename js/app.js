@@ -635,8 +635,7 @@ function selectskill() {
 	$("#"+mi).click(minus);
 	var plInterval;
 	var collp = 1;
-	var collm = 1;
-	$("#"+pl).on('mousedown', function(){
+	$("#"+pl).on('mousedown touchstart', function(){
 		clearInterval(plInterval);
 		collp = 1;
 		plInterval = setInterval(function(){
@@ -644,11 +643,12 @@ function selectskill() {
 			if (collp<10) collp+=2;
 		}, 200);
 	});
-	$("#"+pl).on('mouseup mouseout', function(){
+	$("#"+pl).on('mouseup mouseout touchend', function(){
 		clearInterval(plInterval);
 	});
 	var miInterval;
-	$("#"+mi).on('mousedown', function(){
+	var collm = 1;
+	$("#"+mi).on('mousedown touchstart', function(){
 		clearInterval(miInterval);
 		collm = 1;
 		miInterval = setInterval(function(){
@@ -656,7 +656,7 @@ function selectskill() {
 			if (collm<10) collm+=2;
 		}, 200);
 	});
-	$("#"+mi).on('mouseup mouseout', function(){
+	$("#"+mi).on('mouseup mouseout touchend', function(){
 		clearInterval(miInterval);
 	});
 }
