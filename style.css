@@ -1251,21 +1251,21 @@ img{
 	width: 160px;
 	height: 20px;
 	background: #fff0;
-	border: 1px solid #00AB00;
-	color: #00AB00;
+	border: 1px solid #808080;
+	color: #d2d2d2;
 	border-radius: 6px;
 	padding: 1px 5px;
 	outline: none;
 }
 
 #search::placeholder {
-	color: #00ab0080;
+	color: #808080;
 }
 
 #search:hover {
-	border: 1px solid #00EE00;
+	border: 1px solid #d2d2d2;
 }
 
 #search:focus {
-	border: 1px solid #00EE00;
+	border: 1px solid #d2d2d2;
 }
