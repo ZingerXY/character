@@ -108,6 +108,11 @@ var pr = {// Создание ветки обьекта crSkills
 		this.cr(pr,str);
 		mychar[pr][charp.level][str][c] += n;
 		this.del(pr,str);
+	}, // Добавление к навыку скилпоинтами для имплантов
+	addn: function(pr,str,s,c){
+		s *= 6;
+		var n = skpoint(skills[str][0], s)[0];
+		this.add(pr, str, n, 1);
 	},
 	addr: function(str,asb,res){
 		this.cr("resist",str);
@@ -635,8 +640,7 @@ function selectskill() {
 	$("#"+mi).click(minus);
 	var plInterval;
 	var collp = 1;
-	var collm = 1;
-	$("#"+pl).on('mousedown', function(){
+	$("#"+pl).on('mousedown touchstart', function(){
 		clearInterval(plInterval);
 		collp = 1;
 		plInterval = setInterval(function(){
@@ -644,11 +648,12 @@ function selectskill() {
 			if (collp<10) collp+=2;
 		}, 200);
 	});
-	$("#"+pl).on('mouseup mouseout', function(){
+	$("#"+pl).on('mouseup mouseout touchend', function(){
 		clearInterval(plInterval);
 	});
 	var miInterval;
-	$("#"+mi).on('mousedown', function(){
+	var collm = 1;
+	$("#"+mi).on('mousedown touchstart', function(){
 		clearInterval(miInterval);
 		collm = 1;
 		miInterval = setInterval(function(){
@@ -656,7 +661,7 @@ function selectskill() {
 			if (collm<10) collm+=2;
 		}, 200);
 	});
-	$("#"+mi).on('mouseup mouseout', function(){
+	$("#"+mi).on('mouseup mouseout touchend', function(){
 		clearInterval(miInterval);
 	});
 }
@@ -1093,10 +1098,7 @@ function showlistquest(){
 function require(p) {
 	var str = anytext.treb;
 	var obj = perk[p][7];
-	if (emptyObject(obj)){
-		str += "<br>"+anytext.net;
-		return str;
-	}
+	str += "<br>" + anytext.lvl + ": " + perk[p][3] + " - " + perk[p][4];
 	if ("stats" in obj)
 		for(var i in obj.stats)
 			str += "<br>"+stats[i][0]+": "+(obj.ch?"<":"")+obj.stats[i];

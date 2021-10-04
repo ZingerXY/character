@@ -11,14 +11,14 @@ var traits = {
 	// Крушила
 	TRAIT_BRUISER: function(str){
 			if(!mychar.traits[str] && charp.tagt>0) {
-				mychar.stats.STR[0]+=3;
+				mychar.stats.STR[0]+=2;
 				pr.add("feats","apoi",-1);
 				pr.add("feats","mdmg",25);
 				//pr.add("feats","critr",-30);
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2) {
-				mychar.stats.STR[0]-=3;
+				mychar.stats.STR[0]-=2;
 				pr.add("feats","apoi",1);
 				pr.add("feats","mdmg",-25);
 				//pr.add("feats","critr",30);
