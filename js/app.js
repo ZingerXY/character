@@ -1145,9 +1145,9 @@ function infoparm(ch,prm,med) {
 			} else if (prm.slice(0, 3) == 'imp') {
 				let descript = ((prm in questinfo) ? "<br>" + questinfo[prm][mychar.quest[prm].vol - 1] : "");
 				if (prm in questinfo && mychar.quest[prm]?.sk) {
-					let skills = mychar.quest[prm].sk;
-					for (let n = 0; n < skills.length; n++) {
-						descript = descript.replace(replace[n], skills[n][1]);
+					let addSkills = mychar.quest[prm].sk;
+					for (let n = 0; n < addSkills.length; n++) {
+						descript = descript.replace(replace[n], addSkills[n][1]);
 					}
 				} 
 				str = textquest[prm][1] + descript;
@@ -1320,8 +1320,17 @@ function total() {
 	str = "";
 	for(var i in questinfo)
 		if (i.substr(0,3) == "imp")
-			if (i in mychar.quest)
-				str += questinfo[i][mychar.quest[i].vol - 1]+"\n";
+			if (i in mychar.quest) {
+				const replace = ['%n%', '%r%'];
+				let descript = questinfo[i][mychar.quest[i].vol - 1]
+				let addSkills = mychar.quest[i]?.sk;
+				if (addSkills) {
+					for (let n = 0; n < addSkills.length; n++) {
+						descript = descript.replace(replace[n], addSkills[n][1]);
+					}
+				}
+				str += descript + "\n";
+			}
 	if (str != "")
 		textarea += "\n"+anytext.imp+"\n"+str;
 	// Медали
