@@ -1136,11 +1136,21 @@ function infoparm(ch,prm,med) {
 			$("#imgparm").html("<img src=\"skill/"+prm.substr(3)+".jpg\" onload=\"imgLoaded(this)\">");
 		break;
 		case "quest": // описание квестов
+			const replace = ['%n%','%r%'];
 			$("#nameparm").html(textquest[prm][0]);
 			$("#textparmreq").html("");
 			var str = "";
 			if (med || prm == 'medals') {
 				str = textquest[prm][1] + ((prm in questinfo && med) ? "<br>" + questinfo[prm][mychar.quest[prm].med[med][0] - 1] : "");
+			} else if (prm.slice(0, 3) == 'imp') {
+				let descript = ((prm in questinfo) ? "<br>" + questinfo[prm][mychar.quest[prm].vol - 1] : "");
+				if (prm in questinfo && mychar.quest[prm]?.sk) {
+					let skills = mychar.quest[prm].sk;
+					for (let n = 0; n < skills.length; n++) {
+						descript = descript.replace(replace[n], skills[n][1]);
+					}
+				} 
+				str = textquest[prm][1] + descript;
 			} else {
 				str = textquest[prm][1] + ((prm in questinfo) ? "<br>" + questinfo[prm][mychar.quest[prm].vol - 1] : "");
 			}
@@ -1230,16 +1240,22 @@ function talk(textdialog,answ) {
 				if (nup===0) return;
 				if (typeof nup == "object" && select.quest == "medals") {
 					mychar.quest[select.quest]={ 
-											 vol: chobj("quest",select.quest) + nup[1], 
-											 lvl: chobj("quest",select.quest) ? mychar.quest[select.quest].lvl : [],
-											 med: chobj("quest",select.quest) ? mychar.quest[select.quest].med : [],
-										   };
+						vol: chobj("quest",select.quest) + nup[1], 
+						lvl: chobj("quest",select.quest) ? mychar.quest[select.quest].lvl : [],
+						med: chobj("quest",select.quest) ? mychar.quest[select.quest].med : [],
+					};
 					mychar.quest[select.quest].med.push(nup);
+				} else if (typeof nup == "object" && select.quest.slice(0, 3) == 'imp') {
+					mychar.quest[select.quest] = {
+						vol: chobj("quest", select.quest) + nup[0],
+						lvl: chobj("quest", select.quest) ? mychar.quest[select.quest].lvl : [],
+						sk: nup[1]
+					};
 				} else {
 					mychar.quest[select.quest]={ 
-											 vol: chobj("quest",select.quest) + nup, 
-											 lvl: chobj("quest",select.quest) ? mychar.quest[select.quest].lvl : []
-										   };
+						vol: chobj("quest",select.quest) + nup, 
+						lvl: chobj("quest",select.quest) ? mychar.quest[select.quest].lvl : []
+					};
 				}
 				mychar.quest[select.quest].lvl.push(charp.level);
 				settle();
