@@ -108,6 +108,11 @@ var pr = {// Создание ветки обьекта crSkills
 		this.cr(pr,str);
 		mychar[pr][charp.level][str][c] += n;
 		this.del(pr,str);
+	}, // Добавление к навыку скилпоинтами для имплантов
+	addn: function(pr,str,s,c){
+		s *= 6;
+		var n = skpoint(skills[str][0], s)[0];
+		this.add(pr, str, n, 1);
 	},
 	addr: function(str,asb,res){
 		this.cr("resist",str);
