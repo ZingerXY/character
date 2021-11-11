@@ -96,47 +96,47 @@ var quest = {	// квест, описание, уровней квеста, ми
 	imp_battle:["Боевой имплант","В вас вживлен один из эксперементальных имплантантов. Ваши боевые навыки увеличены.",
 		1,2,99,function(){return true;},
 		function(){talk(dialog.imp_battle,{
-			aimp_battle: [questinfo.imp_battle[0].replace('%n%', skpoint(skills["light"][0], 30 * 6)[0]), function () {
-				addPoint = skpoint(skills["light"][0], 30 * 6)[0];
+			aimp_battle: [questinfo.imp_battle[0].replace('%n%', skpoint(skills["light"][0], 120)[0]), function () {
+				addPoint = skpoint(skills["light"][0], 120)[0];
 				pr.add("skills", "light", addPoint, 1);
 				return [2, [
 					["light", addPoint]
 				]];
 			}, true],
-			bimp_battle: [questinfo.imp_battle[1].replace('%n%', skpoint(skills["heavy"][0], 30 * 6)[0]), function () {
-				addPoint = skpoint(skills["heavy"][0], 30 * 6)[0];
+			bimp_battle: [questinfo.imp_battle[1].replace('%n%', skpoint(skills["heavy"][0], 120)[0]), function () {
+				addPoint = skpoint(skills["heavy"][0], 120)[0];
 				pr.add("skills", "heavy", addPoint, 1);
 				return [2, [
 					["heavy", addPoint]
 				]];
 			}, true],
-			cimp_battle: [questinfo.imp_battle[2].replace('%n%', skpoint(skills["energy"][0], 30 * 6)[0]), function () {
-				addPoint = skpoint(skills["energy"][0], 30 * 6)[0];
+			cimp_battle: [questinfo.imp_battle[2].replace('%n%', skpoint(skills["energy"][0], 120)[0]), function () {
+				addPoint = skpoint(skills["energy"][0], 120)[0];
 				pr.add("skills", "energy", addPoint, 1);
 				return [3, [
 					["energy", addPoint]
 				]];
 			}, true],
-			dimp_battle: [questinfo.imp_battle[3].replace('%n%', skpoint(skills["thrown"][0], 30 * 6)[0]), function () {
-				addPoint = skpoint(skills["thrown"][0], 30 * 6)[0];
+			dimp_battle: [questinfo.imp_battle[3].replace('%n%', skpoint(skills["thrown"][0], 120)[0]), function () {
+				addPoint = skpoint(skills["thrown"][0], 120)[0];
 				pr.add("skills", "thrown", addPoint, 1);
 				return [4, [
 					["thrown", addPoint]
 				]];
 			}, true],
-			eimp_battle: [questinfo.imp_battle[4].replace('%n%', skpoint(skills["repair"][0], 20 * 6)[0]), function () {
-				addPoint = skpoint(skills["repair"][0], 20 * 6)[0];
+			eimp_battle: [questinfo.imp_battle[4].replace('%n%', skpoint(skills["repair"][0], 100)[0]), function () {
+				addPoint = skpoint(skills["repair"][0], 100)[0];
 				pr.add("skills", "repair", addPoint, 1);
 				return [5, [
 					["repair", addPoint],
 				]];
 			}, true],
 			fimp_battle: [questinfo.imp_battle[5]
-				.replace('%n%', skpoint(skills["melee"][0], 20 * 6)[0])
-				.replace('%r%', skpoint(skills["steel"][0], 20 * 6)[0]), function () {
-					addPointMelee = skpoint(skills["melee"][0], 20 * 6)[0];
+				.replace('%n%', skpoint(skills["melee"][0], 100)[0])
+				.replace('%r%', skpoint(skills["steel"][0], 100)[0]), function () {
+					addPointMelee = skpoint(skills["melee"][0], 100)[0];
 					pr.add("skills", "melee", addPointMelee, 1);
-					addPointSteel = skpoint(skills["steel"][0], 20 * 6)[0];
+					addPointSteel = skpoint(skills["steel"][0], 100)[0];
 					pr.add("skills", "steel", addPointSteel, 1);
 					return [6, [
 						["melee", addPointMelee],
@@ -148,16 +148,16 @@ var quest = {	// квест, описание, уровней квеста, ми
 	imp_medical:["Медицинский имплант","В вас вживлен один из эксперементальных имплантантов. Ваши познания в медицине увеличены.",
 		1,2,99,function(){return true;},
 		function(){talk(dialog.imp_medical,{
-			aimp_medical: [questinfo.imp_medical[0].replace('%n%', skpoint(skills["orderly"][0], 35 * 6)[0]), function () {
-				addPoint = skpoint(skills["orderly"][0], 35 * 6)[0];
+			aimp_medical: [questinfo.imp_medical[0].replace('%n%', skpoint(skills["orderly"][0], 120)[0]), function () {
+				addPoint = skpoint(skills["orderly"][0], 120)[0];
 				pr.add("skills", "orderly", addPoint, 1);
 				return [1, [
 					["orderly", addPoint],
 				]];
 			}, true],
 			bimp_medical:[questinfo.imp_medical[1],function(){pr.add("feats","dodge",3);pr.add("feats","armc",5);return 2;},true],
-			cimp_medical: [questinfo.imp_medical[2].replace('%n%', skpoint(skills["doctor"][0], 20 * 6)[0]), function () {
-				addPoint = skpoint(skills["doctor"][0], 20 * 6)[0];
+			cimp_medical: [questinfo.imp_medical[2].replace('%n%', skpoint(skills["doctor"][0], 80)[0]), function () {
+				addPoint = skpoint(skills["doctor"][0], 80)[0];
 				pr.add("skills", "doctor", addPoint, 1);
 				pr.add("feats", "live", 10);
 				pr.add("feats", "levh", 5);
@@ -165,23 +165,23 @@ var quest = {	// квест, описание, уровней квеста, ми
 					["doctor", addPoint]
 				]];
 			}, true],
-			dimp_medical: [questinfo.imp_medical[3].replace('%n%', skpoint(skills["doctor"][0], 20 * 6)[0]), function () {
-				addPoint = skpoint(skills["doctor"][0], 20 * 6)[0];
+			dimp_medical: [questinfo.imp_medical[3].replace('%n%', skpoint(skills["doctor"][0], 80)[0]), function () {
+				addPoint = skpoint(skills["doctor"][0], 80)[0];
 				pr.add("skills", "doctor", addPoint, 1);
 				return [3, [
 					["doctor", addPoint]
 				]];
 			}, true],
-			eimp_medical: [questinfo.imp_medical[4].replace('%n%', skpoint(skills["orderly"][0], 20 * 6)[0]), function () {
-				addPoint = skpoint(skills["orderly"][0], 20 * 6)[0];
+			eimp_medical: [questinfo.imp_medical[4].replace('%n%', skpoint(skills["orderly"][0], 80)[0]), function () {
+				addPoint = skpoint(skills["orderly"][0], 80)[0];
 				pr.add("skills", "orderly", addPoint, 1);
 				return [5, [
 					["orderly", addPoint]
 				]];
 			}, true],
-			fimp_medical: [questinfo.imp_medical[5].replace('%n%', skpoint(skills["doctor"][0], 20 * 6)[0]), function () {
+			fimp_medical: [questinfo.imp_medical[5].replace('%n%', skpoint(skills["doctor"][0], 80)[0]), function () {
 				pr.add("feats", "live", 15);
-				addPoint = skpoint(skills["doctor"][0], 20 * 6)[0];
+				addPoint = skpoint(skills["doctor"][0], 80)[0];
 				pr.add("skills", "doctor", addPoint, 1);
 				return [6, [
 					["doctor", addPoint]
@@ -195,36 +195,36 @@ var quest = {	// квест, описание, уровней квеста, ми
 			aimp_auxiliary:[questinfo.imp_auxiliary[0],function(){pr.add("feats","maxl",100);return 1;},true],
 			bimp_auxiliary:[questinfo.imp_auxiliary[1],function(){return 2;},true],
 			cimp_auxiliary: [questinfo.imp_auxiliary[2]
-			.replace('%n%', skpoint(skills["traps"][0], 15 * 6)[0])
-			.replace('%r%', skpoint(skills["sneak"][0], 20 * 6)[0]), function () {
-				addPointTraps = skpoint(skills["traps"][0], 15 * 6)[0];
+			.replace('%n%', skpoint(skills["traps"][0], 60)[0])
+			.replace('%r%', skpoint(skills["sneak"][0], 50)[0]), function () {
+				addPointTraps = skpoint(skills["traps"][0], 60)[0];
 				pr.add("skills", "traps", addPointTraps, 1);
-				addPointSneak = skpoint(skills["sneak"][0], 20 * 6)[0];
+				addPointSneak = skpoint(skills["sneak"][0], 50)[0];
 				pr.add("skills", "sneak", addPointSneak, 1);
 				return [3, [
 					["traps", addPointTraps],
 					["sneak", addPointSneak],
 				]];
 			}, true],
-			dimp_auxiliary: [questinfo.imp_auxiliary[3].replace('%n%', skpoint(skills["oratory"][0], 20 * 6)[0]), function () {
-				addPoint = skpoint(skills["oratory"][0], 20 * 6)[0];
+			dimp_auxiliary: [questinfo.imp_auxiliary[3].replace('%n%', skpoint(skills["oratory"][0], 60)[0]), function () {
+				addPoint = skpoint(skills["oratory"][0], 60)[0];
 				pr.add("skills", "oratory", addPoint, 1);
 				return [4, [
 					["oratory", addPoint]
 				]];
 			}, true],
-			eimp_auxiliary: [questinfo.imp_auxiliary[4].replace('%n%', skpoint(skills["steal"][0], 20 * 6)[0]), function () {
-				addPointSteal = skpoint(skills["steal"][0], 20 * 6)[0];
+			eimp_auxiliary: [questinfo.imp_auxiliary[4].replace('%n%', skpoint(skills["steal"][0], 60)[0]), function () {
+				addPointSteal = skpoint(skills["steal"][0], 60)[0];
 				pr.add("skills", "steal", addPointSteal, 1);
-				addPointHack = skpoint(skills["hack"][0], 20 * 6)[0];
+				addPointHack = skpoint(skills["hack"][0], 60)[0];
 				pr.add("skills", "hack", addPointHack, 1);
 				return [5, [
 					["steal", addPointSteal],
 					["hack", addPointHack]
 				]];
 			}, true],
-			fimp_auxiliary: [questinfo.imp_auxiliary[5].replace('%n%', skpoint(skills["speed"][0], 20 * 6)[0]), function () {
-				addPoint = skpoint(skills["speed"][0], 20 * 6)[0];
+			fimp_auxiliary: [questinfo.imp_auxiliary[5].replace('%n%', skpoint(skills["speed"][0], 60)[0]), function () {
+				addPoint = skpoint(skills["speed"][0], 60)[0];
 				pr.add("skills", "speed", addPoint, 1);
 				return [6, [
 					["speed", addPoint]

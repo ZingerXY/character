@@ -122,28 +122,28 @@ var traits = {
 	TRAIT_GOOD_NATURED: function(str){
 			if(!mychar.traits[str] && charp.tagt>0){
 				pr.add("skills","orderly",25,1);
-				pr.add("skills","doctor",40,1);
-				pr.add("skills","oratory",50,1);
-				pr.add("skills","trade",50,1);
+				pr.add("skills","doctor",25,1);
+				pr.add("skills","oratory",25,1);
+				pr.add("skills","trade",25,1);
 				pr.add("skills","light",-15,1);
 				pr.add("skills","heavy",-15,1);
 				pr.add("skills","energy",-15,1);
-				pr.add("skills","steel",-10,1);
-				pr.add("skills","melee",-10,1);
-				pr.add("skills","thrown",-10,1);
+				pr.add("skills","steel",-15,1);
+				pr.add("skills","melee",-15,1);
+				pr.add("skills","thrown",-15,1);
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2){
 				pr.add("skills","orderly",-25,1);
-				pr.add("skills","doctor",-40,1);
-				pr.add("skills","oratory",-50,1);
-				pr.add("skills","trade",-50,1);
+				pr.add("skills","doctor",-25,1);
+				pr.add("skills","oratory",-25,1);
+				pr.add("skills","trade",-25,1);
 				pr.add("skills","light",15,1);
 				pr.add("skills","heavy",15,1);
 				pr.add("skills","energy",15,1);
-				pr.add("skills","steel",10,1);
-				pr.add("skills","melee",10,1);
-				pr.add("skills","thrown",10,1);
+				pr.add("skills","steel",15,1);
+				pr.add("skills","melee",15,1);
+				pr.add("skills","thrown",15,1);
 				delete mychar.traits[str];
 				charp.tagt++;
 			}
