@@ -185,19 +185,19 @@ var traits = {
 	// Умелец
 	TRAIT_SKILLED: function(str){
 			if(!mychar.traits[str] && charp.tagt>0){
-				mychar.stats.STR[1]+=1;
-				mychar.stats.ENU[1]+=1;				
-				mychar.stats.INT[1]+=1;
-				mychar.stats.AGI[1]+=1;
+				mychar.stats.CHA[0] += 2;
+				mychar.stats.ENU[0] += 2;
+				mychar.stats.INT[0] += 2;
+				mychar.stats.AGI[0] += 2;
 				mychar.traits[str] = 1;
 				charp.tags++;
 				numbers($("#point2"),charp.tags);
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2){
-				mychar.stats.STR[1]-=1;
-				mychar.stats.ENU[1]-=1;				
-				mychar.stats.INT[1]-=1;
-				mychar.stats.AGI[1]-=1;
+				mychar.stats.CHA[0] -= 2;
+				mychar.stats.ENU[0] -= 2;
+				mychar.stats.INT[0] -= 2;
+				mychar.stats.AGI[0] -= 2;
 				delete mychar.traits[str];
 				charp.tags--;
 				numbers($("#point2"),charp.tags);
