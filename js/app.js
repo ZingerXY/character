@@ -222,9 +222,9 @@ function settle(str) {
 
 	for(var i in mychar.stats)
 			stats[i][2] = mychar.stats[i][0] + mychar.stats[i][1];
-	// Жизни 150+Сила*3+Выносливость*10+Ловкость*2, если добродуш Выносливость * 5 + Харизма * Харизма * 2
+	// Жизни 150+Сила*3+Выносливость*10+Ловкость*2, если добродуш Выносливость * 7 + Харизма * Харизма * 2
 	feat.live[0] = (mychar.traits.TRAIT_GOOD_NATURED ?
-		(mychar.stats.CHA[0] * mychar.stats.CHA[0] * 2 + mychar.stats.ENU[0] * 5) :
+		(mychar.stats.CHA[0] * mychar.stats.CHA[0] * 2 + mychar.stats.ENU[0] * 7) :
 		(150 + mychar.stats.STR[0] * 3 + mychar.stats.ENU[0] * 10 + mychar.stats.AGI[0] * 2));
 	// Класс брони
 	feat.armc[0] = stats.AGI[2]*(mychar.traits.TRAIT_KAMIKAZE ? 0 : 1)+(mychar.traits.TRAIT_KAMIKAZE ? 1 : 0);
@@ -245,15 +245,15 @@ function settle(str) {
 	// Порядок
 	feat.proc[0] = stats.PER[2]*2;
 	// Уровень лечения
-	feat.levh[0] = (stats.ENU[2] > 5 ? Math.floor(stats.ENU[2]/3) : 1) + (mychar.traits.TRAIT_FAST_METABOLISM ? stats.CHA[2] * 3 : 0);
+	feat.levh[0] = Math.floor(stats.CHA[2] * 1.5) + (mychar.traits.TRAIT_FAST_METABOLISM ? stats.CHA[2] * 2 : 0);
 	// Крит
-	feat.crit[0] = stats.LUC[2];
+	feat.crit[0] = stats.LUC[2] + (mychar.traits.TRAIT_SKILLED ? 15 : 0);
 	//Уворот
 	feat.dodge[0] = /*stats.CHA[2] +*/ (checkperk("PE_HTH_EVADE") ? (feat.apoi[0]/4)+(feat.apoi[0]/2) : 0);
 	if (mychar.traits.TRAIT_GOOD_NATURED) 
 		feat.dodge[0] = Math.floor(feat.dodge[0] / 2);
 	//Антикрит
-	feat.acrit[0] = stats.STR[2] * 5 + (checkperk("PE_TERMINATOR") ? stats.ENU[2] * 5 : 0);
+	feat.acrit[0] = (checkperk("PE_TERMINATOR") ? (stats.STR[2] + stats.ENU[2]) * 5 : stats.STR[2] * 2 + (mychar.traits.TRAIT_SKILLED ? 25 : 0));
 
 	for(var i in feat) {
 		if (i == "dodge" && mychar.traits.TRAIT_GOOD_NATURED) {
@@ -933,8 +933,14 @@ function verRequirPerk(p) {
 			}
 		if ("skills" in obj) // Проверка скилов
 			for(var j in obj.skills) {
-				if (skills[j][0] < obj.skills[j]) 
-					return false;
+				if ("ormode" in obj && "skills" in obj.ormode) {
+					if (j in obj.ormode.skills && skills[j][0] >= obj.skills[j])
+						ormode = ormode || true;
+				} else {
+					if (skills[j][0] < obj.skills[j]) {
+						return false;
+					}
+				}
 			}
 		if ("stats" in obj) // Проверка статов
 			for(var j in obj.stats) {
