@@ -896,7 +896,11 @@ function verPerkandTrait(p) {
 		if ("perks" in obj)
 			for(var j in obj.perks)
 				if (j in mychar.tperk) {
-					delete mychar.tperk[p];
+					if (obj.perks[j] == 1) {
+						delete mychar.tperk[p];
+						return false;
+					}
+				} else if (obj.perks[j] == 0) {
 					return false;
 				}
 	}
@@ -995,17 +999,16 @@ function decalc() {
 	if (emptyObject(mychar.tperk)) {
 		testperks();
 		mychar.stats = {
-			STR: [8+(chtr("TRAIT_BRUISER")?3:0)+(chtr("TRAIT_SKILLED")?1:0),0],
-			PER: [7,0+(chtr("TRAIT_CHEM_RESISTANT")?1:0)],
-			ENU: [8,0+(chtr("TRAIT_SKILLED")?1:0)],
-			CHA: [1,0],
-			INT: [8,0+(chtr("TRAIT_SKILLED")?1:0)],
-			AGI: [7+(chtr("TRAIT_SMALL_FRAME")?1:0),0+(chtr("TRAIT_KAMIKAZE")?1:0)+(chtr("TRAIT_SKILLED")?1:0)],
+			STR: [8 + (chtr("TRAIT_BRUISER") ? 3 : 0), 0],
+			PER: [7, 0 + (chtr("TRAIT_CHEM_RESISTANT") ? 1 : 0)],
+			ENU: [8 + (chtr("TRAIT_SKILLED") ? 2 : 0), 0],
+			CHA: [1 + (chtr("TRAIT_SKILLED") ? 2 : 0), 0],
+			INT: [8 + (chtr("TRAIT_SKILLED") ? 2 : 0), 0],
+			AGI: [7 + (chtr("TRAIT_SMALL_FRAME") ? 1 : 0) + (chtr("TRAIT_SKILLED") ? 2 : 0), 0 + (chtr("TRAIT_KAMIKAZE") ? 1 : 0)],
 			LUC: [1,0]};
 			charp.specialpoint = 0;
-	}
-	else {
-		var ss = 40 + (chtr("TRAIT_BRUISER")?3:0) + (chtr("TRAIT_SMALL_FRAME")?1:0) + (chtr("TRAIT_KAMIKAZE")?1:0) + (chtr("TRAIT_SKILLED")?4:0) + (chtr("TRAIT_CHEM_RESISTANT")?1:0);
+	} else {
+		var ss = 40 + (chtr("TRAIT_BRUISER") ? 3 : 0) + (chtr("TRAIT_SMALL_FRAME") ? 1 : 0) + (chtr("TRAIT_KAMIKAZE") ? 1 : 0) + (chtr("TRAIT_SKILLED") ? 8 : 0) + (chtr("TRAIT_CHEM_RESISTANT") ? 1 : 0);
 		var res = testperks(ss);
 		if (res[0]==70) return;
 		charp.specialpoint = ss - res[0];
@@ -1013,9 +1016,12 @@ function decalc() {
 			mychar.stats[i][0] = res[1][i];
 		if (chtr("TRAIT_KAMIKAZE"))
 			mychar.stats.AGI[0]--;
-		if (chtr("TRAIT_SKILLED")) {
-			mychar.stats.STR[0]-=1;mychar.stats.ENU[0]-=1;mychar.stats.INT[0]-=1;mychar.stats.AGI[0]-=1;
-		}
+		// if (chtr("TRAIT_SKILLED")) {
+		// 	mychar.stats.CHA[0] -= 2;
+		// 	mychar.stats.ENU[0] -= 2;
+		// 	mychar.stats.INT[0] -= 2;
+		// 	mychar.stats.AGI[0] -= 2;
+		// }
 	}
 	statpoints();
 }
@@ -1119,9 +1125,11 @@ function require(p) {
 				str += "<br><span class='dedeperk'>+"+texttraits[i][0]+"</span>";
 	if ("perks" in obj)
 		for(var i in obj.perks)
-			str += "<br><span class='deperk'>-"+textperk[i][0]+"</span>";
+			if (obj.perks[i] == 1)
+				str += "<br><span class='deperk'>-"+textperk[i][0]+"</span>";
+			else if (obj.perks[i] == 0)
+				str += "<br><span class='dedeperk'>-" + textperk[i][0] + "</span>";
 	return str;
-
 }
 
 // Вывод информации о перке или квесте по клику

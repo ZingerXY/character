@@ -75,11 +75,9 @@ var traits = {
 	// Вор (вместо Громилы)
 	TRAIT_HEAVY_HANDED: function(str){
 			if(!mychar.traits[str] && charp.tagt>0){
-				pr.add("feats","levh",20);
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2){
-				pr.add("feats","levh",-20);
 				delete mychar.traits[str];
 				charp.tagt++;
 			}
