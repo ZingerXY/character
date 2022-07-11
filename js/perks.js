@@ -87,14 +87,10 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		function () {},
 		function () {},
 		{
-			stats: {
-				PER: 10
-			},
 			traits: {
 				TRAIT_GOOD_NATURED: 1,
 				TRAIT_SKILLED: 1,
 				TRAIT_HEAVY_HANDED: 1,
-				TRAIT_FINESSE: 0
 			},
 			perks: {
 				PE_MORE_CRITICALS: 1,
