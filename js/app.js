@@ -999,7 +999,7 @@ function decalc() {
 	if (emptyObject(mychar.tperk)) {
 		testperks();
 		mychar.stats = {
-			STR: [8 + (chtr("TRAIT_BRUISER") ? 3 : 0), 0],
+			STR: [8 + (chtr("TRAIT_BRUISER") ? 2 : 0), 0],
 			PER: [7, 0 + (chtr("TRAIT_CHEM_RESISTANT") ? 1 : 0)],
 			ENU: [8 + (chtr("TRAIT_SKILLED") ? 2 : 0), 0],
 			CHA: [1 + (chtr("TRAIT_SKILLED") ? 2 : 0), 0],
@@ -1008,7 +1008,7 @@ function decalc() {
 			LUC: [1,0]};
 			charp.specialpoint = 0;
 	} else {
-		var ss = 40 + (chtr("TRAIT_BRUISER") ? 3 : 0) + (chtr("TRAIT_SMALL_FRAME") ? 1 : 0) + (chtr("TRAIT_KAMIKAZE") ? 1 : 0) + (chtr("TRAIT_SKILLED") ? 8 : 0) + (chtr("TRAIT_CHEM_RESISTANT") ? 1 : 0);
+		var ss = 40 + (chtr("TRAIT_BRUISER") ? 2 : 0) + (chtr("TRAIT_SMALL_FRAME") ? 1 : 0) + (chtr("TRAIT_KAMIKAZE") ? 1 : 0) + (chtr("TRAIT_SKILLED") ? 8 : 0) + (chtr("TRAIT_CHEM_RESISTANT") ? 1 : 0);
 		var res = testperks(ss);
 		if (res[0]==70) return;
 		charp.specialpoint = ss - res[0];
