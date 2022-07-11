@@ -19,15 +19,9 @@ include_once 'checkBanned.php';
 	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="style.css?ver=<?= $ver ?>">
 	<script type="text/javascript" src="js/jquery-3.1.0.min.js?ver=<?= $ver ?>"></script>
-	<script type="text/javascript" async src="js/auto.js?ver=<?= $ver ?>"></script>
-	<script type="text/javascript" async src="js/perks.js?ver=<?= $ver ?>"></script>
-	<script type="text/javascript" async src="js/traits.js?ver=<?= $ver ?>"></script>
-	<script type="text/javascript" async src="js/app.js?ver=<?= $ver ?>"></script>
-	<script type="text/javascript" async src="js/quest.js?ver=<?= $ver ?>"></script>
-	<script type="text/javascript" async src="js/text_rus.js?ver=<?= $ver ?>"></script>
-	<script type="text/javascript" async src="js/LZW.js?ver=<?= $ver ?>"></script>
-	<script type="text/javascript" async src="js/base64.min.js?ver=<?= $ver ?>"></script>
 	<script async src="js/js.cookie.js?ver=<?= $ver ?>"></script>
+	<script type="text/javascript" async src="js/text_rus.js?ver=<?= $ver ?>"></script>
+	<script type="text/javascript" async src="js/app.min.js?ver=<?= $ver ?>"></script>
 	<script>
 		var cookiehash = <? if (isset($_GET["hash"])) echo "'" . $_GET["hash"] . "'";
 							else if (isset($_COOKIE["hash"])) {
