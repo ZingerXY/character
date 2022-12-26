@@ -43,7 +43,7 @@ var mychar = {
 		science: [10,0,{}],
 		repair: [10,0,{}],
 		ranger: [10,0,{}],
-		prewar: [20,0,{}]
+		prewar: [10,0,{}]
 	}
 };
 // mychar.book
@@ -1201,10 +1201,7 @@ function plusbook() {
 	var str = this.id.substr(4);
 	var strn;
 	if (str==="prewar") {
-		var r = getRandInt(0, 59);
-		if (r<20) strn = "steal";
-		else if (r<40) strn = "trade";
-		else if (r<60) strn = "oratory";
+		strn = "oratory";
 	}
 	else {
 		strn = str;

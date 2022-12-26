@@ -347,7 +347,7 @@ include_once 'checkBanned.php';
 			<div id="bookscience" class="book">x10</div>
 			<div id="bookrepair" class="book">x10</div>
 			<div id="bookranger" class="book">x10</div>
-			<div id="bookprewar" class="book">x20</div>
+			<div id="bookprewar" class="book">x10</div>
 		</div>
 		<div id="textlist3" class="text2"></div>
 		<div id="done"></div>
