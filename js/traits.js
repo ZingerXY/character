@@ -207,7 +207,7 @@ TRAIT_FAST_METABOLISM: function(str){
 	// Импульсивный
 	TRAIT_NIGHT_PERSON: function(str){
 			if(!mychar.traits[str] && charp.tagt>0){
-				pr.add("feats","apoi"2);
+				pr.add("feats","apoi",2);
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2){
