@@ -5,3 +5,12 @@
 http://fonlinew.ru/?char
 
 Конец.
+
+
+## Сборка
+
+Установка: ```npm install```
+
+Однократная сборка: ```npm run gulp```
+
+Сборка при сохранении: ```npm run hot```

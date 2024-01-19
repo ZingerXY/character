@@ -3,9 +3,12 @@
   "description": "Калькулятор билдов для игры Fonline сервера Requiem",
   "version": "1.0.0",
   "main": "gulpfile.js",
-  "dependencies": {},
+  "dependencies": {
+    "gulp-cli": "^2.3.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "hot": "gulp",
+    "gulp": "gulp js"
   },
   "repository": {
     "type": "git",

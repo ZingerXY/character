@@ -1,6 +1,6 @@
 var traits = {
 	// Быстрый метаболизм
-TRAIT_FAST_METABOLISM: function(str){
+	TRAIT_FAST_METABOLISM: function(str){
 			if(!mychar.traits[str] && charp.tagt>0) {
 				pr.add("feats","levh",15);
 				mychar.traits[str] = 1;
