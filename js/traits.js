@@ -151,9 +151,11 @@ var traits = {
 	// Химик
 	TRAIT_CHEM_RELIANT: function(str){
 			if(!mychar.traits[str] && charp.tagt>0){
+				pr.add("feats", "live", 30);
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2){
+				pr.add("feats", "live", -30);
 				delete mychar.traits[str];
 				charp.tagt++;
 			}
