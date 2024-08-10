@@ -223,9 +223,12 @@ function settle(str) {
 	for(var i in mychar.stats)
 			stats[i][2] = mychar.stats[i][0] + mychar.stats[i][1];
 	// Жизни 150+Сила*3+Выносливость*10+Ловкость*2, если добродуш Выносливость * 7 + Харизма * Харизма * 2
+	// pre 32
+	//Если нет Добродушного 200+Сила*5+Выносливость*15
+	//Если есть Добродушный 80+Харизма*Харизма*2+Выносливость*5
 	feat.live[0] = (mychar.traits.TRAIT_GOOD_NATURED ?
-		(mychar.stats.CHA[0] * mychar.stats.CHA[0] * 2 + mychar.stats.ENU[0] * 7) :
-		(150 + mychar.stats.STR[0] * 3 + mychar.stats.ENU[0] * 10 + mychar.stats.AGI[0] * 2));
+		(80+mychar.stats.CHA[0] * mychar.stats.CHA[0] * 2 + mychar.stats.ENU[0] * 5) :
+		(200 + mychar.stats.STR[0] * 5 + mychar.stats.ENU[0] * 15));
 	// Класс брони
 	feat.armc[0] = stats.AGI[2]*(mychar.traits.TRAIT_KAMIKAZE ? 0 : 1)+(mychar.traits.TRAIT_KAMIKAZE ? 1 : 0);
 	// Очки действий 7+Ловкость/3
@@ -245,9 +248,11 @@ function settle(str) {
 	// Порядок
 	feat.proc[0] = stats.PER[2]*2;
 	// Уровень лечения
-	feat.levh[0] = Math.floor(stats.CHA[2] * 1.5) + (mychar.traits.TRAIT_FAST_METABOLISM ? stats.CHA[2] * 2 : 0);
+	feat.levh[0] = Math.floor(stats.CHA[2] * 1.5);
 	// Крит
-	feat.crit[0] = stats.LUC[2] + (mychar.traits.TRAIT_SKILLED ? 15 : 0);
+	//feat.crit[0] = stats.LUC[2] + (mychar.traits.TRAIT_SKILLED ? 15 : 0);
+	//pre 32  Первоначальный расчет: (Удача-1)*2+Удача/2 
+	feat.crit[0] = ((stats.LUC[2]-1)*2)+(stats.LUC[2]/2)+(mychar.traits.TRAIT_SKILLED ? 5 : 0);
 	//Уворот
 	feat.dodge[0] = /*stats.CHA[2] +*/ (checkperk("PE_HTH_EVADE") ? (feat.apoi[0]/4)+(feat.apoi[0]/2) : 0);
 	if (mychar.traits.TRAIT_GOOD_NATURED) 
