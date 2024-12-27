@@ -215,7 +215,7 @@ function settle(str) {
 	// Атлет
 	skills.speed[0] =  mychar.stats.LUC[0] - 1;
 	// Скиталец
-	skills.ranger[0] = (mychar.stats.ENU[0]+mychar.stats.INT[0])*2 + mychar.stats.LUC[0];
+	skills.ranger[0] = (mychar.stats.ENU[0]+mychar.stats.INT[0])*2 + mychar.stats.LUC[0]+20;
 
 	for(var i in skills)
 		skills[i][0] += pr.sum("skills",i);
@@ -248,7 +248,7 @@ function settle(str) {
 	// Порядок
 	feat.proc[0] = stats.PER[2]*2;
 	// Уровень лечения
-	feat.levh[0] = Math.floor(stats.CHA[2] * 1.5);
+	feat.levh[0] = stats.CHA[2]*1;
 	// Крит
 	//feat.crit[0] = stats.LUC[2] + (mychar.traits.TRAIT_SKILLED ? 15 : 0);
 	//pre 32  Первоначальный расчет: (Удача-1)*2+Удача/2 
