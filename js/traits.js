@@ -2,11 +2,13 @@ var traits = {
 	// Быстрый метаболизм
 	TRAIT_FAST_METABOLISM: function(str){
 			if(!mychar.traits[str] && charp.tagt>0) {
-				pr.add("feats","levh",15);
+				//pr.add("feats","levh",15);
+				// pre 33:
+				pr.add("feats","levh",5);
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2) {
-				pr.add("feats","levh",-15);
+				pr.add("feats","levh",-5);
 				delete mychar.traits[str];
 				charp.tagt++;	}
 			},
@@ -75,15 +77,16 @@ var traits = {
 	// Вор (вместо Громилы)
 	TRAIT_HEAVY_HANDED: function(str){
 			if(!mychar.traits[str] && charp.tagt>0){
-				pr.add("feats","levh",25);
+				pr.add("feats","levh",15);
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2){
-				pr.add("feats","levh",-25);
+				pr.add("feats","levh",-15);
 				delete mychar.traits[str];
 				charp.tagt++;
 			}
 			},
+			// pre 33: нерф вора 15 регена вместо 25
 	// Быстрый стрелок
 	TRAIT_FAST_SHOT: function(str){
 			if(!mychar.traits[str] && charp.tagt>0){
