@@ -138,7 +138,7 @@ var quest = {	// квест, описание, уровней квеста, ми
 		bonus6:[questinfo.imp_bonus[5],function(){pr.add("feats","srad",20);bonuswaste.push(6);return [6,6];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(6) == -1)],
 		bonus7:[questinfo.imp_bonus[6],function(){pr.add("skills","steal",30);bonuswaste.push(7);return [7,7];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(7) == -1)],
 		bonus8:[questinfo.imp_bonus[7],function(){bonuswaste.push(8);return [8,8];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(8) == -1)],
-		bonus9:[questinfo.imp_bonus[8],function(){charp.points+=10;pr.add("feats","maxl",50);bonuswaste.push(9);return [9,9];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(9) == -1)],
+		bonus9:[questinfo.imp_bonus[8],function(){charp.points+=5;pr.add("feats","maxl",50);bonuswaste.push(9);return [9,9];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(9) == -1)],
 		bonus10:[questinfo.imp_bonus[9],function(){pr.add("feats","mdmg",Math.floor(skills["melee"][0]/30));bonuswaste.push(10);return [10,10];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(10) == -1)],
 		bonus11:[questinfo.imp_bonus[10],function(){pr.add("feats","proc",4);bonuswaste.push(11);return [11,11];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(11) == -1)],
 		bonus12:[questinfo.imp_bonus[11],function(){pr.add("feats","live",12);bonuswaste.push(12);return [12,12];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(12) == -1)],

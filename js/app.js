@@ -258,9 +258,9 @@ function settle(str) {
 	// Уровень лечения
 	feat.levh[0] = stats.LUC[2]*1;
 	// Крит
-	//feat.crit[0] = stats.LUC[2] + (mychar.traits.TRAIT_SKILLED ? 15 : 0);
+	feat.crit[0] = stats.LUC[2] + (mychar.traits.TRAIT_SKILLED ? 5 : 0);
 	//pre 32  Первоначальный расчет: (Удача-1)*2+Удача/2 
-	feat.crit[0] = ((stats.LUC[2]-1)*2)+(stats.LUC[2]/2)+(mychar.traits.TRAIT_SKILLED ? 5 : 0);
+	//feat.crit[0] = ((stats.LUC[2]-1)*2)+(stats.LUC[2]/2)+(mychar.traits.TRAIT_SKILLED ? 5 : 0);
 	//Уворот
 	feat.dodge[0] = /*stats.CHA[2] +*/ (checkperk("PE_HTH_EVADE") ? feat.apoi[0]/2 : 0);
 	//if (mychar.traits.TRAIT_GOOD_NATURED) 
