@@ -57,7 +57,13 @@ var charp = {
 	specialpoint: 0, // Очки распределения статов
 	perkpoint: 0, // Очки перков
 	name: "", // имя
+	//демчев насрал костылями для крушилы
+	kostylbruiser34: 0,
+	kostyltrait: 0,
 };
+
+//bonuses КОСТЫЛЬ
+var bonuswaste = [];
 // SkillMod.Add2
 var SkillMod = {
 	MaxValue: 300,
@@ -226,9 +232,11 @@ function settle(str) {
 	// pre 32
 	//Если нет Добродушного 200+Сила*5+Выносливость*15
 	//Если есть Добродушный 80+Харизма*Харизма*2+Выносливость*5
-	feat.live[0] = (mychar.traits.TRAIT_GOOD_NATURED ?
-		(80+mychar.stats.CHA[0] * mychar.stats.CHA[0] * 2 + mychar.stats.ENU[0] * 5) :
-		(200 + mychar.stats.STR[0] * 5 + mychar.stats.ENU[0] * 15));
+	//feat.live[0] = (mychar.traits.TRAIT_GOOD_NATURED ?
+		//(80+mychar.stats.CHA[0] * mychar.stats.CHA[0] * 2 + mychar.stats.ENU[0] * 5) :
+		//(200 + mychar.stats.STR[0] * 5 + mychar.stats.ENU[0] * 15));
+	feat.live[0] = (80+mychar.stats.CHA[0] * mychar.stats.CHA[0] * 2 + mychar.stats.ENU[0] * 5);
+
 	// Класс брони
 	feat.armc[0] = stats.AGI[2]*(mychar.traits.TRAIT_KAMIKAZE ? 0 : 1)+(mychar.traits.TRAIT_KAMIKAZE ? 1 : 0);
 	// Очки действий 7+Ловкость/3
@@ -246,19 +254,19 @@ function settle(str) {
 	feat.srad[0] = (mychar.traits.TRAIT_FAST_METABOLISM ? 0.5 : 1)*stats.ENU[2]*2;
 	if (feat.srad[0]>95) feat.srad[0] = 95;
 	// Порядок
-	feat.proc[0] = stats.PER[2]*2;
+	feat.proc[0] = stats.PER[2]*2.5;
 	// Уровень лечения
-	feat.levh[0] = stats.CHA[2]*1;
+	feat.levh[0] = stats.LUC[2]*1;
 	// Крит
-	//feat.crit[0] = stats.LUC[2] + (mychar.traits.TRAIT_SKILLED ? 15 : 0);
+	feat.crit[0] = stats.LUC[2] + (mychar.traits.TRAIT_SKILLED ? 5 : 0);
 	//pre 32  Первоначальный расчет: (Удача-1)*2+Удача/2 
-	feat.crit[0] = ((stats.LUC[2]-1)*2)+(stats.LUC[2]/2)+(mychar.traits.TRAIT_SKILLED ? 5 : 0);
+	//feat.crit[0] = ((stats.LUC[2]-1)*2)+(stats.LUC[2]/2)+(mychar.traits.TRAIT_SKILLED ? 5 : 0);
 	//Уворот
-	feat.dodge[0] = /*stats.CHA[2] +*/ (checkperk("PE_HTH_EVADE") ? (feat.apoi[0]/4)+(feat.apoi[0]/2) : 0);
-	if (mychar.traits.TRAIT_GOOD_NATURED) 
-		feat.dodge[0] = Math.floor(feat.dodge[0] / 2);
+	feat.dodge[0] = /*stats.CHA[2] +*/ (checkperk("PE_HTH_EVADE") ? feat.apoi[0]/2 : 0);
+	//if (mychar.traits.TRAIT_GOOD_NATURED) 
+	//	feat.dodge[0] = Math.floor(feat.dodge[0] / 2);
 	//Антикрит
-	feat.acrit[0] = (checkperk("PE_TERMINATOR") ? (stats.STR[2] + stats.ENU[2]) * 5 : stats.STR[2] * 2 + (mychar.traits.TRAIT_SKILLED ? 25 : 0));
+	feat.acrit[0] = (checkperk("PE_TERMINATOR") ? (stats.STR[2] + stats.ENU[2]) * 5 : stats.STR[2] * 5 + (mychar.traits.TRAIT_SKILLED ? 20 : 0));
 
 	for(var i in feat) {
 		if (i == "dodge" && mychar.traits.TRAIT_GOOD_NATURED) {
@@ -371,7 +379,7 @@ function plusspec(pop){
 function minusspec(pop){
 	var str = this.id.substr(5);
 	var n = mychar.stats[str][0] + mychar.stats[str][1];
-	if (mychar.traits.TRAIT_SKILLED && n < 4 && str != "STR" && str != "PER" && str != "LUC") return;
+	if (mychar.traits.TRAIT_SKILLED && n < 3 && str != "STR" && str != "PER" && str != "LUC") return;
 	var s = charp.specialpoint;
 	if (n>1)
 	{
@@ -497,7 +505,7 @@ function changesex() {
 }
 // Переход к прокачке
 function leveling() {
-	if ((!charp.specialpoint && !charp.tags)||leveluping){
+	if ((!charp.specialpoint && !charp.tags&& charp.kostyltrait != 2 && !BruiserCheck34())||leveluping){
 		if (regi) {
 			if (!charp.name)
 			{
@@ -700,19 +708,33 @@ function addperk(perks) {
 	perk[perks][5]();
 }
 
+//mychar.quest[j].med[i]
 function delobj(obj,str,c) {
 	if (chobj(obj,str)<=1) {
 		delete mychar[obj][str];
 	} else {
-		if (!(str in questinfo)&&str!="medals") {
+		if (!(str in questinfo)&&str!="medals"&&str!="imp_bonus") {
 			mychar[obj][str].vol--;
 			delete mychar[obj][str].lvl[c];
 		}
-		else if (str!="medals") {
+		else if (str!="medals"&&str!="imp_bonus") {
 			delete mychar[obj][str];
 		}
 	}
 	if (str == "medals") {
+		var numMed = mychar[obj][str].med[c][0];
+		var diffMed = mychar[obj][str].med[c][1];
+		mychar[obj][str].vol -= diffMed;
+		if (numMed > 3) medsp -= diffMed;
+		delete mychar[obj][str].med[c];
+		delete mychar[obj][str].lvl[c];
+		if (!chobj(obj,str)) {
+			delete mychar[obj][str]
+		}
+	}
+	if (str == "imp_bonus")
+	{
+		bonuswaste.pop();
 		var numMed = mychar[obj][str].med[c][0];
 		var diffMed = mychar[obj][str].med[c][1];
 		mychar[obj][str].vol -= diffMed;
@@ -755,8 +777,9 @@ function leveldown() {
 	// Удаление квестов
 	for(var i in mychar.quest)
 		for(var j in mychar.quest[i].lvl)
-			if (mychar.quest[i].lvl[j] == charp.level)
+			if (mychar.quest[i].lvl[j] == charp.level) {
 				delobj("quest",i,j);
+			}
 	// Удаление книг
 	for(var i in mychar.book)
 		for(var j in mychar.book[i][2])
@@ -1006,14 +1029,14 @@ function decalc() {
 		mychar.stats = {
 			STR: [8 + (chtr("TRAIT_BRUISER") ? 2 : 0), 0],
 			PER: [7, 0 + (chtr("TRAIT_CHEM_RESISTANT") ? 1 : 0)],
-			ENU: [8 + (chtr("TRAIT_SKILLED") ? 2 : 0), 0],
-			CHA: [1 + (chtr("TRAIT_SKILLED") ? 2 : 0), 0],
-			INT: [8 + (chtr("TRAIT_SKILLED") ? 2 : 0), 0],
-			AGI: [7 + (chtr("TRAIT_SMALL_FRAME") ? 1 : 0) + (chtr("TRAIT_SKILLED") ? 2 : 0), 0 + (chtr("TRAIT_KAMIKAZE") ? 1 : 0)],
+			ENU: [8 + (chtr("TRAIT_SKILLED") ? 1 : 0), 0],
+			CHA: [1 + (chtr("TRAIT_SKILLED") ? 1: 0), 0],
+			INT: [8 + (chtr("TRAIT_SKILLED") ? 1 : 0), 0],
+			AGI: [7 + (chtr("TRAIT_SMALL_FRAME") ? 1 : 0) + (chtr("TRAIT_SKILLED") ? 1 : 0), 0 + (chtr("TRAIT_KAMIKAZE") ? 1 : 0)],
 			LUC: [1,0]};
 			charp.specialpoint = 0;
 	} else {
-		var ss = 40 + (chtr("TRAIT_BRUISER") ? 2 : 0) + (chtr("TRAIT_SMALL_FRAME") ? 1 : 0) + (chtr("TRAIT_KAMIKAZE") ? 1 : 0) + (chtr("TRAIT_SKILLED") ? 8 : 0) + (chtr("TRAIT_CHEM_RESISTANT") ? 1 : 0);
+		var ss = 40 + (chtr("TRAIT_BRUISER") ? 2 : 0) + (chtr("TRAIT_SMALL_FRAME") ? 1 : 0) + (chtr("TRAIT_KAMIKAZE") ? 1 : 0) + (chtr("TRAIT_SKILLED") ? 4 : 0) + (chtr("TRAIT_CHEM_RESISTANT") ? 1 : 0);
 		var res = testperks(ss);
 		if (res[0]==70) return;
 		charp.specialpoint = ss - res[0];
@@ -1090,7 +1113,11 @@ function showlistquest(){
 					mquest[mychar.quest[j].lvl[i]] = [];
 				if (j == "medals" && mychar.quest[j]['med']) {
 					mquest[mychar.quest[j].lvl[i]].push([j,i].concat(mychar.quest[j].med[i]));
-				} else {
+				}
+				else if (j == "imp_bonus" && mychar.quest[j]['med']) {
+					mquest[mychar.quest[j].lvl[i]].push([j,i].concat(mychar.quest[j].med[i]));
+				}				
+				else {
 					mquest[mychar.quest[j].lvl[i]].push(j);
 				}
 			}
@@ -1261,7 +1288,17 @@ function talk(textdialog,answ) {
 						med: chobj("quest",select.quest) ? mychar.quest[select.quest].med : [],
 					};
 					mychar.quest[select.quest].med.push(nup);
-				} else if (typeof nup == "object" && select.quest.slice(0, 3) == 'imp') {
+				}
+				else if (typeof nup == "object" && select.quest == "imp_bonus") {
+					mychar.quest[select.quest]={ 
+						vol: chobj("quest",select.quest) + nup[1], 
+						lvl: chobj("quest",select.quest) ? mychar.quest[select.quest].lvl : [],
+						med: chobj("quest",select.quest) ? mychar.quest[select.quest].med : [],
+					};
+					mychar.quest[select.quest].med.push(nup);
+				}
+
+				 else if (typeof nup == "object" && select.quest.slice(0, 3) == 'imp') {
 					mychar.quest[select.quest] = {
 						vol: chobj("quest", select.quest) + nup[0],
 						lvl: chobj("quest", select.quest) ? mychar.quest[select.quest].lvl : [],
@@ -1413,6 +1450,7 @@ function loadbjson(str) {
 	var arr = JSON.parse(str);
 	loadbuild(arr[0],arr[1]);
 }
+
 // Згарузка билда из обьектов
 function loadbuild(myc,cp) {
 	mychar = myc;
@@ -1521,8 +1559,18 @@ function getbuild(hash) {
 			}
 	});
 }
+
 function maxMedals() {
-	return 60 + stats.CHA[2] * 10;
+	return 80;
+}
+// костыль демчева: вернуть true если тагнуты не подходящие навыки для крушилы
+function BruiserCheck34() {
+	var censor = ["легкое","тяжелое","энерго","ремонт","метательное"]
+	if (charp.kostylbruiser34 == 0) {return false;}
+	for(var i in skills)
+		if (i in mychar.tags) 
+			if (censor.indexOf(skills[i][1]) != -1) {return true;}
+	return false;
 }
 //главная функция
 function main()

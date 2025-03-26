@@ -1,3 +1,4 @@
+var impIVlimit = 9;
 var quest = {	// квест, описание, уровней квеста, мин уровень взятия, максимальный уровень взятия, [требования])
 	medals:["Медали","Делая различные квесты и убивая гуманоидов и животных можно получить немного медалей, которые можно потратить на различные бонусы.",
 		200,2,99,function(){return true;},
@@ -96,141 +97,58 @@ var quest = {	// квест, описание, уровней квеста, ми
 	imp_battle:["Боевой имплант","В вас вживлен один из эксперементальных имплантантов. Ваши боевые навыки увеличены.",
 		1,2,99,function(){return true;},
 		function(){talk(dialog.imp_battle,{
-			aimp_battle: [questinfo.imp_battle[0].replace('%n%', skpoint(skills["light"][0], 120)[0]), function () {
-				addPoint = skpoint(skills["light"][0], 120)[0];
-				pr.add("skills", "light", addPoint, 1);
-				return [2, [
-					["light", addPoint]
-				]];
-			}, true],
-			bimp_battle: [questinfo.imp_battle[1].replace('%n%', skpoint(skills["heavy"][0], 120)[0]), function () {
-				addPoint = skpoint(skills["heavy"][0], 120)[0];
-				pr.add("skills", "heavy", addPoint, 1);
-				return [2, [
-					["heavy", addPoint]
-				]];
-			}, true],
-			cimp_battle: [questinfo.imp_battle[2].replace('%n%', skpoint(skills["energy"][0], 120)[0]), function () {
-				addPoint = skpoint(skills["energy"][0], 120)[0];
-				pr.add("skills", "energy", addPoint, 1);
-				return [3, [
-					["energy", addPoint]
-				]];
-			}, true],
-			dimp_battle: [questinfo.imp_battle[3].replace('%n%', skpoint(skills["thrown"][0], 120)[0]), function () {
-				addPoint = skpoint(skills["thrown"][0], 120)[0];
-				pr.add("skills", "thrown", addPoint, 1);
-				return [4, [
-					["thrown", addPoint]
-				]];
-			}, true],
-			eimp_battle: [questinfo.imp_battle[4].replace('%n%', skpoint(skills["repair"][0], 100)[0]), function () {
-				addPoint = skpoint(skills["repair"][0], 100)[0];
-				pr.add("skills", "repair", addPoint, 1);
-				return [5, [
-					["repair", addPoint],
-				]];
-			}, true],
-			fimp_battle: [questinfo.imp_battle[5]
-				.replace('%n%', skpoint(skills["melee"][0], 100)[0])
-				.replace('%r%', skpoint(skills["steel"][0], 100)[0]), function () {
-					addPointMelee = skpoint(skills["melee"][0], 100)[0];
-					pr.add("skills", "melee", addPointMelee, 1);
-					addPointSteel = skpoint(skills["steel"][0], 100)[0];
-					pr.add("skills", "steel", addPointSteel, 1);
-					return [6, [
-						["melee", addPointMelee],
-						["steel", addPointSteel],
-					]];
-			}, true],
+			aimp_battle:[questinfo.imp_battle[0],function() {return 1;}, true],
+			bimp_battle:[questinfo.imp_battle[1],function(){pr.addr("normal", 2, 0);pr.addr("laser", 2, 0);pr.addr("fire", 2, 0);pr.addr("explode", 2, 0);pr.addr("plasma", 2, 0);pr.addr("electro", 2, 0);return 2;},true],				
+			cimp_battle:[questinfo.imp_battle[2],function(){pr.add("feats", "dodge", 3);pr.add("feats","live",10);return 3;},true],
+			dimp_battle:[questinfo.imp_battle[3],function(){pr.add("feats", "armc", 5);pr.add("feats","live",20);return 4;},true],
+			eimp_battle:[questinfo.imp_battle[4],function() {pr.add("feats", "crit", 5);return 5;}, true],
+			fimp_battle:[questinfo.imp_battle[5],function(){return 6;},true],
 			none:[dialog.none,function(){return 0;},true]});
 		}],
 	imp_medical:["Медицинский имплант","В вас вживлен один из эксперементальных имплантантов. Ваши познания в медицине увеличены.",
 		1,2,99,function(){return true;},
 		function(){talk(dialog.imp_medical,{
-			aimp_medical: [questinfo.imp_medical[0].replace('%n%', skpoint(skills["orderly"][0], 120)[0]), function () {
-				addPoint = skpoint(skills["orderly"][0], 120)[0];
-				pr.add("skills", "orderly", addPoint, 1);
-				return [1, [
-					["orderly", addPoint],
-				]];
-			}, true],
-			bimp_medical:[questinfo.imp_medical[1],function(){pr.add("feats","dodge",3);pr.add("feats","armc",5);return 2;},true],
-			cimp_medical: [questinfo.imp_medical[2].replace('%n%', skpoint(skills["doctor"][0], 80)[0]), function () {
-				addPoint = skpoint(skills["doctor"][0], 80)[0];
-				pr.add("skills", "doctor", addPoint, 1);
-				pr.add("feats", "live", 10);
-				pr.add("feats", "levh", 5);
-				return [3, [
-					["doctor", addPoint]
-				]];
-			}, true],
-			dimp_medical: [questinfo.imp_medical[3].replace('%n%', skpoint(skills["doctor"][0], 80)[0]), function () {
-				addPoint = skpoint(skills["doctor"][0], 80)[0];
-				pr.add("skills", "doctor", addPoint, 1);
-				return [3, [
-					["doctor", addPoint]
-				]];
-			}, true],
-			eimp_medical: [questinfo.imp_medical[4].replace('%n%', skpoint(skills["orderly"][0], 80)[0]), function () {
-				addPoint = skpoint(skills["orderly"][0], 80)[0];
-				pr.add("skills", "orderly", addPoint, 1);
-				return [5, [
-					["orderly", addPoint]
-				]];
-			}, true],
-			fimp_medical: [questinfo.imp_medical[5].replace('%n%', skpoint(skills["doctor"][0], 80)[0]), function () {
-				pr.add("feats", "live", 15);
-				addPoint = skpoint(skills["doctor"][0], 80)[0];
-				pr.add("skills", "doctor", addPoint, 1);
-				return [6, [
-					["doctor", addPoint]
-				]];
-			}, true],
+			aimp_medical:[questinfo.imp_medical[0],function() {pr.add("skills", "orderly", 20);pr.add("skills", "doctor",20);return 1;}, true],
+			bimp_medical:[questinfo.imp_medical[1],function(){pr.add("skills", "orderly", 30);return 2;},true],
+			cimp_medical:[questinfo.imp_medical[2],function(){pr.add("feats", "levh", 5);pr.add("feats","live",20);return 3;},true],
+			dimp_medical:[questinfo.imp_medical[3],function(){pr.add("skills", "doctor", 20);return 4;},true],
+			eimp_medical:[questinfo.imp_medical[4],function() {pr.add("skills", "orderly", 20);pr.add("skills", "doctor",20);pr.add("feats","live",20);return 5;}, true],
+			fimp_medical:[questinfo.imp_medical[5],function(){pr.add("skills", "doctor", 40);return 6;},true],
 			none:[dialog.none,function(){return 0;},true]});
 		}],
 	imp_auxiliary:["Вспомогательный имплант","В вас вживлен один из эксперементальных имплантантов. Ваши вспомогательные функции увеличены.",
 		1,2,99,function(){return true;},
 		function(){talk(dialog.imp_auxiliary,{
-			aimp_auxiliary:[questinfo.imp_auxiliary[0],function(){pr.add("feats","maxl",100);return 1;},true],
-			bimp_auxiliary:[questinfo.imp_auxiliary[1],function(){return 2;},true],
-			cimp_auxiliary: [questinfo.imp_auxiliary[2]
-			.replace('%n%', skpoint(skills["traps"][0], 60)[0])
-			.replace('%r%', skpoint(skills["sneak"][0], 50)[0]), function () {
-				addPointTraps = skpoint(skills["traps"][0], 60)[0];
-				pr.add("skills", "traps", addPointTraps, 1);
-				addPointSneak = skpoint(skills["sneak"][0], 50)[0];
-				pr.add("skills", "sneak", addPointSneak, 1);
-				return [3, [
-					["traps", addPointTraps],
-					["sneak", addPointSneak],
-				]];
-			}, true],
-			dimp_auxiliary: [questinfo.imp_auxiliary[3].replace('%n%', skpoint(skills["oratory"][0], 60)[0]), function () {
-				addPoint = skpoint(skills["oratory"][0], 60)[0];
-				pr.add("skills", "oratory", addPoint, 1);
-				return [4, [
-					["oratory", addPoint]
-				]];
-			}, true],
-			eimp_auxiliary: [questinfo.imp_auxiliary[4].replace('%n%', skpoint(skills["steal"][0], 60)[0]), function () {
-				addPointSteal = skpoint(skills["steal"][0], 60)[0];
-				pr.add("skills", "steal", addPointSteal, 1);
-				addPointHack = skpoint(skills["hack"][0], 60)[0];
-				pr.add("skills", "hack", addPointHack, 1);
-				return [5, [
-					["steal", addPointSteal],
-					["hack", addPointHack]
-				]];
-			}, true],
-			fimp_auxiliary: [questinfo.imp_auxiliary[5].replace('%n%', skpoint(skills["speed"][0], 60)[0]), function () {
-				addPoint = skpoint(skills["speed"][0], 60)[0];
-				pr.add("skills", "speed", addPoint, 1);
-				return [6, [
-					["speed", addPoint]
-				]];
-			}, true],
+			aimp_auxiliary:[questinfo.imp_auxiliary[0],function(){pr.add("skills", "steal", 50);return 1;}, true],
+			bimp_auxiliary:[questinfo.imp_auxiliary[1],function(){pr.add("feats","maxl",75);return 2;},true],
+			cimp_auxiliary:[questinfo.imp_auxiliary[2],function(){pr.add("skills", "oratory", 50);return 3;},true],
+			dimp_auxiliary:[questinfo.imp_auxiliary[3],function(){pr.add("skills", "hack", 50);return 4;},true],
+			eimp_auxiliary:[questinfo.imp_auxiliary[4],function(){pr.add("skills", "traps", 50);return 5;}, true],
+			fimp_auxiliary:[questinfo.imp_auxiliary[5],function(){pr.add("skills", "speed", 50);return 6;},true],
 			none:[dialog.none,function(){return 0;},true]});
+		}],
+	imp_bonus:["Бонусный имплант","В вас вживлен один из эксперементальных имплантантов. Получен бонус.",
+		200,30,99,function(){return true;},
+		function(){talk(dialog.bonus+(impIVlimit-bonuswaste.length)+dialog.bonus2,{
+		bonus1:[questinfo.imp_bonus[0],function(){pr.add("skills","ranger",25);bonuswaste.push(1);return [1,1];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(1) == -1)],
+		bonus2:[questinfo.imp_bonus[1],function(){pr.add("skills","ranger",20);bonuswaste.push(2);return [2,2];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(2) == -1)],
+		bonus3:[questinfo.imp_bonus[2],function(){pr.add("skills","oratory",15);bonuswaste.push(3);return [3,3];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(3) == -1)],
+		bonus4:[questinfo.imp_bonus[3],function(){bonuswaste.push(4);return [4,4];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(4) == -1)],
+		bonus5:[questinfo.imp_bonus[4],function(){pr.add("feats","stox",20);bonuswaste.push(5);return [5,5];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(5) == -1)],
+		bonus6:[questinfo.imp_bonus[5],function(){pr.add("feats","srad",20);bonuswaste.push(6);return [6,6];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(6) == -1)],
+		bonus7:[questinfo.imp_bonus[6],function(){pr.add("skills","steal",30);bonuswaste.push(7);return [7,7];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(7) == -1)],
+		bonus8:[questinfo.imp_bonus[7],function(){bonuswaste.push(8);return [8,8];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(8) == -1)],
+		bonus9:[questinfo.imp_bonus[8],function(){charp.points+=5;pr.add("feats","maxl",50);bonuswaste.push(9);return [9,9];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(9) == -1)],
+		bonus10:[questinfo.imp_bonus[9],function(){pr.add("feats","mdmg",Math.floor(skills["melee"][0]/30));bonuswaste.push(10);return [10,10];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(10) == -1)],
+		bonus11:[questinfo.imp_bonus[10],function(){pr.add("feats","proc",4);bonuswaste.push(11);return [11,11];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(11) == -1)],
+		bonus12:[questinfo.imp_bonus[11],function(){pr.add("feats","live",12);bonuswaste.push(12);return [12,12];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(12) == -1)],
+		bonus13:[questinfo.imp_bonus[12],function(){bonuswaste.push(13);return [13,13];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(13) == -1)],
+		bonus14:[questinfo.imp_bonus[13],function(){bonuswaste.push(14);return [14,14];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(14) == -1)],
+		bonus15:[questinfo.imp_bonus[14],function(){bonuswaste.push(15);return [15,15];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(15) == -1)],
+		bonus16:[questinfo.imp_bonus[15],function(){bonuswaste.push(16);return [16,16];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(16) == -1)],
+		bonus17:[questinfo.imp_bonus[16],function(){pr.add("skills","repair",10);pr.add("skills","science",10);bonuswaste.push(17);return [17,17];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(17) == -1)],
+		bonus18:[questinfo.imp_bonus[17],function(){bonuswaste.push(18);return [18,18];},(impIVlimit-bonuswaste.length >=1 && bonuswaste.indexOf(18) == -1)],
+		none:[dialog.none,function(){return 0;},true]});
 		}],
 	PE_MA_SKIT:["Житель Пустоши(5)", 'Вы настолько изучили пустошь, что получаете +5% к навыку Скиталец и +1% к скорости по глобалу.',
 		1,2,99,function(){return true;},
