@@ -234,9 +234,8 @@ function settle(str) {
 	//Если есть Добродушный 80+Харизма*Харизма*2+Выносливость*5
 	//feat.live[0] = (mychar.traits.TRAIT_GOOD_NATURED ?
 		//(80+mychar.stats.CHA[0] * mychar.stats.CHA[0] * 2 + mychar.stats.ENU[0] * 5) :
-		//(200 + mychar.stats.STR[0] * 5 + mychar.stats.ENU[0] * 15));
-	feat.live[0] = (80+mychar.stats.CHA[0] * mychar.stats.CHA[0] * 2 + mychar.stats.ENU[0] * 5);
-
+		//
+	feat.live[0] = (200 + mychar.stats.STR[0] * 5 + mychar.stats.ENU[0] * 15);
 	// Класс брони
 	feat.armc[0] = stats.AGI[2]*(mychar.traits.TRAIT_KAMIKAZE ? 0 : 1)+(mychar.traits.TRAIT_KAMIKAZE ? 1 : 0);
 	// Очки действий 7+Ловкость/3
