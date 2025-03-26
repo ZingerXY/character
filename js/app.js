@@ -234,9 +234,8 @@ function settle(str) {
 	//Если есть Добродушный 80+Харизма*Харизма*2+Выносливость*5
 	//feat.live[0] = (mychar.traits.TRAIT_GOOD_NATURED ?
 		//(80+mychar.stats.CHA[0] * mychar.stats.CHA[0] * 2 + mychar.stats.ENU[0] * 5) :
-		//(200 + mychar.stats.STR[0] * 5 + mychar.stats.ENU[0] * 15));
-	feat.live[0] = (80+mychar.stats.CHA[0] * mychar.stats.CHA[0] * 2 + mychar.stats.ENU[0] * 5);
-
+		//
+	feat.live[0] = (200 + mychar.stats.STR[0] * 5 + mychar.stats.ENU[0] * 15);
 	// Класс брони
 	feat.armc[0] = stats.AGI[2]*(mychar.traits.TRAIT_KAMIKAZE ? 0 : 1)+(mychar.traits.TRAIT_KAMIKAZE ? 1 : 0);
 	// Очки действий 7+Ловкость/3
@@ -691,7 +690,7 @@ function levelup(){
 		charp.points += 5 + (stats.INT[2] * 2) + (mychar.traits.TRAIT_SKILLED?3:0) - (mychar.traits.TRAIT_NIGHT_PERSON?3:0);
 		numbers($("#point1"),charp.points);
 	} else if(charp.level > 29 && !(charp.level%3)) {
-		pr.add("feats", "live", 1);
+		pr.add("feats", "live", 0);
 		feat.live[0] = pr.sum("feats", "live") + stats.ENU[2]*16 + stats.STR[2]*3 + 109;
 		$("#live").html(feat.live[0]+"/"+feat.live[0]);
 	}
