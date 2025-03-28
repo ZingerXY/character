@@ -247,10 +247,10 @@ function settle(str) {
 	// Радиус обзора
 	feat.oview[0] = 20 + stats.PER[2]*3;
 	// Уст. яду
-	feat.stox[0] = (mychar.traits.TRAIT_FAST_METABOLISM ? 0.5 : 1)*stats.ENU[2]*5;
+	feat.stox[0] = Math.round((mychar.traits.TRAIT_FAST_METABOLISM ? 0.3 : 1)*stats.ENU[2]*5);
 	if (feat.stox[0]>95) feat.stox[0] = 95;
 	// Уст. радиации
-	feat.srad[0] = (mychar.traits.TRAIT_FAST_METABOLISM ? 0.5 : 1)*stats.ENU[2]*2;
+	feat.srad[0] = Math.round((mychar.traits.TRAIT_FAST_METABOLISM ? 0.3 : 1)*stats.ENU[2]*2);
 	if (feat.srad[0]>95) feat.srad[0] = 95;
 	// Порядок
 	feat.proc[0] = stats.PER[2]*2.5;
@@ -504,7 +504,7 @@ function changesex() {
 }
 // Переход к прокачке
 function leveling() {
-	if ((!charp.specialpoint && !charp.tags&& charp.kostyltrait != 2 && !BruiserCheck34())||leveluping){
+	if ((!charp.specialpoint && !charp.tags&& !BruiserCheck34())||leveluping){
 		if (regi) {
 			if (!charp.name)
 			{
