@@ -551,7 +551,7 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 	PE_TARGETING: ["Толстокожий", 'От типов урона Норма, Взрыв, Электро, Плазма вы получаете на 12% меньше повреждений Исключение стойкость. ',
 		1, 9, 29,
 		function () {pr.addr("normal", 0, 15);pr.addr("electro", 0, 15);pr.addr("plasma", 0, 15);pr.addr("explode", 0, 15); },
-		function () {pr.addr("normal", 0, -15);pr.addr("electro", 0, -15);pr.addr("plasma", 0, -15);pr.addr("explode", 0, -15); },,
+		function () {pr.addr("normal", 0, -15);pr.addr("electro", 0, -15);pr.addr("plasma", 0, -15);pr.addr("explode", 0, -15); },
 		{skills: {ranger: 220}, 
 				traits: {
 				TRAIT_GOOD_NATURED: 1
