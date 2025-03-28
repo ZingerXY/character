@@ -279,8 +279,8 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		{stats: {INT: 4}}],
 	PE_HEAVE_HO: ['Стойкость', 'Сила*3 к ОЖ. +5% резисту от Нормы, Огня и Электро. Исключение Толстокожий, Жидкое тело.',
 		1, 12, 29,
-		function () {pr.addr("normal", 0, 5);pr.addr("fire", 0, 5);pr.addr("electro", 0, 5);pr.add("feats", "live", stats.STR[2]*3) },
-		function () {pr.addr("normal", 0, -5);pr.addr("fire", 0, -5);pr.addr("electro", 0, -5);pr.add("feats", "live", stats.STR[2]*3)},
+		function () {pr.addr("normal", 0, 5);pr.addr("fire", 0, 5);pr.addr("electro", 0, 5);pr.addr("laser", 0, 5);pr.addr("plasma", 0, 5);pr.addr("explode", 0, 5);pr.add("feats", "live", stats.STR[2]*3) },
+		function () {pr.addr("normal", 0, -5);pr.addr("fire", 0, -5);pr.addr("electro", 0, -5);pr.addr("laser", 0, -5);pr.addr("plasma", 0, -5);pr.addr("explode", 0, -5);pr.add("feats", "live", stats.STR[2]*3)},
 		{
 			stats: {
 				STR: 8,
@@ -411,10 +411,10 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 	PE_BOOKWORM: ['Регенерация', 'Восстановление ОЖ от Уровня лечения становится полноценным, +45 к Уровню лечения. Лечит конечности во время тика раз в 10 секунд, если персонаж не в бою.',
 		1, 12, 29,
 		function () {
-			pr.add("feats", "levh", stats.CHA[2]*3);
+			pr.add("feats", "levh", 30);
 		},
 		function () {
-			pr.add("feats", "levh", -stats.CHA[2]*3);
+			pr.add("feats", "levh", -30);
 		},
 		{
 			stats: {
@@ -550,8 +550,8 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		// new perk 34 season
 	PE_TARGETING: ["Толстокожий", 'От типов урона Норма, Взрыв, Электро, Плазма вы получаете на 12% меньше повреждений Исключение стойкость. ',
 		1, 9, 29,
-		function () {pr.addr("normal", 0, 12);pr.addr("electro", 0, 12);pr.addr("plasma", 0, 12);pr.addr("explode", 0, 12); },
-		function () {pr.addr("normal", 0, -12);pr.addr("electro", 0, -12);pr.addr("plasma", 0, -12);pr.addr("explode", 0, -12); },,
+		function () {pr.addr("normal", 0, 15);pr.addr("electro", 0, 15);pr.addr("plasma", 0, 15);pr.addr("explode", 0, 15); },
+		function () {pr.addr("normal", 0, -15);pr.addr("electro", 0, -15);pr.addr("plasma", 0, -15);pr.addr("explode", 0, -15); },,
 		{skills: {ranger: 220}, 
 				traits: {
 				TRAIT_GOOD_NATURED: 1
@@ -756,8 +756,8 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		{}],
 	PE_LIGHT_STEP: ["Легкие шаги", "Вы ловки, удачливы и всегда настороже. 50%, что ловушка на вас сработает. Урон от ловушек снижен на 50%. +15% к Резисту от Взрыва, +5 к Трешхолду Огня.",
 		1, 6, 29,
-		function () {pr.addr("explode", 0, 7);pr.addr("fire", 5, 0); },
-		function () {pr.addr("explode", 0, -7);pr.addr("fire", -5, 0); },
+		function () {pr.addr("explode", 0, 10);pr.addr("fire", 5, 0); },
+		function () {pr.addr("explode", 0, -10);pr.addr("fire", -5, 0); },
 		{stats: {AGI: 5},
 			traits: {
 				TRAIT_GOOD_NATURED: 1,
@@ -987,8 +987,8 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		{}],
 	PE_DERMAL_IMPACT: ["Живчик", "Вы имеете повышенную живучесть (+35 ОЖ) и природное лечение (+10 к Уровню лечения).",
 		1, 12, 29,
-		function () {pr.add("feats", "live", 20);pr.add("feats", "levh", 20); },
-		function () {pr.add("feats", "live", -20);pr.add("feats", "levh", -20); },
+		function () {pr.add("feats", "live", 30);pr.add("feats", "levh", 20); },
+		function () {pr.add("feats", "live", -30);pr.add("feats", "levh", -20); },
 		{
 			stats: {
 				ENU: 6
