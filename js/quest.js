@@ -108,7 +108,7 @@ var quest = {	// квест, описание, уровней квеста, ми
 	imp_medical:["Медицинский имплант","В вас вживлен один из эксперементальных имплантантов. Ваши познания в медицине увеличены.",
 		1,2,99,function(){return true;},
 		function(){talk(dialog.imp_medical,{
-			aimp_medical:[questinfo.imp_medical[0],function() {pr.add("skills", "orderly", 20);pr.add("skills", "doctor",20);return 1;}, true],
+			aimp_medical:[questinfo.imp_medical[0],function() {pr.add("skills", "orderly", 20);pr.add("skills", "doctor",25);return 1;}, true],
 			bimp_medical:[questinfo.imp_medical[1],function(){pr.add("skills", "orderly", 30);return 2;},true],
 			cimp_medical:[questinfo.imp_medical[2],function(){pr.add("feats", "levh", 5);pr.add("feats","live",20);return 3;},true],
 			dimp_medical:[questinfo.imp_medical[3],function(){pr.add("skills", "doctor", 20);return 4;},true],

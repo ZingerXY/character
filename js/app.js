@@ -28,13 +28,13 @@ var mychar = {
 	quest: {},
 	points: {},
 	stats: { // Природная,добавленная
-		STR: [8,0], // Сила
-		PER: [7,0], // Восприятие
-		ENU: [6,0], // Выносливость
-		CHA: [1,0], // Харизма
-		INT: [8,0], // Интелект
-		AGI: [8,0], // Ловкость
-		LUC: [2,0] // Удача
+		STR: [5,0], // Сила
+		PER: [5,0], // Восприятие
+		ENU: [5,0], // Выносливость
+		CHA: [5,0], // Харизма
+		INT: [5,0], // Интелект
+		AGI: [5,0], // Ловкость
+		LUC: [5,0] // Удача
 	},
 	book: { // Доступно книг, лишние очки
 		light: [10,0,{}],
@@ -49,12 +49,12 @@ var mychar = {
 // mychar.book
 var charp = {
 	age: getRandInt(14, 60), // возраст
-	sex: "man", // пол
+	sex: "men", // пол
 	level: 1, // уровень
 	tagt: 2, // очки на таг трейтов
 	tags: 3, // очки на таг скилов
 	points: 0,	// скилпоинты
-	specialpoint: 0, // Очки распределения статов
+	specialpoint: 5, // Очки распределения статов
 	perkpoint: 0, // Очки перков
 	name: "", // имя
 	//демчев насрал костылями для крушилы
@@ -159,14 +159,16 @@ function trait(){
 	traits[str](str);
 	statpoints();
 	settle();
-	if (mychar.traits[str]) $("#"+str).css("color", "#ABABAB");
+	if (mychar.traits[str]) {
+		$("#"+str).css("color", "#ABABAB");
+	}
 	else $("#"+str).css("color", "#00FF00");
 	infoparm("traits",str);
 }
 // Выбор тагнутых навыков
 function tags() {
 	var str = this.id.substr(3);
-	if (!(str in mychar.tags) && charp.tags > 0) {
+	if (!(str in mychar.tags) && charp.tags > 0 && !('TRAIT_BRUISER' in mychar.traits && (str == 'light' || str == 'heavy' || str == 'energy' || str == 'thrown' || str == 'repair')) ) {
 		mychar.tags[str] = 1;
 		charp.tags--;
 		pr.add("skills",str,20,1);
@@ -508,7 +510,7 @@ function leveling() {
 		if (regi) {
 			if (!charp.name)
 			{
-				if (charp.sex == "man")
+				if (charp.sex == "men")
 					charp.name = nameman[0,getRandInt(0, nameman.length-1)];
 				if (charp.sex == "women")
 					charp.name = namewoman[0,getRandInt(0, namewoman.length-1)];

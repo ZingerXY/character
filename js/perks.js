@@ -29,7 +29,7 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		1, 6, 29,
 		function () {},
 		function () {},
-		{stats: {LUC: 3}, traits: {
+		{stats: {LUC: 4}, traits: {
 				TRAIT_GOOD_NATURED: 1,
 				TRAIT_HEAVY_HANDED: 1
 			}
@@ -137,8 +137,8 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		{skills: {orderly: 40}}],
 	PE_FORTUNE_FINDER: ["Воодушевление", "Каждый Уворот от вражеской атаки прибавляет вам +1 ОД. Увеличивает Уворот на Ловкость*2%. Если ОЖ меньше трети от максимума, вы не получаете криты.",
 		1, 12, 29,
-		function () {pr.add("feats", "dodge", stats.AGI[2]/2); },
-		function () {pr.add("feats", "dodge", stats.AGI[2]/2); },
+		function () {pr.add("feats", "dodge", stats.AGI[2]); },
+		function () {pr.add("feats", "dodge", stats.AGI[2]); },
 		{
 			traits: {
 				TRAIT_GOOD_NATURED: 1,
@@ -548,8 +548,8 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		// new perk 34 season
 	PE_TARGETING: ["Толстокожий", 'От типов урона Норма, Взрыв, Электро, Плазма вы получаете на 12% меньше повреждений Исключение стойкость. ',
 		1, 12, 29,
-		function () {pr.addr("normal", 0, 15);pr.addr("electro", 0, 15);pr.addr("plasma", 0, 15);pr.addr("explode", 0, 15); },
-		function () {pr.addr("normal", 0, -15);pr.addr("electro", 0, -15);pr.addr("plasma", 0, -15);pr.addr("explode", 0, -15); },
+		function () {},
+		function () {},
 		{skills: {ranger: 220}, 
 				traits: {
 				TRAIT_GOOD_NATURED: 1

@@ -3,7 +3,7 @@ var traits = {
 	// За любое изменение ОЖ дается +1 ОЖ. +15нр при исцелении Суперстимпаком. +25 Уровень Лечения. 
 	// Яд выводится из организма в два раза быстрее. Устойчивость к яду и Устойчивость к радиации уменьшается в три раза.
 	TRAIT_FAST_METABOLISM: function(str){
-			if(!mychar.traits[str] && charp.tagt>0) {
+			if(!mychar.traits[str] && charp.tagt>0 && !('TRAIT_SEX_APPEAL' in mychar.traits)) {
 				//pr.add("feats","levh",15);
 				// pre 33:
 				pr.add("feats","levh",25);
@@ -20,7 +20,7 @@ var traits = {
 	// 34season
 	// +5 подавы за каждый удар, не снижает -1 од, не дает тагнуть метлу легкое тяж энерго ремонт 
 	TRAIT_BRUISER: function(str){
-			if(!mychar.traits[str] && charp.tagt>0) {
+			if(!mychar.traits[str] && charp.tagt>0 && !('light' in mychar.tags || 'heavy' in mychar.tags || 'energy' in mychar.tags || 'thrown' in mychar.tags || 'repair' in mychar.tags)) {
 				mychar.stats.STR[0]+=3;
 				//pr.add("feats","apoi",-1);
 				pr.add("feats","mdmg",25);
@@ -193,7 +193,7 @@ var traits = {
 			},
 	// Жидкое тело
 	TRAIT_SEX_APPEAL: function(str){
-			if(!mychar.traits[str] && charp.tagt>0){
+			if(!mychar.traits[str] && charp.tagt>0 && !('TRAIT_FAST_METABOLISM' in mychar.traits)){
 				pr.add("feats","maxl",50);
 				mychar.traits[str] = 1;
 				charp.kostyltrait+=1;
