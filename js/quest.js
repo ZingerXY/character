@@ -99,21 +99,21 @@ var quest = {	// квест, описание, уровней квеста, ми
 		function(){talk(dialog.imp_battle,{
 			aimp_battle:[questinfo.imp_battle[0],function() {return 1;}, true],
 			bimp_battle:[questinfo.imp_battle[1],function(){pr.addr("normal", 2, 0);pr.addr("laser", 2, 0);pr.addr("fire", 2, 0);pr.addr("explode", 2, 0);pr.addr("plasma", 2, 0);pr.addr("electro", 2, 0);return 2;},true],				
-			cimp_battle:[questinfo.imp_battle[2],function(){pr.add("feats", "dodge", 3);pr.add("feats","live",10);return 3;},true],
-			dimp_battle:[questinfo.imp_battle[3],function(){pr.add("feats", "armc", 5);pr.add("feats","live",20);return 4;},true],
-			eimp_battle:[questinfo.imp_battle[4],function() {pr.add("feats", "crit", 5);return 5;}, true],
+			cimp_battle:[questinfo.imp_battle[2],function(){pr.add("feats", "dodge", 5);pr.add("feats","live",10);return 3;},true],
+			dimp_battle:[questinfo.imp_battle[3],function(){pr.add("feats", "acrit", 5);pr.add("feats", "armc", 5);pr.add("feats","live",20);return 4;},true],
+			eimp_battle:[questinfo.imp_battle[4],function() {pr.add("feats", "crit", 10);return 5;}, true],
 			fimp_battle:[questinfo.imp_battle[5],function(){return 6;},true],
 			none:[dialog.none,function(){return 0;},true]});
 		}],
 	imp_medical:["Медицинский имплант","В вас вживлен один из эксперементальных имплантантов. Ваши познания в медицине увеличены.",
 		1,2,99,function(){return true;},
 		function(){talk(dialog.imp_medical,{
-			aimp_medical:[questinfo.imp_medical[0],function() {pr.add("skills", "orderly", 20);pr.add("skills", "doctor",25);return 1;}, true],
+			aimp_medical:[questinfo.imp_medical[0],function() {pr.add("skills", "orderly", 40);pr.add("skills", "doctor",25);return 1;}, true],
 			bimp_medical:[questinfo.imp_medical[1],function(){pr.add("skills", "orderly", 30);return 2;},true],
-			cimp_medical:[questinfo.imp_medical[2],function(){pr.add("feats", "levh", 5);pr.add("feats","live",20);return 3;},true],
+			cimp_medical:[questinfo.imp_medical[2],function(){pr.add("feats", "levh", 20);pr.add("skills", "orderly", 40);return 3;},true],
 			dimp_medical:[questinfo.imp_medical[3],function(){pr.add("skills", "doctor", 20);return 4;},true],
 			eimp_medical:[questinfo.imp_medical[4],function() {pr.add("skills", "orderly", 20);pr.add("skills", "doctor",20);pr.add("feats","live",20);return 5;}, true],
-			fimp_medical:[questinfo.imp_medical[5],function(){pr.add("skills", "doctor", 40);return 6;},true],
+			fimp_medical:[questinfo.imp_medical[5],function(){pr.add("skills", "doctor", 40); pr.add("feats","live",40);return 6;},true],
 			none:[dialog.none,function(){return 0;},true]});
 		}],
 	imp_auxiliary:["Вспомогательный имплант","В вас вживлен один из эксперементальных имплантантов. Ваши вспомогательные функции увеличены.",
