@@ -557,7 +557,7 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		function () {pr.addr("normal", 0, -12);pr.addr("plasma", 0, -12);pr.addr("electro", 0, -12);pr.addr("explode", 0, -12); },
 		{skills: {ranger: 220}, 
 			stats: {
-				STR: 7
+				STR: 8
 			},
 			traits: {
 				TRAIT_GOOD_NATURED: 1
