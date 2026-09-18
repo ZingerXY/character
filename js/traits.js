@@ -3,7 +3,7 @@ var traits = {
 	// За любое изменение ОЖ дается +1 ОЖ. +15нр при исцелении Суперстимпаком. +25 Уровень Лечения. 
 	// Яд выводится из организма в два раза быстрее. Устойчивость к яду и Устойчивость к радиации уменьшается в три раза.
 	TRAIT_FAST_METABOLISM: function(str){
-			if(!mychar.traits[str] && charp.tagt>0 && !('TRAIT_SEX_APPEAL' in mychar.traits)) {
+			if(!mychar.traits[str] && charp.tagt>0 /*&& !('TRAIT_SEX_APPEAL' in mychar.traits)*/) {
 				//pr.add("feats","levh",15);
 				// pre 33:
 				pr.add("feats","levh",25);
@@ -193,7 +193,7 @@ var traits = {
 			},
 	// Жидкое тело
 	TRAIT_SEX_APPEAL: function(str){
-			if(!mychar.traits[str] && charp.tagt>0 && !('TRAIT_FAST_METABOLISM' in mychar.traits)){
+			if(!mychar.traits[str] && charp.tagt>0 /*&& !('TRAIT_FAST_METABOLISM' in mychar.traits)*/){
 				pr.add("feats","maxl",50);
 				mychar.traits[str] = 1;
 				charp.kostyltrait+=1;
@@ -209,18 +209,18 @@ var traits = {
 	TRAIT_SKILLED: function(str){
 			if(!mychar.traits[str] && charp.tagt>0){
 				mychar.stats.CHA[0] += 1;
-				mychar.stats.ENU[0] += 1;
+				mychar.stats.ENU[0] += 2;
 				mychar.stats.INT[0] += 1;
-				mychar.stats.AGI[0] += 1;
+				mychar.stats.AGI[0] += 2;
 				mychar.traits[str] = 1;
 				charp.tags++;
 				numbers($("#point2"),charp.tags);
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2){
 				mychar.stats.CHA[0] -= 1;
-				mychar.stats.ENU[0] -= 1;
+				mychar.stats.ENU[0] -= 2;
 				mychar.stats.INT[0] -= 1;
-				mychar.stats.AGI[0] -= 1;
+				mychar.stats.AGI[0] -= 2;
 				delete mychar.traits[str];
 				charp.tags--;
 				numbers($("#point2"),charp.tags);
@@ -230,11 +230,11 @@ var traits = {
 	// Импульсивный
 	TRAIT_NIGHT_PERSON: function(str){
 			if(!mychar.traits[str] && charp.tagt>0){
-				pr.add("feats","apoi",2);
+				pr.add("feats","apoi",1);
 				mychar.traits[str] = 1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2){
-				pr.add("feats","apoi",-2);
+				pr.add("feats","apoi",-1);
 				delete mychar.traits[str];
 				charp.tagt++;
 			}

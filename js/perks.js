@@ -29,7 +29,7 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		1, 6, 29,
 		function () {},
 		function () {},
-		{stats: {LUC: 4}, traits: {
+		{stats: {LUC: 3}, traits: {
 				TRAIT_GOOD_NATURED: 1,
 				TRAIT_HEAVY_HANDED: 1
 			}
@@ -44,12 +44,13 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		function () {pr.add("feats", "proc", 4); },
 		function () {pr.add("feats", "proc", -4); },
 		{stats: {PER: 7}}],
-	PE_FASTER_HEALING: ["Быстрое лечение", "Вы получаете +15 к Уровню лечения, таким образом, ваши раны быстрее заживают. Восстановление 1/4 максимальных ОД при исцелении Санитаром. Использование препаратов на 200мс быстрей.",
+	PE_FASTER_HEALING: ["Быстрое лечение", "Вы получаете +15 к Уровню лечения, таким образом, ваши раны быстрее заживают. +4 ОД при использовании санитара. Использование препаратов быстрее на 20%.",
 		1, 6, 29,
-		function () {pr.add("feats", "levh",15); },
-		function () {pr.add("feats", "levh", -15); },
+		function () {pr.add("feats", "levh", 20); },
+		function () {pr.add("feats", "levh", -20); },
 		{stats: {ENU: 8}}],
 		// pre 34: Быстрое лечение +15 УЛ
+
 	PE_MORE_CRITICALS: ["Больше крит. атак", "Вероятность нанесения Критических повреждений противнику увеличена на 10%.",
 		1, 2, 29,
 		function () {pr.add("feats", "crit", 10); },
@@ -131,7 +132,7 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		function () {},
 		{}],
 	PE_HEALER: ["Лечение", "Вы получаете +55 ОЖ к лечению санитаром. +5 ОЖ к лечению суперстимулятором.",
-		1, 6, 29,
+		1, 2, 29,
 		function () {},
 		function () {},
 		{skills: {orderly: 40}}],
@@ -140,6 +141,7 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		function () {pr.add("feats", "dodge", stats.AGI[2]); },
 		function () {pr.add("feats", "dodge", stats.AGI[2]); },
 		{
+			stats: {AGI: 7},
 			traits: {
 				TRAIT_GOOD_NATURED: 1,
 			}
@@ -243,7 +245,7 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 			}
 		}],
 	PE_DODGER: ["Увертливость", "Во время боя в вас будет гораздо сложнее попасть. Независимо от одетых на вас в этот момент доспехов, и 7% к Увороту.",
-		1, 9, 29,
+		1, 6, 29,
 		function () {pr.add("feats", "dodge", 10); },
 		function () {pr.add("feats", "dodge", -10); },
 		{stats: {LUC: 3},
@@ -278,12 +280,12 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		{stats: {INT: 4}}],
 	PE_HEAVE_HO: ['Стойкость', 'Сила*3 к ОЖ. +5% резисту от Нормы, Огня и Электро. Исключение Толстокожий, Жидкое тело.',
 		1, 12, 29,
-		function () {pr.addr("normal", 0, 5);pr.addr("fire", 0, 5);pr.addr("electro", 0, 5);pr.addr("laser", 0, 5);pr.addr("plasma", 0, 5);pr.addr("explode", 0, 5);pr.add("feats", "live", stats.STR[2]*3) },
-		function () {pr.addr("normal", 0, -5);pr.addr("fire", 0, -5);pr.addr("electro", 0, -5);pr.addr("laser", 0, -5);pr.addr("plasma", 0, -5);pr.addr("explode", 0, -5);pr.add("feats", "live", stats.STR[2]*3)},
+		function () {pr.addr("normal", 0, 5);pr.addr("fire", 0, 5);pr.addr("electro", 0, 5); pr.addr("laser", 0, 5); pr.addr("plasma", 0, 5); pr.addr("explode", 0, 5); pr.add("feats", "live", stats.STR[2]*4); pr.add("feats", "acrit", 5); },
+		function () {pr.addr("normal", 0, -5);pr.addr("fire", 0, -5);pr.addr("electro", 0, -5); pr.addr("laser", 0, -5); pr.addr("plasma", 0, -5); pr.addr("explode", 0, -5); pr.add("feats", "live", -stats.STR[2]*4); pr.add("feats", "acrit", -5); },
 		{
 			stats: {
-				STR: 8,
-				INT: 8
+				STR: 6,
+				INT: 7
 			},
 			perks:{
 				PE_TARGETING: 1
@@ -313,12 +315,12 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		{}],
 	PE_CULT_OF_PERSONALITY: ['Отличник', 'Вы отлично учились и многое усвоили. +5% к резистам от типов урона Плазма, Лазер, Электричество. Дает иммунитет к сжиганию ОД.',
 		1, 6, 29,
-		function () {pr.addr("laser", 0, 6);pr.addr("plasma", 0, 6); },
-		function () {pr.addr("laser", 0, -6);pr.addr("plasma", 0, -6); },
+		function () {pr.addr("laser", 0, 6);pr.addr("plasma", 0, 6);pr.addr("electro", 0, 6); },
+		function () {pr.addr("laser", 0, -6);pr.addr("plasma", 0, -6);pr.addr("electro", 0, -6); },
 		{
 			stats: {
-				PER: 7,
-				INT: 8
+				PER: 6,
+				INT: 7
 			},
 			traits: {
 				TRAIT_GOOD_NATURED: 1,
@@ -346,9 +348,9 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		function () {},
 		{stats: {ENU: 6}, skills: {ranger: 40}}],
 	PE_ANIMAL_FRIEND: ['Удачный промах', '+1 Очко Действия. (Удача)% шанс восстановить (Точность атакующего/10)ОД при промахе по вам или увороте. Если шанс не выпал вы восстановите 1 ОД.',
-		1, 12, 29,
-		function () {pr.add("feats", "apoi", 1); },
-		function () {pr.add("feats", "apoi", -1); },
+		1, 9, 29,
+		function () {pr.add("feats", "apoi", 1); pr.add("feats", "dodge", 3)},
+		function () {pr.add("feats", "apoi", -1); pr.add("feats", "dodge", -3)},
 		{stats: {PER: 6, LUC: 2}}],
 	PE_SCOUT: ["Скаут", "Увеличивает на одну клетку радиус трекинга и открытия черных клеток Глобальной Карты. Увеличивает шанс найти уникальную локацию.",
 		1, 32, 99,
@@ -385,8 +387,8 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 				TRAIT_HEAVY_HANDED: 1
 			}
 		}],
-	PE_TAG: ['Математик', 'Вы все досконально просчитываете. В бою вы получаете +30 к используемому навыку и уменьшаете штраф от дыма на 10, а укрытий на 10. В то же время получая +10 к укрытиям и +10 к дыму когда вы атакованы.',
-		1, 12, 29,
+	PE_TAG: ['Математик', 'Вы все досконально просчитываете. В бою вы получаете +30 к используемому навыку и уменьшаете штраф от дыма на 10, а от укрытий - полностью. В то же время получая +10 к укрытиям и +10 к дыму когда вы атакованы.',
+		1, 9, 29,
 		function () {},
 		function () {},
 		{
@@ -395,10 +397,7 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 				LUC: 2
 			},
 			skills: {
-				science: 200
-			},
-			traits: {
-				TRAIT_GOOD_NATURED: 1,
+				science: 150
 			}
 		}],
 	PE_MUTATE: ["Мутация", "Радиация пустыни изменила вас! Вы получаете +20 Очков жизней и +100 очков распределения.",
@@ -406,13 +405,13 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		function () {pr.add("feats", "live", 20);charp.points+= 100; },
 		function () {pr.add("feats", "live", -20); },
 		{stats: {STR: 3, ENU: 5}}],
-	PE_BOOKWORM: ['Регенерация', 'Восстановление ОЖ от Уровня лечения становится полноценным, +45 к Уровню лечения. Лечит конечности во время тика раз в 10 секунд, если персонаж не в бою.',
+	PE_BOOKWORM: ['Регенерация', 'Восстановление ОЖ от Уровня лечения становится полноценным, +25 к Уровню лечения. Лечит конечности во время тика раз в 10 секунд, если персонаж не в бою.',
 		1, 12, 29,
 		function () {
-			pr.add("feats", "levh", 30);
+			pr.add("feats", "levh", 25);
 		},
 		function () {
-			pr.add("feats", "levh", -30);
+			pr.add("feats", "levh", -25);
 		},
 		{
 			stats: {
@@ -450,10 +449,13 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 			}
 		}],
 	PE_GUY: ["Крутой парень", "Игнорирование требования Силы на дальность метания. Ваша атака по сопернику имеет шанс сжечь ему 3 Од. Сжигание ОД работает на погексовые атаки. Шанс(Порядок>Рандом(0,ПорядокПротивника+100)). Игнор бонусов жертвы на срез урона при атаке в небоевом режиме.",
-		1, 9, 29,
+		1, 6, 29,
 		function () {},
 		function () {},
-		{			
+		{		
+			stats: {
+				PER: 6
+			},	
 			traits: {
 				TRAIT_GOOD_NATURED: 1,
 				TRAIT_HEAVY_HANDED: 1
@@ -465,7 +467,10 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		function () {},
 		{
 			stats: {
-				PER: 7
+				LUC: 5
+			},
+			perks: {
+				PE_PHOENIX_IMPLANTS: 1
 			},
 			traits: {
 				TRAIT_JINXED: 1
@@ -548,16 +553,18 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		// new perk 34 season
 	PE_TARGETING: ["Толстокожий", 'От типов урона Норма, Взрыв, Электро, Плазма вы получаете на 12% меньше повреждений Исключение стойкость. ',
 		1, 12, 29,
-		function () {},
-		function () {},
+		function () {pr.addr("normal", 0, 12);pr.addr("plasma", 0, 12);pr.addr("electro", 0, 12);pr.addr("explode", 0, 12); },
+		function () {pr.addr("normal", 0, -12);pr.addr("plasma", 0, -12);pr.addr("electro", 0, -12);pr.addr("explode", 0, -12); },
 		{skills: {ranger: 220}, 
-				traits: {
+			stats: {
+				STR: 7
+			},
+			traits: {
 				TRAIT_GOOD_NATURED: 1
-				},
-				perks:
-				{
-					PE_HEAVE_HO: 1
-				}
+			},
+			perks: {
+				PE_HEAVE_HO: 1
+			}
 		}],
 	PE_AVTORITET: ["Авторитет", "Если нанести урон взрывом, а потом выпустить урон очередью с 1-3 гексов, то цель получит эффект Ошарашен (с вероятностью (11+Удача-УдачаЦели)*4%).В этом эффекте цель не может применять предметы и стрелять(включается паника) и входящий урон увеличен на 25%. Эффект проходит через количество секунд равное Удаче атакера.",
 		1, 15, 29,
@@ -588,6 +595,7 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		function () {pr.add("feats", "apoi", Math.floor(stats.AGI[2]/2-1)); },
 		function () {pr.add("feats", "apoi", -Math.floor(stats.AGI[2]/2-1)); },
 		{
+			stats: {AGI: 8},
 			traits: {
 				TRAIT_GOOD_NATURED: 1,
 				TRAIT_SKILLED: 1,
@@ -667,7 +675,7 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		1, 2, 29,
 		function () {pr.add("feats", "oview", 3); },
 		function () {pr.add("feats", "oview", -3); },
-		{stats: {PER: 6}}],
+		{stats: {INT: 6}}],
 	PE_COMPREHENSION: ["Наблюдательность", "При чтении вы обращаете особенное внимание на мелкие детали (+1 Интеллект). Читая книгу, вы получаете +1% к случайному Навыку, а также +200 опыта.",
 		1, 2, 29,
 		function () {mychar.stats.INT[1]++; },
@@ -729,7 +737,7 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		function () {},
 		{}],
 	PE_HTH_EVADE: ['Верткость', 'Вы чувствуете, когда надо дернуться с места, природная ловкость помогает вам в этом. Процент Уклонения от атаки увеличивается на Текущие ОД.',
-		1, 6, 29,
+		1, 2, 29,
 		function () {},
 		function () {},
 		{stats: {
@@ -743,7 +751,7 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 			}
 		}],
 	PE_KAMA_SUTRA_MASTER: ["Спортсмен", "Занятия активными видами спорта не прошли даром. Вы получаете +45 Очков жизней и +10 к Классу Брони.",
-		1, 12, 29,
+		1, 9, 29,
 		function () {pr.add("feats", "live", 45);pr.add("feats", "armc", 10); },
 		function () {pr.add("feats", "live", -45);pr.add("feats", "armc", -10); },
 		{stats: {STR: 8}}],
@@ -753,7 +761,7 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		function () {pr.add("feats", "live", -20); },
 		{}],
 	PE_LIGHT_STEP: ["Легкие шаги", "Вы ловки, удачливы и всегда настороже. 50%, что ловушка на вас сработает. Урон от ловушек снижен на 50%. +15% к Резисту от Взрыва, +5 к Трешхолду Огня.",
-		1, 6, 29,
+		1, 2, 29,
 		function () {pr.addr("explode", 0, 10);pr.addr("fire", 5, 0); },
 		function () {pr.addr("explode", 0, -10);pr.addr("fire", -5, 0); },
 		{stats: {AGI: 5},
@@ -823,7 +831,7 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		function () {pr.add("skills", "trade", -40, 1); },
 		{skills: {trade: 240}}],
 	PE_STONEWALL: ["Человек-глыба", "Первая тычка вводящая в бой наносит вдвое меньше урона. Не действует на погекс. +50% шанс игнорировать опрокидывание, Не может выронить оружие/нельзя выбить оружие",
-		1, 6, 29,
+		1, 2, 29,
 		function () {},
 		function () {},
 		{stats: {STR: 6},
@@ -921,7 +929,7 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		function () {},
 		{
 			skills: {
-				doctor: 200
+				doctor: 180
 			},
 			traits: {
 				TRAIT_GOOD_NATURED: 1,
@@ -986,8 +994,8 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		{}],
 	PE_DERMAL_IMPACT: ["Живчик", "Вы имеете повышенную живучесть (+35 ОЖ) и природное лечение (+10 к Уровню лечения).",
 		1, 12, 29,
-		function () {pr.add("feats", "live", 30);pr.add("feats", "levh", 20); },
-		function () {pr.add("feats", "live", -30);pr.add("feats", "levh", -20); },
+		function () {pr.add("feats", "live", 40);pr.add("feats", "levh", 20); },
+		function () {pr.add("feats", "live", -40);pr.add("feats", "levh", -20); },
 		{
 			stats: {
 				ENU: 6
@@ -1005,7 +1013,7 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		function () {},
 		{
 			skills: {
-				doctor: 200
+				doctor: 190
 			}
 		}],
 	PE_PHOENIX_IMPLANTS_ENH: ["Улучшенная подкожная защита", "Вы имеете большую дополнительную защиту против энергетических атак.",
@@ -1146,17 +1154,20 @@ var perk = {	//(перк, уровней перка, мин уровень вз�
 		1, 6, 29,
 		function () {},
 		function () {},
-		{stats: {PER: 5}}],
+		{
+			stats: {PER: 5},
+			traits: {TRAIT_CHEM_RESISTANT: 1}
+		}],
 	PE_STEELRAIN: ["Боевой аналитик", "Вы способны быстро и точно проанализировать траекторию полёта ракет. При стрельбе из базук (включая шайтанки) радиус взрыва боеприпаса увеличивается на 2 гекса.",
-		1, 12, 29,
+		1, 9, 29,
 		function () {},
 		function () {},
 		{
 			stats: {
-				PER: 7
+				PER: 6
 			},
 			skills: {
-				science: 160
+				science: 150
 			},
 			traits: {
 				TRAIT_GOOD_NATURED: 1,
