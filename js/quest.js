@@ -110,7 +110,7 @@ var quest = {	// квест, описание, уровней квеста, ми
 		function(){talk(dialog.imp_medical,{
 			aimp_medical:[questinfo.imp_medical[0],function() {pr.add("skills", "orderly", 40);pr.add("skills", "doctor",25);return 1;}, true],
 			bimp_medical:[questinfo.imp_medical[1],function(){pr.add("skills", "orderly", 30);return 2;},true],
-			cimp_medical:[questinfo.imp_medical[2],function(){pr.add("feats", "levh", 20);pr.add("skills", "orderly", 40);return 3;},true],
+			cimp_medical:[questinfo.imp_medical[2],function(){pr.add("feats", "levh", 20);pr.add("skills", "orderly", 15);return 3;},true],
 			dimp_medical:[questinfo.imp_medical[3],function(){pr.add("skills", "doctor", 20);return 4;},true],
 			eimp_medical:[questinfo.imp_medical[4],function() {pr.add("skills", "orderly", 20);pr.add("skills", "doctor",20);pr.add("feats","live",20);return 5;}, true],
 			fimp_medical:[questinfo.imp_medical[5],function(){pr.add("skills", "doctor", 40); pr.add("feats","live",40);return 6;},true],
@@ -119,7 +119,7 @@ var quest = {	// квест, описание, уровней квеста, ми
 	imp_auxiliary:["Вспомогательный имплант","В вас вживлен один из эксперементальных имплантантов. Ваши вспомогательные функции увеличены.",
 		1,2,99,function(){return true;},
 		function(){talk(dialog.imp_auxiliary,{
-			aimp_auxiliary:[questinfo.imp_auxiliary[0],function(){pr.add("skills", "steal", 50);return 1;}, true],
+			aimp_auxiliary:[questinfo.imp_auxiliary[0],function(){pr.add("skills", "steal", 50);pr.add("skills", "sneak", 50);return 1;}, true],
 			bimp_auxiliary:[questinfo.imp_auxiliary[1],function(){pr.add("feats","maxl",75);return 2;},true],
 			cimp_auxiliary:[questinfo.imp_auxiliary[2],function(){pr.add("skills", "oratory", 50);return 3;},true],
 			dimp_auxiliary:[questinfo.imp_auxiliary[3],function(){pr.add("skills", "hack", 50);return 4;},true],
