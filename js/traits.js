@@ -6,12 +6,12 @@ var traits = {
 			if(!mychar.traits[str] && charp.tagt>0 /*&& !('TRAIT_SEX_APPEAL' in mychar.traits)*/) {
 				//pr.add("feats","levh",15);
 				// pre 33:
-				pr.add("feats","levh",25);
+				pr.add("feats","levh",30);
 				mychar.traits[str] = 1;
 				charp.kostyltrait +=1;
 				charp.tagt--;	}
 			else if(mychar.traits[str] && charp.tagt<2) {
-				pr.add("feats","levh",-25);
+				pr.add("feats","levh",-30);
 				delete mychar.traits[str];
 				charp.kostyltrait-=1;
 				charp.tagt++;	}
